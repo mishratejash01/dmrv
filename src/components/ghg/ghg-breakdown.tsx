@@ -14,7 +14,7 @@ export interface GhgLine {
 export function GhgBreakdown({ lines }: { lines: GhgLine[] }) {
   return (
     <div className="rounded-xl border border-border bg-surface/40 overflow-hidden">
-      {lines.map((l, i) => {
+      {lines.map((l) => {
         const isTotal = l.key === "net";
         const isSubtotal = l.key === "net_before" || l.key === "gross_removal";
         const negative = l.value < 0;

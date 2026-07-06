@@ -13,7 +13,7 @@ import {
   Leaf,
   ChevronDown,
 } from "lucide-react";
-import { cn, initials } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import { visibleNav, PROJECT_ROLE_LABEL } from "@/lib/nav";
 import type { AppCapabilities } from "@/lib/auth";
 import { Avatar } from "@/components/ui/avatar";

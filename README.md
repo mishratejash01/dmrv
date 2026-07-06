@@ -89,28 +89,69 @@ npm run db:setup     # applies supabase/migrations/*.sql then seeds demo data
 npm run dev          # http://localhost:3000
 ```
 
-The app ships with a **fully seeded demo project** — a sample project, multiple sites and
-kilns, dozens of kiln runs with photos, a closed batch with lab results, a completed
-verification, and issued credits — so it is completely explorable on first run. Demo
-sign-in credentials are printed at the end of `npm run db:setup`.
+The app ships with a **fully seeded demo project** — the *Deccan Biochar Cooperative*
+(Maharashtra, India): 3 sites, 6 flame-curtain kilns, 30 kiln runs with evidence photos,
+a verified production batch (**18.6 t dry biochar → 36.36 tCO₂e net removed**), lab results
+(H/C₍org₎ 0.42), a completed VVB verification, and **36 issued RCCs** (29 held, 6 retired,
+1 in the buffer pool) — so it is completely explorable on first run.
+
+## Demo accounts & guided tour
+
+Open **`/login`** and use the **one-click demo sign-in** cards, or type an email below
+(password for all: `RainbowDemo!26`). Each role sees a different slice of the platform —
+Row Level Security enforces it at the database.
+
+| Sign in as | Email | See it in action |
+|---|---|---|
+| **Kiln Operator** | `operator@dmrv.demo` | **Field log** — log a run (photos, GPS, mass); works offline. Only their assigned sites. |
+| **Kiln Supervisor** | `supervisor@dmrv.demo` | **Review queue** — approve/reject operator submissions; site audits. |
+| **Project Developer** | `developer@dmrv.demo` | Everything for the project — **Batches** (6-mo/200-t meters), **GHG calculator**, **Lab**, **End-use**, **Team**. |
+| **Verifier (VVB)** | `verifier@dmrv.demo` | **Verification** — read the full evidence chain, add findings, approve; print the package. |
+| **Registry Admin** | `registry@dmrv.demo` | **Registry** — issue RCCs (two-person control), the serialised ledger, retire/transfer, **Buffer pool**. |
+| **Super Admin** | `admin@dmrv.demo` | Full system access. |
+
+A good first tour as the **Developer**: Dashboard → Batches → open `PB-2026-01` (see the
+sampling chain, lab result and transparent GHG breakdown) → **Registry** (the issued credits
+and their serials) → **Traceability** (pick a credit and walk it all the way back to the
+field photos that produced it). The **`/registry-public`** page is a no-login transparency
+view of the credit ledger.
 
 ## Project structure
 
 ```
 src/
-  app/            Next.js routes (auth, dashboards, field, batches, lab, verification, registry…)
-  components/     Warm design-system UI, charts, maps, layout
-  lib/            Supabase clients, GHG engine, RCC serials, offline queue, methodology constants
+  app/            Next.js routes: (auth) sign-in · (app) protected shell + all modules ·
+                  onboarding · registry-public · auth/callback
+  components/     Warm design-system UI (ui/*), charts, map, evidence, ghg, layout, field
+  lib/            Supabase clients (browser/server/admin) · auth+RBAC context · GHG engine ·
+                  RCC serials · offline IndexedDB queue · methodology constants · actions/*
 supabase/
-  migrations/     Versioned SQL: schema, functions/triggers, RLS policies, storage
-  seed/           Realistic demo data
+  migrations/     Versioned SQL: 0001 enums · 0002 schema · 0003 functions/triggers ·
+                  0004 RLS policies · 0005 storage
+scripts/          db-apply · db-types · seed (run via npm run db:*)
 ```
 
 ## Methodology fidelity
 
-The rules, thresholds, permanence regressions, emission factors, GWP values, and serial
-format are encoded in [`src/lib/methodology.ts`](src/lib/methodology.ts) and the GHG engine
-in [`src/lib/ghg.ts`](src/lib/ghg.ts), each traceable to the Rainbow Standard documentation.
+The rules, thresholds, permanence regressions, emission factors, AR6 GWP values, and serial
+format are encoded in [`src/lib/methodology.ts`](src/lib/methodology.ts) and the transparent
+GHG engine in [`src/lib/ghg.ts`](src/lib/ghg.ts), each traceable to the Rainbow Standard
+documentation. Highlights: 100-year permanence via the temperature-dependent
+`F = c − m·(H/C₍org₎)` regression, the `× 3.67` CO₂/C factor, the composite-pile sampling
+chain, two-person credit issuance, and the 2 % buffer contribution (rounded up).
+
+## Security & deployment
+
+- **Row Level Security** is on for every table; the app enforces separation of duties at the
+  database, not just the UI (validated: an operator cannot log to an unassigned site, cannot
+  approve runs; a verifier cannot mutate source evidence; only the registry can issue).
+- Secrets live only in `.env.local` (git-ignored). `.env.example` documents the variables.
+- Deploys cleanly to **Vercel**: import the repo, set the four env vars, and deploy — the
+  Supabase backend is already provisioned.
+
+> **Rotate the Supabase access token.** The provisioning token in `.env.local` is highly
+> privileged. After setup, rotate it in the Supabase dashboard (Account → Access Tokens);
+> the running app only needs `NEXT_PUBLIC_SUPABASE_*` and `SUPABASE_SERVICE_ROLE_KEY`.
 
 ---
 
