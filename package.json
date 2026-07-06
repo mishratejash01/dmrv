@@ -6,7 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "db:apply": "node --env-file=.env.local scripts/db-apply.mjs",
+    "db:seed": "node --env-file=.env.local scripts/seed.mjs",
+    "db:types": "node --env-file=.env.local scripts/db-types.mjs",
+    "db:setup": "npm run db:apply && npm run db:seed"
   },
   "dependencies": {
     "@radix-ui/react-avatar": "^1.2.1",
