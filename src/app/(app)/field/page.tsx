@@ -1,0 +1,81 @@
+import type { Metadata } from "next";
+import { getAppContext } from "@/lib/auth";
+import { createClient } from "@/lib/supabase/server";
+import { PageHeader, EmptyState } from "@/components/ui/misc";
+import { FieldCapture } from "@/components/field/field-capture";
+import { Flame } from "lucide-react";
+
+export const metadata: Metadata = { title: "Field log" };
+
+export default async function FieldPage() {
+  const ctx = await getAppContext();
+  const project = ctx.activeProject!;
+  const pid = project.id;
+
+  if (!ctx.can.canOperate) {
+    return (
+      <div>
+        <PageHeader title="Field log" description="Record kiln runs from the field." />
+        <EmptyState
+          icon={<Flame />}
+          title="Operator access required"
+          description="Only kiln operators (and supervisors) can log runs. Ask your project developer to assign you to a site."
+        />
+      </div>
+    );
+  }
+
+  const supabase = await createClient();
+  const [assignedRes, sitesRes, batchesRes, feedstockRes] = await Promise.all([
+    supabase.from("site_assignments").select("site_id").eq("user_id", ctx.profile.id),
+    supabase
+      .from("sites")
+      .select("id, name, code, latitude, longitude, kilns(id, name, code, site_id, status)")
+      .eq("project_id", pid)
+      .eq("status", "active"),
+    supabase
+      .from("production_batches")
+      .select("id, code, status")
+      .eq("project_id", pid)
+      .eq("status", "open"),
+    supabase
+      .from("feedstock_batches")
+      .select("id, source, category, weight_kg, moisture_pct")
+      .eq("project_id", pid)
+      .order("received_at", { ascending: false })
+      .limit(24),
+  ]);
+
+  const assigned = new Set((assignedRes.data ?? []).map((r) => r.site_id));
+  const allSites = sitesRes.data ?? [];
+  const sites = ctx.can.canReview ? allSites : allSites.filter((s) => assigned.has(s.id));
+
+  return (
+    <div>
+      <PageHeader
+        title="Field log"
+        description="Record a kiln run — feedstock, temperatures, photos and mass. Works offline and syncs when you reconnect."
+      />
+      <FieldCapture
+        projectId={pid}
+        operatorId={ctx.profile.id}
+        sites={sites.map((s) => ({
+          id: s.id,
+          name: s.name,
+          code: s.code,
+          latitude: s.latitude ? Number(s.latitude) : null,
+          longitude: s.longitude ? Number(s.longitude) : null,
+          kilns: (s.kilns ?? []).map((k) => ({ id: k.id, name: k.name, code: k.code })),
+        }))}
+        batches={batchesRes.data ?? []}
+        feedstock={(feedstockRes.data ?? []).map((f) => ({
+          id: f.id,
+          source: f.source,
+          category: f.category,
+          weight_kg: Number(f.weight_kg),
+          moisture_pct: Number(f.moisture_pct),
+        }))}
+      />
+    </div>
+  );
+}
