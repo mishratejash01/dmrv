@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Rainbow dMRV — Demo Runbook</title>
+<style>
+  /* System fonts only — no network fetch (headless-print safe). Georgia gives
+     the warm editorial serif; the sans stack is the platform's body feel. */
+  @page { size: Letter; margin: 14mm 15mm 15mm; }
+
+  :root {
+    --base:#fbf8f2; --surface:#f5efe6; --surface2:#efe7d8; --elevated:#fffdf9;
+    --border:#e7decf; --border-strong:#d8ccb6;
+    --ink:#3a322a; --ink-soft:#5c5346; --muted:#8a7e6e; --faint:#b3a794;
+    --clay:#a9713f; --clay-tint:#f0e5d8; --clay-soft:#d9c3ac;
+    --sage:#71856a; --sage-tint:#e8ece1; --sage-soft:#cdd5c2;
+    --ochre:#a9821f; --ochre-tint:#f4ecd7; --ochre-soft:#e6d3a3;
+    --err:#a4573f; --err-tint:#f2e2db;
+  }
+
+  * { box-sizing:border-box; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  html,body { margin:0; padding:0; background:var(--base); color:var(--ink);
+    font-family:'Inter',-apple-system,'Helvetica Neue',Arial,sans-serif;
+    font-size:10.4pt; line-height:1.5; -webkit-font-smoothing:antialiased; }
+
+  h1,h2,h3,h4 { font-family:'Fraunces',Georgia,'Times New Roman',serif; font-weight:500;
+    color:var(--ink); letter-spacing:-0.01em; margin:0; }
+
+  .page-break { break-before:page; }
+  .paper { background-image:
+      radial-gradient(circle at 12% 8%, rgba(169,113,63,0.05), transparent 42%),
+      radial-gradient(circle at 88% 4%, rgba(113,133,106,0.06), transparent 46%); }
+
+  /* ---------- COVER ---------- */
+  .cover { height:247mm; display:flex; flex-direction:column; justify-content:space-between;
+    padding:6mm 2mm; }
+  .cover-top { display:flex; align-items:center; gap:9px; }
+  .logo { width:30px; height:30px; border-radius:9px; background:var(--clay); color:var(--elevated);
+    display:grid; place-items:center; font-size:15px; }
+  .cover-brand { font-family:'Fraunces',serif; font-size:15pt; }
+  .cover-mid { }
+  .kicker { font-size:10pt; letter-spacing:0.14em; text-transform:uppercase; color:var(--clay);
+    font-weight:600; }
+  .cover h1 { font-size:41pt; line-height:1.02; margin-top:12px; letter-spacing:-0.02em; }
+  .cover h1 .it { font-style:italic; color:var(--clay); }
+  .cover-sub { font-size:14pt; color:var(--ink-soft); margin-top:16px; max-width:150mm;
+    font-family:'Fraunces',serif; }
+  .cover-note { margin-top:22px; padding-left:14px; border-left:3px solid var(--sage);
+    color:var(--ink-soft); font-size:10.6pt; max-width:150mm; }
+  .cover-bottom { display:flex; justify-content:space-between; align-items:flex-end;
+    border-top:1px solid var(--border); padding-top:10px; color:var(--muted); font-size:9pt; }
+  .cover-bottom .url { font-family:'Fraunces',serif; color:var(--ink); font-size:11pt; }
+  .conf { display:inline-block; background:var(--surface); border:1px solid var(--border);
+    border-radius:999px; padding:3px 11px; color:var(--muted); font-size:8pt;
+    letter-spacing:0.08em; text-transform:uppercase; }
+
+  /* ---------- SECTIONS ---------- */
+  .section-title { font-size:20pt; margin-bottom:2px; }
+  .section-lead { color:var(--muted); font-size:10.2pt; margin:0 0 16px; }
+  .eyebrow { font-size:8.5pt; letter-spacing:0.14em; text-transform:uppercase; color:var(--clay);
+    font-weight:600; margin-bottom:5px; }
+
+  /* checklist */
+  .check { list-style:none; padding:0; margin:0; }
+  .check li { display:flex; gap:11px; align-items:flex-start; padding:9px 12px; margin-bottom:7px;
+    background:var(--elevated); border:1px solid var(--border); border-radius:9px; }
+  .box { width:15px; height:15px; border:1.6px solid var(--clay); border-radius:4px; flex:0 0 auto;
+    margin-top:1px; }
+  .check li b { color:var(--ink); }
+  .check li span { color:var(--ink-soft); }
+  .check code { font-family:'Fraunces',serif; background:var(--surface2); border-radius:4px;
+    padding:0 5px; font-size:9.6pt; color:var(--clay); }
+
+  /* flow at a glance */
+  .flow { display:flex; flex-wrap:wrap; gap:8px; margin-top:4px; }
+  .flow .beat { flex:1 1 30%; min-width:150px; background:var(--elevated); border:1px solid var(--border);
+    border-radius:10px; padding:11px 13px; display:flex; gap:10px; align-items:baseline; }
+  .flow .n { font-family:'Fraunces',serif; font-size:15pt; color:var(--clay); width:20px; flex:0 0 auto; }
+  .flow .beat b { display:block; color:var(--ink); font-size:10pt; }
+  .flow .beat small { color:var(--muted); font-size:8.6pt; }
+  .flow .finale { background:var(--sage-tint); border-color:var(--sage-soft); }
+  .flow .finale .n { color:var(--sage); }
+
+  /* ---------- STEPS ---------- */
+  .step { break-inside:avoid; background:var(--elevated); border:1px solid var(--border);
+    border-radius:13px; padding:15px 17px 13px; margin-bottom:13px;
+    box-shadow:0 1px 2px rgba(58,50,42,0.04); }
+  .step-head { display:flex; align-items:center; gap:11px; margin-bottom:11px; }
+  .step-num { width:29px; height:29px; flex:0 0 auto; border-radius:50%; background:var(--clay);
+    color:var(--elevated); font-family:'Fraunces',serif; font-size:14pt; display:grid;
+    place-items:center; }
+  .step-head h3 { font-size:14.5pt; flex:1; line-height:1.1; }
+  .step-tag { font-size:8pt; letter-spacing:0.08em; text-transform:uppercase; color:var(--muted);
+    background:var(--surface); border:1px solid var(--border); border-radius:999px; padding:3px 9px;
+    flex:0 0 auto; }
+
+  .cue { display:flex; gap:11px; align-items:baseline; padding:4px 0; }
+  .cue + .cue { border-top:1px solid var(--border); }
+  .lbl { flex:0 0 74px; font-size:7.6pt; font-weight:600; letter-spacing:0.07em; text-transform:uppercase;
+    text-align:center; padding:3px 0; border-radius:5px; margin-top:1px; }
+  .lbl.open  { background:var(--clay-tint);  color:#8a5a2f; border:1px solid var(--clay-soft); }
+  .lbl.show  { background:var(--sage-tint);  color:#57654a; border:1px solid var(--sage-soft); }
+  .lbl.point { background:var(--ochre-tint); color:#836617; border:1px solid var(--ochre-soft); }
+  .lbl.ask   { background:var(--surface2);   color:var(--ink-soft); border:1px solid var(--border-strong); }
+  .lbl.next  { background:var(--ink);        color:var(--elevated); border:1px solid var(--ink); }
+  .cue .body { flex:1; color:var(--ink-soft); }
+  .cue .body b { color:var(--ink); font-weight:600; }
+  .cue .body .r { font-family:'Fraunces',serif; color:var(--clay); font-weight:500; }
+  .cue.ask .body em { color:var(--ink); font-style:italic; }
+  .cue.next .body { color:var(--ink); font-weight:500; }
+
+  /* the SAY block — the presenter's anchor */
+  .say { position:relative; margin:9px 0; padding:11px 15px 11px 46px;
+    background:var(--clay-tint); border:1px solid var(--clay-soft); border-left:4px solid var(--clay);
+    border-radius:9px; }
+  .say::before { content:'\201C'; position:absolute; left:12px; top:6px; font-family:'Fraunces',serif;
+    font-size:34pt; line-height:1; color:var(--clay); opacity:0.55; }
+  .say .tag { font-size:7.6pt; font-weight:600; letter-spacing:0.1em; text-transform:uppercase;
+    color:var(--clay); display:block; margin-bottom:2px; }
+  .say p { margin:0; font-family:'Fraunces',serif; font-size:12.4pt; line-height:1.38; color:var(--ink); }
+  .say.land { background:var(--sage-tint); border-color:var(--sage-soft); border-left-color:var(--sage); }
+  .say.land::before, .say.land .tag { color:var(--sage); }
+
+  /* recovery box */
+  .recovery { background:var(--err-tint); border:1px solid #e0bfb2; border-radius:12px;
+    padding:15px 18px; }
+  .recovery h3 { font-size:14pt; color:#8f4a36; margin-bottom:8px; }
+  .recovery ul { margin:0 0 8px; padding-left:18px; color:var(--ink-soft); }
+  .recovery li { margin-bottom:4px; }
+  .recovery .fill { background:var(--elevated); border:1px solid var(--border); border-radius:8px;
+    padding:8px 12px; margin-top:4px; font-family:'Fraunces',serif; color:var(--ink); font-size:10.4pt; }
+
+  /* closing + short */
+  .close-line { font-family:'Fraunces',serif; font-size:13pt; line-height:1.45; color:var(--ink);
+    padding:12px 16px; background:var(--elevated); border:1px solid var(--border);
+    border-left:4px solid var(--clay); border-radius:9px; margin-bottom:10px; }
+  .ask-box { background:var(--sage-tint); border:1px solid var(--sage-soft); border-radius:11px;
+    padding:14px 17px; }
+  .ask-box h3 { color:#57654a; font-size:13pt; margin-bottom:6px; }
+  .ask-box ol { margin:0; padding-left:20px; color:var(--ink-soft); }
+  .ask-box li { margin-bottom:4px; }
+
+  .short-step { display:flex; gap:12px; padding:10px 0; border-top:1px solid var(--border); }
+  .short-step:first-of-type { border-top:none; }
+  .short-step .sn { font-family:'Fraunces',serif; font-size:15pt; color:var(--clay); flex:0 0 26px; }
+  .short-step b { color:var(--ink); }
+  .short-step .say-inline { font-family:'Fraunces',serif; color:var(--ink); font-style:italic; }
+  .short-step small { color:var(--muted); }
+
+  .divider { text-align:center; color:var(--faint); font-family:'Fraunces',serif; font-size:12pt;
+    margin:14px 0; }
+  .foot { margin-top:20px; padding-top:10px; border-top:1px solid var(--border); color:var(--muted);
+    font-size:8.6pt; text-align:center; }
+  .r { font-family:'Fraunces',serif; color:var(--clay); }
+</style>
+</head>
+<body>
+
+<!-- ===================== COVER ===================== -->
+<section class="cover paper">
+  <div class="cover-top">
+    <span class="logo">🌾</span>
+    <span class="cover-brand">Rainbow dMRV</span>
+    <span style="margin-left:auto" class="conf">Confidential · internal presenter document</span>
+  </div>
+
+  <div class="cover-mid">
+    <div class="kicker">Client demo</div>
+    <h1>The Demo <span class="it">Runbook</span></h1>
+    <div class="cover-sub">A screen-by-screen presenter script for the distributed open-kiln
+      biochar dMRV platform.</div>
+    <div class="cover-note">Built for a <b>domain-expert audience</b>. They know the field —
+      so we never explain the concepts. We open the real screen, point at the real thing, say the
+      line, and move on. The product does the proving.</div>
+  </div>
+
+  <div class="cover-bottom">
+    <div>
+      <div class="url">dmrv-iota.vercel.app</div>
+      <div style="margin-top:4px">Deccan Biochar Cooperative · Rainbow Standard RBW-BCR-DOB-V1.0</div>
+    </div>
+    <div style="text-align:right">
+      Read it aloud, click what it says.<br/>
+      Follow <b style="color:var(--ink)">[OPEN] → [SHOW] → [SAY] → [NEXT]</b> and you cannot get lost.
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PRE-DEMO CHECKLIST ===================== -->
+<section class="page-break">
+  <div class="eyebrow">Before you walk in</div>
+  <h2 class="section-title">Pre-demo checklist</h2>
+  <p class="section-lead">Sixty seconds of setup buys a flawless demo. Tick every box.</p>
+  <ul class="check">
+    <li><span class="box"></span><span><b>Wake the app.</b> Open <code>dmrv-iota.vercel.app</code> and sign in once — the first request after idle is the slow one. Get it out of the way.</span></li>
+    <li><span class="box"></span><span><b>Confirm the demo data.</b> The registry shows the <b>Deccan Biochar Cooperative</b> project, batch <b>PB-2026-01</b>, and <b>36</b> credits. If you see those, you're loaded.</span></li>
+    <li><span class="box"></span><span><b>Start as the Project Developer.</b> Signed in as <code>developer@dmrv.demo</code> (password <code>RainbowDemo!26</code>), sitting on the <b>Dashboard</b> when the client walks in.</span></li>
+    <li><span class="box"></span><span><b>Three photos on the desktop</b> for the live field capture — name them <code>pyrolysis</code>, <code>flame</code>, <code>quench</code> so you grab them fast.</span></li>
+    <li><span class="box"></span><span><b>Second tab parked on Traceability</b> so the finale is instant.</span></li>
+    <li><span class="box"></span><span><b>Browser at ~115%, full-screen, bookmarks hidden.</b> One-click demo sign-in cards are on <code>/login</code> — you'll switch roles from there.</span></li>
+    <li><span class="box"></span><span><b>Network check:</b> load <code>/registry-public</code>. Credits visible = you're live.</span></li>
+    <li><span class="box"></span><span><b>Know your hero credit:</b> <code>RCC-BIO-IN-P001-2026-RMV-000002</code> — the one a buyer already retired. That's the finale.</span></li>
+  </ul>
+
+  <div style="height:14px"></div>
+  <div class="eyebrow">The arc</div>
+  <h2 class="section-title" style="font-size:16pt">The demo at a glance</h2>
+  <p class="section-lead">Nine beats, building to the traceability finale. Know where you are.</p>
+  <div class="flow">
+    <div class="beat"><span class="n">1</span><span><b>Dashboard</b><small>the whole operation, live</small></span></div>
+    <div class="beat"><span class="n">2</span><span><b>Field capture</b><small>source evidence, offline-first</small></span></div>
+    <div class="beat"><span class="n">3</span><span><b>Review</b><small>separation of duties</small></span></div>
+    <div class="beat"><span class="n">4</span><span><b>Batch + limits</b><small>6-month / 200-tonne meters</small></span></div>
+    <div class="beat"><span class="n">5</span><span><b>Quantification</b><small>every input visible</small></span></div>
+    <div class="beat"><span class="n">6</span><span><b>End-use</b><small>carbon locked, proven</small></span></div>
+    <div class="beat"><span class="n">7</span><span><b>Verification</b><small>the audit package</small></span></div>
+    <div class="beat"><span class="n">8</span><span><b>Registry</b><small>serials + buffer + two-person</small></span></div>
+    <div class="beat finale"><span class="n">9</span><span><b>Traceability</b><small>the mic-drop finale</small></span></div>
+  </div>
+</section>
+
+<!-- ===================== THE SCRIPT ===================== -->
+<section class="page-break">
+  <div class="eyebrow">The walkthrough</div>
+  <h2 class="section-title">The step-by-step script</h2>
+  <p class="section-lead">Scan the labels while you talk. The <b style="color:var(--clay)">[SAY]</b> block is your line — say it, then move.</p>
+
+  <!-- STEP 1 -->
+  <div class="step">
+    <div class="step-head"><span class="step-num">1</span><h3>Cold open — the whole operation, live</h3><span class="step-tag">Beat 1 · Dashboard</span></div>
+    <div class="cue"><span class="lbl open">Open</span><div class="body">Logged in as <b>Project Developer</b> — you land on the <b>Dashboard</b> (the default screen).</div></div>
+    <div class="cue"><span class="lbl show">Show</span><div class="body">The <b>KPI strip</b> across the top, and the <b>Sites &amp; operations</b> map beneath it.</div></div>
+    <div class="say"><span class="tag">Say</span><p>This is the entire cooperative in one view — every site, every kiln, every credit, read straight off the operational records.</p></div>
+    <div class="cue"><span class="lbl point">Point out</span><div class="body">The four tiles: <span class="r">Net CO₂ removed 36.4 tCO₂e</span>, <b>RCCs issued</b>, <span class="r">Biochar produced 18.6 t</span>, <b>Buffer pool</b>. On the right, open-batch meters already tracking the caps.</div></div>
+    <div class="cue ask"><span class="lbl ask">If asked</span><div class="body"><em>"Is this live?"</em> → "One data layer. Every tile is a query against the same records an auditor sees — no separate reporting."</div></div>
+    <div class="cue next"><span class="lbl next">Next</span><div class="body">Top-right avatar → <b>Sign out</b>, to switch into the field as the operator. →</div></div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="step">
+    <div class="step-head"><span class="step-num">2</span><h3>The field capture — evidence at the source</h3><span class="step-tag">Beat 2 · Field log</span></div>
+    <div class="cue"><span class="lbl open">Open</span><div class="body">On <b>/login</b>, click the <b>Kiln Operator</b> card. Sidebar → <b>Field log</b>.</div></div>
+    <div class="cue"><span class="lbl show">Show</span><div class="body">The <b>Kiln run</b> form, and the <b>Required evidence</b> card with its three photo slots.</div></div>
+    <div class="say"><span class="tag">Say</span><p>This is where it starts. Three photos are mandatory — clean pyrolysis, flame curtain, quench. No photos, no submission.</p></div>
+    <div class="cue"><span class="lbl point">Point out</span><div class="body">The right rail: <b>Connection</b> (Online/Offline), <b>GPS</b> auto-captured, <b>Photos 0/3</b>. It's offline-first — runs queue on the device and sync when signal returns.</div></div>
+    <div class="cue ask"><span class="lbl ask">If asked</span><div class="body"><em>"No signal in the field?"</em> → point at the Connection badge: "Captured locally, synced automatically. Nothing lost."</div></div>
+    <div class="cue next"><span class="lbl next">Next</span><div class="body">Add the three desktop photos → <b>Submit for review</b>. Then <b>Sign out</b> → back in as <b>Project Developer</b>. →</div></div>
+  </div>
+
+  <!-- STEP 3 -->
+  <div class="step">
+    <div class="step-head"><span class="step-num">3</span><h3>Review &amp; sign-off — the separation is real</h3><span class="step-tag">Beat 3 · Review queue</span></div>
+    <div class="cue"><span class="lbl open">Open</span><div class="body">Signed in as <b>Project Developer</b>. Sidebar → <b>Review queue</b>.</div></div>
+    <div class="cue"><span class="lbl show">Show</span><div class="body">The queue of submitted runs awaiting sign-off.</div></div>
+    <div class="say"><span class="tag">Say</span><p>The operator submits; someone else signs off. Producers and reviewers are separated — enforced in the database, not just hidden in the UI.</p></div>
+    <div class="cue"><span class="lbl point">Point out</span><div class="body"><b>Approve</b> / <b>request changes</b> / <b>reject</b>, each with a comment. An operator cannot approve their own run — the row simply isn't actionable for them.</div></div>
+    <div class="cue ask"><span class="lbl ask">If asked</span><div class="body"><em>"Can an operator edit after approval?"</em> → "No. Approved records lock; corrections are appended, never overwritten."</div></div>
+    <div class="cue next"><span class="lbl next">Next</span><div class="body">Sidebar → <b>Production batches</b>. →</div></div>
+  </div>
+
+  <!-- STEP 4 -->
+  <div class="step">
+    <div class="step-head"><span class="step-num">4</span><h3>The batch — and the limits the app enforces</h3><span class="step-tag">Beat 4 · Batches</span></div>
+    <div class="cue"><span class="lbl open">Open</span><div class="body"><b>Production batches</b> list, then open <b>PB-2026-01</b>.</div></div>
+    <div class="cue"><span class="lbl show">Show</span><div class="body">The <b>Tonnage</b> and <b>Age</b> meters, then the <b>composite sampling chain</b> on the batch.</div></div>
+    <div class="say"><span class="tag">Say</span><p>Approved runs roll into a batch. Two live meters — tonnes toward 200, age toward six months. Amber near the cap, red past it. Whichever comes first.</p></div>
+    <div class="cue"><span class="lbl point">Point out</span><div class="body"><b>PB-2026-01</b>: <span class="r">24 runs, 18.6 t dry</span>, and the sampling chain — site pile → site sample → batch sample → accredited lab.</div></div>
+    <div class="cue ask"><span class="lbl ask">If asked</span><div class="body"><em>"What happens at the limit?"</em> → "The batch stops taking runs and prompts closure. The rule holds itself."</div></div>
+    <div class="cue next"><span class="lbl next">Next</span><div class="body">Sidebar → <b>GHG quantification</b>. →</div></div>
+  </div>
+
+  <!-- STEP 5 -->
+  <div class="step">
+    <div class="step-head"><span class="step-num">5</span><h3>The quantification — every input visible</h3><span class="step-tag">Beat 5 · GHG</span></div>
+    <div class="cue"><span class="lbl open">Open</span><div class="body"><b>GHG quantification</b> → the <b>Live GHG calculator</b>. Select batch <b>PB-2026-01</b> (it prefills the lab values).</div></div>
+    <div class="cue"><span class="lbl show">Show</span><div class="body">The <b>breakdown panel</b> on the right and the running <b>Net CO₂ removed</b> figure.</div></div>
+    <div class="say"><span class="tag">Say</span><p>Comparative LCA, ISO 14064-2. Not a number to trust — the whole equation, line by line, replayable by a VVB.</p></div>
+    <div class="cue"><span class="lbl point">Point out</span><div class="body">Dry mass → permanence from <span class="r">H/C 0.42</span> and soil temp → gross removal → minus baseline, project, transport → uncertainty → net. This batch's verified figure: <span class="r">36.4 tCO₂e</span>.</div></div>
+    <div class="cue ask"><span class="lbl ask">If asked</span><div class="body"><em>"What enforces permanence?"</em> → change <b>H/C</b> to <b>0.80</b>: the badge flips to <b>Ineligible</b> instantly. "The 0.7 threshold is live in the math." Then set it back to 0.42.</div></div>
+    <div class="cue next"><span class="lbl next">Next</span><div class="body">Sidebar → <b>End-use</b>. →</div></div>
+  </div>
+
+  <!-- STEP 6 -->
+  <div class="step">
+    <div class="step-head"><span class="step-num">6</span><h3>Carbon locked — the end-use record</h3><span class="step-tag">Beat 6 · End-use</span></div>
+    <div class="cue"><span class="lbl open">Open</span><div class="body">Sidebar → <b>End-use</b>.</div></div>
+    <div class="cue"><span class="lbl show">Show</span><div class="body">The <b>map</b> of application points and the <b>proof photos</b> attached to each record.</div></div>
+    <div class="say"><span class="tag">Say</span><p>The end-use point — biochar leaves the producer and goes into the soil. Quantity, method, recipient, GPS, photos. All on the record.</p></div>
+    <div class="cue"><span class="lbl point">Point out</span><div class="body">Four recipient groups, GPS-tagged, proof attached. This is where the carbon is durably stored — and it's evidenced, not asserted.</div></div>
+    <div class="cue ask"><span class="lbl ask">If asked</span><div class="body"><em>"Proof of end use?"</em> → click a proof photo: the location and recipient are right there on it.</div></div>
+    <div class="cue next"><span class="lbl next">Next</span><div class="body"><b>Sign out</b> → sign in as <b>Verifier</b>. Sidebar → <b>Verification</b>. →</div></div>
+  </div>
+
+  <!-- STEP 7 -->
+  <div class="step">
+    <div class="step-head"><span class="step-num">7</span><h3>The verification package</h3><span class="step-tag">Beat 7 · Verification</span></div>
+    <div class="cue"><span class="lbl open">Open</span><div class="body">Signed in as <b>Verifier</b>. <b>Verification</b> → open the <b>PB-2026-01</b> package.</div></div>
+    <div class="cue"><span class="lbl show">Show</span><div class="body">The single-screen package: <b>Batch</b>, <b>GHG quantification</b>, <b>Laboratory results</b>, <b>Evidence chain</b> counts, <b>Findings</b>.</div></div>
+    <div class="say"><span class="tag">Say</span><p>The verifier reads the whole evidence chain here — and can raise findings, but cannot alter a single source record. Independence, enforced.</p></div>
+    <div class="cue"><span class="lbl point">Point out</span><div class="body">Evidence chain: <span class="r">24 runs · 72 run photos · 1 lab test</span>. The H/C eligibility badge. Two findings raised and resolved. Then — <b>Print package</b>, top-right.</div></div>
+    <div class="cue ask"><span class="lbl ask">If asked</span><div class="body"><em>"Can she change the numbers?"</em> → "Read-only on the evidence. She approves or rejects; she never edits."</div></div>
+    <div class="cue next"><span class="lbl next">Next</span><div class="body"><b>Sign out</b> → sign in as <b>Registry Admin</b>. Sidebar → <b>Carbon credits</b>. →</div></div>
+  </div>
+
+  <!-- STEP 8 -->
+  <div class="step">
+    <div class="step-head"><span class="step-num">8</span><h3>Registry &amp; issuance</h3><span class="step-tag">Beat 8 · Registry</span></div>
+    <div class="cue"><span class="lbl open">Open</span><div class="body">Signed in as <b>Registry Admin</b>, on the <b>Rainbow registry</b>.</div></div>
+    <div class="cue"><span class="lbl show">Show</span><div class="body">The <b>Issuances</b> table, then the <b>Credit ledger</b> and the <b>Serial number format</b> legend.</div></div>
+    <div class="say"><span class="tag">Say</span><p>Verified and quantified — now it's credits. Two-person control: one admin initiates, a different one approves. You can't approve your own issuance.</p></div>
+    <div class="cue"><span class="lbl point">Point out</span><div class="body">PB-2026-01 issuance — <span class="r">Gross 36 · Buffer 1 · Net 35</span>. The buffer took its 2% automatically. Every credit serialised: <span class="r">RCC-BIO-IN-P001-2026-RMV</span> — project, geography, vintage, mechanism, all encoded.</div></div>
+    <div class="cue ask"><span class="lbl ask">If asked</span><div class="body"><em>"Double-counting?"</em> → "Every serial is unique and retire/transfer-tracked. A retired credit can never be reissued."</div></div>
+    <div class="cue next"><span class="lbl next">Next</span><div class="body">Sidebar → <b>Traceability</b>. This is the finale. →</div></div>
+  </div>
+
+  <!-- STEP 9 — FINALE -->
+  <div class="step">
+    <div class="step-head"><span class="step-num">9</span><h3>The finale — trace it back to the flame</h3><span class="step-tag">Beat 9 · Traceability</span></div>
+    <div class="cue"><span class="lbl open">Open</span><div class="body"><b>Traceability</b>. In the <b>credit</b> selector, pick <span class="r">RCC-BIO-IN-P001-2026-RMV-000002</span> — retired to <b>EcoCorp Net-Zero Programme 2026</b>.</div></div>
+    <div class="cue"><span class="lbl show">Show</span><div class="body">The numbered chain builds down the page: credit → issuance → verification → GHG → lab → batch → runs → feedstock → <b>Field evidence</b>.</div></div>
+    <div class="say"><span class="tag">Say</span><p>Here's the one that matters. A credit a buyer has already retired against their net-zero target — watch me walk it back.</p></div>
+    <div class="cue"><span class="lbl point">Point out</span><div class="body">Scroll to the <b>Field evidence</b> step and <b>click one photo</b> — the kiln burn that produced it, with the <b>GPS and timestamp</b> still on it.</div></div>
+    <div class="say land"><span class="tag">Say — land it</span><p>From a credit on a corporate balance sheet, back to the photograph of the kiln, GPS and timestamp attached — in about ten seconds. Every credit you sell, defensible down to the flame.</p></div>
+    <div class="cue ask"><span class="lbl ask">If asked</span><div class="body"><em>"Does it run forward too?"</em> → click <b>Trace something else</b>, pick a <b>feedstock delivery</b> → forward to the credits it produced.</div></div>
+    <div class="cue next"><span class="lbl next">Next</span><div class="body">One short line on where we go next, then close. →</div></div>
+  </div>
+
+  <!-- STEP 10 — ROADMAP -->
+  <div class="step">
+    <div class="step-head"><span class="step-num">10</span><h3>The roadmap beat — brief, and honest</h3><span class="step-tag">Forward-looking</span></div>
+    <div class="cue"><span class="lbl show">Show</span><div class="body">Stay on screen. This is spoken, not clicked — say it and stop.</div></div>
+    <div class="say"><span class="tag">Say</span><p>Everything you saw is live today. Next, together: the system reads a lab PDF and pre-fills the carbon values for your reviewer to confirm, and flags any photo that doesn't look like a genuine run for a human to check. AI-assisted, human-confirmed — it makes the credits more defensible, never less.</p></div>
+    <div class="cue"><span class="lbl point">Point out</span><div class="body">Say the word <b>roadmap</b> out loud. One line, then move to the close. Never demo an unbuilt feature.</div></div>
+    <div class="cue next"><span class="lbl next">Next</span><div class="body">Close. →</div></div>
+  </div>
+</section>
+
+<!-- ===================== RECOVERY + CLOSING ===================== -->
+<section class="page-break">
+  <div class="recovery">
+    <h3>If something won't load</h3>
+    <ul>
+      <li>Stay calm — a live demo hiccup is normal, and composure reads as confidence.</li>
+      <li>Fall back to a screenshot of that screen, or open a neighbouring record (<span class="r">/runs</span>, <span class="r">/registry</span>) that's already cached.</li>
+      <li>Never improvise an unbuilt feature to fill the gap. If it's not on screen, it's roadmap — say so.</li>
+    </ul>
+    <div class="fill">"The joy of a live system — one honest second while it loads. While it does, here's what you're about to see…"</div>
+    <div class="fill" style="margin-top:6px">"Let me show you the same thing from a record that's already open."</div>
+    <div class="fill" style="margin-top:6px">"I'll send a short screen recording of that exact flow right after this."</div>
+  </div>
+
+  <div style="height:18px"></div>
+  <div class="eyebrow">The close</div>
+  <h2 class="section-title">Closing — the exact final lines</h2>
+  <p class="section-lead">Deliver these, then stop talking and let them respond.</p>
+  <div class="close-line">"You just watched one credit go from a flame in a field to a buyer's balance sheet — and come all the way back, defensible at every step. That's the platform, live today, with an AI roadmap that only makes it more defensible."</div>
+  <div class="ask-box">
+    <h3>The ask — leave them with three moves</h3>
+    <ol>
+      <li><b>A pilot on your data</b> — your sites, kilns, and team in the system within a couple of weeks, so you're clicking your own records.</li>
+      <li><b>Bring your VVB into a session</b> — let them try to break the evidence chain. That's the best sales call we can have.</li>
+      <li><b>A short proposal</b> scoped to your credit volume, in your inbox this week.</li>
+    </ol>
+    <p style="margin:10px 0 0; font-family:'Fraunces',serif; font-size:11.5pt; color:var(--ink)">"Can we get the pilot on the calendar?"</p>
+  </div>
+</section>
+
+<!-- ===================== 5-MINUTE VERSION ===================== -->
+<section class="page-break">
+  <div class="eyebrow">For a rushed room</div>
+  <h2 class="section-title">The 5-minute version</h2>
+  <p class="section-lead">Four screens: Dashboard → Field → Issuance → Traceability. Cut everything else.</p>
+
+  <div class="short-step">
+    <span class="sn">1</span>
+    <div><b>Dashboard</b> (Project Developer). <span class="say-inline">"The whole cooperative in one view, straight off the operational records."</span> <small>Point at the KPI strip and the map. ~45s.</small></div>
+  </div>
+  <div class="short-step">
+    <span class="sn">2</span>
+    <div><b>Field log</b> (Kiln Operator). <span class="say-inline">"Mandatory pyrolysis, flame-curtain and quench photos, auto-GPS, offline-first — and he can't approve his own run."</span> <small>Point at Required evidence + the Connection/GPS rail. ~75s.</small></div>
+  </div>
+  <div class="short-step">
+    <span class="sn">3</span>
+    <div><b>Carbon credits</b> (Registry). <span class="say-inline">"Two-person issuance, automatic 2% buffer, every credit serialised and retire-tracked."</span> <small>Point at Gross 36 · Buffer 1 · Net 35 and the serial legend. ~60s.</small></div>
+  </div>
+  <div class="short-step">
+    <span class="sn">4</span>
+    <div><b>Traceability</b> — pick retired credit <span class="r">…-000002</span> → scroll to <b>Field evidence</b> → click the kiln photo. <span class="say-inline">"From a retired credit back to the flame, GPS and timestamp attached, in ten seconds. That's the integrity buyers demand — live today."</span> <small>~75s. This is the close.</small></div>
+  </div>
+
+  <div class="divider">◆</div>
+  <div class="foot">
+    Rainbow dMRV — Demo Runbook · <span class="r">dmrv-iota.vercel.app</span> · Confidential internal presenter document<br/>
+    Lead with the product. Never explain the concepts. Show, don't tell.
+  </div>
+</section>
+
+</body>
+</html>
