@@ -37,7 +37,7 @@ export async function inviteMember(input: {
   let tempPassword: string | undefined;
 
   if (!userId) {
-    tempPassword = `Rainbow-${Math.random().toString(36).slice(2, 9)}`;
+    tempPassword = `Acres-${Math.random().toString(36).slice(2, 9)}`;
     const { data: created, error } = await admin.auth.admin.createUser({
       email,
       password: tempPassword,

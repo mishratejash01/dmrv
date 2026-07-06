@@ -1,5 +1,5 @@
 -- ===========================================================================
--- Rainbow dMRV — 0003 · Functions & triggers
+-- Acres dMRV — 0003 · Functions & triggers
 --   RBAC helpers · new-user profile · updated_at · audit trail
 --   batch roll-up & guards · RCC serial generation & issuance · buffer pool
 -- ===========================================================================

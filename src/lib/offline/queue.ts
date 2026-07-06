@@ -41,7 +41,7 @@ export interface PendingRun {
   photos: PendingPhoto[];
 }
 
-const DB_NAME = "rainbow-dmrv";
+const DB_NAME = "acres-dmrv";
 const STORE = "pending_runs";
 
 let dbPromise: Promise<IDBPDatabase> | null = null;

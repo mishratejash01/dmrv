@@ -14,6 +14,7 @@ import {
   ChevronDown,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { BRAND } from "@/lib/brand";
 import { visibleNav, PROJECT_ROLE_LABEL } from "@/lib/nav";
 import type { AppCapabilities } from "@/lib/auth";
 import { Avatar } from "@/components/ui/avatar";
@@ -76,8 +77,8 @@ export function AppShell({
             <Leaf className="h-4 w-4" />
           </span>
           <div className="leading-tight">
-            <p className="font-display text-[15px] text-ink">Rainbow dMRV</p>
-            <p className="text-[10px] uppercase tracking-wide text-muted">Open-kiln biochar</p>
+            <p className="font-display text-[15px] text-ink">{BRAND.product}</p>
+            <p className="text-[10px] uppercase tracking-wide text-muted">{BRAND.domainLabel}</p>
           </div>
           <button
             className="ml-auto lg:hidden text-muted"

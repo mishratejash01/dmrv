@@ -1,5 +1,5 @@
 -- ===========================================================================
--- Rainbow dMRV — 0002 · Core schema (full traceability chain)
+-- Acres dMRV — 0002 · Core schema (full traceability chain)
 -- Project → Site → Kiln → Kiln Run → Composite Sample → Production Batch
 --   → Lab Test → GHG Quantification → Verification → RCC Issuance → Credits
 -- ===========================================================================

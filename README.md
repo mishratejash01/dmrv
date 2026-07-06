@@ -1,8 +1,10 @@
 <div align="center">
 
-# 🌾 Rainbow dMRV
+# 🌾 Acres dMRV
 
 ### Digital Monitoring, Reporting & Verification for distributed open-kiln biochar
+
+**by Acres Climate Tech** · built for the Rainbow Standard methodology
 
 A production-grade **dMRV platform** that tracks a distributed biochar carbon-removal
 operation across its entire lifecycle — from biomass sourcing through pyrolysis, quenching,
@@ -19,8 +21,9 @@ methodology (`RBW-BCR-DOB-V1.0`).
 
 Under the Rainbow Standard, the **dMRV platform is the software layer** — provided by a
 third party, not by Rainbow — that lets kiln operators record and document their operations
-so an auditor can verify them and Rainbow can issue certified carbon credits. This project
-*is* that platform.
+so an auditor can verify them and credits can be issued under the Standard. **Acres dMRV**,
+built by **Acres Climate Tech**, is that platform. It is independent of Rainbow; "Rainbow"
+appears here only as the external Standard it complies with.
 
 It models the full traceability chain and enforces the methodology's real rules:
 
@@ -43,7 +46,7 @@ It models the full traceability chain and enforces the methodology's real rules:
 | **Kiln Supervisor** | On-the-ground QA. Reviews operator submissions, flags anomalies, logs site visits. |
 | **Project Developer** | Owns the project & all sites. Manages batches, feedstock, submits for verification, receives carbon finance. |
 | **Verifier / VVB** | External auditor. Read-through of the whole evidence chain; adds findings; approves/rejects. |
-| **Registry Admin** | Issues RCCs with encoded serials, manages the buffer pool, tracks the credit lifecycle. |
+| **Credit Registry** | Issues RCCs with encoded serials, manages the buffer pool, tracks the credit lifecycle. |
 | **Super Admin** | Manages users, roles, and projects. |
 
 ## Domain model
@@ -98,7 +101,7 @@ a verified production batch (**18.6 t dry biochar → 36.36 tCO₂e net removed*
 ## Demo accounts & guided tour
 
 Open **`/login`** and use the **one-click demo sign-in** cards, or type an email below
-(password for all: `RainbowDemo!26`). Each role sees a different slice of the platform —
+(password for all: `AcresDemo!26`). Each role sees a different slice of the platform —
 Row Level Security enforces it at the database.
 
 | Sign in as | Email | See it in action |
@@ -107,7 +110,7 @@ Row Level Security enforces it at the database.
 | **Kiln Supervisor** | `supervisor@dmrv.demo` | **Review queue** — approve/reject operator submissions; site audits. |
 | **Project Developer** | `developer@dmrv.demo` | Everything for the project — **Batches** (6-mo/200-t meters), **GHG calculator**, **Lab**, **End-use**, **Team**. |
 | **Verifier (VVB)** | `verifier@dmrv.demo` | **Verification** — read the full evidence chain, add findings, approve; print the package. |
-| **Registry Admin** | `registry@dmrv.demo` | **Registry** — issue RCCs (two-person control), the serialised ledger, retire/transfer, **Buffer pool**. |
+| **Credit Registry** | `registry@dmrv.demo` | **Registry** — issue RCCs (two-person control), the serialised ledger, retire/transfer, **Buffer pool**. |
 | **Super Admin** | `admin@dmrv.demo` | Full system access. |
 
 A good first tour as the **Developer**: Dashboard → Batches → open `PB-2026-01` (see the
@@ -155,5 +158,5 @@ chain, two-person credit issuance, and the 2 % buffer contribution (rounded up).
 
 ---
 
-*Built as a faithful reference implementation of the Rainbow Standard dMRV layer for
-distributed open-kiln biochar.*
+*Acres dMRV — the third-party dMRV layer for distributed open-kiln biochar, built by
+Acres Climate Tech for the Rainbow Standard methodology. Not affiliated with or endorsed by Rainbow.*

@@ -1,5 +1,5 @@
 -- ===========================================================================
--- Rainbow dMRV — 0005 · Storage buckets & policies
+-- Acres dMRV — 0005 · Storage buckets & policies
 -- Evidence buckets are public-read (transparency for verifiers & registry) and
 -- authenticated-write. Uploads are namespaced by project/run in the app.
 -- ===========================================================================

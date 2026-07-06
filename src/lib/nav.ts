@@ -98,6 +98,6 @@ export const PROJECT_ROLE_LABEL: Record<string, string> = {
 
 export const GLOBAL_ROLE_LABEL: Record<string, string> = {
   super_admin: "Super Admin",
-  registry_admin: "Registry Admin",
+  registry_admin: "Credit Registry", // internal issuance ledger — not the external Rainbow registry
   member: "Member",
 };

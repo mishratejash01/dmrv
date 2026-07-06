@@ -8,6 +8,7 @@ import { createProject } from "@/lib/actions/projects";
 import { Button } from "@/components/ui/button";
 import { Input, Textarea, NativeSelect, Field } from "@/components/ui/input";
 import { RULE_CATALOGUE, METHODOLOGY } from "@/lib/methodology";
+import { BRAND } from "@/lib/brand";
 
 export function OnboardingWizard() {
   const router = useRouter();
@@ -48,7 +49,7 @@ export function OnboardingWizard() {
         <span className="grid h-8 w-8 place-items-center rounded-lg bg-clay text-elevated">
           <Leaf className="h-4 w-4" />
         </span>
-        <span className="font-display text-lg text-ink">Rainbow dMRV</span>
+        <span className="font-display text-lg text-ink">{BRAND.product}</span>
       </header>
 
       <main className="max-w-4xl w-full mx-auto px-6 pb-16 grid lg:grid-cols-5 gap-10 flex-1">
@@ -58,7 +59,7 @@ export function OnboardingWizard() {
             Set up your biochar project
           </h1>
           <p className="mt-2 text-muted text-pretty">
-            This creates a Rainbow-certified project under the {METHODOLOGY.name} methodology.
+            This sets up your project under the Rainbow Standard {METHODOLOGY.name} methodology.
             You&apos;ll add sites, kilns, feedstock and team from the dashboard next.
           </p>
 

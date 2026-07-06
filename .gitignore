@@ -49,3 +49,4 @@ AGENTS.md
 scratchpad/
 *.log
 supabase/.temp/
+.gstack/

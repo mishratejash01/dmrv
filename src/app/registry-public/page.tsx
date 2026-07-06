@@ -7,9 +7,10 @@ import { Badge } from "@/components/ui/badge";
 import { Table, THead, TBody, TR, TH, TD } from "@/components/ui/table";
 import { fmt, fmtDate, humanize } from "@/lib/utils";
 import { CREDIT_STATUS_META } from "@/lib/rcc";
+import { BRAND } from "@/lib/brand";
 
 export const metadata: Metadata = {
-  title: "Rainbow Registry — Public ledger",
+  title: `${BRAND.company} — Public credit ledger`,
   description: "Public transparency ledger of serialised Rainbow Carbon Credits.",
 };
 

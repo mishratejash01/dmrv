@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Fraunces, Inter, JetBrains_Mono } from "next/font/google";
 import { Toaster } from "sonner";
+import { BRAND } from "@/lib/brand";
 import "./globals.css";
 
 const display = Fraunces({
@@ -23,11 +24,10 @@ const mono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Rainbow dMRV — Distributed Open-Kiln Biochar",
-    template: "%s · Rainbow dMRV",
+    default: `${BRAND.product} — Distributed Open-Kiln Biochar`,
+    template: `%s · ${BRAND.product}`,
   },
-  description:
-    "Digital Monitoring, Reporting & Verification for distributed open-kiln biochar carbon removal, faithful to the Rainbow Standard.",
+  description: `Digital Monitoring, Reporting & Verification for distributed open-kiln biochar carbon removal by ${BRAND.company}, built for the ${BRAND.standard} methodology.`,
 };
 
 export default function RootLayout({

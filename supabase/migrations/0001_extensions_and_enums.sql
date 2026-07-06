@@ -1,5 +1,5 @@
 -- ===========================================================================
--- Rainbow dMRV — 0001 · Extensions & enumerated domain types
+-- Acres dMRV — 0001 · Extensions & enumerated domain types
 -- ===========================================================================
 
 create extension if not exists "pgcrypto";      -- gen_random_uuid()

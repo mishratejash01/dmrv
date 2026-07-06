@@ -90,8 +90,8 @@ export default async function RegistryPage() {
   return (
     <div>
       <PageHeader
-        title="Rainbow registry"
-        description="Issue Rainbow Carbon Credits under two-person control, then transfer or retire them on a serialised ledger."
+        title="Credit registry"
+        description="Acres' internal issuance ledger — issue Rainbow Carbon Credits under two-person control, then transfer or retire them on a serialised ledger."
       >
         <Button asChild variant="secondary">
           <Link href="/registry/buffer">

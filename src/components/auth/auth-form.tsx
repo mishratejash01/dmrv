@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Mail, KeyRound, Loader2, Sparkles } from "lucide-react";
 import { toast } from "sonner";
 import { createClient } from "@/lib/supabase/client";
+import { BRAND } from "@/lib/brand";
 import { Button } from "@/components/ui/button";
 import { Input, Field } from "@/components/ui/input";
 
@@ -14,10 +15,10 @@ const DEMO_ACCOUNTS = [
   { email: "operator@dmrv.demo", role: "Kiln Operator", name: "Kabir" },
   { email: "supervisor@dmrv.demo", role: "Kiln Supervisor", name: "Rohan" },
   { email: "verifier@dmrv.demo", role: "Verifier (VVB)", name: "Dr. Fischer" },
-  { email: "registry@dmrv.demo", role: "Registry Admin", name: "Registry" },
+  { email: "registry@dmrv.demo", role: "Credit Registry", name: "Issuance ledger" },
   { email: "admin@dmrv.demo", role: "Super Admin", name: "Admin" },
 ];
-const DEMO_PASSWORD = "RainbowDemo!26";
+const DEMO_PASSWORD = BRAND.demoPassword;
 
 export function AuthForm({ mode }: { mode: "login" | "signup" }) {
   const router = useRouter();

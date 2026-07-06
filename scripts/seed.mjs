@@ -1,5 +1,5 @@
 // ===========================================================================
-// Rainbow dMRV — demo data seed.
+// Acres dMRV — demo data seed.
 // Creates a realistic, fully-explorable distributed open-kiln biochar project.
 // Usage:  node --env-file=.env.local scripts/seed.mjs
 // Idempotent: wipes the demo project + demo users, then recreates everything.
@@ -14,7 +14,7 @@ if (!url || !serviceKey) {
 }
 const db = createClient(url, serviceKey, { auth: { persistSession: false } });
 
-const PASSWORD = "RainbowDemo!26";
+const PASSWORD = "AcresDemo!26";
 const PROJECT_CODE = "P001";
 
 // --- deterministic pseudo-random (no Date.now / Math.random for reproducibility) ---
@@ -39,8 +39,8 @@ const must = (label, { error, data }) => {
 // Users
 // ---------------------------------------------------------------------------
 const USERS = [
-  { key: "admin", email: "admin@dmrv.demo", name: "System Administrator", global: "super_admin", org: "Rainbow dMRV" },
-  { key: "registry", email: "registry@dmrv.demo", name: "Rainbow Registry Desk", global: "registry_admin", org: "Rainbow Standard" },
+  { key: "admin", email: "admin@dmrv.demo", name: "System Administrator", global: "super_admin", org: "Acres Climate Tech" },
+  { key: "registry", email: "registry@dmrv.demo", name: "Acres Credit Registry", global: "registry_admin", org: "Acres Climate Tech" },
   { key: "developer", email: "developer@dmrv.demo", name: "Ananya Deshpande", global: "member", org: "Deccan Biochar Cooperative" },
   { key: "supervisor", email: "supervisor@dmrv.demo", name: "Rohan Kulkarni", global: "member", org: "Deccan Biochar Cooperative" },
   { key: "operator", email: "operator@dmrv.demo", name: "Kabir Sable", global: "member", org: "Deccan Biochar Cooperative" },

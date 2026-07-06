@@ -2,6 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { ArrowRight, Leaf, Flame, ShieldCheck, BadgeCheck, Network } from "lucide-react";
 import { getUser } from "@/lib/auth";
+import { BRAND } from "@/lib/brand";
 import { RULE_CATALOGUE } from "@/lib/methodology";
 
 export default async function Landing() {
@@ -22,7 +23,7 @@ export default async function Landing() {
           <span className="grid h-8 w-8 place-items-center rounded-lg bg-clay text-elevated">
             <Leaf className="h-4 w-4" />
           </span>
-          <span className="font-display text-lg text-ink">Rainbow dMRV</span>
+          <span className="font-display text-lg text-ink">{BRAND.product}</span>
         </div>
         <nav className="flex items-center gap-2">
           <Link
@@ -105,7 +106,7 @@ export default async function Landing() {
 
       <footer className="border-t border-border">
         <div className="max-w-6xl mx-auto px-6 py-6 flex flex-wrap items-center justify-between gap-3 text-sm text-muted">
-          <span>Rainbow dMRV — reference implementation of the dMRV layer.</span>
+          <span>{BRAND.product} by {BRAND.company} — {BRAND.tagline}.</span>
           <Link href="/login" className="text-clay hover:underline">
             Sign in →
           </Link>

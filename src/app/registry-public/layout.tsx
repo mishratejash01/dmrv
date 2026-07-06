@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Leaf } from "lucide-react";
+import { BRAND } from "@/lib/brand";
 
 export default function RegistryPublicLayout({
   children,
@@ -15,15 +16,15 @@ export default function RegistryPublicLayout({
               <Leaf className="h-5 w-5" />
             </span>
             <div>
-              <p className="font-display text-lg text-ink leading-tight">Rainbow Registry</p>
-              <p className="text-xs text-muted">Public transparency ledger</p>
+              <p className="font-display text-lg text-ink leading-tight">{BRAND.company}</p>
+              <p className="text-xs text-muted">Public credit registry</p>
             </div>
           </div>
           <Link
             href="/"
             className="text-sm text-clay hover:underline"
           >
-            Rainbow dMRV
+            {BRAND.product}
           </Link>
         </div>
       </header>
@@ -33,9 +34,9 @@ export default function RegistryPublicLayout({
       <footer className="border-t border-border bg-elevated">
         <div className="mx-auto max-w-6xl px-5 py-6">
           <p className="text-xs text-muted text-pretty">
-            The Rainbow Registry publishes serialised Rainbow Carbon Credits and their lifecycle for
-            public inspection. Data is read-only and reflects the current on-ledger state. Rainbow
-            dMRV · Distributed open-kiln biochar carbon removal.
+            {BRAND.company} publishes its serialised Rainbow Carbon Credits and their lifecycle for
+            public inspection. Data is read-only and reflects the current on-ledger state. {BRAND.product}{" "}
+            · Distributed open-kiln biochar carbon removal, built for the Rainbow Standard.
           </p>
         </div>
       </footer>

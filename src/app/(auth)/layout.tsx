@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Leaf } from "lucide-react";
+import { BRAND } from "@/lib/brand";
 import { RULE_CATALOGUE } from "@/lib/methodology";
 
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
@@ -11,7 +12,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
           <span className="grid h-8 w-8 place-items-center rounded-lg bg-clay text-elevated">
             <Leaf className="h-4 w-4" />
           </span>
-          <span className="font-display text-lg text-ink">Rainbow dMRV</span>
+          <span className="font-display text-lg text-ink">{BRAND.product}</span>
         </Link>
 
         <div className="max-w-md">
@@ -32,7 +33,10 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
           </ul>
         </div>
 
-        <p className="text-xs text-muted">Rainbow Standard · RBW-BCR-DOB-V1.0</p>
+        <div className="text-xs text-muted">
+          <p className="text-ink-soft">{BRAND.product} — {BRAND.tagline}</p>
+          <p className="mt-1">Complies with the Rainbow Standard · RBW-BCR-DOB-V1.0</p>
+        </div>
       </div>
 
       {/* Right — form */}

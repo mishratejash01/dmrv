@@ -1,5 +1,5 @@
 -- ===========================================================================
--- Rainbow dMRV — 0004 · Row Level Security
+-- Acres dMRV — 0004 · Row Level Security
 -- Enforces separation of duties: producers (operators) are separated from
 -- reviewers/reporters (supervisors, developers, verifiers) at the database.
 -- ===========================================================================

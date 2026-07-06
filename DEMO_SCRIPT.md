@@ -1,11 +1,11 @@
 <div align="center">
 
-# 🎤 Rainbow dMRV — Client Demo & Pitch Script
+# 🎤 Acres dMRV — Client Demo & Pitch Script
 
 **The script that wins the room.** Follow it top to bottom for a ~18-minute demo + Q&A,
 or jump to the [5-minute short version](#-the-5-minute-version-for-a-rushed-room) at the end.
 
-**Live app:** https://dmrv-iota.vercel.app  ·  **Sign-in:** one-click demo cards on `/login` (password `RainbowDemo!26`)
+**Live app:** https://dmrv-iota.vercel.app  ·  **Sign-in:** one-click demo cards on `/login` (password `AcresDemo!26`)
 
 </div>
 
@@ -77,7 +77,7 @@ honest line, out loud, between two things:
 *(Say this on the landing page, or fold into the hook. Don't linger — we prove it by doing.)*
 
 > **[SAY]** "Three things make this different from a generic dashboard. **One** — we built the *actual*
-> Rainbow methodology in, not a lookalike: the real 6-month/200-tonne batch rule, the H/C permanence
+> Rainbow Standard methodology in, not a lookalike: the real 6-month/200-tonne batch rule, the H/C permanence
 > threshold, the buffer pool, the serial format, the verification workflow. **Two** — it's one
 > unbroken chain of custody, traceable both directions. **Three** — the integrity is enforced in the
 > database with role separation, so the people who *make* biochar can't quietly edit the numbers that
@@ -107,7 +107,7 @@ honest line, out loud, between two things:
 **[CLICK]** In **Required evidence**, add the three photos — **Clean pyrolysis process**, **Flame
 curtain**, **Quenching**.
 
-> **[SAY]** "Three photos are *mandatory* for an open-kiln run under Rainbow — the clean burn, the flame
+> **[SAY]** "Three photos are *mandatory* for an open-kiln run under the Rainbow Standard — the clean burn, the flame
 > curtain, the quench. The system won't let him submit without all three. And look here —" *(point to
 > the right rail)* "— **GPS is captured automatically**, and there's a **connection indicator**. If he's
 > offline, this run is saved on the device and **syncs the moment he's back online.** No lost data in the
@@ -139,14 +139,14 @@ developer/supervisor side reviews and reports — the other half of the separati
 
 > **[SAY]** "Approved runs roll up into a **production batch**. And here's the methodology enforcing
 > itself: every open batch has **two live meters — tonnage toward 200 tonnes, and age toward 6 months.**
-> They go amber as you approach the limit and red when you cross it, because a Rainbow batch is only
+> They go amber as you approach the limit and red when you cross it, because a Rainbow Standard batch is only
 > valid for *whichever comes first*. The software won't let a batch drift out of compliance."
 
 **[CLICK]** Open batch **PB-2026-01**.
 
 > **[SAY]** "Here's our hero batch — closed and verified. Twenty-four runs, **18.6 tonnes** of dry
 > biochar. And notice the **composite sampling chain** — site pile, site sample, batch sample, off to
-> an accredited lab. That's the exact Rainbow sampling protocol, documented automatically."
+> an accredited lab. That's the exact Rainbow Standard sampling protocol, documented automatically."
 
 ---
 
@@ -184,7 +184,7 @@ developer/supervisor side reviews and reports — the other half of the separati
 **[CLICK]** Go to **End-use** (`/end-use`).
 
 > **[SAY]** "This is the moment the carbon is actually *locked* — the biochar leaves the producer and
-> goes into the soil. The Rainbow methodology calls it the end-use point, and it demands proof: quantity,
+> goes into the soil. The Rainbow Standard methodology calls it the end-use point, and it demands proof: quantity,
 > application method, the recipient, **GPS coordinates, and photos.** Here it is on a map, with the proof
 > images attached. This is the difference between 'we made biochar' and 'the carbon is durably stored,
 > and here's where.'"
@@ -406,14 +406,14 @@ Net-Zero Programme 2026")*.
 - *"Let me show you the same thing from the record that's already in the system,"* → open `/runs` or `/registry` instead.
 - *"I'll follow up right after this with a recording of that exact flow so you can replay it."*
 
-### Accounts (one-click cards on `/login`, password `RainbowDemo!26`)
+### Accounts (one-click cards on `/login`, password `AcresDemo!26`)
 | Role | Email | Use it for |
 |---|---|---|
 | Project Developer | `developer@dmrv.demo` | Main driver — sees the whole chain |
 | Kiln Operator | `operator@dmrv.demo` | Beat 1 — the restricted field view |
 | Kiln Supervisor | `supervisor@dmrv.demo` | Review / QA side |
 | Verifier (VVB) | `verifier@dmrv.demo` | Beat 5 — read-only audit |
-| Registry Admin | `registry@dmrv.demo` | Beat 6 — issuance |
+| Credit Registry | `registry@dmrv.demo` | Beat 6 — issuance |
 
 ### The honesty table (keep this straight in your head)
 | 🟢 Live today | 🔵 Roadmap |
