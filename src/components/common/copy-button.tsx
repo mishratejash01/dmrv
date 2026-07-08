@@ -24,7 +24,7 @@ export function CopyButton({ value, className, label }: { value: string; classNa
       )}
       aria-label="Copy"
     >
-      {copied ? <Check className="h-3.5 w-3.5 text-ok" /> : <Copy className="h-3.5 w-3.5" />}
+      {copied ? <Check className="h-3.5 w-3.5 [stroke-width:1.5] text-ok" /> : <Copy className="h-3.5 w-3.5 [stroke-width:1.5]" />}
       {label && <span className="text-xs">{copied ? "Copied" : label}</span>}
     </button>
   );

@@ -4,19 +4,19 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md font-medium transition-all disabled:pointer-events-none disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay [&_svg]:shrink-0",
+  "inline-flex items-center justify-center gap-1.5 whitespace-nowrap rounded-[0.5rem] font-medium tracking-[-0.01em] transition-colors duration-150 disabled:pointer-events-none disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay [&_svg]:shrink-0 [&_svg]:[stroke-width:1.5]",
   {
     variants: {
       variant: {
         primary:
-          "bg-clay text-elevated shadow-sm hover:bg-[#9d6f47] active:translate-y-px",
+          "bg-clay text-elevated hover:bg-[#9d6f47] active:bg-[#8c6340]",
         secondary:
-          "bg-surface text-ink border border-border hover:bg-surface-2",
+          "bg-surface text-ink border border-border hover:border-border-strong hover:bg-surface-2",
         outline:
           "border border-border-strong text-ink bg-transparent hover:bg-surface",
         ghost: "text-ink-soft hover:bg-surface hover:text-ink",
-        sage: "bg-sage text-elevated shadow-sm hover:bg-[#78876a]",
-        danger: "bg-err text-elevated shadow-sm hover:bg-[#9e5b46]",
+        sage: "bg-sage text-elevated hover:bg-[#78876a] active:bg-[#6b7a5e]",
+        danger: "bg-err text-elevated hover:bg-[#9e5b46] active:bg-[#8c5140]",
         link: "text-clay underline-offset-4 hover:underline p-0 h-auto",
       },
       size: {
