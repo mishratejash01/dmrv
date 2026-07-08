@@ -97,31 +97,24 @@ async function createUsers() {
 // ---------------------------------------------------------------------------
 // Placeholder evidence images (warm-themed SVGs uploaded once, shared by path)
 // ---------------------------------------------------------------------------
-function svg(title, subtitle, from, to, glyph) {
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
-  <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-    <stop offset="0" stop-color="${from}"/><stop offset="1" stop-color="${to}"/></linearGradient></defs>
-  <rect width="800" height="600" fill="url(#g)"/>
-  <text x="400" y="300" font-family="Georgia, serif" font-size="180" text-anchor="middle" fill="#fffdf9" opacity="0.92">${glyph}</text>
-  <text x="400" y="430" font-family="Georgia, serif" font-size="42" text-anchor="middle" fill="#fffdf9">${title}</text>
-  <text x="400" y="475" font-family="sans-serif" font-size="22" text-anchor="middle" fill="#fffdf9" opacity="0.85">${subtitle}</text>
-</svg>`;
-}
-const IMAGES = {
-  "demo/pyrolysis.svg": svg("Pyrolysis", "Clean flame-curtain burn", "#b0805699", "#7a5230", "🔥"),
-  "demo/flame_curtain.svg": svg("Flame curtain", "Gases combusted at the rim", "#c9a24b99", "#8a6a1f", "🌋"),
-  "demo/quench.svg": svg("Quenching", "Rapid water cooling", "#6f828699", "#3f5256", "💧"),
-  "demo/end_use.svg": svg("End use", "Soil incorporation", "#8a9a7b99", "#556042", "🌱"),
-  "demo/site.svg": svg("Site visit", "Supervisor QA", "#b0805699", "#5c5346", "📋"),
-};
+// Real, openly-licensed evidence photos (see scripts/seed-assets/CREDITS.md).
+const ASSET_DIR = new URL("./seed-assets/", import.meta.url);
+const IMAGES = [
+  { file: "pyrolysis.jpg", path: "demo/pyrolysis.jpg", bucket: "run-photos" },
+  { file: "flame_curtain.jpg", path: "demo/flame_curtain.jpg", bucket: "run-photos" },
+  { file: "quench.jpg", path: "demo/quench.jpg", bucket: "run-photos" },
+  { file: "end_use.jpg", path: "demo/end_use.jpg", bucket: "end-use-proof" },
+  { file: "site.jpg", path: "demo/site.jpg", bucket: "site-audit-photos" },
+];
 
 async function uploadImages() {
-  for (const [path, body] of Object.entries(IMAGES)) {
-    const bucket = path.includes("end_use") ? "end-use-proof" : path.includes("site") ? "site-audit-photos" : "run-photos";
-    await db.storage.from(bucket).upload(path, new Blob([body], { type: "image/svg+xml" }), {
-      contentType: "image/svg+xml",
-      upsert: true,
-    });
+  const { readFile } = await import("node:fs/promises");
+  for (const img of IMAGES) {
+    const bytes = await readFile(new URL(img.file, ASSET_DIR));
+    const { error } = await db.storage
+      .from(img.bucket)
+      .upload(img.path, bytes, { contentType: "image/jpeg", upsert: true });
+    if (error) console.error(`  ✗ upload ${img.path}: ${error.message}`);
   }
 }
 
@@ -297,9 +290,9 @@ async function main() {
 
     // photos (required evidence)
     const photoRows = [
-      { photo_type: "pyrolysis", storage_path: "demo/pyrolysis.svg" },
-      { photo_type: "flame_curtain", storage_path: "demo/flame_curtain.svg" },
-      { photo_type: "quench", storage_path: "demo/quench.svg" },
+      { photo_type: "pyrolysis", storage_path: "demo/pyrolysis.jpg" },
+      { photo_type: "flame_curtain", storage_path: "demo/flame_curtain.jpg" },
+      { photo_type: "quench", storage_path: "demo/quench.jpg" },
     ].map((p) => ({
       kiln_run_id: run.id, ...p, taken_at: startISO,
       latitude: run.latitude, longitude: run.longitude,
@@ -416,7 +409,7 @@ async function main() {
       project_id: projectId, production_batch_id: batch1.id, quantity_kg: e.qty,
       application_method: e.method, recipient_name: e.recipient,
       recipient_contact: `contact${i + 1}@farmers.demo`, latitude: e.lat, longitude: e.lng,
-      applied_at: `2026-05-0${i + 1}T10:00:00Z`, proof_paths: ["demo/end_use.svg"],
+      applied_at: `2026-05-0${i + 1}T10:00:00Z`, proof_paths: ["demo/end_use.jpg"],
       notes: "GPS-tagged application photos and delivery receipt on file.",
       recorded_by: uid.operator,
     }));
@@ -474,7 +467,7 @@ async function main() {
     must("site audit", await db.from("site_audits").insert({
       site_id: s.id, project_id: projectId, supervisor_id: uid.supervisor,
       visit_date: "2026-03-12", findings: "Kilns operated to SOP; PPE in use; feedstock storage dry. No non-conformities.",
-      photos: ["demo/site.svg"],
+      photos: ["demo/site.jpg"],
     }));
   }
 
