@@ -17,19 +17,27 @@ export const metadata: Metadata = {
 export default async function RegistryPublicPage() {
   const supabase = await createClient();
 
-  const [creditsRes, bufferRes] = await Promise.all([
-    supabase
-      .from("rcc_credits")
-      .select("id, serial_number, credit_type, vintage, geography, status, current_holder, created_at")
-      .order("created_at", { ascending: false })
-      .limit(500),
-    supabase.from("buffer_pool_ledger").select("contribution_tco2e"),
-  ]);
+  const [creditsRes, bufferRes, totalRes, issuedRes, transferredRes, retiredRes, bufferCntRes] =
+    await Promise.all([
+      supabase
+        .from("rcc_credits")
+        .select("id, serial_number, credit_type, vintage, geography, status, current_holder, created_at")
+        .order("created_at", { ascending: false })
+        .limit(500),
+      supabase.from("buffer_pool_ledger").select("contribution_tco2e"),
+      // KPI counts via exact head queries — never capped by the table's row limit.
+      supabase.from("rcc_credits").select("id", { count: "exact", head: true }),
+      supabase.from("rcc_credits").select("id", { count: "exact", head: true }).eq("status", "issued"),
+      supabase.from("rcc_credits").select("id", { count: "exact", head: true }).eq("status", "transferred"),
+      supabase.from("rcc_credits").select("id", { count: "exact", head: true }).eq("status", "retired"),
+      supabase.from("rcc_credits").select("id", { count: "exact", head: true }).eq("status", "buffer"),
+    ]);
 
   const credits = creditsRes.data ?? [];
-  const issued = credits.filter((c) => c.status === "issued" || c.status === "transferred").length;
-  const retired = credits.filter((c) => c.status === "retired").length;
-  const bufferCredits = credits.filter((c) => c.status === "buffer").length;
+  const totalCredits = totalRes.count ?? 0;
+  const issued = (issuedRes.count ?? 0) + (transferredRes.count ?? 0);
+  const retired = retiredRes.count ?? 0;
+  const bufferCredits = bufferCntRes.count ?? 0;
   const bufferBal = (bufferRes.data ?? []).reduce(
     (s, r) => s + Number(r.contribution_tco2e || 0),
     0,
@@ -49,7 +57,7 @@ export default async function RegistryPublicPage() {
 
       {/* KPIs */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-        <Stat label="Credits on ledger" value={fmt(credits.length, 0)} unit="RCCs" icon={<Coins />} tone="clay" />
+        <Stat label="Credits on ledger" value={fmt(totalCredits, 0)} unit="RCCs" icon={<Coins />} tone="clay" />
         <Stat label="Live / transferred" value={fmt(issued, 0)} unit="RCCs" icon={<ArrowLeftRight />} tone="info" />
         <Stat label="Retired" value={fmt(retired, 0)} unit="RCCs" icon={<Archive />} tone="sage" hint="Permanently claimed" />
         <Stat label="Buffer pool" value={fmt(bufferBal, 0)} unit="tCO₂e" icon={<Wallet />} tone="ochre" hint={`${bufferCredits} credits`} />

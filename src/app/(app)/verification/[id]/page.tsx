@@ -20,7 +20,7 @@ import { StatusBadge } from "@/components/status-badge";
 import { GhgBreakdown, type GhgLine } from "@/components/ghg/ghg-breakdown";
 import { PrintButton } from "@/components/common/export-button";
 import { fmt, fmtCo2, fmtDate, fmtPct, humanize } from "@/lib/utils";
-import { HC_ORG, METHODOLOGY } from "@/lib/methodology";
+import { HC_ORG, METHODOLOGY, kilnTypeLabel } from "@/lib/methodology";
 import { VerificationActions } from "./verification-actions";
 
 export const metadata: Metadata = { title: "Verification package" };
@@ -151,7 +151,7 @@ export default async function VerificationDetailPage({
                     <DataRow label="Batch status">
                       <StatusBadge kind="batch" value={batch.status} />
                     </DataRow>
-                    <DataRow label="Kiln type">{humanize(batch.kiln_type)}</DataRow>
+                    <DataRow label="Kiln type">{kilnTypeLabel(batch.kiln_type)}</DataRow>
                     <DataRow label="Feedstock">
                       {batch.feedstock_category ? humanize(batch.feedstock_category) : "—"}
                     </DataRow>

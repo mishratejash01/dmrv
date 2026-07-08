@@ -15,6 +15,19 @@ export async function createVerification(input: {
 }) {
   const user = await getUser();
   const supabase = await createClient();
+
+  // A batch is only ready for verification once it's closed/testing.
+  if (input.production_batch_id) {
+    const { data: b } = await supabase
+      .from("production_batches")
+      .select("status")
+      .eq("id", input.production_batch_id)
+      .single();
+    if (b && !["closed", "testing"].includes(b.status)) {
+      return { error: `A ${b.status} batch cannot be sent for verification — close it first.` };
+    }
+  }
+
   const { data, error } = await supabase
     .from("verifications")
     .insert({

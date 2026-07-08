@@ -47,13 +47,17 @@ export function BatchActions({
   return (
     <div className="flex flex-wrap items-center gap-2">
       {status === "open" && <CloseBatchButton batchId={batchId} />}
-      <RequestVerificationDialog
-        batchId={batchId}
-        projectId={projectId}
-        openedAt={openedAt}
-        closedAt={closedAt}
-        verifiers={verifiers}
-      />
+      {/* A batch is sent for verification once closed/testing — not while open,
+          and not once already verified. */}
+      {(status === "closed" || status === "testing") && (
+        <RequestVerificationDialog
+          batchId={batchId}
+          projectId={projectId}
+          openedAt={openedAt}
+          closedAt={closedAt}
+          verifiers={verifiers}
+        />
+      )}
     </div>
   );
 }

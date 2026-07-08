@@ -23,6 +23,15 @@ import { parseSerial, CREDIT_STATUS_META } from "@/lib/rcc";
 
 export const metadata: Metadata = { title: "Credit detail" };
 
+// Full literal classes (Tailwind can't see dynamically-built `text-${tone}`).
+const TONE_TEXT: Record<string, string> = {
+  clay: "text-clay",
+  sage: "text-sage",
+  ochre: "text-ochre",
+  info: "text-info",
+  err: "text-err",
+};
+
 const TXN_META: Record<
   string,
   { label: string; icon: React.ReactNode; tone: "clay" | "sage" | "ochre" | "info" | "err" }
@@ -119,7 +128,7 @@ export default async function CreditDetailPage({
                     return (
                       <li key={t.id} className="relative">
                         <span
-                          className={`absolute -left-[2.1rem] grid h-7 w-7 place-items-center rounded-full border border-border bg-elevated text-${tm.tone}`}
+                          className={`absolute -left-[2.1rem] grid h-7 w-7 place-items-center rounded-full border border-border bg-elevated ${TONE_TEXT[tm.tone] ?? "text-info"}`}
                         >
                           {tm.icon}
                         </span>

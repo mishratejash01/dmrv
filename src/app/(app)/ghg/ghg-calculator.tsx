@@ -51,6 +51,13 @@ export function GhgCalculator({ batches, canCompute }: Props) {
   const [processing, setProcessing] = React.useState("0");
   const [transport, setTransport] = React.useState("0");
   const [tier, setTier] = React.useState<UncertaintyTier>("low");
+  // Baseline (optional): feedstock carbon assumed stored anyway (0.5% rule).
+  const [feedstockDryT, setFeedstockDryT] = React.useState("");
+  const [feedstockCarbon, setFeedstockCarbon] = React.useState("");
+  const [applyDiscount, setApplyDiscount] = React.useState(true);
+  // 1000-yr pathway lab inputs (fraction of sample with R_o > 2%, residual C fraction).
+  const [reflectPct, setReflectPct] = React.useState(str(first?.reflectancePct));
+  const [residualPct, setResidualPct] = React.useState("");
 
   function pickBatch(id: string) {
     setBatchId(id);
@@ -73,13 +80,17 @@ export function GhgCalculator({ batches, canCompute }: Props) {
         hcOrgRatio: num(hcRatio),
         soilTempC: num(soilTemp),
         durabilityYears: durability,
-        reflectanceFraction: batch?.reflectancePct != null ? batch.reflectancePct / 100 : undefined,
+        reflectanceFraction: durability === 1000 ? num(reflectPct) / 100 : undefined,
+        residualCarbonFraction: durability === 1000 && num(residualPct) > 0 ? num(residualPct) / 100 : undefined,
         captureEmissions: num(capture),
         transformationEmissions: num(processing),
         transportEmissions: num(transport),
+        feedstockDryTonnes: num(feedstockDryT) > 0 ? num(feedstockDryT) : undefined,
+        feedstockCarbonFraction: num(feedstockCarbon) > 0 ? num(feedstockCarbon) / 100 : undefined,
+        applyBaselineDiscount: applyDiscount,
         uncertaintyTier: tier,
       }),
-    [freshTonnes, moisture, organicCarbon, hcRatio, soilTemp, durability, capture, processing, transport, tier, batch],
+    [freshTonnes, moisture, organicCarbon, hcRatio, soilTemp, durability, capture, processing, transport, tier, reflectPct, residualPct, feedstockDryT, feedstockCarbon, applyDiscount],
   );
 
   async function handleSave() {
@@ -102,7 +113,11 @@ export function GhgCalculator({ batches, canCompute }: Props) {
       captureEmissions: num(capture),
       transformationEmissions: num(processing),
       transportEmissions: num(transport),
-      reflectanceFraction: batch?.reflectancePct != null ? batch.reflectancePct / 100 : undefined,
+      reflectanceFraction: durability === 1000 ? num(reflectPct) / 100 : undefined,
+      residualCarbonFraction: durability === 1000 && num(residualPct) > 0 ? num(residualPct) / 100 : undefined,
+      feedstockDryTonnes: num(feedstockDryT) > 0 ? num(feedstockDryT) : undefined,
+      feedstockCarbonFraction: num(feedstockCarbon) > 0 ? num(feedstockCarbon) / 100 : undefined,
+      applyBaselineDiscount: applyDiscount,
       uncertaintyTier: tier,
     });
     setBusy(false);
@@ -196,6 +211,35 @@ export function GhgCalculator({ batches, canCompute }: Props) {
                 ))}
               </NativeSelect>
             </Field>
+
+            {durability === 1000 && (
+              <div className="grid grid-cols-2 gap-4">
+                <Field label="R_o > 2% fraction (%)" hint="Reflectance sample fraction">
+                  <Input type="number" step="0.1" min="0" max="100" inputMode="decimal" value={reflectPct} onChange={(e) => setReflectPct(e.target.value)} />
+                </Field>
+                <Field label="Residual carbon (%)" hint="Durable-C fraction">
+                  <Input type="number" step="0.1" min="0" max="100" inputMode="decimal" value={residualPct} onChange={(e) => setResidualPct(e.target.value)} />
+                </Field>
+              </div>
+            )}
+
+            <details className="rounded-lg border border-border bg-surface/40 px-3 py-2">
+              <summary className="cursor-pointer text-sm text-ink-soft">
+                Baseline (optional) — carbon stored without the project
+              </summary>
+              <div className="mt-3 grid grid-cols-2 gap-4">
+                <Field label="Feedstock (t dry)" hint="For the 0.5% baseline">
+                  <Input type="number" step="0.1" min="0" inputMode="decimal" value={feedstockDryT} onChange={(e) => setFeedstockDryT(e.target.value)} />
+                </Field>
+                <Field label="Feedstock carbon (%)">
+                  <Input type="number" step="0.1" min="0" max="100" inputMode="decimal" value={feedstockCarbon} onChange={(e) => setFeedstockCarbon(e.target.value)} />
+                </Field>
+                <label className="col-span-2 flex items-center gap-2 text-sm text-ink-soft">
+                  <input type="checkbox" checked={applyDiscount} onChange={(e) => setApplyDiscount(e.target.checked)} className="h-4 w-4 rounded border-border-strong accent-[#b08056]" />
+                  Apply the 3% baseline-uncertainty discount
+                </label>
+              </div>
+            </details>
           </div>
 
           {/* Live result */}

@@ -17,6 +17,9 @@ import { StatusBadge } from "@/components/status-badge";
 import { Table, THead, TBody, TR, TH, TD } from "@/components/ui/table";
 import { Map as GeoMap } from "@/components/map/map";
 import { fmt, fmtDate, humanize } from "@/lib/utils";
+import { kilnTypeLabel } from "@/lib/methodology";
+import { PhotoGallery } from "@/components/evidence/photo-gallery";
+import { BUCKETS } from "@/lib/storage";
 
 export const metadata: Metadata = { title: "Site detail" };
 
@@ -155,7 +158,7 @@ export default async function SiteDetailPage({
                         <TD>
                           <Badge tone="clay">{k.code}</Badge>
                         </TD>
-                        <TD className="text-muted">{humanize(k.kiln_type)}</TD>
+                        <TD className="text-muted">{kilnTypeLabel(k.kiln_type)}</TD>
                         <TD className="text-right tnum">
                           {k.capacity_kg != null ? `${fmt(Number(k.capacity_kg), 0)} kg` : "—"}
                         </TD>
@@ -278,6 +281,15 @@ export default async function SiteDetailPage({
                           </p>
                         ) : (
                           <p className="mt-2 text-sm text-muted">No findings noted.</p>
+                        )}
+                        {Array.isArray(a.photos) && a.photos.length > 0 && (
+                          <div className="mt-3">
+                            <PhotoGallery
+                              photos={(a.photos as string[]).map((p) => ({ storage_path: p, photo_type: "site" }))}
+                              bucket={BUCKETS.siteAuditPhotos}
+                              columns={3}
+                            />
+                          </div>
                         )}
                       </CardContent>
                     </Card>

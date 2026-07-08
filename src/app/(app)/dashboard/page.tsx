@@ -79,7 +79,7 @@ export default async function DashboardPage() {
     <div>
       <PageHeader
         title={project.name}
-        description={`${project.region ?? ""} · ${project.methodology} · ${project.status} project`}
+        description={[project.region, project.methodology, `${project.status} project`].filter(Boolean).join(" · ")}
       >
         {ctx.can.canOperate && (
           <Button asChild>
@@ -92,7 +92,7 @@ export default async function DashboardPage() {
 
       {/* KPIs */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-        <Stat label="Net CO₂ removed" value={fmt(netCo2, 1)} unit="tCO₂e" icon={<Scale />} tone="sage" hint="Across verified batches" />
+        <Stat label="Net CO₂ removed" value={fmt(netCo2, 1)} unit="tCO₂e" icon={<Scale />} tone="sage" hint="Across quantified batches" />
         <Stat label="RCCs issued" value={fmt(issued, 0)} unit="credits" icon={<BadgeCheck />} tone="clay" hint={`${retired} retired`} />
         <Stat label="Biochar produced" value={fmt(dryKg / 1000, 1)} unit="t dry" icon={<Boxes />} tone="ochre" hint={`${batches.length} batches`} />
         <Stat label="Buffer pool" value={fmt(bufferBal, 0)} unit="tCO₂e" icon={<Wallet />} tone="info" hint="Reversal insurance" />
@@ -210,7 +210,7 @@ export default async function DashboardPage() {
                           {r.code ?? r.id.slice(0, 8)}
                         </Link>
                       </TD>
-                      <TD className="text-muted">{site} · {kiln}</TD>
+                      <TD className="text-muted">{[site, kiln].filter(Boolean).join(" · ") || "—"}</TD>
                       <TD className="text-muted">{fmtDate(r.started_at)}</TD>
                       <TD className="text-right tnum">{r.biochar_dry_kg ? `${fmt(Number(r.biochar_dry_kg), 0)} kg` : "—"}</TD>
                       <TD><StatusBadge kind="run" value={r.status} /></TD>

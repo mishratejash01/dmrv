@@ -30,7 +30,8 @@ export default async function AnalyticsPage() {
     supabase
       .from("kiln_runs")
       .select("started_at, biochar_dry_kg, site_id")
-      .eq("project_id", pid),
+      .eq("project_id", pid)
+      .eq("status", "approved"),
     supabase.from("sites").select("id, name, code").eq("project_id", pid),
     supabase.from("rcc_credits").select("status").eq("project_id", pid),
     supabase
@@ -123,7 +124,7 @@ export default async function AnalyticsPage() {
       >
         <ExportCsvButton
           rows={exportRows}
-          filename={`analytics-monthly-production-${fmtDate(new Date())}`}
+          filename={`acres-dmrv-analytics-${new Date().toISOString().slice(0, 10)}`}
           label="Export monthly"
         />
       </PageHeader>

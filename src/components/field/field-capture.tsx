@@ -106,7 +106,24 @@ export function FieldCapture({ projectId, operatorId, sites, batches, feedstock 
     }
   }, [siteId]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  // Object URLs for previews are created once per file (not on every render) and
+  // revoked when replaced or on unmount, to avoid leaking blob URLs.
+  const [previews, setPreviews] = React.useState<Partial<Record<PhotoKey, string>>>({});
+  React.useEffect(() => {
+    return () => {
+      Object.values(previews).forEach((u) => u && URL.revokeObjectURL(u));
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   function setPhoto(key: PhotoKey, file: File | null) {
+    setPreviews((prev) => {
+      if (prev[key]) URL.revokeObjectURL(prev[key]!);
+      const next = { ...prev };
+      if (file) next[key] = URL.createObjectURL(file);
+      else delete next[key];
+      return next;
+    });
     setPhotos((prev) => {
       const next = { ...prev };
       if (file) next[key] = file;
@@ -207,6 +224,10 @@ export function FieldCapture({ projectId, operatorId, sites, batches, feedstock 
     setWetMass("");
     setNotes("");
     setAnomaly(false);
+    setPreviews((prev) => {
+      Object.values(prev).forEach((u) => u && URL.revokeObjectURL(u));
+      return {};
+    });
     setPhotos({});
   }
 
@@ -337,7 +358,7 @@ export function FieldCapture({ projectId, operatorId, sites, batches, feedstock 
                       {file ? (
                         <>
                           {/* eslint-disable-next-line @next/next/no-img-element */}
-                          <img src={URL.createObjectURL(file)} alt={p.label} className="h-full w-full object-cover" />
+                          <img src={previews[key]} alt={p.label} className="h-full w-full object-cover" />
                           <button
                             type="button"
                             onClick={(e) => {

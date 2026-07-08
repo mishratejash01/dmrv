@@ -22,7 +22,7 @@ export default async function FeedstockPage() {
   const pid = project.id;
   const supabase = await createClient();
 
-  const [approvedRes, deliveriesRes, sitesRes] = await Promise.all([
+  const [approvedRes, deliveriesRes, sitesRes, allWeightsRes] = await Promise.all([
     supabase
       .from("approved_feedstocks")
       .select("*")
@@ -35,15 +35,19 @@ export default async function FeedstockPage() {
       .order("received_at", { ascending: false })
       .limit(50),
     supabase.from("sites").select("id, name, code").eq("project_id", pid).order("name"),
+    // Lightweight full pull → accurate project totals, independent of the table's 50-row cap.
+    supabase.from("feedstock_batches").select("weight_kg, dry_weight_kg").eq("project_id", pid),
   ]);
 
   const approved = approvedRes.data ?? [];
   const deliveries = deliveriesRes.data ?? [];
   const sites = sitesRes.data ?? [];
+  const allWeights = allWeightsRes.data ?? [];
 
   const activeApproved = approved.filter((f) => f.active);
-  const totalDryKg = deliveries.reduce((s, d) => s + Number(d.dry_weight_kg || 0), 0);
-  const totalWetKg = deliveries.reduce((s, d) => s + Number(d.weight_kg || 0), 0);
+  const deliveryCount = allWeights.length;
+  const totalDryKg = allWeights.reduce((s, d) => s + Number(d.dry_weight_kg || 0), 0);
+  const totalWetKg = allWeights.reduce((s, d) => s + Number(d.weight_kg || 0), 0);
 
   const canManageApproved = ctx.can.canReview;
   const canAddDelivery = ctx.can.canOperate;
@@ -68,7 +72,7 @@ export default async function FeedstockPage() {
       {/* KPIs */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         <Stat label="Approved types" value={fmt(activeApproved.length, 0)} icon={<ShieldCheck />} tone="sage" hint="Active on the project positive list" />
-        <Stat label="Deliveries" value={fmt(deliveries.length, 0)} icon={<Truck />} tone="clay" hint="Most recent 50 shown" />
+        <Stat label="Deliveries" value={fmt(deliveryCount, 0)} icon={<Truck />} tone="clay" hint={deliveryCount > 50 ? "Most recent 50 shown below" : "All shown below"} />
         <Stat label="Received (wet)" value={fmt(totalWetKg / 1000, 1)} unit="t" icon={<Leaf />} tone="ochre" hint="As-delivered mass" />
         <Stat label="Received (dry)" value={fmt(totalDryKg / 1000, 1)} unit="t" icon={<Sprout />} tone="info" hint="Moisture-corrected" />
       </div>

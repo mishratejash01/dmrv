@@ -20,6 +20,7 @@ import { PhotoGallery } from "@/components/evidence/photo-gallery";
 import { TempCurve } from "@/components/charts/charts";
 import { Map as GeoMap } from "@/components/map/map";
 import { fmt, fmtPct, fmtDate, fmtDateTime, humanize } from "@/lib/utils";
+import { kilnTypeLabel } from "@/lib/methodology";
 import { ReviewActions } from "./review-actions";
 
 export const metadata: Metadata = { title: "Run detail" };
@@ -40,7 +41,7 @@ export default async function RunDetailPage({
     )
     .eq("id", id)
     .single();
-  if (!run) notFound();
+  if (!run || run.project_id !== ctx.activeProject?.id) notFound();
 
   const { data: photosData } = await supabase
     .from("run_photos")
@@ -126,7 +127,12 @@ export default async function RunDetailPage({
             </CardHeader>
             <CardContent>
               {curve.length > 1 ? (
-                <TempCurve curve={curve} height={220} />
+                <>
+                  <TempCurve curve={curve} height={220} />
+                  <p className="mt-1 text-xs text-muted">
+                    Indicative profile modelled from the recorded peak temperature and run duration.
+                  </p>
+                </>
               ) : (
                 <p className="py-8 text-center text-sm text-muted">
                   No temperature curve recorded for this run.
@@ -194,7 +200,7 @@ export default async function RunDetailPage({
                   {site ? `${site.name} (${site.code})` : "—"}
                 </DataRow>
                 <DataRow label="Kiln">
-                  {kiln ? `${kiln.name} · ${humanize(kiln.kiln_type)}` : "—"}
+                  {kiln ? `${kiln.name} · ${kilnTypeLabel(kiln.kiln_type)}` : "—"}
                 </DataRow>
                 <DataRow label="Operator">{operatorName}</DataRow>
                 <DataRow label="Feedstock">

@@ -52,6 +52,10 @@ async function wipe() {
   console.log("→ wiping previous demo data …");
   // delete demo project (cascades to all children)
   await db.from("projects").delete().eq("code", PROJECT_CODE);
+  // buffer-pool ledger & credit-transaction rows point at the project with
+  // ON DELETE SET NULL, so they survive the cascade as orphans — clean them up.
+  await db.from("buffer_pool_ledger").delete().is("project_id", null);
+  await db.from("credit_transactions").delete().is("project_id", null);
   // delete demo auth users
   let page = 1;
   const emails = new Set(USERS.map((u) => u.email));
@@ -260,7 +264,10 @@ async function main() {
   }
 
   async function addRun({ batch, index, dateISO, status, operatorId }) {
-    const kiln = pick(kilns);
+    // Pick a kiln at a site this operator is actually assigned to, so RLS lets
+    // them see their own runs and separation-of-duties reads correctly.
+    const ownKilns = kilns.filter((k) => k.siteOperator === operatorId);
+    const kiln = pick(ownKilns.length ? ownKilns : kilns);
     const wet = round(between(700, 1150), 1);
     const moisture = round(between(8, 16), 1);
     const peak = round(between(480, 620), 0);
@@ -389,11 +396,19 @@ async function main() {
   }).select().single());
 
   // --- End-use records (carbon locking) ---
+  // Quantities reconcile to the batch's produced dry mass (all biochar is
+  // accounted for at an end-use point — no unexplained gap in the chain).
+  const batch1DryKg = Math.round(dryKgBatch1);
+  const shares = [0.27, 0.23, 0.31];
+  const q0 = Math.round(batch1DryKg * shares[0]);
+  const q1 = Math.round(batch1DryKg * shares[1]);
+  const q2 = Math.round(batch1DryKg * shares[2]);
+  const q3 = batch1DryKg - q0 - q1 - q2; // remainder → exact reconciliation
   const endUses = [
-    { qty: 4200, method: "Soil incorporation (broadcast + till)", recipient: "Baramati Farmer Group A", lat: 18.155, lng: 74.58 },
-    { qty: 3800, method: "Compost co-application", recipient: "Indapur Organic Collective", lat: 18.12, lng: 75.03 },
-    { qty: 5100, method: "Soil incorporation (banded)", recipient: "Phaltan Agro Hub demo plots", lat: 17.985, lng: 74.43 },
-    { qty: 2600, method: "Soil incorporation (broadcast)", recipient: "Baramati Farmer Group B", lat: 18.149, lng: 74.571 },
+    { qty: q0, method: "Soil incorporation (broadcast + till)", recipient: "Baramati Farmer Group A", lat: 18.155, lng: 74.58 },
+    { qty: q1, method: "Compost co-application", recipient: "Indapur Organic Collective", lat: 18.12, lng: 75.03 },
+    { qty: q2, method: "Soil incorporation (banded)", recipient: "Phaltan Agro Hub demo plots", lat: 17.985, lng: 74.43 },
+    { qty: q3, method: "Soil incorporation (broadcast)", recipient: "Baramati Farmer Group B", lat: 18.149, lng: 74.571 },
   ];
   for (let i = 0; i < endUses.length; i++) {
     const e = endUses[i];

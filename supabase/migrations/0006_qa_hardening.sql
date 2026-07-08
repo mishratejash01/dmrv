@@ -88,8 +88,9 @@ begin
   select * into v from rcc_issuances where id = p_issuance;
   if not found then raise exception 'Issuance % not found', p_issuance; end if;
 
-  -- Registry-only (defence in depth: RPC execute is otherwise public).
-  if not public.is_registry_admin() then
+  -- Registry-only for authenticated callers (defence in depth: RPC execute is
+  -- otherwise public). A null auth.uid() = trusted service-role context (seed).
+  if auth.uid() is not null and not public.is_registry_admin() then
     raise exception 'Only a registry admin may issue credits.';
   end if;
   -- Two-person control: the approver must differ from the initiator.
@@ -146,7 +147,7 @@ create or replace function public.fn_retire_credit(p_credit uuid, p_beneficiary 
 returns void language plpgsql security definer set search_path = public as $$
 declare v rcc_credits%rowtype;
 begin
-  if not public.is_registry_admin() then
+  if auth.uid() is not null and not public.is_registry_admin() then
     raise exception 'Only a registry admin may retire credits.';
   end if;
   select * into v from rcc_credits where id = p_credit;

@@ -69,7 +69,7 @@ export const NAV: NavSection[] = [
   {
     title: "Registry",
     items: [
-      { href: "/registry", label: "Carbon credits", icon: BadgeCheck },
+      { href: "/registry", label: "Credit registry", icon: BadgeCheck },
       { href: "/registry/buffer", label: "Buffer pool", icon: Wallet },
     ],
   },

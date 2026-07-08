@@ -102,7 +102,11 @@ export function AppShell({
                     (item.href !== "/dashboard" &&
                       item.href !== "/registry" &&
                       pathname.startsWith(item.href)) ||
-                    (item.href === "/registry" && pathname === "/registry");
+                    // "Credit registry" stays active on /registry and /registry/<serial>,
+                    // but not on /registry/buffer (its own nav item).
+                    (item.href === "/registry" &&
+                      pathname.startsWith("/registry") &&
+                      !pathname.startsWith("/registry/buffer"));
                   const Icon = item.icon;
                   return (
                     <li key={item.href}>

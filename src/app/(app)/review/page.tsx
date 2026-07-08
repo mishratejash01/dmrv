@@ -119,7 +119,7 @@ export default async function ReviewQueuePage() {
                     <div className="rounded-lg bg-surface/60 px-3 py-2.5">
                       <p className="font-display text-lg text-ink tnum flex items-center gap-1.5">
                         <Thermometer className="h-3.5 w-3.5 text-clay" />
-                        {r.peak_temp_c ? `${fmt(Number(r.peak_temp_c), 0)}°` : "—"}
+                        {r.peak_temp_c ? `${fmt(Number(r.peak_temp_c), 0)} °C` : "—"}
                       </p>
                       <p className="text-xs text-muted mt-0.5">Peak temp</p>
                     </div>

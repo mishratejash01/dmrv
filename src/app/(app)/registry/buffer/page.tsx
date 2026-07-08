@@ -47,8 +47,8 @@ export default async function BufferPoolPage() {
       </div>
 
       <PageHeader
-        title="Rainbow Buffer Pool"
-        description="A shared reversal-insurance reserve. A minimum share of every removal issuance is set aside here so the standard can cover reversals across all projects."
+        title="Buffer pool"
+        description="A shared reversal-insurance reserve held under the Rainbow Standard. A minimum share of every removal issuance is set aside here so reversals can be covered across all projects."
       />
 
       {/* KPIs */}

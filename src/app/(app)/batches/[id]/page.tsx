@@ -183,7 +183,7 @@ export default async function BatchDetailPage({
         <div className="mb-6 flex items-start gap-3 rounded-xl border border-ochre-soft bg-warn-tint px-4 py-3.5">
           <AlertTriangle className="h-5 w-5 text-ochre shrink-0 mt-0.5" />
           <p className="text-sm text-[#8a6f22]">
-            This batch is approaching its {nearTonnes && nearAge ? "tonnage and age limits" : nearTonnes ? "200-tonne limit" : "6-month limit"}.
+            This batch is approaching its {nearTonnes && nearAge ? "tonnage and age limits" : nearTonnes ? `${BATCH_LIMITS.maxTonnes}-tonne limit` : `${BATCH_LIMITS.maxMonths}-month limit`}.
             Plan to close it and draw the composite samples soon.
           </p>
         </div>

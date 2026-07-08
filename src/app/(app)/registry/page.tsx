@@ -20,7 +20,7 @@ import {
   TransferCreditDialog,
 } from "./registry-actions";
 
-export const metadata: Metadata = { title: "Registry" };
+export const metadata: Metadata = { title: "Credit registry" };
 
 export default async function RegistryPage() {
   const ctx = await getAppContext();
