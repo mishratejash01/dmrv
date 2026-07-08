@@ -50,3 +50,6 @@ scratchpad/
 *.log
 supabase/.temp/
 .gstack/
+
+# transient QA/test scripts
+_*.mjs
