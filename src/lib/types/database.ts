@@ -429,6 +429,7 @@ export type Database = {
           credit_type: Database["public"]["Enums"]["credit_type"]
           dry_t: number
           durability_years: number
+          eligible: boolean
           functional_unit: string
           gross_removal_tco2e: number
           hc_org_ratio: number
@@ -456,6 +457,7 @@ export type Database = {
           credit_type?: Database["public"]["Enums"]["credit_type"]
           dry_t: number
           durability_years?: number
+          eligible?: boolean
           functional_unit?: string
           gross_removal_tco2e: number
           hc_org_ratio: number
@@ -483,6 +485,7 @@ export type Database = {
           credit_type?: Database["public"]["Enums"]["credit_type"]
           dry_t?: number
           durability_years?: number
+          eligible?: boolean
           functional_unit?: string
           gross_removal_tco2e?: number
           hc_org_ratio?: number
@@ -1593,6 +1596,7 @@ export type Database = {
         Args: { p_beneficiary: string; p_credit: string; p_reason: string }
         Returns: undefined
       }
+      fn_verify_batch: { Args: { p_verification: string }; Returns: undefined }
       has_project_role: {
         Args: {
           p_project: string
@@ -1843,4 +1847,3 @@ export const Constants = {
     },
   },
 } as const
-

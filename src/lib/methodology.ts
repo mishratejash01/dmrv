@@ -179,6 +179,14 @@ export const KILN_TYPES = [
   { key: "flame_curtain_shielded", label: "Shielded flame-curtain" },
 ] as const;
 
+/** Consistent human label for a kiln type, used across every screen. */
+export function kilnTypeLabel(key: string | null | undefined): string {
+  return (
+    KILN_TYPES.find((k) => k.key === key)?.label ??
+    (key ? key.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()) : "—")
+  );
+}
+
 /** RCC credit mechanisms — accounted separately. */
 export const CREDIT_TYPES = {
   removal: { key: "removal", code: "RMV", label: "Removal" },

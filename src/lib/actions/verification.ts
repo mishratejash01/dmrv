@@ -88,7 +88,10 @@ export async function decideVerification(
   if (error) return { error: error.message };
 
   if (decision === "approved" && data?.production_batch_id) {
-    await supabase.from("production_batches").update({ status: "verified" }).eq("id", data.production_batch_id);
+    // A verifier lacks can_review, so a direct UPDATE would silently no-op under
+    // RLS. Flip the batch via a SECURITY DEFINER RPC guarded to the assigned verifier.
+    const { error: vErr } = await supabase.rpc("fn_verify_batch", { p_verification: verificationId });
+    if (vErr) return { error: vErr.message };
   }
   if (data?.project_id) {
     await notifyProjectRoles({

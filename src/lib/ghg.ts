@@ -118,10 +118,14 @@ export function quantify(inputs: GhgInputs): GhgResult {
   let permanenceFraction: number;
   let permanenceBasis: string;
   if (inputs.durabilityYears === 1000) {
+    // F_perm_1000 = (fraction of sample with random reflectance R_o > 2%) × (residual
+    // carbon fraction). This is a fraction in its own right; gross removal multiplies
+    // by C_org separately (below), so residual must NOT default to C_org or the organic
+    // carbon term would be squared.
     const reflect = clamp01(inputs.reflectanceFraction ?? 0);
-    const residual = clamp01(inputs.residualCarbonFraction ?? inputs.organicCarbonFraction);
+    const residual = clamp01(inputs.residualCarbonFraction ?? 1);
     permanenceFraction = clamp01(reflect * residual);
-    permanenceBasis = `1000-yr: reflectance fraction ${reflect} × residual C ${residual}`;
+    permanenceBasis = `1000-yr: R_o>2% fraction ${reflect} × residual-C fraction ${residual}`;
   } else {
     permanenceFraction = permanence100(inputs.hcOrgRatio, inputs.soilTempC);
     const { c, m, label } = permanenceCoeffs(inputs.soilTempC);

@@ -54,13 +54,14 @@ export function timeAgo(d: string | Date | null | undefined): string {
   if (!d) return "—";
   const date = typeof d === "string" ? new Date(d) : d;
   const secs = Math.round((Date.now() - date.getTime()) / 1000);
+  // Each divisor paired with the unit it produces (seconds → minutes → hours …).
   const table: [number, string][] = [
-    [60, "s"],
-    [3600, "m"],
-    [86400, "h"],
-    [604800, "d"],
-    [2629800, "w"],
-    [31557600, "mo"],
+    [60, "m"],
+    [3600, "h"],
+    [86400, "d"],
+    [604800, "w"],
+    [2629800, "mo"],
+    [31557600, "y"],
   ];
   if (secs < 60) return "just now";
   for (let i = table.length - 1; i >= 0; i--) {
