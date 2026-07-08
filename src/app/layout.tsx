@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Fraunces, Inter, JetBrains_Mono } from "next/font/google";
+import { Suspense } from "react";
 import { Toaster } from "sonner";
 import { BRAND } from "@/lib/brand";
+import { NavProgress } from "@/components/layout/nav-progress";
 import "./globals.css";
 
 const display = Fraunces({
@@ -39,6 +41,9 @@ export default function RootLayout({
       className={`${display.variable} ${body.variable} ${mono.variable} h-full`}
     >
       <body className="min-h-full flex flex-col antialiased">
+        <Suspense fallback={null}>
+          <NavProgress />
+        </Suspense>
         {children}
         <Toaster
           position="bottom-right"
