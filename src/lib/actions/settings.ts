@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
+import { friendlyError } from "@/lib/actions/errors";
 import { getUser, getProfile } from "@/lib/auth";
 
 export async function updateProfile(input: {
@@ -20,7 +21,7 @@ export async function updateProfile(input: {
       organization: input.organization ?? null,
     })
     .eq("id", user.id);
-  if (error) return { error: error.message };
+  if (error) return { error: friendlyError(error) };
   revalidatePath("/settings");
   revalidatePath("/", "layout");
   return { ok: true };
@@ -43,7 +44,7 @@ export async function updateProject(
   const supabase = await createClient();
   // RLS proj_update requires project_developer; enforced by the database.
   const { error } = await supabase.from("projects").update(input).eq("id", projectId);
-  if (error) return { error: error.message };
+  if (error) return { error: friendlyError(error) };
   revalidatePath("/settings");
   revalidatePath("/", "layout");
   return { ok: true };

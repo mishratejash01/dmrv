@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
+import { friendlyError } from "@/lib/actions/errors";
 import { getUser } from "@/lib/auth";
 import { quantify, type DurabilityPathway, type UncertaintyTier } from "@/lib/ghg";
 import type { Json } from "@/lib/types/database";
@@ -28,7 +29,7 @@ export async function addLabTest(input: {
   const { error } = await supabase
     .from("lab_tests")
     .insert({ ...input, recorded_by: user?.id ?? null });
-  if (error) return { error: error.message };
+  if (error) return { error: friendlyError(error) };
   revalidatePath("/lab");
   revalidatePath(`/batches/${input.production_batch_id}`);
   return { ok: true };
@@ -128,7 +129,7 @@ export async function computeGhg(input: {
     .select("id")
     .single();
 
-  if (error) return { error: error.message };
+  if (error) return { error: friendlyError(error) };
   revalidatePath("/ghg");
   revalidatePath(`/batches/${input.production_batch_id}`);
   return { ok: true, id: data?.id, result };
@@ -155,7 +156,7 @@ export async function addEndUse(input: {
     proof_paths: input.proof_paths ?? [],
     recorded_by: user?.id ?? null,
   });
-  if (error) return { error: error.message };
+  if (error) return { error: friendlyError(error) };
   revalidatePath("/end-use");
   return { ok: true };
 }

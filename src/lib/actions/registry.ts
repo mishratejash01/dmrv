@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
+import { friendlyError } from "@/lib/actions/errors";
 import { getUser } from "@/lib/auth";
 import { notifyProjectRoles } from "@/lib/notify";
 import { BUFFER_POOL } from "@/lib/methodology";
@@ -18,7 +19,7 @@ export async function createIssuance(ghgId: string) {
     )
     .eq("id", ghgId)
     .single();
-  if (gErr || !ghg) return { error: gErr?.message ?? "Quantification not found" };
+  if (gErr || !ghg) return { error: friendlyError(gErr, "Quantification not found") };
 
   const batch = ghg.production_batches as {
     project_id: string;
@@ -89,7 +90,7 @@ export async function createIssuance(ghgId: string) {
     })
     .select("id")
     .single();
-  if (error) return { error: error.message };
+  if (error) return { error: friendlyError(error) };
   revalidatePath("/registry");
   return { ok: true, id: data?.id, gross, buffer, net };
 }
@@ -118,10 +119,10 @@ export async function approveAndIssue(issuanceId: string) {
     .from("rcc_issuances")
     .update({ approved_by: user.id, status: "approved" })
     .eq("id", issuanceId);
-  if (upErr) return { error: upErr.message };
+  if (upErr) return { error: friendlyError(upErr) };
 
   const { data: count, error } = await supabase.rpc("fn_issue_credits", { p_issuance: issuanceId });
-  if (error) return { error: error.message };
+  if (error) return { error: friendlyError(error) };
 
   const { data: iss } = await supabase
     .from("rcc_issuances")
@@ -149,7 +150,7 @@ export async function retireCredit(creditId: string, beneficiary: string, reason
     p_beneficiary: beneficiary,
     p_reason: reason,
   });
-  if (error) return { error: error.message };
+  if (error) return { error: friendlyError(error) };
   revalidatePath("/registry");
   return { ok: true };
 }
@@ -169,7 +170,7 @@ export async function transferCredit(creditId: string, toHolder: string) {
     .from("rcc_credits")
     .update({ status: "transferred", current_holder: toHolder })
     .eq("id", creditId);
-  if (error) return { error: error.message };
+  if (error) return { error: friendlyError(error) };
 
   await supabase.from("credit_transactions").insert({
     credit_id: creditId,

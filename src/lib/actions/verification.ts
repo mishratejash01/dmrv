@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
+import { friendlyError } from "@/lib/actions/errors";
 import { getUser } from "@/lib/auth";
 import { notify, notifyProjectRoles } from "@/lib/notify";
 
@@ -38,7 +39,7 @@ export async function createVerification(input: {
     })
     .select("id")
     .single();
-  if (error) return { error: error.message };
+  if (error) return { error: friendlyError(error) };
 
   if (input.verifier_id) {
     await notify({
@@ -66,7 +67,7 @@ export async function addFinding(input: {
   const { error } = await supabase
     .from("verification_findings")
     .insert({ ...input, status: "open", created_by: user?.id ?? null });
-  if (error) return { error: error.message };
+  if (error) return { error: friendlyError(error) };
   revalidatePath(`/verification/${input.verification_id}`);
   return { ok: true };
 }
@@ -77,7 +78,7 @@ export async function resolveFinding(findingId: string, verificationId: string) 
     .from("verification_findings")
     .update({ status: "resolved" })
     .eq("id", findingId);
-  if (error) return { error: error.message };
+  if (error) return { error: friendlyError(error) };
   revalidatePath(`/verification/${verificationId}`);
   return { ok: true };
 }
@@ -98,13 +99,13 @@ export async function decideVerification(
     .eq("id", verificationId)
     .select("id, project_id, production_batch_id")
     .single();
-  if (error) return { error: error.message };
+  if (error) return { error: friendlyError(error) };
 
   if (decision === "approved" && data?.production_batch_id) {
     // A verifier lacks can_review, so a direct UPDATE would silently no-op under
     // RLS. Flip the batch via a SECURITY DEFINER RPC guarded to the assigned verifier.
     const { error: vErr } = await supabase.rpc("fn_verify_batch", { p_verification: verificationId });
-    if (vErr) return { error: vErr.message };
+    if (vErr) return { error: friendlyError(vErr) };
   }
   if (data?.project_id) {
     await notifyProjectRoles({

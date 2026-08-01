@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
+import { friendlyError } from "@/lib/actions/errors";
 import { getUser } from "@/lib/auth";
 import { notify } from "@/lib/notify";
 
@@ -25,7 +26,7 @@ export async function reviewRun(runId: string, decision: Decision, notes?: strin
     .select("id, code, operator_id, project_id")
     .single();
 
-  if (error) return { error: error.message };
+  if (error) return { error: friendlyError(error) };
 
   if (run?.operator_id) {
     await notify({
@@ -51,7 +52,7 @@ export async function assignRunToBatch(runId: string, batchId: string | null) {
     .from("kiln_runs")
     .update({ production_batch_id: batchId })
     .eq("id", runId);
-  if (error) return { error: error.message };
+  if (error) return { error: friendlyError(error) };
   revalidatePath(`/runs/${runId}`);
   revalidatePath("/batches");
   return { ok: true };

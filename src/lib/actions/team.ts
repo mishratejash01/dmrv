@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
+import { friendlyError } from "@/lib/actions/errors";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { getProfile } from "@/lib/auth";
 import type { ProjectRole } from "@/lib/types/db";
@@ -44,14 +45,14 @@ export async function inviteMember(input: {
       email_confirm: true,
       user_metadata: { full_name: input.full_name || email.split("@")[0] },
     });
-    if (error) return { error: error.message };
+    if (error) return { error: friendlyError(error) };
     userId = created.user.id;
   }
 
   const { error: mErr } = await admin
     .from("project_members")
     .insert({ project_id: input.project_id, user_id: userId, role: input.role });
-  if (mErr && !mErr.message.toLowerCase().includes("duplicate")) return { error: mErr.message };
+  if (mErr && !mErr.message.toLowerCase().includes("duplicate")) return { error: friendlyError(mErr) };
 
   revalidatePath("/team");
   return { ok: true, tempPassword, email };
@@ -61,7 +62,7 @@ export async function removeMember(membershipId: string, projectId: string) {
   if (!(await assertCanManage(projectId))) return { error: "Not authorised" };
   const admin = createAdminClient();
   const { error } = await admin.from("project_members").delete().eq("id", membershipId);
-  if (error) return { error: error.message };
+  if (error) return { error: friendlyError(error) };
   revalidatePath("/team");
   return { ok: true };
 }

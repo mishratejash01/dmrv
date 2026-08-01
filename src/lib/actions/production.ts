@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
+import { friendlyError } from "@/lib/actions/errors";
 import type { FeedstockCategory, KilnType } from "@/lib/types/db";
 
 // ----------------------------- Sites & kilns -----------------------------
@@ -17,7 +18,7 @@ export async function addSite(input: {
 }) {
   const supabase = await createClient();
   const { error } = await supabase.from("sites").insert({ ...input, status: "active" });
-  if (error) return { error: error.message };
+  if (error) return { error: friendlyError(error) };
   revalidatePath("/sites");
   return { ok: true };
 }
@@ -33,7 +34,7 @@ export async function addKiln(input: {
 }) {
   const supabase = await createClient();
   const { error } = await supabase.from("kilns").insert({ ...input, status: "active" });
-  if (error) return { error: error.message };
+  if (error) return { error: friendlyError(error) };
   revalidatePath("/sites");
   return { ok: true };
 }
@@ -41,7 +42,7 @@ export async function addKiln(input: {
 export async function assignOperatorToSite(siteId: string, userId: string) {
   const supabase = await createClient();
   const { error } = await supabase.from("site_assignments").insert({ site_id: siteId, user_id: userId });
-  if (error) return { error: error.message };
+  if (error) return { error: friendlyError(error) };
   revalidatePath("/sites");
   revalidatePath("/team");
   return { ok: true };
@@ -59,7 +60,7 @@ export async function addApprovedFeedstock(input: {
 }) {
   const supabase = await createClient();
   const { error } = await supabase.from("approved_feedstocks").insert({ ...input, active: true });
-  if (error) return { error: error.message };
+  if (error) return { error: friendlyError(error) };
   revalidatePath("/feedstock");
   return { ok: true };
 }
@@ -76,7 +77,7 @@ export async function addFeedstockDelivery(input: {
 }) {
   const supabase = await createClient();
   const { error } = await supabase.from("feedstock_batches").insert(input);
-  if (error) return { error: error.message };
+  if (error) return { error: friendlyError(error) };
   revalidatePath("/feedstock");
   return { ok: true };
 }
@@ -101,7 +102,7 @@ export async function createBatch(input: {
     .insert({ ...input, code, status: "open" })
     .select("id")
     .single();
-  if (error) return { error: error.message };
+  if (error) return { error: friendlyError(error) };
   revalidatePath("/batches");
   return { ok: true, id: data?.id };
 }
@@ -118,7 +119,7 @@ export async function setBatchStatus(
           .update({ status, closed_at: new Date().toISOString() })
           .eq("id", batchId)
       : await supabase.from("production_batches").update({ status }).eq("id", batchId);
-  if (error) return { error: error.message };
+  if (error) return { error: friendlyError(error) };
   revalidatePath("/batches");
   revalidatePath(`/batches/${batchId}`);
   return { ok: true };

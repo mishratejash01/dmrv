@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { getUser } from "@/lib/auth";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { friendlyError } from "@/lib/actions/errors";
 import { ACTIVE_PROJECT_COOKIE } from "@/lib/auth";
 
 export interface CreateProjectInput {
@@ -48,7 +49,7 @@ export async function createProject(input: CreateProjectInput) {
     .single();
 
   if (error || !project) {
-    return { error: error?.message ?? "Could not create project" };
+    return { error: friendlyError(error, "Could not create project") };
   }
 
   await admin
