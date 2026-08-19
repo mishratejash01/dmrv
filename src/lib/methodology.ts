@@ -172,6 +172,19 @@ export const REQUIRED_RUN_PHOTOS = [
 ] as const;
 export type RequiredPhotoType = (typeof REQUIRED_RUN_PHOTOS)[number]["key"];
 
+/**
+ * Additional measurement evidence photos (client request). Optional — they do
+ * not gate submission — and double as the inputs the computer-vision path reads
+ * to estimate biochar mass and moisture (biomass in, char + moisture out).
+ */
+export const OPTIONAL_RUN_PHOTOS = [
+  { key: "biomass_feedstock", label: "Biomass / feedstock" },
+  { key: "moisture_reading", label: "Moisture-meter reading" },
+  { key: "biochar_weight", label: "Biochar on the scale" },
+  { key: "biochar_sample", label: "Biochar sample" },
+] as const;
+export type OptionalPhotoType = (typeof OPTIONAL_RUN_PHOTOS)[number]["key"];
+
 /** Kiln types — open-kiln methodology requires cone / flame-curtain designs. */
 export const KILN_TYPES = [
   { key: "flame_curtain_cone", label: "Cone flame-curtain (Kon-Tiki)" },
