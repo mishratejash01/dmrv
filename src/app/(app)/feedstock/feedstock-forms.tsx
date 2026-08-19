@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
-import { Loader2, ShieldCheck, Truck } from "lucide-react";
+import { Loader2, ShieldCheck, Truck, Camera, MapPin, X } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
@@ -17,6 +17,8 @@ import {
 import { Input, Textarea, NativeSelect, Field } from "@/components/ui/input";
 import { addApprovedFeedstock, addFeedstockDelivery } from "@/lib/actions/production";
 import { FEEDSTOCK_CATEGORIES, FORESTRY_CERTIFICATIONS } from "@/lib/methodology";
+import { createClient } from "@/lib/supabase/client";
+import { BUCKETS } from "@/lib/storage";
 import { fmt } from "@/lib/utils";
 import type { FeedstockCategory } from "@/lib/types/db";
 
@@ -173,6 +175,7 @@ function DeliveryDialog({
   approved: { id: string; name: string; category: string }[];
 }) {
   const router = useRouter();
+  const supabase = React.useMemo(() => createClient(), []);
   const [open, setOpen] = React.useState(false);
   const [busy, setBusy] = React.useState(false);
   const [approvedId, setApprovedId] = React.useState(approved[0]?.id ?? "");
@@ -184,10 +187,44 @@ function DeliveryDialog({
   const [weight, setWeight] = React.useState("");
   const [moisture, setMoisture] = React.useState("15");
   const [sourceArea, setSourceArea] = React.useState("");
+  const [photos, setPhotos] = React.useState<File[]>([]);
+  const [previews, setPreviews] = React.useState<string[]>([]);
+  const [gps, setGps] = React.useState<{ lat: number | null; lng: number | null }>({ lat: null, lng: null });
 
   const wetKg = Number(weight) || 0;
   const moistPct = Number(moisture) || 0;
   const dryKg = wetKg > 0 ? wetKg * (1 - moistPct / 100) : 0;
+
+  // Capture GPS when the dialog opens, so photos can be geo-tagged.
+  React.useEffect(() => {
+    if (open && navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (pos) => setGps({ lat: pos.coords.latitude, lng: pos.coords.longitude }),
+        () => {},
+        { enableHighAccuracy: true, timeout: 8000 },
+      );
+    }
+  }, [open]);
+
+  // Revoke preview object URLs on unmount to avoid leaking blob URLs.
+  React.useEffect(() => {
+    return () => previews.forEach((u) => URL.revokeObjectURL(u));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  function addPhotos(files: FileList | null) {
+    if (!files || files.length === 0) return;
+    const list = Array.from(files);
+    setPhotos((prev) => [...prev, ...list]);
+    setPreviews((prev) => [...prev, ...list.map((f) => URL.createObjectURL(f))]);
+  }
+  function removePhoto(i: number) {
+    setPreviews((prev) => {
+      if (prev[i]) URL.revokeObjectURL(prev[i]);
+      return prev.filter((_, idx) => idx !== i);
+    });
+    setPhotos((prev) => prev.filter((_, idx) => idx !== i));
+  }
 
   function pickApproved(id: string) {
     setApprovedId(id);
@@ -210,17 +247,46 @@ function DeliveryDialog({
       moisture_pct: moistPct,
       source_area_description: sourceArea.trim() || undefined,
     });
-    setBusy(false);
-    if (res?.error) {
-      toast.error(res.error);
-    } else {
-      toast.success(`Delivery recorded — ${fmt(dryKg, 0)} kg dry`);
-      setOpen(false);
-      setSource("");
-      setWeight("");
-      setSourceArea("");
-      router.refresh();
+    if (res?.error || !res?.id) {
+      setBusy(false);
+      return toast.error(res?.error ?? "Could not record the delivery.");
     }
+
+    // Upload geo-tagged photos to storage + record the evidence rows.
+    const now = new Date();
+    let uploaded = 0;
+    for (let i = 0; i < photos.length; i++) {
+      const file = photos[i];
+      const path = `${projectId}/${res.id}/${now.getTime()}-${i}.jpg`;
+      const { error: upErr } = await supabase.storage
+        .from(BUCKETS.feedstockPhotos)
+        .upload(path, file, { upsert: true, contentType: file.type || "image/jpeg" });
+      if (!upErr) {
+        const { error: rowErr } = await supabase.from("feedstock_photos").insert({
+          feedstock_batch_id: res.id,
+          project_id: projectId,
+          storage_path: path,
+          latitude: gps.lat,
+          longitude: gps.lng,
+          taken_at: now.toISOString(),
+        });
+        if (!rowErr) uploaded += 1;
+      }
+    }
+    setBusy(false);
+
+    const photoNote = photos.length
+      ? ` · ${uploaded}/${photos.length} photo${photos.length > 1 ? "s" : ""}`
+      : "";
+    toast.success(`Delivery recorded — ${fmt(dryKg, 0)} kg dry${photoNote}`);
+    setOpen(false);
+    setSource("");
+    setWeight("");
+    setSourceArea("");
+    previews.forEach((u) => URL.revokeObjectURL(u));
+    setPhotos([]);
+    setPreviews([]);
+    router.refresh();
   }
 
   return (
@@ -304,6 +370,47 @@ function DeliveryDialog({
               placeholder="e.g. Managed plantation blocks A–C within 20 km of the site"
             />
           </Field>
+
+          {/* Geo-tagged delivery photos */}
+          <div>
+            <div className="mb-1.5 flex items-center justify-between">
+              <span className="text-sm font-medium text-ink">Delivery photos</span>
+              <span className="flex items-center gap-1 text-xs text-muted">
+                <MapPin className="h-3.5 w-3.5" />
+                {gps.lat != null ? `${gps.lat.toFixed(3)}, ${gps.lng?.toFixed(3)}` : "locating…"}
+              </span>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {previews.map((url, i) => (
+                <div key={url} className="relative h-20 w-20 overflow-hidden rounded-lg border border-border">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={url} alt={`Delivery photo ${i + 1}`} className="h-full w-full object-cover" />
+                  <button
+                    type="button"
+                    onClick={() => removePhoto(i)}
+                    className="absolute top-0.5 right-0.5 grid h-5 w-5 place-items-center rounded-full bg-ink/70 text-elevated"
+                  >
+                    <X className="h-3 w-3" />
+                  </button>
+                </div>
+              ))}
+              <label className="flex h-20 w-20 cursor-pointer flex-col items-center justify-center gap-1 rounded-lg border-2 border-dashed border-border-strong bg-surface/40 text-muted hover:border-clay">
+                <Camera className="h-5 w-5" />
+                <span className="text-[10px]">Add</span>
+                <input
+                  type="file"
+                  accept="image/*"
+                  capture="environment"
+                  multiple
+                  className="hidden"
+                  onChange={(e) => addPhotos(e.target.files)}
+                />
+              </label>
+            </div>
+            <p className="mt-1.5 text-xs text-muted">
+              Tagged with your current GPS location for verification evidence.
+            </p>
+          </div>
         </div>
         <DialogFooter>
           <Button variant="ghost" onClick={() => setOpen(false)} disabled={busy}>
