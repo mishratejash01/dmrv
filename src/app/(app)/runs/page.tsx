@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { Flame } from "lucide-react";
+import type { ReactNode } from "react";
+import { Flame, ArrowUp, ArrowDown } from "lucide-react";
 import { getAppContext } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import type { RunStatus } from "@/lib/types/db";
@@ -11,6 +12,7 @@ import { PageHeader, EmptyState } from "@/components/ui/misc";
 import { Table, THead, TBody, TR, TH, TD } from "@/components/ui/table";
 import { StatusBadge } from "@/components/status-badge";
 import { ExportCsvButton } from "@/components/common/export-button";
+import { RunsFilters } from "./runs-filters";
 import { cn, fmt, fmtDate } from "@/lib/utils";
 
 export const metadata: Metadata = { title: "Kiln runs" };
@@ -26,10 +28,23 @@ const FILTERS: { key: RunStatus | ""; label: string }[] = [
   { key: "rejected", label: "Rejected" },
 ];
 
+// Sortable columns → the real DB column they order by ("site" is a joined
+// column, sorted in-memory after the fetch).
+const SORT_COLUMNS = {
+  code: "code",
+  date: "created_at",
+  biochar: "biochar_dry_kg",
+  status: "status",
+} as const;
+type SortKey = keyof typeof SORT_COLUMNS | "site";
+const SORT_KEYS: SortKey[] = ["code", "site", "date", "biochar", "status"];
+
+type SearchParams = { status?: string; site?: string; kiln?: string; sort?: string; dir?: string };
+
 export default async function RunsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ status?: string }>;
+  searchParams: Promise<SearchParams>;
 }) {
   const ctx = await getAppContext();
   const project = ctx.activeProject!;
@@ -39,16 +54,65 @@ export default async function RunsPage({
   const status = RUN_STATUSES.includes(sp.status as RunStatus)
     ? (sp.status as RunStatus)
     : undefined;
+  const siteFilter = sp.site || "";
+  const kilnFilter = sp.kiln || "";
+  const sort: SortKey = (SORT_KEYS as string[]).includes(sp.sort ?? "")
+    ? (sp.sort as SortKey)
+    : "date";
+  const dir: "asc" | "desc" = sp.dir === "asc" ? "asc" : "desc";
+  const ascending = dir === "asc";
 
+  // Sites + kilns for the dropdowns.
+  const { data: siteRows } = await supabase
+    .from("sites")
+    .select("id, name, code, kilns(id, name, code, site_id)")
+    .eq("project_id", project.id)
+    .order("name", { ascending: true });
+  const sites = (siteRows ?? []).map((s) => ({
+    id: s.id,
+    name: s.name,
+    code: s.code,
+    kilns: (s.kilns ?? []).map((k) => ({ id: k.id, name: k.name, code: k.code })),
+  }));
+
+  // Real per-site / per-kiln run counts (unfiltered, so the dropdowns are stable).
+  const { data: allForCounts } = await supabase
+    .from("kiln_runs")
+    .select("site_id, kiln_id")
+    .eq("project_id", project.id);
+  const siteCounts: Record<string, number> = {};
+  const kilnCounts: Record<string, number> = {};
+  for (const r of allForCounts ?? []) {
+    if (r.site_id) siteCounts[r.site_id] = (siteCounts[r.site_id] ?? 0) + 1;
+    if (r.kiln_id) kilnCounts[r.kiln_id] = (kilnCounts[r.kiln_id] ?? 0) + 1;
+  }
+
+  // The filtered, sorted list.
   let query = supabase
     .from("kiln_runs")
     .select(
-      "id, code, status, anomaly_flag, started_at, created_at, biochar_dry_kg, operator_id, sites(name, code), kilns(name, code), production_batches(id, code)",
+      "id, code, status, anomaly_flag, started_at, created_at, biochar_dry_kg, operator_id, site_id, kiln_id, sites(name, code), kilns(name, code), production_batches(id, code)",
     )
     .eq("project_id", project.id);
   if (status) query = query.eq("status", status);
-  const { data } = await query.order("created_at", { ascending: false });
-  const runs = data ?? [];
+  if (siteFilter) query = query.eq("site_id", siteFilter);
+  if (kilnFilter) query = query.eq("kiln_id", kilnFilter);
+  if (sort !== "site") {
+    query = query.order(SORT_COLUMNS[sort], { ascending, nullsFirst: false });
+  } else {
+    query = query.order("created_at", { ascending: false });
+  }
+  const { data } = await query;
+  let runs = data ?? [];
+
+  // "site" is a joined column — sort those rows in memory by site name.
+  if (sort === "site") {
+    runs = [...runs].sort((a, b) => {
+      const an = (a.sites as { name: string } | null)?.name ?? "";
+      const bn = (b.sites as { name: string } | null)?.name ?? "";
+      return ascending ? an.localeCompare(bn) : bn.localeCompare(an);
+    });
+  }
 
   // kiln_runs → profiles has two FKs; fetch operator names separately.
   const operatorIds = [...new Set(runs.map((r) => r.operator_id).filter(Boolean))] as string[];
@@ -78,6 +142,40 @@ export default async function RunsPage({
     };
   });
 
+  // Build a header link that toggles direction on the active column.
+  function sortHref(key: SortKey): string {
+    const params = new URLSearchParams();
+    if (status) params.set("status", status);
+    if (siteFilter) params.set("site", siteFilter);
+    if (kilnFilter) params.set("kiln", kilnFilter);
+    params.set("sort", key);
+    params.set("dir", sort === key && dir === "asc" ? "desc" : "asc");
+    return `/runs?${params.toString()}`;
+  }
+  // A sortable header cell. Plain function (not a component) so header state is
+  // computed once per server render from the URL params.
+  function sortHead(col: SortKey, label: ReactNode, right?: boolean) {
+    const active = sort === col;
+    return (
+      <TH className={right ? "text-right" : undefined}>
+        <Link
+          href={sortHref(col)}
+          className={cn(
+            "inline-flex items-center gap-1 hover:text-ink transition-colors",
+            active && "text-ink",
+            right && "flex-row-reverse",
+          )}
+        >
+          {label}
+          {active &&
+            (dir === "asc" ? <ArrowUp className="h-3 w-3" /> : <ArrowDown className="h-3 w-3" />)}
+        </Link>
+      </TH>
+    );
+  }
+
+  const filtered = Boolean(status || siteFilter || kilnFilter);
+
   return (
     <div>
       <PageHeader
@@ -94,14 +192,32 @@ export default async function RunsPage({
         )}
       </PageHeader>
 
+      {/* Site / kiln filters */}
+      <div className="mb-4">
+        <RunsFilters
+          sites={sites}
+          siteCounts={siteCounts}
+          kilnCounts={kilnCounts}
+          activeSite={siteFilter}
+          activeKiln={kilnFilter}
+        />
+      </div>
+
       {/* Status filter */}
       <div className="flex flex-wrap items-center gap-2 mb-4">
         {FILTERS.map((f) => {
           const active = (f.key || undefined) === status;
+          const params = new URLSearchParams();
+          if (f.key) params.set("status", f.key);
+          if (siteFilter) params.set("site", siteFilter);
+          if (kilnFilter) params.set("kiln", kilnFilter);
+          if (sp.sort) params.set("sort", sp.sort);
+          if (sp.dir) params.set("dir", sp.dir);
+          const href = params.toString() ? `/runs?${params.toString()}` : "/runs";
           return (
             <Link
               key={f.label}
-              href={f.key ? `/runs?status=${f.key}` : "/runs"}
+              href={href}
               className={cn(
                 "rounded-full border px-3 py-1 text-xs font-medium transition-colors",
                 active
@@ -113,16 +229,20 @@ export default async function RunsPage({
             </Link>
           );
         })}
+        <span className="ml-auto text-xs text-muted">
+          {runs.length} run{runs.length === 1 ? "" : "s"}
+          {filtered ? " matching" : ""}
+        </span>
       </div>
 
       <Card>
         {runs.length === 0 ? (
           <EmptyState
             icon={<Flame />}
-            title={status ? "No runs with this status" : "No kiln runs yet"}
+            title={filtered ? "No runs match these filters" : "No kiln runs yet"}
             description={
-              status
-                ? "Try a different filter, or view all runs."
+              filtered
+                ? "Try a different site, kiln or status — or clear the filters."
                 : "Runs logged in the field will appear here with their evidence and review status."
             }
             className="border-0"
@@ -131,13 +251,13 @@ export default async function RunsPage({
           <Table>
             <THead>
               <TR>
-                <TH>Run</TH>
-                <TH>Site / Kiln</TH>
+                {sortHead("code", "Run")}
+                {sortHead("site", "Site / Kiln")}
                 <TH>Operator</TH>
-                <TH>Date</TH>
-                <TH className="text-right">Dry biochar</TH>
+                {sortHead("date", "Date")}
+                {sortHead("biochar", "Dry biochar", true)}
                 <TH>Batch</TH>
-                <TH>Status</TH>
+                {sortHead("status", "Status")}
               </TR>
             </THead>
             <TBody>
