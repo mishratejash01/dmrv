@@ -8,7 +8,7 @@
 
 @theme {
   /* ---- Surfaces & structure ---- */
-  --color-base: #fbf8f2; /* warm ivory page */
+  --color-base: #ffffff; /* white page */
   --color-surface: #f5efe6; /* card / panel */
   --color-surface-2: #efe7d8; /* recessed / hover */
   --color-elevated: #fffdf9; /* raised surface */
@@ -71,10 +71,11 @@
     -webkit-text-size-adjust: 100%;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
+    background: #ffffff;
   }
 
   body {
-    background-color: var(--color-base);
+    background: #ffffff;
     color: var(--color-ink);
     font-family: var(--font-sans);
     line-height: 1.5;
@@ -130,11 +131,9 @@
   .text-pretty {
     text-wrap: pretty;
   }
-  /* Subtle warm wash for hero surfaces */
+  /* Plain white page background for hero/auth surfaces */
   .paper {
-    background-image:
-      radial-gradient(circle at 15% 15%, rgb(176 128 86 / 0.04), transparent 40%),
-      radial-gradient(circle at 85% 0%, rgb(138 154 123 / 0.05), transparent 45%);
+    background: #ffffff;
   }
   .hairline {
     border: 1px solid var(--color-border);
