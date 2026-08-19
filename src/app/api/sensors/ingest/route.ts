@@ -81,7 +81,7 @@ export async function POST(req: Request) {
       p_key_hash: keyHash,
       p_reading_type: type as "temperature" | "moisture" | "mass" | "other",
       p_value: value,
-      p_unit: r.unit ?? null,
+      p_unit: r.unit ?? "",
       p_recorded_at: r.recorded_at ?? new Date().toISOString(),
       p_kiln_id: r.kiln_id ?? undefined,
       p_metadata: (r.metadata ?? {}) as never,
