@@ -10,6 +10,7 @@ import { GhgBreakdown, type GhgLine } from "@/components/ghg/ghg-breakdown";
 import { fmtCo2, fmt, fmtDate, fmtPct, humanize } from "@/lib/utils";
 import { METHODOLOGY } from "@/lib/methodology";
 import { GhgCalculator, type GhgCalcBatch } from "./ghg-calculator";
+import { EmissionsPanel, type EmissionRow } from "./emissions-panel";
 import type { DurabilityPathway } from "@/lib/ghg";
 
 export const metadata: Metadata = { title: "GHG quantification" };
@@ -39,8 +40,43 @@ export default async function GhgPage() {
   ]);
 
   const quants = quantsRes.data ?? [];
+  const batchRows = batchesRes.data ?? [];
 
-  const calcBatches: GhgCalcBatch[] = (batchesRes.data ?? []).map((b) => {
+  // Aggregate logged emissions per batch (so the calculator auto-subtracts
+  // transport/processing/capture instead of asking for them again).
+  const emissionsByBatch = new Map<
+    string,
+    { transport: number; processing: number; capture: number }
+  >();
+  await Promise.all(
+    batchRows.map(async (b) => {
+      const { data } = await supabase.rpc("fn_batch_emissions", { p_batch: b.id });
+      const row = Array.isArray(data) ? data[0] : data;
+      emissionsByBatch.set(b.id, {
+        transport: Number(row?.transport_tco2e ?? 0),
+        processing: Number(row?.processing_tco2e ?? 0),
+        capture: Number(row?.capture_tco2e ?? 0),
+      });
+    }),
+  );
+
+  // All logged emission entries, for the panel.
+  const { data: emRows } = await supabase
+    .from("emissions_entries")
+    .select("id, kind, method, description, co2e_kg, production_batch_id, production_batches(code)")
+    .eq("project_id", pid)
+    .order("created_at", { ascending: false });
+  const emEntries: EmissionRow[] = (emRows ?? []).map((e) => ({
+    id: e.id,
+    kind: e.kind,
+    method: e.method,
+    description: e.description,
+    co2e_kg: Number(e.co2e_kg),
+    production_batch_id: e.production_batch_id,
+    batchCode: (e.production_batches as { code: string } | null)?.code ?? null,
+  }));
+
+  const calcBatches: GhgCalcBatch[] = batchRows.map((b) => {
     const tests = ([...(b.lab_tests ?? [])] as {
       id: string;
       organic_carbon_pct: number | null;
@@ -53,6 +89,7 @@ export default async function GhgPage() {
     const dryTonnes = Number(b.total_biochar_dry_kg) / 1000;
     const moisture = lab?.moisture_pct != null ? Number(lab.moisture_pct) : 0;
     const freshTonnes = moisture > 0 && moisture < 100 ? dryTonnes / (1 - moisture / 100) : dryTonnes;
+    const em = emissionsByBatch.get(b.id) ?? { transport: 0, processing: 0, capture: 0 };
     return {
       id: b.id,
       code: b.code,
@@ -65,6 +102,9 @@ export default async function GhgPage() {
         lab?.hydrogen_carbon_molar_ratio != null ? Number(lab.hydrogen_carbon_molar_ratio) : null,
       moisturePct: lab?.moisture_pct != null ? Number(lab.moisture_pct) : null,
       reflectancePct: lab?.random_reflectance_pct != null ? Number(lab.random_reflectance_pct) : null,
+      captureTco2e: em.capture,
+      processingTco2e: em.processing,
+      transportTco2e: em.transport,
     };
   });
 
@@ -91,6 +131,13 @@ export default async function GhgPage() {
         uncertainty discount. Every intermediate value is shown so the figure is auditable, never a
         black box.
       </div>
+
+      <EmissionsPanel
+        projectId={pid}
+        batches={calcBatches.map((b) => ({ id: b.id, code: b.code }))}
+        entries={emEntries}
+        canManage={ctx.can.canReview}
+      />
 
       <div className="mt-10">
         <SectionHeader title="Saved quantifications" />
