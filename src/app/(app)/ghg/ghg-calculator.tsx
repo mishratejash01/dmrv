@@ -26,6 +26,10 @@ export interface GhgCalcBatch {
   hcOrgRatio: number | null;
   moisturePct: number | null;
   reflectancePct: number | null;
+  /** Emissions auto-aggregated from the emissions ledger (tCO₂e). */
+  captureTco2e: number;
+  processingTco2e: number;
+  transportTco2e: number;
 }
 
 interface Props {
@@ -47,9 +51,9 @@ export function GhgCalculator({ batches, canCompute }: Props) {
   const [hcRatio, setHcRatio] = React.useState(str(first?.hcOrgRatio));
   const [soilTemp, setSoilTemp] = React.useState(str(first?.soilTempC ?? 18));
   const [durability, setDurability] = React.useState<DurabilityPathway>(first?.durabilityYears ?? 100);
-  const [capture, setCapture] = React.useState("0");
-  const [processing, setProcessing] = React.useState("0");
-  const [transport, setTransport] = React.useState("0");
+  const [capture, setCapture] = React.useState(str(first?.captureTco2e ?? 0));
+  const [processing, setProcessing] = React.useState(str(first?.processingTco2e ?? 0));
+  const [transport, setTransport] = React.useState(str(first?.transportTco2e ?? 0));
   const [tier, setTier] = React.useState<UncertaintyTier>("low");
   // Baseline (optional): feedstock carbon assumed stored anyway (0.5% rule).
   const [feedstockDryT, setFeedstockDryT] = React.useState("");
@@ -69,6 +73,10 @@ export function GhgCalculator({ batches, canCompute }: Props) {
     if (b.hcOrgRatio != null) setHcRatio(str(b.hcOrgRatio));
     setSoilTemp(str(b.soilTempC));
     setDurability(b.durabilityYears);
+    // Auto-fill emissions from the batch's logged emissions ledger.
+    setCapture(str(b.captureTco2e ?? 0));
+    setProcessing(str(b.processingTco2e ?? 0));
+    setTransport(str(b.transportTco2e ?? 0));
   }
 
   const result = React.useMemo(
@@ -190,16 +198,22 @@ export function GhgCalculator({ batches, canCompute }: Props) {
               </Field>
             </div>
 
-            <div className="grid grid-cols-3 gap-4">
-              <Field label="Capture (tCO₂e)" hint="Feedstock">
-                <Input type="number" step="0.01" min="0" inputMode="decimal" value={capture} onChange={(e) => setCapture(e.target.value)} />
-              </Field>
-              <Field label="Processing (tCO₂e)">
-                <Input type="number" step="0.01" min="0" inputMode="decimal" value={processing} onChange={(e) => setProcessing(e.target.value)} />
-              </Field>
-              <Field label="Transport (tCO₂e)">
-                <Input type="number" step="0.01" min="0" inputMode="decimal" value={transport} onChange={(e) => setTransport(e.target.value)} />
-              </Field>
+            <div>
+              <p className="mb-2 text-xs text-muted">
+                Emissions auto-filled from the batch&apos;s logged emissions ledger — adjust only to
+                override.
+              </p>
+              <div className="grid grid-cols-3 gap-4">
+                <Field label="Capture (tCO₂e)" hint="From ledger">
+                  <Input type="number" step="0.000001" min="0" inputMode="decimal" value={capture} onChange={(e) => setCapture(e.target.value)} />
+                </Field>
+                <Field label="Processing (tCO₂e)" hint="From ledger">
+                  <Input type="number" step="0.000001" min="0" inputMode="decimal" value={processing} onChange={(e) => setProcessing(e.target.value)} />
+                </Field>
+                <Field label="Transport (tCO₂e)" hint="From ledger">
+                  <Input type="number" step="0.000001" min="0" inputMode="decimal" value={transport} onChange={(e) => setTransport(e.target.value)} />
+                </Field>
+              </div>
             </div>
 
             <Field label="Uncertainty tier" required>
