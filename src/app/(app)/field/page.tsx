@@ -30,7 +30,9 @@ export default async function FieldPage() {
     supabase.from("site_assignments").select("site_id").eq("user_id", ctx.profile.id),
     supabase
       .from("sites")
-      .select("id, name, code, latitude, longitude, kilns(id, name, code, site_id, status)")
+      .select(
+        "id, name, code, latitude, longitude, kilns(id, name, code, site_id, status, char_yield_pct, default_moisture_pct)",
+      )
       .eq("project_id", pid)
       .eq("status", "active"),
     supabase
@@ -65,7 +67,13 @@ export default async function FieldPage() {
           code: s.code,
           latitude: s.latitude ? Number(s.latitude) : null,
           longitude: s.longitude ? Number(s.longitude) : null,
-          kilns: (s.kilns ?? []).map((k) => ({ id: k.id, name: k.name, code: k.code })),
+          kilns: (s.kilns ?? []).map((k) => ({
+            id: k.id,
+            name: k.name,
+            code: k.code,
+            charYieldPct: k.char_yield_pct != null ? Number(k.char_yield_pct) : 20,
+            defaultMoisturePct: k.default_moisture_pct != null ? Number(k.default_moisture_pct) : 12,
+          })),
         }))}
         batches={batchesRes.data ?? []}
         feedstock={(feedstockRes.data ?? []).map((f) => ({
