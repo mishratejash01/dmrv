@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
+import { getUser } from "@/lib/auth";
 import { friendlyError } from "@/lib/actions/errors";
 import type { FeedstockCategory, KilnType } from "@/lib/types/db";
 
@@ -76,10 +77,15 @@ export async function addFeedstockDelivery(input: {
   source_area_description?: string;
 }) {
   const supabase = await createClient();
-  const { error } = await supabase.from("feedstock_batches").insert(input);
+  const user = await getUser();
+  const { data, error } = await supabase
+    .from("feedstock_batches")
+    .insert({ ...input, recorded_by: user?.id ?? null })
+    .select("id")
+    .single();
   if (error) return { error: friendlyError(error) };
   revalidatePath("/feedstock");
-  return { ok: true };
+  return { ok: true, id: data?.id as string };
 }
 
 // ----------------------------- Production batches -----------------------------
