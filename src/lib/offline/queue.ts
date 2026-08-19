@@ -5,8 +5,11 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import type { Database } from "@/lib/types/database";
 import { BUCKETS } from "@/lib/storage";
 
+type PhotoType = Database["public"]["Enums"]["photo_type"];
+type MeasurementSource = Database["public"]["Enums"]["measurement_source"];
+
 export interface PendingPhoto {
-  type: "pyrolysis" | "flame_curtain" | "quench" | "other";
+  type: PhotoType;
   blob: Blob;
   latitude?: number | null;
   longitude?: number | null;
@@ -27,6 +30,8 @@ export interface PendingRun {
     ended_at?: string | null;
     peak_temp_c?: number | null;
     temperature_curve?: { t: number; temp: number }[];
+    temp_source?: MeasurementSource;
+    biochar_source?: MeasurementSource;
     latitude?: number | null;
     longitude?: number | null;
     biochar_wet_kg?: number | null;
