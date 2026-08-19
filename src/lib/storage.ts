@@ -13,5 +13,6 @@ export const BUCKETS = {
   labReports: "lab-reports",
   verificationReports: "verification-reports",
   siteAuditPhotos: "site-audit-photos",
+  feedstockPhotos: "feedstock-photos",
   avatars: "avatars",
 } as const;
