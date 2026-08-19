@@ -268,6 +268,92 @@ export type Database = {
           },
         ]
       }
+      emissions_entries: {
+        Row: {
+          co2e_kg: number | null
+          created_at: string
+          description: string | null
+          distance_km: number | null
+          emission_factor: number
+          feedstock_batch_id: string | null
+          fuel_qty: number | null
+          fuel_type: string | null
+          id: string
+          kind: Database["public"]["Enums"]["emission_kind"]
+          method: Database["public"]["Enums"]["emission_method"]
+          occurred_at: string
+          production_batch_id: string | null
+          project_id: string
+          recorded_by: string | null
+          weight_t: number | null
+        }
+        Insert: {
+          co2e_kg?: number | null
+          created_at?: string
+          description?: string | null
+          distance_km?: number | null
+          emission_factor: number
+          feedstock_batch_id?: string | null
+          fuel_qty?: number | null
+          fuel_type?: string | null
+          id?: string
+          kind: Database["public"]["Enums"]["emission_kind"]
+          method?: Database["public"]["Enums"]["emission_method"]
+          occurred_at?: string
+          production_batch_id?: string | null
+          project_id: string
+          recorded_by?: string | null
+          weight_t?: number | null
+        }
+        Update: {
+          co2e_kg?: number | null
+          created_at?: string
+          description?: string | null
+          distance_km?: number | null
+          emission_factor?: number
+          feedstock_batch_id?: string | null
+          fuel_qty?: number | null
+          fuel_type?: string | null
+          id?: string
+          kind?: Database["public"]["Enums"]["emission_kind"]
+          method?: Database["public"]["Enums"]["emission_method"]
+          occurred_at?: string
+          production_batch_id?: string | null
+          project_id?: string
+          recorded_by?: string | null
+          weight_t?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "emissions_entries_feedstock_batch_id_fkey"
+            columns: ["feedstock_batch_id"]
+            isOneToOne: false
+            referencedRelation: "feedstock_batches"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "emissions_entries_production_batch_id_fkey"
+            columns: ["production_batch_id"]
+            isOneToOne: false
+            referencedRelation: "production_batches"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "emissions_entries_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "emissions_entries_recorded_by_fkey"
+            columns: ["recorded_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       end_use_records: {
         Row: {
           application_method: string
@@ -418,6 +504,67 @@ export type Database = {
           },
         ]
       }
+      feedstock_photos: {
+        Row: {
+          caption: string | null
+          created_at: string
+          feedstock_batch_id: string
+          id: string
+          latitude: number | null
+          longitude: number | null
+          project_id: string
+          storage_path: string
+          taken_at: string | null
+          uploaded_by: string | null
+        }
+        Insert: {
+          caption?: string | null
+          created_at?: string
+          feedstock_batch_id: string
+          id?: string
+          latitude?: number | null
+          longitude?: number | null
+          project_id: string
+          storage_path: string
+          taken_at?: string | null
+          uploaded_by?: string | null
+        }
+        Update: {
+          caption?: string | null
+          created_at?: string
+          feedstock_batch_id?: string
+          id?: string
+          latitude?: number | null
+          longitude?: number | null
+          project_id?: string
+          storage_path?: string
+          taken_at?: string | null
+          uploaded_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "feedstock_photos_feedstock_batch_id_fkey"
+            columns: ["feedstock_batch_id"]
+            isOneToOne: false
+            referencedRelation: "feedstock_batches"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "feedstock_photos_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "feedstock_photos_uploaded_by_fkey"
+            columns: ["uploaded_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       ghg_quantifications: {
         Row: {
           baseline_removal_tco2e: number
@@ -527,11 +674,83 @@ export type Database = {
           },
         ]
       }
+      ingest_devices: {
+        Row: {
+          active: boolean
+          created_at: string
+          created_by: string | null
+          id: string
+          key_hash: string
+          key_prefix: string
+          kiln_id: string | null
+          label: string
+          last_seen_at: string | null
+          project_id: string
+          site_id: string | null
+        }
+        Insert: {
+          active?: boolean
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          key_hash: string
+          key_prefix: string
+          kiln_id?: string | null
+          label: string
+          last_seen_at?: string | null
+          project_id: string
+          site_id?: string | null
+        }
+        Update: {
+          active?: boolean
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          key_hash?: string
+          key_prefix?: string
+          kiln_id?: string | null
+          label?: string
+          last_seen_at?: string | null
+          project_id?: string
+          site_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ingest_devices_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "ingest_devices_kiln_id_fkey"
+            columns: ["kiln_id"]
+            isOneToOne: false
+            referencedRelation: "kilns"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "ingest_devices_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "ingest_devices_site_id_fkey"
+            columns: ["site_id"]
+            isOneToOne: false
+            referencedRelation: "sites"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       kiln_runs: {
         Row: {
           anomaly_flag: boolean
           biochar_dry_kg: number | null
           biochar_moisture_pct: number | null
+          biochar_source: Database["public"]["Enums"]["measurement_source"]
           biochar_wet_kg: number | null
           client_ref: string | null
           code: string | null
@@ -557,6 +776,7 @@ export type Database = {
           started_at: string | null
           status: Database["public"]["Enums"]["run_status"]
           submitted_at: string | null
+          temp_source: Database["public"]["Enums"]["measurement_source"]
           temperature_curve: Json
           updated_at: string
         }
@@ -564,6 +784,7 @@ export type Database = {
           anomaly_flag?: boolean
           biochar_dry_kg?: number | null
           biochar_moisture_pct?: number | null
+          biochar_source?: Database["public"]["Enums"]["measurement_source"]
           biochar_wet_kg?: number | null
           client_ref?: string | null
           code?: string | null
@@ -589,6 +810,7 @@ export type Database = {
           started_at?: string | null
           status?: Database["public"]["Enums"]["run_status"]
           submitted_at?: string | null
+          temp_source?: Database["public"]["Enums"]["measurement_source"]
           temperature_curve?: Json
           updated_at?: string
         }
@@ -596,6 +818,7 @@ export type Database = {
           anomaly_flag?: boolean
           biochar_dry_kg?: number | null
           biochar_moisture_pct?: number | null
+          biochar_source?: Database["public"]["Enums"]["measurement_source"]
           biochar_wet_kg?: number | null
           client_ref?: string | null
           code?: string | null
@@ -621,6 +844,7 @@ export type Database = {
           started_at?: string | null
           status?: Database["public"]["Enums"]["run_status"]
           submitted_at?: string | null
+          temp_source?: Database["public"]["Enums"]["measurement_source"]
           temperature_curve?: Json
           updated_at?: string
         }
@@ -679,8 +903,10 @@ export type Database = {
       kilns: {
         Row: {
           capacity_kg: number | null
+          char_yield_pct: number
           code: string
           created_at: string
+          default_moisture_pct: number
           id: string
           kiln_type: Database["public"]["Enums"]["kiln_type"]
           name: string
@@ -692,8 +918,10 @@ export type Database = {
         }
         Insert: {
           capacity_kg?: number | null
+          char_yield_pct?: number
           code: string
           created_at?: string
+          default_moisture_pct?: number
           id?: string
           kiln_type?: Database["public"]["Enums"]["kiln_type"]
           name: string
@@ -705,8 +933,10 @@ export type Database = {
         }
         Update: {
           capacity_kg?: number | null
+          char_yield_pct?: number
           code?: string
           created_at?: string
+          default_moisture_pct?: number
           id?: string
           kiln_type?: Database["public"]["Enums"]["kiln_type"]
           name?: string
@@ -1303,6 +1533,87 @@ export type Database = {
           },
         ]
       }
+      sensor_readings: {
+        Row: {
+          device_id: string | null
+          id: string
+          ingested_at: string
+          kiln_id: string | null
+          kiln_run_id: string | null
+          metadata: Json
+          project_id: string
+          reading_type: Database["public"]["Enums"]["sensor_reading_type"]
+          recorded_at: string
+          site_id: string | null
+          unit: string | null
+          value: number
+        }
+        Insert: {
+          device_id?: string | null
+          id?: string
+          ingested_at?: string
+          kiln_id?: string | null
+          kiln_run_id?: string | null
+          metadata?: Json
+          project_id: string
+          reading_type: Database["public"]["Enums"]["sensor_reading_type"]
+          recorded_at: string
+          site_id?: string | null
+          unit?: string | null
+          value: number
+        }
+        Update: {
+          device_id?: string | null
+          id?: string
+          ingested_at?: string
+          kiln_id?: string | null
+          kiln_run_id?: string | null
+          metadata?: Json
+          project_id?: string
+          reading_type?: Database["public"]["Enums"]["sensor_reading_type"]
+          recorded_at?: string
+          site_id?: string | null
+          unit?: string | null
+          value?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "sensor_readings_device_id_fkey"
+            columns: ["device_id"]
+            isOneToOne: false
+            referencedRelation: "ingest_devices"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "sensor_readings_kiln_id_fkey"
+            columns: ["kiln_id"]
+            isOneToOne: false
+            referencedRelation: "kilns"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "sensor_readings_kiln_run_id_fkey"
+            columns: ["kiln_run_id"]
+            isOneToOne: false
+            referencedRelation: "kiln_runs"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "sensor_readings_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "sensor_readings_site_id_fkey"
+            columns: ["site_id"]
+            isOneToOne: false
+            referencedRelation: "sites"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       site_assignments: {
         Row: {
           created_at: string
@@ -1591,10 +1902,50 @@ export type Database = {
         }[]
       }
       can_review: { Args: { p_project: string }; Returns: boolean }
+      fn_batch_emissions: {
+        Args: { p_batch: string }
+        Returns: {
+          capture_tco2e: number
+          processing_tco2e: number
+          total_tco2e: number
+          transport_tco2e: number
+        }[]
+      }
+      fn_estimate_biochar: {
+        Args: {
+          p_feedstock_dry_kg: number
+          p_moisture_pct?: number
+          p_yield_pct: number
+        }
+        Returns: {
+          dry_kg: number
+          wet_kg: number
+        }[]
+      }
+      fn_ingest_sensor_reading: {
+        Args: {
+          p_key_hash: string
+          p_kiln_id?: string
+          p_metadata?: Json
+          p_reading_type: Database["public"]["Enums"]["sensor_reading_type"]
+          p_recorded_at: string
+          p_unit: string
+          p_value: number
+        }
+        Returns: string
+      }
       fn_issue_credits: { Args: { p_issuance: string }; Returns: number }
       fn_retire_credit: {
         Args: { p_beneficiary: string; p_credit: string; p_reason: string }
         Returns: undefined
+      }
+      fn_run_temperature: {
+        Args: { p_end: string; p_kiln: string; p_start: string }
+        Returns: {
+          curve: Json
+          peak_temp_c: number
+          sample_count: number
+        }[]
       }
       fn_verify_batch: { Args: { p_verification: string }; Returns: undefined }
       has_project_role: {
@@ -1622,6 +1973,8 @@ export type Database = {
         | "transferred"
       credit_type: "removal" | "avoidance"
       durability_pathway: "years_100" | "years_1000"
+      emission_kind: "transport" | "processing" | "capture"
+      emission_method: "distance" | "fuel"
       feedstock_category:
         | "forest_secondary"
         | "forest_managed"
@@ -1639,6 +1992,11 @@ export type Database = {
         | "flame_curtain_cone"
         | "flame_curtain_trench"
         | "flame_curtain_shielded"
+      measurement_source:
+        | "manual"
+        | "reverse_calc"
+        | "computer_vision"
+        | "sensor"
       notification_type:
         | "review_request"
         | "batch_limit"
@@ -1646,7 +2004,15 @@ export type Database = {
         | "issuance"
         | "end_use"
         | "info"
-      photo_type: "pyrolysis" | "flame_curtain" | "quench" | "other"
+      photo_type:
+        | "pyrolysis"
+        | "flame_curtain"
+        | "quench"
+        | "other"
+        | "moisture_reading"
+        | "biochar_weight"
+        | "biochar_sample"
+        | "biomass_feedstock"
       project_role:
         | "project_developer"
         | "kiln_supervisor"
@@ -1659,6 +2025,7 @@ export type Database = {
         | "approved"
         | "rejected"
         | "changes_requested"
+      sensor_reading_type: "temperature" | "moisture" | "mass" | "other"
       site_status: "active" | "inactive"
       verification_status: "assigned" | "in_review" | "approved" | "rejected"
     }
@@ -1800,6 +2167,8 @@ export const Constants = {
       ],
       credit_type: ["removal", "avoidance"],
       durability_pathway: ["years_100", "years_1000"],
+      emission_kind: ["transport", "processing", "capture"],
+      emission_method: ["distance", "fuel"],
       feedstock_category: [
         "forest_secondary",
         "forest_managed",
@@ -1819,6 +2188,12 @@ export const Constants = {
         "flame_curtain_trench",
         "flame_curtain_shielded",
       ],
+      measurement_source: [
+        "manual",
+        "reverse_calc",
+        "computer_vision",
+        "sensor",
+      ],
       notification_type: [
         "review_request",
         "batch_limit",
@@ -1827,7 +2202,16 @@ export const Constants = {
         "end_use",
         "info",
       ],
-      photo_type: ["pyrolysis", "flame_curtain", "quench", "other"],
+      photo_type: [
+        "pyrolysis",
+        "flame_curtain",
+        "quench",
+        "other",
+        "moisture_reading",
+        "biochar_weight",
+        "biochar_sample",
+        "biomass_feedstock",
+      ],
       project_role: [
         "project_developer",
         "kiln_supervisor",
@@ -1842,6 +2226,7 @@ export const Constants = {
         "rejected",
         "changes_requested",
       ],
+      sensor_reading_type: ["temperature", "moisture", "mass", "other"],
       site_status: ["active", "inactive"],
       verification_status: ["assigned", "in_review", "approved", "rejected"],
     },
