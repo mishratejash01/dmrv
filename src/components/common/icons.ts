@@ -128,6 +128,7 @@ export {
   Notepad20Filled,
   PlantGrass20Filled,
   Vault20Filled,
+  Search16Regular,
 } from "@fluentui/react-icons";
 
 export type { FluentIcon } from "@fluentui/react-icons";
