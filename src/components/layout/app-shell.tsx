@@ -136,11 +136,6 @@ export function AppShell({
             </div>
           ))}
         </nav>
-
-        <div className="relative border-t border-white/10 px-4 py-3 shrink-0">
-          <p className="text-[11px] text-white/35">Signed in as</p>
-          <p className="mt-0.5 text-[12px] text-brand-accent truncate">{roleLabel}</p>
-        </div>
       </aside>
 
       {open && (
