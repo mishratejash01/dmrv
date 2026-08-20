@@ -64,7 +64,7 @@ export default async function EndUsePage() {
       </PageHeader>
 
       {/* KPIs */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
         <Stat label="Applications" value={fmt(records.length, 0)} icon={<Sprout />} tone="sage" hint="Carbon-locking events" />
         <Stat label="Biochar applied" value={fmt(totalKg / 1000, 2)} unit="t" icon={<Boxes />} tone="clay" hint="Cumulative applied mass" />
         <Stat label="Recipients" value={fmt(recipients.size, 0)} icon={<Users />} tone="ochre" hint="Distinct off-takers" />
@@ -79,7 +79,7 @@ export default async function EndUsePage() {
           action={canRecord ? <EndUseForm projectId={pid} batches={batches} /> : undefined}
         />
       ) : (
-        <div className="space-y-8">
+        <div className="space-y-4">
           {/* Map */}
           <Card className="overflow-hidden">
             <CardHeader className="flex-row items-center justify-between">

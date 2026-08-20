@@ -1,21 +1,23 @@
 import type { Metadata } from "next";
-import { Fraunces, Inter, JetBrains_Mono } from "next/font/google";
+import { Outfit, JetBrains_Mono } from "next/font/google";
 import { Suspense } from "react";
 import { Toaster } from "sonner";
 import { BRAND } from "@/lib/brand";
 import { NavProgress } from "@/components/layout/nav-progress";
 import "./globals.css";
 
-const display = Fraunces({
+// Outfit is the Acres Climate Tech brand face, taken from acresclimate.tech.
+// One family carries the whole product — headings and body alike.
+const display = Outfit({
   variable: "--font-heading",
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  style: ["normal", "italic"],
+  weight: ["400", "500", "600", "700"],
 });
 
-const body = Inter({
+const body = Outfit({
   variable: "--font-body",
   subsets: ["latin"],
+  weight: ["300", "400", "500", "600"],
 });
 
 const mono = JetBrains_Mono({
@@ -52,7 +54,7 @@ export default function RootLayout({
               background: "var(--color-elevated)",
               color: "var(--color-ink)",
               border: "1px solid var(--color-border)",
-              borderRadius: "0.625rem",
+              borderRadius: "0.25rem",
             },
           }}
         />

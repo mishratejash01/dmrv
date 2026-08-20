@@ -78,7 +78,7 @@ export default async function VerificationPage() {
       </PageHeader>
 
       {/* KPIs */}
-      <div className="grid grid-cols-3 gap-4 mb-6">
+      <div className="grid grid-cols-3 gap-4 mb-4">
         <Stat label="Verifications" value={fmt(verifications.length, 0)} icon={<ShieldCheck />} tone="clay" hint="All monitoring periods" />
         <Stat label="In progress" value={fmt(pending.length, 0)} tone="ochre" hint="Assigned or in review" />
         <Stat label="Approved" value={fmt(approved.length, 0)} tone="sage" hint="Cleared for issuance" />

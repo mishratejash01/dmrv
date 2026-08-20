@@ -10,11 +10,10 @@ import {
   ChevronsUpDown,
   Check,
   LogOut,
-  Leaf,
   ChevronDown,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { BRAND } from "@/lib/brand";
+import { LogoLockup } from "@/components/common/logo";
 import { visibleNav, PROJECT_ROLE_LABEL } from "@/lib/nav";
 import type { AppCapabilities } from "@/lib/auth";
 import { Avatar } from "@/components/ui/avatar";
@@ -68,18 +67,12 @@ export function AppShell({
       {/* Sidebar */}
       <aside
         className={cn(
-          "fixed inset-y-0 left-0 z-40 w-64 border-r border-border bg-white flex flex-col transition-transform lg:translate-x-0",
+          "fixed inset-y-0 left-0 z-40 w-64 border-r border-border bg-elevated flex flex-col transition-transform lg:translate-x-0",
           open ? "translate-x-0" : "-translate-x-full",
         )}
       >
-        <div className="h-16 flex items-center gap-2.5 px-5 border-b border-border shrink-0">
-          <span className="grid h-8 w-8 place-items-center rounded-lg bg-clay text-elevated">
-            <Leaf className="h-4 w-4" />
-          </span>
-          <div className="leading-tight">
-            <p className="font-display text-[15px] text-ink">{BRAND.product}</p>
-            <p className="text-[10px] uppercase tracking-wide text-muted">{BRAND.domainLabel}</p>
-          </div>
+        <div className="h-14 flex items-center gap-2.5 px-4 border-b border-border shrink-0">
+          <LogoLockup height={18} />
           <button
             className="ml-auto lg:hidden text-muted"
             onClick={() => setOpen(false)}
@@ -89,10 +82,10 @@ export function AppShell({
           </button>
         </div>
 
-        <nav className="flex-1 overflow-y-auto px-3 py-4 space-y-5">
+        <nav className="flex-1 overflow-y-auto px-2 py-3 space-y-4">
           {sections.map((section) => (
             <div key={section.title}>
-              <p className="px-2 mb-1.5 text-[10px] font-semibold uppercase tracking-wider text-faint">
+              <p className="px-2 mb-1 text-[11px] font-semibold uppercase tracking-wider text-muted">
                 {section.title}
               </p>
               <ul className="space-y-0.5">
@@ -113,7 +106,7 @@ export function AppShell({
                       <Link
                         href={item.href}
                         className={cn(
-                          "flex items-center gap-2.5 rounded-md px-2.5 py-2 text-sm transition-colors",
+                          "flex items-center gap-2.5 rounded px-2.5 py-1.5 text-sm transition-colors",
                           isActive
                             ? "bg-clay-tint text-[#05543a] font-medium"
                             : "text-ink-soft hover:bg-surface hover:text-ink",
@@ -130,7 +123,7 @@ export function AppShell({
           ))}
         </nav>
 
-        <div className="border-t border-border p-3 shrink-0">
+        <div className="border-t border-border p-2.5 shrink-0">
           <Badge tone="sage" className="w-full justify-center">
             {roleLabel}
           </Badge>
@@ -146,7 +139,7 @@ export function AppShell({
 
       {/* Main column */}
       <div className="flex-1 lg:pl-64 min-w-0 flex flex-col">
-        <header className="sticky top-0 z-20 h-16 border-b border-border bg-base/85 backdrop-blur flex items-center gap-3 px-4 md:px-6">
+        <header className="sticky top-0 z-20 h-14 border-b border-border bg-base/85 backdrop-blur flex items-center gap-3 px-4 md:px-6">
           <button
             className="lg:hidden text-ink-soft"
             onClick={() => setOpen(true)}
@@ -236,7 +229,7 @@ export function AppShell({
           </div>
         </header>
 
-        <main className="flex-1 px-4 md:px-6 lg:px-8 py-6 md:py-8 max-w-[1400px] w-full mx-auto">
+        <main className="flex-1 px-4 md:px-6 py-4 md:py-5 max-w-[1400px] w-full mx-auto">
           {children}
         </main>
       </div>

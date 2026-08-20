@@ -161,7 +161,7 @@ export default async function BatchDetailPage({
 
       {/* Over-limit / near-limit warnings */}
       {isOpen && (overTonnes || overAge) && (
-        <div className="mb-6 flex items-start gap-3 rounded-xl border border-[#f4c7c3] bg-err-tint px-4 py-3.5">
+        <div className="mb-4 flex items-start gap-3 rounded-xl border border-[#f4c7c3] bg-err-tint px-4 py-3.5">
           <AlertTriangle className="h-5 w-5 text-err shrink-0 mt-0.5" />
           <div>
             <p className="text-sm font-medium text-[#b3261e]">
@@ -180,7 +180,7 @@ export default async function BatchDetailPage({
         </div>
       )}
       {isOpen && !overTonnes && !overAge && (nearTonnes || nearAge) && (
-        <div className="mb-6 flex items-start gap-3 rounded-xl border border-ochre-soft bg-warn-tint px-4 py-3.5">
+        <div className="mb-4 flex items-start gap-3 rounded-xl border border-ochre-soft bg-warn-tint px-4 py-3.5">
           <AlertTriangle className="h-5 w-5 text-ochre shrink-0 mt-0.5" />
           <p className="text-sm text-[#8a5200]">
             This batch is approaching its {nearTonnes && nearAge ? "tonnage and age limits" : nearTonnes ? `${BATCH_LIMITS.maxTonnes}-tonne limit` : `${BATCH_LIMITS.maxMonths}-month limit`}.
@@ -189,9 +189,9 @@ export default async function BatchDetailPage({
         </div>
       )}
 
-      <div className="grid lg:grid-cols-3 gap-6">
+      <div className="grid lg:grid-cols-3 gap-4">
         {/* Main column */}
-        <div className="lg:col-span-2 space-y-8">
+        <div className="lg:col-span-2 space-y-4">
           {/* Runs */}
           <section>
             <SectionHeader
@@ -270,7 +270,7 @@ export default async function BatchDetailPage({
               />
             ) : (
               <Card>
-                <CardContent className="pt-5 space-y-6">
+                <CardContent className="pt-5 space-y-4">
                   {SAMPLE_STAGES.map((stage, idx) => {
                     const rows = samples.filter((s) => s.stage === stage.key);
                     const total = rows.reduce((sum, s) => sum + Number(s.mass_kg || 0), 0);
@@ -460,12 +460,12 @@ export default async function BatchDetailPage({
         </div>
 
         {/* Side column */}
-        <div className="space-y-6">
+        <div className="space-y-4">
           <Card>
             <CardHeader>
               <CardTitle>Validity limits</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-5">
+            <CardContent className="space-y-4">
               <div>
                 <Meter
                   value={tonnes}

@@ -130,7 +130,7 @@ export default async function AnalyticsPage() {
       </PageHeader>
 
       {/* KPIs */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
         <Stat
           label="Biochar produced"
           value={fmt(totalDryT, 1)}
@@ -165,7 +165,7 @@ export default async function AnalyticsPage() {
         />
       </div>
 
-      <div className="grid lg:grid-cols-3 gap-6">
+      <div className="grid lg:grid-cols-3 gap-4">
         {/* Monthly production trend */}
         <Card className="lg:col-span-2">
           <CardHeader className="flex-row items-center justify-between">

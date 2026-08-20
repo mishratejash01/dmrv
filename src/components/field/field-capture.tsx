@@ -428,8 +428,8 @@ export function FieldCapture({ projectId, operatorId, sites, batches, feedstock 
   }
 
   return (
-    <div className="grid lg:grid-cols-3 gap-6 max-w-5xl">
-      <div className="lg:col-span-2 space-y-6">
+    <div className="grid lg:grid-cols-3 gap-4 max-w-5xl">
+      <div className="lg:col-span-2 space-y-4">
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">

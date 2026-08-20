@@ -91,14 +91,14 @@ export default async function DashboardPage() {
       </PageHeader>
 
       {/* KPIs */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
         <Stat label="Net CO₂ removed" value={fmt(netCo2, 1)} unit="tCO₂e" icon={<Scale />} tone="sage" hint="Across quantified batches" />
         <Stat label="RCCs issued" value={fmt(issued, 0)} unit="credits" icon={<BadgeCheck />} tone="clay" hint={`${retired} retired`} />
         <Stat label="Biochar produced" value={fmt(dryKg / 1000, 1)} unit="t dry" icon={<Boxes />} tone="ochre" hint={`${batches.length} batches`} />
         <Stat label="Buffer pool" value={fmt(bufferBal, 0)} unit="tCO₂e" icon={<Wallet />} tone="info" hint="Reversal insurance" />
       </div>
 
-      <div className="grid lg:grid-cols-3 gap-6">
+      <div className="grid lg:grid-cols-3 gap-4">
         {/* Map */}
         <Card className="lg:col-span-2 overflow-hidden">
           <CardHeader className="flex-row items-center justify-between">
@@ -130,13 +130,13 @@ export default async function DashboardPage() {
         </Card>
 
         {/* Batch progress + review */}
-        <div className="space-y-6">
+        <div className="space-y-4">
           <Card>
             <CardHeader className="flex-row items-center justify-between">
               <CardTitle>Open batches</CardTitle>
               <Link href="/batches" className="text-sm text-clay hover:underline">All</Link>
             </CardHeader>
-            <CardContent className="space-y-5">
+            <CardContent className="space-y-4">
               {openBatches.length === 0 && (
                 <p className="text-sm text-muted">No open batches. Every batch is closed or verified.</p>
               )}
@@ -180,7 +180,7 @@ export default async function DashboardPage() {
       </div>
 
       {/* Recent runs */}
-      <div className="mt-8">
+      <div className="mt-5">
         <SectionHeader
           title="Recent kiln runs"
           action={<Link href="/runs" className="text-sm text-clay hover:underline">View all</Link>}

@@ -2,13 +2,13 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
-import { Loader2, Leaf, ArrowRight } from "lucide-react";
+import { Loader2, ArrowRight } from "lucide-react";
 import { toast } from "sonner";
 import { createProject } from "@/lib/actions/projects";
 import { Button } from "@/components/ui/button";
 import { Input, Textarea, NativeSelect, Field } from "@/components/ui/input";
 import { RULE_CATALOGUE, METHODOLOGY } from "@/lib/methodology";
-import { BRAND } from "@/lib/brand";
+import { LogoLockup } from "@/components/common/logo";
 
 export function OnboardingWizard() {
   const router = useRouter();
@@ -46,16 +46,13 @@ export function OnboardingWizard() {
   return (
     <div className="min-h-screen paper flex flex-col">
       <header className="max-w-4xl w-full mx-auto flex items-center gap-2.5 px-6 py-5">
-        <span className="grid h-8 w-8 place-items-center rounded-lg bg-clay text-elevated">
-          <Leaf className="h-4 w-4" />
-        </span>
-        <span className="font-display text-lg text-ink">{BRAND.product}</span>
+        <LogoLockup height={20} />
       </header>
 
-      <main className="max-w-4xl w-full mx-auto px-6 pb-16 grid lg:grid-cols-5 gap-10 flex-1">
+      <main className="max-w-4xl w-full mx-auto px-6 pb-10 grid lg:grid-cols-5 gap-6 flex-1">
         <div className="lg:col-span-3">
           <p className="text-sm text-clay font-medium">Onboarding</p>
-          <h1 className="mt-1 font-display text-3xl text-ink text-balance">
+          <h1 className="mt-1 font-display text-2xl font-semibold text-brand-deep text-balance">
             Set up your biochar project
           </h1>
           <p className="mt-2 text-muted text-pretty">
@@ -63,7 +60,7 @@ export function OnboardingWizard() {
             You&apos;ll add sites, kilns, feedstock and team from the dashboard next.
           </p>
 
-          <form onSubmit={submit} className="mt-8 space-y-5">
+          <form onSubmit={submit} className="mt-5 space-y-4">
             <Field label="Project name" required>
               <Input
                 value={form.name}

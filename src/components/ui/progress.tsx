@@ -30,9 +30,9 @@ export function Meter({
           {caption && <span className="text-xs text-muted tnum">{caption}</span>}
         </div>
       )}
-      <div className="h-2 w-full rounded-full bg-surface-2 overflow-hidden">
+      <div className="h-1.5 w-full rounded-[2px] bg-surface-2 overflow-hidden">
         <div
-          className={cn("h-full rounded-full transition-all", tone)}
+          className={cn("h-full rounded-[2px] transition-all", tone)}
           style={{ width: `${pct}%` }}
         />
       </div>

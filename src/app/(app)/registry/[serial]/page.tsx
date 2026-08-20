@@ -102,7 +102,7 @@ export default async function CreditDetailPage({
         <CopyButton value={credit.serial_number} label="Copy serial" />
       </PageHeader>
 
-      <div className="grid lg:grid-cols-3 gap-6">
+      <div className="grid lg:grid-cols-3 gap-4">
         {/* Lifecycle timeline */}
         <div className="lg:col-span-2">
           <Card>
@@ -118,7 +118,7 @@ export default async function CreditDetailPage({
                   className="border-0"
                 />
               ) : (
-                <ol className="relative border-l border-border pl-6 space-y-6 py-1">
+                <ol className="relative border-l border-border pl-6 space-y-4 py-1">
                   {txns.map((t) => {
                     const tm = TXN_META[t.txn_type] ?? {
                       label: humanize(t.txn_type),
@@ -159,7 +159,7 @@ export default async function CreditDetailPage({
         </div>
 
         {/* Details */}
-        <div className="space-y-6">
+        <div className="space-y-4">
           <Card>
             <CardHeader className="flex-row items-center justify-between">
               <CardTitle>Credit</CardTitle>

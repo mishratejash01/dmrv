@@ -119,16 +119,16 @@ export default async function SiteDetailPage({
         </Button>
       </PageHeader>
 
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
         <Stat label="Kilns" value={fmt(kilns.length, 0)} icon={<Flame />} tone="clay" />
         <Stat label="Kiln runs" value={fmt(runs.length, 0)} tone="ochre" hint="Most recent 12" />
         <Stat label="Site audits" value={fmt(audits.length, 0)} icon={<ClipboardList />} tone="sage" />
         <Stat label="Code" value={site.code} tone="info" />
       </div>
 
-      <div className="grid lg:grid-cols-3 gap-6">
+      <div className="grid lg:grid-cols-3 gap-4">
         {/* Main column */}
-        <div className="lg:col-span-2 space-y-8">
+        <div className="lg:col-span-2 space-y-4">
           {/* Kilns */}
           <section>
             <SectionHeader title="Kilns" />
@@ -301,7 +301,7 @@ export default async function SiteDetailPage({
         </div>
 
         {/* Side column */}
-        <div className="space-y-6">
+        <div className="space-y-4">
           <Card className="overflow-hidden">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">

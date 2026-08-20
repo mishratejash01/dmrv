@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { ArrowRight, Leaf, Flame, ShieldCheck, BadgeCheck, Network } from "lucide-react";
+import { LogoLockup } from "@/components/common/logo";
 import { getUser } from "@/lib/auth";
 import { BRAND } from "@/lib/brand";
 import { RULE_CATALOGUE } from "@/lib/methodology";
@@ -19,11 +20,8 @@ export default async function Landing() {
   return (
     <div className="min-h-screen paper">
       <header className="max-w-6xl mx-auto flex items-center justify-between px-6 py-5">
-        <div className="flex items-center gap-2.5">
-          <span className="grid h-8 w-8 place-items-center rounded-lg bg-clay text-elevated">
-            <Leaf className="h-4 w-4" />
-          </span>
-          <span className="font-display text-lg text-ink">{BRAND.product}</span>
+        <div className="flex items-center">
+          <LogoLockup height={20} />
         </div>
         <nav className="flex items-center gap-2">
           <Link
@@ -43,8 +41,8 @@ export default async function Landing() {
 
       <main className="max-w-6xl mx-auto px-6">
         {/* Hero */}
-        <section className="pt-14 pb-16 md:pt-20 md:pb-24 max-w-3xl">
-          <span className="inline-flex items-center gap-2 rounded-full border border-border bg-elevated/70 px-3 py-1 text-xs text-ink-soft">
+        <section className="pt-14 pb-10 md:pt-20 md:pb-24 max-w-3xl">
+          <span className="inline-flex items-center gap-2 rounded border border-border bg-elevated/70 px-2.5 py-1 text-xs text-ink-soft">
             <span className="h-1.5 w-1.5 rounded-full bg-sage" />
             Rainbow Standard · RBW-BCR-DOB-V1.0
           </span>
@@ -57,7 +55,7 @@ export default async function Landing() {
             testing and durable end-use — then verify it and issue certified Rainbow Carbon
             Credits. One trustworthy chain of custody, field to registry.
           </p>
-          <div className="mt-8 flex flex-wrap gap-3">
+          <div className="mt-5 flex flex-wrap gap-3">
             <Link
               href="/login"
               className="inline-flex items-center gap-2 rounded-lg bg-clay px-5 py-3 text-sm font-medium text-elevated shadow-sm hover:bg-[#056b4b] transition-colors"
@@ -74,7 +72,7 @@ export default async function Landing() {
         </section>
 
         {/* Lifecycle */}
-        <section className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 pb-16">
+        <section className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 pb-10">
           {lifecycle.map((s) => (
             <div key={s.label} className="rounded-xl border border-border bg-elevated p-5 shadow-sm">
               <span className="grid h-9 w-9 place-items-center rounded-lg bg-clay-tint text-clay">
@@ -89,7 +87,7 @@ export default async function Landing() {
         {/* Methodology rules */}
         <section className="pb-20">
           <h2 className="font-display text-2xl text-ink mb-1">Faithful to the methodology</h2>
-          <p className="text-muted mb-6">The real rules of the Rainbow Standard, enforced in software.</p>
+          <p className="text-muted mb-4">The real rules of the Rainbow Standard, enforced in software.</p>
           <div className="grid md:grid-cols-2 gap-x-8 gap-y-5">
             {RULE_CATALOGUE.map((rule) => (
               <div key={rule.id} className="flex gap-3">
@@ -105,7 +103,7 @@ export default async function Landing() {
       </main>
 
       <footer className="border-t border-border">
-        <div className="max-w-6xl mx-auto px-6 py-6 flex flex-wrap items-center justify-between gap-3 text-sm text-muted">
+        <div className="max-w-6xl mx-auto px-6 py-5 flex flex-wrap items-center justify-between gap-3 text-sm text-muted">
           <span>{BRAND.product} by {BRAND.company} — {BRAND.tagline}.</span>
           <Link href="/login" className="text-clay hover:underline">
             Sign in →

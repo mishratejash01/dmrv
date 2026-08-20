@@ -9,7 +9,7 @@ export default function LoginPage() {
   return (
     <div>
       <h1 className="font-display text-2xl text-ink">Welcome back</h1>
-      <p className="mt-1 text-sm text-muted mb-6">
+      <p className="mt-1 text-sm text-muted mb-4">
         Sign in to your {BRAND.product} workspace.
       </p>
       <Suspense>

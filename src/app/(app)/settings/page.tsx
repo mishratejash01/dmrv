@@ -21,7 +21,7 @@ export default async function SettingsPage() {
         description="Manage your profile, project configuration, and review the methodology rules that govern this project."
       />
 
-      <div className="grid lg:grid-cols-3 gap-6 items-start">
+      <div className="grid lg:grid-cols-3 gap-4 items-start">
         <div className="lg:col-span-2">
           <SettingsForms
             profile={ctx.profile}
@@ -31,7 +31,7 @@ export default async function SettingsPage() {
         </div>
 
         {/* Methodology reference (read-only) */}
-        <div className="space-y-6">
+        <div className="space-y-4">
           <Card>
             <CardHeader className="flex-row items-center gap-2">
               <BookOpen className="h-4 w-4 text-clay" />
@@ -85,7 +85,7 @@ export default async function SettingsPage() {
       </div>
 
       {!ctx.can.canManageProject && (
-        <div className="mt-6">
+        <div className="mt-4">
           <SectionHeader title="Project configuration" />
           <Card>
             <CardContent className="pt-5">

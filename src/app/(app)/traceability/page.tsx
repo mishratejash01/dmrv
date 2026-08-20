@@ -549,7 +549,7 @@ export default async function TraceabilityPage({
     return (
       <div>
         {header}
-        <div className="mb-6 flex flex-wrap items-center gap-2 text-sm">
+        <div className="mb-4 flex flex-wrap items-center gap-2 text-sm">
           <TraceLink href="/traceability">Trace something else</TraceLink>
         </div>
         <ol className="relative">
@@ -831,7 +831,7 @@ export default async function TraceabilityPage({
     return (
       <div>
         {header}
-        <div className="mb-6 flex flex-wrap items-center gap-2 text-sm">
+        <div className="mb-4 flex flex-wrap items-center gap-2 text-sm">
           <TraceLink href="/traceability">Trace something else</TraceLink>
         </div>
         <ol className="relative">
@@ -895,7 +895,7 @@ export default async function TraceabilityPage({
     <div>
       {header}
 
-      <Card className="mb-6">
+      <Card className="mb-4">
         <CardContent className="pt-6">
           <div className="flex items-center gap-2 mb-4">
             <Network className="h-4 w-4 text-clay" />
@@ -909,7 +909,7 @@ export default async function TraceabilityPage({
           <div className="flex flex-wrap items-center gap-x-1 gap-y-3">
             {CHAIN.map((c, i) => (
               <div key={c.label} className="flex items-center gap-1">
-                <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-surface/60 px-3 py-1.5 text-xs text-ink-soft [&_svg]:h-3.5 [&_svg]:w-3.5 [&_svg]:text-clay">
+                <span className="inline-flex items-center gap-1.5 rounded border border-border bg-surface/60 px-2.5 py-1.5 text-xs text-ink-soft [&_svg]:h-3.5 [&_svg]:w-3.5 [&_svg]:text-clay">
                   {c.icon}
                   {c.label}
                 </span>

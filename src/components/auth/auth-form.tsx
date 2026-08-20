@@ -155,7 +155,7 @@ export function AuthForm({ mode }: { mode: "login" | "signup" }) {
       </div>
 
       {/* Demo accounts */}
-      <div className="mt-8 pt-6 border-t border-border">
+      <div className="mt-5 pt-6 border-t border-border">
         <div className="flex items-center gap-1.5 text-xs text-muted mb-3">
           <Sparkles className="h-3.5 w-3.5 text-ochre" />
           One-click demo sign-in

@@ -219,7 +219,7 @@ export default async function RunsPage({
               key={f.label}
               href={href}
               className={cn(
-                "rounded-full border px-3 py-1 text-xs font-medium transition-colors",
+                "rounded border px-2.5 py-1 text-xs font-medium transition-colors",
                 active
                   ? "border-clay-soft bg-clay-tint text-clay"
                   : "border-border bg-surface text-ink-soft hover:bg-surface-2",

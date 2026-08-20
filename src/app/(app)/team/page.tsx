@@ -102,7 +102,7 @@ export default async function TeamPage() {
         )}
       </PageHeader>
 
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
         <Stat label="Developers" value={roleCount("project_developer")} icon={<ShieldCheck />} tone="clay" />
         <Stat label="Supervisors" value={roleCount("kiln_supervisor")} icon={<Users />} tone="sage" />
         <Stat label="Operators" value={roleCount("kiln_operator")} icon={<MapPin />} tone="ochre" />
@@ -110,7 +110,7 @@ export default async function TeamPage() {
       </div>
 
       {/* Separation of duties note */}
-      <Card className="mb-6 border-sage-soft bg-sage-tint/40">
+      <Card className="mb-4 border-sage-soft bg-sage-tint/40">
         <CardContent className="pt-5">
           <div className="flex items-start gap-3">
             <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-sage-tint text-sage">

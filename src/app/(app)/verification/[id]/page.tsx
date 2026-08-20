@@ -127,9 +127,9 @@ export default async function VerificationDetailPage({
         </div>
       </PageHeader>
 
-      <div className="grid lg:grid-cols-3 gap-6">
+      <div className="grid lg:grid-cols-3 gap-4">
         {/* Evidence package — main column */}
-        <div className="lg:col-span-2 space-y-8">
+        <div className="lg:col-span-2 space-y-4">
           {/* Batch summary */}
           <section>
             <SectionHeader title="Batch under verification" />
@@ -326,7 +326,7 @@ export default async function VerificationDetailPage({
         </div>
 
         {/* Side column */}
-        <div className="space-y-6">
+        <div className="space-y-4">
           <Card>
             <CardHeader className="flex-row items-center justify-between">
               <CardTitle>Verification</CardTitle>

@@ -18,7 +18,7 @@ interface Props {
 
 export function SettingsForms({ profile, project, canManageProject }: Props) {
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       <ProfileForm profile={profile} />
       {canManageProject && <ProjectForm project={project} />}
     </div>

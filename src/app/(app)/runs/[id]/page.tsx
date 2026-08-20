@@ -113,9 +113,9 @@ export default async function RunDetailPage({
         </Button>
       </PageHeader>
 
-      <div className="grid lg:grid-cols-3 gap-6">
+      <div className="grid lg:grid-cols-3 gap-4">
         {/* Evidence */}
-        <div className="lg:col-span-2 space-y-6">
+        <div className="lg:col-span-2 space-y-4">
           <Card>
             <CardHeader className="flex-row items-center justify-between">
               <CardTitle className="flex items-center gap-2">
@@ -134,7 +134,7 @@ export default async function RunDetailPage({
                   </p>
                 </>
               ) : (
-                <p className="py-8 text-center text-sm text-muted">
+                <p className="py-5 text-center text-sm text-muted">
                   No temperature curve recorded for this run.
                 </p>
               )}
@@ -189,7 +189,7 @@ export default async function RunDetailPage({
         </div>
 
         {/* Record */}
-        <div className="space-y-6">
+        <div className="space-y-4">
           <Card>
             <CardHeader>
               <CardTitle>Run record</CardTitle>

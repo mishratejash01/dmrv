@@ -29,7 +29,7 @@ export default function Error({
           {error.message}
         </code>
       )}
-      <Button className="mt-6" onClick={reset}>
+      <Button className="mt-4" onClick={reset}>
         <RotateCcw className="h-4 w-4" /> Try again
       </Button>
     </div>

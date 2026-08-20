@@ -26,7 +26,7 @@ export function PhotoGallery({
 }) {
   if (!photos || photos.length === 0) {
     return (
-      <div className="flex items-center gap-2 text-sm text-muted rounded-lg border border-dashed border-border-strong bg-surface/40 px-4 py-6 justify-center">
+      <div className="flex items-center gap-2 text-sm text-muted rounded-lg border border-dashed border-border-strong bg-surface/40 px-4 py-5 justify-center">
         <ImageOff className="h-4 w-4" /> No photos attached
       </div>
     );
@@ -46,7 +46,7 @@ export function PhotoGallery({
                   className="h-full w-full object-cover transition-transform group-hover:scale-[1.03]"
                 />
                 {p.photo_type && (
-                  <span className="absolute top-1.5 left-1.5 rounded-full bg-ink/70 px-2 py-0.5 text-[10px] font-medium text-elevated backdrop-blur">
+                  <span className="absolute top-1.5 left-1.5 rounded bg-ink/70 px-2 py-0.5 text-[10px] font-medium text-elevated backdrop-blur">
                     {humanize(p.photo_type)}
                   </span>
                 )}

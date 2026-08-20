@@ -151,7 +151,7 @@ export function GhgCalculator({ batches, canCompute }: Props) {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="grid lg:grid-cols-2 gap-6">
+        <div className="grid lg:grid-cols-2 gap-4">
           {/* Inputs */}
           <div className="space-y-4">
             <Field label="Production batch" required hint="Prefills the lab values and project settings">

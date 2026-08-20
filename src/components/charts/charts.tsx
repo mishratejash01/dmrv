@@ -51,7 +51,7 @@ export function AreaTrend({
         <YAxis {...axis} width={44} />
         <Tooltip
           formatter={(v) => [`${v}${unit}`, ""]}
-          contentStyle={{ borderRadius: 10, border: "1px solid #e2e8f0", background: "#ffffff" }}
+          contentStyle={{ borderRadius: 4, border: "1px solid #e2e8f0", background: "#ffffff" }}
         />
         <Area type="monotone" dataKey={dataKey} stroke={color} strokeWidth={2} fill={`url(#grad-${dataKey})`} />
       </AreaChart>
@@ -83,7 +83,7 @@ export function BarSeries({
         <Tooltip
           cursor={{ fill: "#f1f5f9" }}
           formatter={(v) => [`${v}${unit}`, ""]}
-          contentStyle={{ borderRadius: 10, border: "1px solid #e2e8f0", background: "#ffffff" }}
+          contentStyle={{ borderRadius: 4, border: "1px solid #e2e8f0", background: "#ffffff" }}
         />
         <Bar dataKey={dataKey} fill={color} radius={[6, 6, 0, 0]} maxBarSize={44} />
       </BarChart>
@@ -115,7 +115,7 @@ export function Donut({
           ))}
         </Pie>
         <Tooltip
-          contentStyle={{ borderRadius: 10, border: "1px solid #e2e8f0", background: "#ffffff" }}
+          contentStyle={{ borderRadius: 4, border: "1px solid #e2e8f0", background: "#ffffff" }}
         />
       </PieChart>
     </ResponsiveContainer>
@@ -138,7 +138,7 @@ export function TempCurve({
         <Tooltip
           formatter={(v) => [`${v} °C`, "Temp"]}
           labelFormatter={(l) => `${l} min`}
-          contentStyle={{ borderRadius: 10, border: "1px solid #e2e8f0", background: "#ffffff" }}
+          contentStyle={{ borderRadius: 4, border: "1px solid #e2e8f0", background: "#ffffff" }}
         />
         <Line type="monotone" dataKey="temp" stroke="#b3261e" strokeWidth={2} dot={false} />
       </LineChart>

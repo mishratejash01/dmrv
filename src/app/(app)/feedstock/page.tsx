@@ -70,7 +70,7 @@ export default async function FeedstockPage() {
       </PageHeader>
 
       {/* KPIs */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
         <Stat label="Approved types" value={fmt(activeApproved.length, 0)} icon={<ShieldCheck />} tone="sage" hint="Active on the project positive list" />
         <Stat label="Deliveries" value={fmt(deliveryCount, 0)} icon={<Truck />} tone="clay" hint={deliveryCount > 50 ? "Most recent 50 shown below" : "All shown below"} />
         <Stat label="Received (wet)" value={fmt(totalWetKg / 1000, 1)} unit="t" icon={<Leaf />} tone="ochre" hint="As-delivered mass" />

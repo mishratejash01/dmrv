@@ -8,7 +8,7 @@ export default function SignupPage() {
   return (
     <div>
       <h1 className="font-display text-2xl text-ink">Create your account</h1>
-      <p className="mt-1 text-sm text-muted mb-6">
+      <p className="mt-1 text-sm text-muted mb-4">
         Start a new project, or join one you&apos;ve been invited to.
       </p>
       <Suspense>

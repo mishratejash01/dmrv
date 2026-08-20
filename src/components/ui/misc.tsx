@@ -14,13 +14,13 @@ export function PageHeader({
   className?: string;
 }) {
   return (
-    <div className={cn("flex flex-wrap items-start justify-between gap-4 mb-6", className)}>
+    <div className={cn("flex flex-wrap items-start justify-between gap-3 mb-4", className)}>
       <div className="min-w-0">
-        <h1 className="font-display text-2xl md:text-3xl text-ink leading-tight text-balance">
+        <h1 className="font-display text-xl md:text-2xl font-semibold text-brand-deep leading-tight text-balance">
           {title}
         </h1>
         {description && (
-          <p className="mt-1.5 text-muted text-sm md:text-base max-w-2xl text-pretty">
+          <p className="mt-1 text-muted text-sm max-w-2xl text-pretty">
             {description}
           </p>
         )}
@@ -41,8 +41,8 @@ export function SectionHeader({
   className?: string;
 }) {
   return (
-    <div className={cn("flex items-center justify-between mb-3", className)}>
-      <h2 className="font-display text-lg text-ink">{title}</h2>
+    <div className={cn("flex items-center justify-between mb-2", className)}>
+      <h2 className="font-display text-base font-semibold text-brand-deep">{title}</h2>
       {action}
     </div>
   );
@@ -65,7 +65,7 @@ export function EmptyState({
   return (
     <div
       className={cn(
-        "flex flex-col items-center justify-center text-center py-14 px-6 rounded-xl border border-dashed border-border-strong bg-surface/40",
+        "flex flex-col items-center justify-center text-center py-10 px-6 rounded border border-dashed border-border-strong bg-surface/40",
         className,
       )}
     >
@@ -132,11 +132,11 @@ export function Stat({
     neutral: "text-ink-soft bg-surface-2",
   };
   return (
-    <div className={cn("rounded-xl border border-border bg-elevated p-5 shadow-sm", className)}>
+    <div className={cn("rounded border border-border bg-elevated p-4", className)}>
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
           <p className="text-sm text-muted">{label}</p>
-          <p className="mt-1 font-display text-2xl text-ink tnum leading-tight">
+          <p className="mt-1 font-display text-2xl font-semibold text-brand-deep tnum leading-tight">
             {value}
             {unit && <span className="text-base text-muted ml-1 font-sans">{unit}</span>}
           </p>
