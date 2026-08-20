@@ -17,7 +17,6 @@ import { LogoLockup } from "@/components/common/logo";
 import { visibleNav, PROJECT_ROLE_LABEL } from "@/lib/nav";
 import type { AppCapabilities } from "@/lib/auth";
 import { Avatar } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
 import {
   Dropdown,
   DropdownTrigger,
@@ -67,14 +66,22 @@ export function AppShell({
       {/* Sidebar */}
       <aside
         className={cn(
-          "fixed inset-y-0 left-0 z-40 w-64 border-r border-border bg-elevated flex flex-col transition-transform lg:translate-x-0",
+          "fixed inset-y-0 left-0 z-40 w-64 flex flex-col transition-transform lg:translate-x-0",
+          "relative bg-brand-deep",
           open ? "translate-x-0" : "-translate-x-full",
         )}
       >
-        <div className="h-14 flex items-center gap-2.5 px-4 border-b border-border shrink-0">
-          <LogoLockup height={18} />
+        {/* One soft fall of light down the rail, so the green reads as a surface
+            rather than a flat fill. Nothing else is layered on it. */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0)_220px)]"
+        />
+
+        <div className="relative h-14 flex items-center gap-2.5 px-4 border-b border-white/10 shrink-0">
+          <LogoLockup variant="white" height={18} />
           <button
-            className="ml-auto lg:hidden text-muted"
+            className="ml-auto lg:hidden text-white/60 hover:text-white transition-colors"
             onClick={() => setOpen(false)}
             aria-label="Close menu"
           >
@@ -82,13 +89,18 @@ export function AppShell({
           </button>
         </div>
 
-        <nav className="flex-1 overflow-y-auto px-2 py-3 space-y-4">
+        <nav className="relative flex-1 overflow-y-auto py-3 space-y-5">
           {sections.map((section) => (
             <div key={section.title}>
-              <p className="px-2 mb-1 text-[11px] font-semibold uppercase tracking-wider text-muted">
-                {section.title}
-              </p>
-              <ul className="space-y-0.5">
+              {/* Label then a hairline running to the edge — the divider off a
+                  printed register, not a floating pill header. */}
+              <div className="flex items-center gap-2.5 pl-4 pr-3 mb-1.5">
+                <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-white/40">
+                  {section.title}
+                </span>
+                <span aria-hidden className="h-px flex-1 bg-white/10" />
+              </div>
+              <ul>
                 {section.items.map((item) => {
                   const isActive =
                     pathname === item.href ||
@@ -106,13 +118,18 @@ export function AppShell({
                       <Link
                         href={item.href}
                         className={cn(
-                          "flex items-center gap-2.5 rounded px-2.5 py-1.5 text-sm transition-colors",
+                          "flex items-center gap-2.5 border-l-2 py-1.5 pl-3.5 pr-3 text-sm transition-colors",
                           isActive
-                            ? "bg-clay-tint text-[#05543a] font-medium"
-                            : "text-ink-soft hover:bg-surface hover:text-ink",
+                            ? "border-brand-accent bg-white/[0.07] text-white font-medium"
+                            : "border-transparent text-white/65 hover:bg-white/[0.04] hover:text-white",
                         )}
                       >
-                        <Icon className={cn("h-4 w-4 shrink-0", isActive ? "text-clay" : "text-muted")} />
+                        <Icon
+                          className={cn(
+                            "h-4 w-4 shrink-0",
+                            isActive ? "text-brand-accent" : "text-white/40",
+                          )}
+                        />
                         {item.label}
                       </Link>
                     </li>
@@ -123,10 +140,11 @@ export function AppShell({
           ))}
         </nav>
 
-        <div className="border-t border-border p-2.5 shrink-0">
-          <Badge tone="sage" className="w-full justify-center">
+        <div className="relative border-t border-white/10 px-4 py-3 shrink-0">
+          <p className="text-[10px] uppercase tracking-[0.16em] text-white/35">Signed in as</p>
+          <p className="mt-1 font-mono text-[11px] uppercase tracking-wider text-brand-accent truncate">
             {roleLabel}
-          </Badge>
+          </p>
         </div>
       </aside>
 
@@ -152,7 +170,7 @@ export function AppShell({
           {active && (
             <Dropdown>
               <DropdownTrigger className="flex items-center gap-2 rounded-lg border border-border bg-elevated px-3 py-1.5 text-sm hover:bg-surface transition-colors max-w-64">
-                <span className="grid h-6 w-6 place-items-center rounded bg-sage-tint text-[11px] font-medium text-[#2e7d32]">
+                <span className="grid h-6 w-6 place-items-center rounded bg-sage-tint font-mono text-[10px] font-medium text-[#2e7d32]">
                   {active.code}
                 </span>
                 <span className="truncate text-ink font-medium">{active.name}</span>
