@@ -95,7 +95,7 @@ export function AppShell({
               {/* Label then a hairline running to the edge — the divider off a
                   printed register, not a floating pill header. */}
               <div className="pl-3.5 pr-3 mb-1.5">
-                <span className="text-[13px] font-semibold text-white/55">{section.title}</span>
+                <span className="text-[14px] font-normal text-white/45">{section.title}</span>
               </div>
               <ul>
                 {section.items.map((item) => {
@@ -115,9 +115,9 @@ export function AppShell({
                       <Link
                         href={item.href}
                         className={cn(
-                          "flex items-center gap-2.5 border-l-2 py-[7px] pl-3.5 pr-3 text-[13.5px] transition-colors",
+                          "flex items-center gap-2.5 border-l-2 py-2 pl-3.5 pr-3 text-[15px] font-normal transition-colors",
                           isActive
-                            ? "border-brand-accent bg-white/[0.07] text-white font-medium"
+                            ? "border-brand-accent bg-white/[0.07] text-white"
                             : "border-transparent text-white/65 hover:bg-white/[0.04] hover:text-white",
                         )}
                       >
