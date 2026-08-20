@@ -116,6 +116,18 @@ export {
   Settings20Filled,
   ShieldCheckmark20Filled,
   Wallet20Filled,
+  BookDatabase20Filled,
+  BoxMultiple20Filled,
+  BuildingFactory20Filled,
+  ClipboardCheckmark20Filled,
+  DataTrending20Filled,
+  Flowchart20Filled,
+  Home20Filled,
+  LeafThree20Filled,
+  Molecule20Filled,
+  Notepad20Filled,
+  PlantGrass20Filled,
+  Vault20Filled,
 } from "@fluentui/react-icons";
 
 export type { FluentIcon } from "@fluentui/react-icons";

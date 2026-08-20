@@ -13,7 +13,7 @@ import {
   ChevronDown16Regular,
 } from "@/components/common/icons";
 import { cn } from "@/lib/utils";
-import { LogoLockup } from "@/components/common/logo";
+import { Logo } from "@/components/common/logo";
 import { visibleNav, PROJECT_ROLE_LABEL } from "@/lib/nav";
 import type { AppCapabilities } from "@/lib/auth";
 import { Avatar } from "@/components/ui/avatar";
@@ -78,8 +78,8 @@ export function AppShell({
           className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0)_220px)]"
         />
 
-        <div className="relative h-14 flex items-center gap-2.5 px-4 border-b border-white/10 shrink-0">
-          <LogoLockup variant="white" height={18} />
+        <div className="relative h-16 flex items-center gap-2.5 px-4 shrink-0">
+          <Logo variant="white" height={30} />
           <button
             className="ml-auto lg:hidden text-white/60 hover:text-white transition-colors"
             onClick={() => setOpen(false)}
@@ -109,7 +109,7 @@ export function AppShell({
                     (item.href === "/registry" &&
                       pathname.startsWith("/registry") &&
                       !pathname.startsWith("/registry/buffer"));
-                  const Icon = isActive ? item.iconActive : item.icon;
+                  const Icon = item.icon;
                   return (
                     <li key={item.href}>
                       <Link
