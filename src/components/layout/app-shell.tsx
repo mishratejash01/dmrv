@@ -66,7 +66,7 @@ export function AppShell({
       {/* Sidebar */}
       <aside
         className={cn(
-          "fixed inset-y-0 left-0 z-40 w-52 flex flex-col transition-transform lg:translate-x-0",
+          "fixed inset-y-0 left-0 z-40 w-60 flex flex-col transition-transform lg:translate-x-0",
           "bg-brand-deep",
           open ? "translate-x-0" : "-translate-x-full",
         )}
@@ -146,7 +146,7 @@ export function AppShell({
       )}
 
       {/* Main column */}
-      <div className="flex-1 lg:pl-52 min-w-0 flex flex-col">
+      <div className="flex-1 lg:pl-60 min-w-0 flex flex-col">
         <header className="sticky top-0 z-20 h-14 border-b border-border bg-base/85 backdrop-blur flex items-center gap-3 px-3 md:px-4">
           <button
             className="lg:hidden text-ink-soft"
