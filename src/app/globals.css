@@ -64,9 +64,9 @@
   --shadow-lg: 0 2px 4px -1px rgb(11 46 31 / 0.08);
 
   /* ---- Fonts (wired via next/font in layout) ---- */
-  --font-sans: var(--font-body), "Segoe UI", ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-heading), "Segoe UI", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-mono-code), ui-monospace, "Consolas", monospace;
+  --font-sans: var(--font-body), "IBM Plex Sans", "Segoe UI", ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-heading), "IBM Plex Sans", "Segoe UI", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-mono-code), "IBM Plex Mono", ui-monospace, "Consolas", monospace;
 }
 
 @layer base {

@@ -99,6 +99,23 @@ export {
   Settings20Regular,
   ShieldCheckmark20Regular,
   Wallet20Regular,
+  Beaker20Filled,
+  Board20Filled,
+  BoxMultipleFilled,
+  CheckboxChecked20Filled,
+  ClipboardTaskListLtrFilled,
+  DataBarVertical20Filled,
+  Fire20Filled,
+  LeafOne20Filled,
+  Location20Filled,
+  Organization20Filled,
+  People20Filled,
+  PlantGrassFilled,
+  Ribbon20Filled,
+  Scales20Filled,
+  Settings20Filled,
+  ShieldCheckmark20Filled,
+  Wallet20Filled,
 } from "@fluentui/react-icons";
 
 export type { FluentIcon } from "@fluentui/react-icons";

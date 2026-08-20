@@ -1,26 +1,28 @@
 import type { Metadata } from "next";
-import { Outfit, JetBrains_Mono } from "next/font/google";
+import { IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
 import { Suspense } from "react";
 import { Toaster } from "sonner";
 import { BRAND } from "@/lib/brand";
 import { NavProgress } from "@/components/layout/nav-progress";
 import "./globals.css";
 
-// Outfit is the Acres Climate Tech brand face, taken from acresclimate.tech.
-// One family carries the whole product — headings and body alike.
-const display = Outfit({
+// IBM Plex carries the whole product. It was drawn as IBM's corporate face,
+// which is the register this is written in: a system of record, read in dense
+// tables of serials and tonnages rather than skimmed as marketing.
+// Sans and Mono are siblings, so identifiers sit beside prose without a seam.
+const display = IBM_Plex_Sans({
   variable: "--font-heading",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["500", "600"],
 });
 
-const body = Outfit({
+const body = IBM_Plex_Sans({
   variable: "--font-body",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
+  weight: ["400", "500", "600"],
 });
 
-const mono = JetBrains_Mono({
+const mono = IBM_Plex_Mono({
   variable: "--font-mono-code",
   subsets: ["latin"],
   weight: ["400", "500"],

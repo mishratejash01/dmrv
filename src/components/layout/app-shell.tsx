@@ -124,7 +124,7 @@ export function AppShell({
                         <Icon
                           className={cn(
                             "h-5 w-5 shrink-0",
-                            isActive ? "text-brand-accent" : "text-white/45",
+                            isActive ? "text-brand-accent" : "text-white/70",
                           )}
                         />
                         {item.label}
