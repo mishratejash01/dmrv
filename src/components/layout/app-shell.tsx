@@ -49,7 +49,7 @@ export interface ShellProps {
  */
 function NavList({ can, pathname }: { can: AppCapabilities; pathname: string }) {
   return (
-    <nav className="flex-1 overflow-y-auto px-2.5 py-4 space-y-6">
+    <nav className="flex-1 overflow-y-auto scrollbar-none px-2.5 py-4 space-y-6">
       {visibleNav(can).map((section) => (
         <div key={section.title}>
           <p className="px-2.5 mb-1.5 text-[12px] text-muted">{section.title}</p>
@@ -219,11 +219,11 @@ export function AppShell({
           the rail and the content within it do. */}
       <div className="flex-1 min-h-0 px-2 pb-2">
         <div className="h-full flex overflow-hidden rounded-[14px] bg-base">
-          <aside className="hidden lg:flex w-60 shrink-0 flex-col border-r border-border bg-elevated overflow-y-auto">
+          <aside className="hidden lg:flex w-60 shrink-0 flex-col border-r border-border bg-elevated overflow-y-auto scrollbar-none">
             <NavList can={can} pathname={pathname} />
           </aside>
 
-          <main className="flex-1 min-w-0 overflow-y-auto px-3 md:px-4 py-3 md:py-4">
+          <main className="flex-1 min-w-0 overflow-y-auto scrollbar-none px-3 md:px-4 py-3 md:py-4">
             {children}
           </main>
         </div>

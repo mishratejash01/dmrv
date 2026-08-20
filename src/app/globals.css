@@ -145,6 +145,17 @@
   .hairline {
     border: 1px solid var(--color-border);
   }
+  /* Scrolls without a visible bar. The region still scrolls by wheel,
+     trackpad, keyboard and touch. */
+  .scrollbar-none {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    display: none;
+  }
   /* Number / data readouts */
   .tnum {
     font-variant-numeric: tabular-nums;
