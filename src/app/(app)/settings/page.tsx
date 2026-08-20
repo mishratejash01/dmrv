@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
-import { BookOpen } from "lucide-react";
+import {
+  BookOpen20Regular,
+} from "@/components/common/icons";
 import { getAppContext } from "@/lib/auth";
 import { Card, CardContent, CardHeader, CardDescription, CardTitle } from "@/components/ui/card";
 import { PageHeader, SectionHeader, DataRow } from "@/components/ui/misc";
@@ -34,7 +36,7 @@ export default async function SettingsPage() {
         <div className="space-y-4">
           <Card>
             <CardHeader className="flex-row items-center gap-2">
-              <BookOpen className="h-4 w-4 text-clay" />
+              <BookOpen20Regular className="h-4 w-4 text-clay" />
               <div>
                 <CardTitle>Methodology</CardTitle>
                 <CardDescription>{METHODOLOGY.name}</CardDescription>

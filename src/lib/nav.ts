@@ -1,29 +1,29 @@
-import type { LucideIcon } from "lucide-react";
+import type { FluentIcon } from "@/components/common/icons";
 import {
-  LayoutDashboard,
-  BarChart3,
-  Flame,
-  ClipboardList,
-  CheckSquare,
-  Boxes,
-  Sprout,
-  MapPin,
-  FlaskConical,
-  Scale,
-  Leaf,
-  ShieldCheck,
-  BadgeCheck,
-  Network,
-  Users,
-  Settings,
-  Wallet,
-} from "lucide-react";
+  Board20Regular,
+  DataBarVertical20Regular,
+  Fire20Regular,
+  ClipboardTaskListLtr20Regular,
+  CheckboxChecked20Regular,
+  BoxMultiple20Regular,
+  PlantGrass20Regular,
+  Location20Regular,
+  Beaker20Regular,
+  Scales20Regular,
+  LeafOne20Regular,
+  ShieldCheckmark20Regular,
+  Ribbon20Regular,
+  Organization20Regular,
+  People20Regular,
+  Settings20Regular,
+  Wallet20Regular,
+} from "@/components/common/icons";
 import type { AppCapabilities } from "@/lib/auth";
 
 export interface NavItem {
   href: string;
   label: string;
-  icon: LucideIcon;
+  icon: FluentIcon;
   show?: (c: AppCapabilities) => boolean;
 }
 
@@ -36,48 +36,48 @@ export const NAV: NavSection[] = [
   {
     title: "Overview",
     items: [
-      { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
-      { href: "/analytics", label: "Analytics", icon: BarChart3 },
-      { href: "/traceability", label: "Traceability", icon: Network },
+      { href: "/dashboard", label: "Dashboard", icon: Board20Regular },
+      { href: "/analytics", label: "Analytics", icon: DataBarVertical20Regular },
+      { href: "/traceability", label: "Traceability", icon: Organization20Regular },
     ],
   },
   {
     title: "Field operations",
     items: [
-      { href: "/field", label: "Field log", icon: Flame, show: (c) => c.canOperate },
-      { href: "/runs", label: "Kiln runs", icon: ClipboardList },
-      { href: "/review", label: "Review queue", icon: CheckSquare, show: (c) => c.canReview },
+      { href: "/field", label: "Field log", icon: Fire20Regular, show: (c) => c.canOperate },
+      { href: "/runs", label: "Kiln runs", icon: ClipboardTaskListLtr20Regular },
+      { href: "/review", label: "Review queue", icon: CheckboxChecked20Regular, show: (c) => c.canReview },
     ],
   },
   {
     title: "Production",
     items: [
-      { href: "/batches", label: "Production batches", icon: Boxes },
-      { href: "/feedstock", label: "Feedstock", icon: Sprout },
-      { href: "/sites", label: "Sites & kilns", icon: MapPin },
+      { href: "/batches", label: "Production batches", icon: BoxMultiple20Regular },
+      { href: "/feedstock", label: "Feedstock", icon: PlantGrass20Regular },
+      { href: "/sites", label: "Sites & kilns", icon: Location20Regular },
     ],
   },
   {
     title: "Science & carbon",
     items: [
-      { href: "/lab", label: "Lab tests", icon: FlaskConical },
-      { href: "/ghg", label: "GHG quantification", icon: Scale },
-      { href: "/end-use", label: "End-use", icon: Leaf },
-      { href: "/verification", label: "Verification", icon: ShieldCheck },
+      { href: "/lab", label: "Lab tests", icon: Beaker20Regular },
+      { href: "/ghg", label: "GHG quantification", icon: Scales20Regular },
+      { href: "/end-use", label: "End-use", icon: LeafOne20Regular },
+      { href: "/verification", label: "Verification", icon: ShieldCheckmark20Regular },
     ],
   },
   {
     title: "Registry",
     items: [
-      { href: "/registry", label: "Credit registry", icon: BadgeCheck },
-      { href: "/registry/buffer", label: "Buffer pool", icon: Wallet },
+      { href: "/registry", label: "Credit registry", icon: Ribbon20Regular },
+      { href: "/registry/buffer", label: "Buffer pool", icon: Wallet20Regular },
     ],
   },
   {
     title: "Manage",
     items: [
-      { href: "/team", label: "Team & roles", icon: Users, show: (c) => c.canManageProject },
-      { href: "/settings", label: "Settings", icon: Settings },
+      { href: "/team", label: "Team & roles", icon: People20Regular, show: (c) => c.canManageProject },
+      { href: "/settings", label: "Settings", icon: Settings20Regular },
     ],
   },
 ];

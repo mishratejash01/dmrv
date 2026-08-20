@@ -3,7 +3,10 @@
 import * as React from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { Loader2, Save } from "lucide-react";
+import {
+  SpinnerIos20Regular,
+  Save20Regular,
+} from "@/components/common/icons";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardDescription, CardTitle } from "@/components/ui/card";
 import { Field, Input, Textarea, NativeSelect } from "@/components/ui/input";
@@ -83,8 +86,8 @@ function ProfileForm({ profile }: { profile: Profile }) {
         </Field>
         <div className="flex justify-end">
           <Button onClick={handleSave} disabled={busy}>
-            {busy ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
-            Save profile
+            {busy ? <SpinnerIos20Regular className="h-4 w-4 animate-spin" /> : <Save20Regular className="h-4 w-4" />}
+            Save20Regular profile
           </Button>
         </div>
       </CardContent>
@@ -209,8 +212,8 @@ function ProjectForm({ project }: { project: Project }) {
         </div>
         <div className="flex justify-end">
           <Button onClick={handleSave} disabled={busy}>
-            {busy ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
-            Save project
+            {busy ? <SpinnerIos20Regular className="h-4 w-4 animate-spin" /> : <Save20Regular className="h-4 w-4" />}
+            Save20Regular project
           </Button>
         </div>
       </CardContent>

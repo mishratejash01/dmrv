@@ -1,5 +1,11 @@
 import type { Metadata } from "next";
-import { Coins, ArrowLeftRight, Archive, Wallet, ShieldCheck } from "lucide-react";
+import {
+  Money20Regular,
+  ArrowSwap20Regular,
+  Archive20Regular,
+  Wallet20Regular,
+  ShieldCheckmark20Regular,
+} from "@/components/common/icons";
 import { createClient } from "@/lib/supabase/server";
 import { Card, CardContent } from "@/components/ui/card";
 import { Stat, SectionHeader, EmptyState } from "@/components/ui/misc";
@@ -57,15 +63,15 @@ export default async function RegistryPublicPage() {
 
       {/* KPIs */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-        <Stat label="Credits on ledger" value={fmt(totalCredits, 0)} unit="RCCs" icon={<Coins />} tone="clay" />
-        <Stat label="Live / transferred" value={fmt(issued, 0)} unit="RCCs" icon={<ArrowLeftRight />} tone="info" />
-        <Stat label="Retired" value={fmt(retired, 0)} unit="RCCs" icon={<Archive />} tone="sage" hint="Permanently claimed" />
-        <Stat label="Buffer pool" value={fmt(bufferBal, 0)} unit="tCO₂e" icon={<Wallet />} tone="ochre" hint={`${bufferCredits} credits`} />
+        <Stat label="Credits on ledger" value={fmt(totalCredits, 0)} unit="RCCs" icon={<Money20Regular />} tone="clay" />
+        <Stat label="Live / transferred" value={fmt(issued, 0)} unit="RCCs" icon={<ArrowSwap20Regular />} tone="info" />
+        <Stat label="Retired" value={fmt(retired, 0)} unit="RCCs" icon={<Archive20Regular />} tone="sage" hint="Permanently claimed" />
+        <Stat label="Buffer pool" value={fmt(bufferBal, 0)} unit="tCO₂e" icon={<Wallet20Regular />} tone="ochre" hint={`${bufferCredits} credits`} />
       </div>
 
       {/* Transparency note */}
       <div className="mb-8 flex items-start gap-3 rounded-xl border border-sage-soft bg-sage-tint/40 px-4 py-3.5">
-        <ShieldCheck className="h-5 w-5 text-sage shrink-0 mt-0.5" />
+        <ShieldCheckmark20Regular className="h-5 w-5 text-sage shrink-0 mt-0.5" />
         <p className="text-sm text-[#2e7d32] text-pretty">
           Retired credits are locked to a beneficiary and can never be reused. A share of every
           removal issuance is held in a shared buffer pool as reversal insurance. Serial numbers
@@ -79,7 +85,7 @@ export default async function RegistryPublicPage() {
         <Card>
           {credits.length === 0 ? (
             <EmptyState
-              icon={<Coins />}
+              icon={<Money20Regular />}
               title="No credits issued yet"
               description="Issued Rainbow Carbon Credits will appear here as they are minted."
               className="border-0"

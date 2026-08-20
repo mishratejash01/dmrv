@@ -1,6 +1,12 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { Stamp, ShieldCheck, Coins, Wallet, ArrowUpRight } from "lucide-react";
+import {
+  ApprovalsApp20Regular,
+  ShieldCheckmark20Regular,
+  Money20Regular,
+  Wallet20Regular,
+  ArrowUpRight20Regular,
+} from "@/components/common/icons";
 import { getAppContext } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -95,22 +101,22 @@ export default async function RegistryPage() {
       >
         <Button asChild variant="secondary">
           <Link href="/registry/buffer">
-            <Wallet className="h-4 w-4" /> Buffer pool
+            <Wallet20Regular className="h-4 w-4" /> Buffer pool
           </Link>
         </Button>
         <Button asChild variant="outline">
           <Link href="/registry-public" target="_blank">
-            Public registry <ArrowUpRight className="h-3.5 w-3.5" />
+            Public registry <ArrowUpRight20Regular className="h-3.5 w-3.5" />
           </Link>
         </Button>
       </PageHeader>
 
       {/* KPIs */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-        <Stat label="Credits issued" value={fmt(issued, 0)} unit="RCCs" icon={<Coins />} tone="clay" hint={`${credits.length} minted total`} />
-        <Stat label="Retired" value={fmt(retired, 0)} unit="RCCs" icon={<ShieldCheck />} tone="sage" hint="Locked to beneficiaries" />
-        <Stat label="Buffer pool" value={fmt(bufferBal, 0)} unit="tCO₂e" icon={<Wallet />} tone="info" hint={`${bufferCredits} credits held`} />
-        <Stat label="Awaiting issuance" value={fmt(issuable.length, 0)} unit="batches" icon={<Stamp />} tone="ochre" hint="Verified & quantified" />
+        <Stat label="Credits issued" value={fmt(issued, 0)} unit="RCCs" icon={<Money20Regular />} tone="clay" hint={`${credits.length} minted total`} />
+        <Stat label="Retired" value={fmt(retired, 0)} unit="RCCs" icon={<ShieldCheckmark20Regular />} tone="sage" hint="Locked to beneficiaries" />
+        <Stat label="Buffer pool" value={fmt(bufferBal, 0)} unit="tCO₂e" icon={<Wallet20Regular />} tone="info" hint={`${bufferCredits} credits held`} />
+        <Stat label="Awaiting issuance" value={fmt(issuable.length, 0)} unit="batches" icon={<ApprovalsApp20Regular />} tone="ochre" hint="Verified & quantified" />
       </div>
 
       {/* 1 · Issuable */}
@@ -119,7 +125,7 @@ export default async function RegistryPage() {
         <Card>
           {issuable.length === 0 ? (
             <EmptyState
-              icon={<Stamp />}
+              icon={<ApprovalsApp20Regular />}
               title="Nothing awaiting issuance"
               description="A batch becomes issuable once it is verified by a VVB and its GHG removal has been quantified."
               className="border-0"
@@ -253,7 +259,7 @@ export default async function RegistryPage() {
         <Card>
           {credits.length === 0 ? (
             <EmptyState
-              icon={<Coins />}
+              icon={<Money20Regular />}
               title="No credits minted"
               description="Approved issuances mint one serialised RCC per whole tonne of net CO₂ removed."
               className="border-0"

@@ -2,7 +2,10 @@
 
 import * as React from "react";
 import Papa from "papaparse";
-import { Download, Printer } from "lucide-react";
+import {
+  ArrowDownload20Regular,
+  Print20Regular,
+} from "@/components/common/icons";
 import { Button } from "@/components/ui/button";
 
 /** Export an array of row objects to a downloaded CSV. */
@@ -27,7 +30,7 @@ export function ExportCsvButton({
   }
   return (
     <Button variant="secondary" size="sm" onClick={download} disabled={rows.length === 0}>
-      <Download className="h-4 w-4" /> {label}
+      <ArrowDownload20Regular className="h-4 w-4" /> {label}
     </Button>
   );
 }
@@ -36,7 +39,7 @@ export function ExportCsvButton({
 export function PrintButton({ label = "Print / PDF" }: { label?: string }) {
   return (
     <Button variant="secondary" size="sm" onClick={() => window.print()} className="no-print">
-      <Printer className="h-4 w-4" /> {label}
+      <Print20Regular className="h-4 w-4" /> {label}
     </Button>
   );
 }

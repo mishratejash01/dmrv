@@ -2,7 +2,10 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
-import { Plus, Loader2 } from "lucide-react";
+import {
+  Add20Regular,
+  SpinnerIos20Regular,
+} from "@/components/common/icons";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
@@ -55,7 +58,7 @@ export function NewBatch({ projectId }: { projectId: string }) {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button>
-          <Plus className="h-4 w-4" /> New batch
+          <Add20Regular className="h-4 w-4" /> New batch
         </Button>
       </DialogTrigger>
       <DialogContent>
@@ -114,7 +117,7 @@ export function NewBatch({ projectId }: { projectId: string }) {
             </Button>
           </DialogClose>
           <Button onClick={handleCreate} disabled={busy}>
-            {busy ? <Loader2 className="h-4 w-4 animate-spin" /> : <Plus className="h-4 w-4" />}
+            {busy ? <SpinnerIos20Regular className="h-4 w-4 animate-spin" /> : <Add20Regular className="h-4 w-4" />}
             Open batch
           </Button>
         </DialogFooter>

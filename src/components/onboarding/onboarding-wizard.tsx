@@ -2,7 +2,10 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
-import { Loader2, ArrowRight } from "lucide-react";
+import {
+  SpinnerIos20Regular,
+  ArrowRight20Regular,
+} from "@/components/common/icons";
 import { toast } from "sonner";
 import { createProject } from "@/lib/actions/projects";
 import { Button } from "@/components/ui/button";
@@ -121,7 +124,7 @@ export function OnboardingWizard() {
               />
             </Field>
             <Button type="submit" size="lg" disabled={loading}>
-              {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <ArrowRight className="h-4 w-4" />}
+              {loading ? <SpinnerIos20Regular className="h-4 w-4 animate-spin" /> : <ArrowRight20Regular className="h-4 w-4" />}
               Create project
             </Button>
           </form>

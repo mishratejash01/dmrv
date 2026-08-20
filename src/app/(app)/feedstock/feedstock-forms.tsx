@@ -2,7 +2,14 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
-import { Loader2, ShieldCheck, Truck, Camera, MapPin, X } from "lucide-react";
+import {
+  SpinnerIos20Regular,
+  ShieldCheckmark20Regular,
+  VehicleTruck20Regular,
+  Camera20Regular,
+  Location20Regular,
+  Dismiss20Regular,
+} from "@/components/common/icons";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
@@ -89,7 +96,7 @@ function ApprovedFeedstockDialog({ projectId }: { projectId: string }) {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="secondary">
-          <ShieldCheck className="h-4 w-4" /> Approve feedstock
+          <ShieldCheckmark20Regular className="h-4 w-4" /> Approve feedstock
         </Button>
       </DialogTrigger>
       <DialogContent>
@@ -157,7 +164,7 @@ function ApprovedFeedstockDialog({ projectId }: { projectId: string }) {
             Cancel
           </Button>
           <Button onClick={handleSubmit} disabled={busy}>
-            {busy && <Loader2 className="h-4 w-4 animate-spin" />} Add to approved list
+            {busy && <SpinnerIos20Regular className="h-4 w-4 animate-spin" />} Add to approved list
           </Button>
         </DialogFooter>
       </DialogContent>
@@ -293,7 +300,7 @@ function DeliveryDialog({
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button>
-          <Truck className="h-4 w-4" /> Record delivery
+          <VehicleTruck20Regular className="h-4 w-4" /> Record delivery
         </Button>
       </DialogTrigger>
       <DialogContent>
@@ -376,7 +383,7 @@ function DeliveryDialog({
             <div className="mb-1.5 flex items-center justify-between">
               <span className="text-sm font-medium text-ink">Delivery photos</span>
               <span className="flex items-center gap-1 text-xs text-muted">
-                <MapPin className="h-3.5 w-3.5" />
+                <Location20Regular className="h-3.5 w-3.5" />
                 {gps.lat != null ? `${gps.lat.toFixed(3)}, ${gps.lng?.toFixed(3)}` : "locating…"}
               </span>
             </div>
@@ -390,12 +397,12 @@ function DeliveryDialog({
                     onClick={() => removePhoto(i)}
                     className="absolute top-0.5 right-0.5 grid h-5 w-5 place-items-center rounded-full bg-ink/70 text-elevated"
                   >
-                    <X className="h-3 w-3" />
+                    <Dismiss20Regular className="h-3 w-3" />
                   </button>
                 </div>
               ))}
               <label className="flex h-20 w-20 cursor-pointer flex-col items-center justify-center gap-1 rounded-lg border-2 border-dashed border-border-strong bg-surface/40 text-muted hover:border-clay">
-                <Camera className="h-5 w-5" />
+                <Camera20Regular className="h-5 w-5" />
                 <span className="text-[10px]">Add</span>
                 <input
                   type="file"
@@ -417,7 +424,7 @@ function DeliveryDialog({
             Cancel
           </Button>
           <Button onClick={handleSubmit} disabled={busy}>
-            {busy && <Loader2 className="h-4 w-4 animate-spin" />} Record delivery
+            {busy && <SpinnerIos20Regular className="h-4 w-4 animate-spin" />} Record delivery
           </Button>
         </DialogFooter>
       </DialogContent>

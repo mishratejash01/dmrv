@@ -2,15 +2,15 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import {
-  ArrowLeft,
-  Coins,
-  Stamp,
-  ArrowLeftRight,
-  Archive,
-  Ban,
-  Wallet,
-  Circle,
-} from "lucide-react";
+  ArrowLeft20Regular,
+  Money20Regular,
+  ApprovalsApp20Regular,
+  ArrowSwap20Regular,
+  Archive20Regular,
+  Prohibited20Regular,
+  Wallet20Regular,
+  Circle20Regular,
+} from "@/components/common/icons";
 import { getAppContext } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -36,11 +36,11 @@ const TXN_META: Record<
   string,
   { label: string; icon: React.ReactNode; tone: "clay" | "sage" | "ochre" | "info" | "err" }
 > = {
-  issue: { label: "Issued", icon: <Stamp className="h-4 w-4" />, tone: "info" },
-  transfer: { label: "Transferred", icon: <ArrowLeftRight className="h-4 w-4" />, tone: "clay" },
-  retire: { label: "Retired", icon: <Archive className="h-4 w-4" />, tone: "sage" },
-  buffer: { label: "Buffered", icon: <Wallet className="h-4 w-4" />, tone: "ochre" },
-  cancel: { label: "Cancelled", icon: <Ban className="h-4 w-4" />, tone: "err" },
+  issue: { label: "Issued", icon: <ApprovalsApp20Regular className="h-4 w-4" />, tone: "info" },
+  transfer: { label: "Transferred", icon: <ArrowSwap20Regular className="h-4 w-4" />, tone: "clay" },
+  retire: { label: "Retired", icon: <Archive20Regular className="h-4 w-4" />, tone: "sage" },
+  buffer: { label: "Buffered", icon: <Wallet20Regular className="h-4 w-4" />, tone: "ochre" },
+  cancel: { label: "Cancelled", icon: <Prohibited20Regular className="h-4 w-4" />, tone: "err" },
 };
 
 export default async function CreditDetailPage({
@@ -90,7 +90,7 @@ export default async function CreditDetailPage({
           href="/registry"
           className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-clay"
         >
-          <ArrowLeft className="h-4 w-4" /> Registry
+          <ArrowLeft20Regular className="h-4 w-4" /> Registry
         </Link>
       </div>
 
@@ -112,7 +112,7 @@ export default async function CreditDetailPage({
             <CardContent className="pt-0">
               {txns.length === 0 ? (
                 <EmptyState
-                  icon={<Circle />}
+                  icon={<Circle20Regular />}
                   title="No transactions recorded"
                   description="Issuance and any transfers or retirements will appear here as an immutable timeline."
                   className="border-0"
@@ -122,7 +122,7 @@ export default async function CreditDetailPage({
                   {txns.map((t) => {
                     const tm = TXN_META[t.txn_type] ?? {
                       label: humanize(t.txn_type),
-                      icon: <Circle className="h-4 w-4" />,
+                      icon: <Circle20Regular className="h-4 w-4" />,
                       tone: "info" as const,
                     };
                     return (
@@ -163,7 +163,7 @@ export default async function CreditDetailPage({
           <Card>
             <CardHeader className="flex-row items-center justify-between">
               <CardTitle>Credit</CardTitle>
-              <Coins className="h-4 w-4 text-clay" />
+              <Money20Regular className="h-4 w-4 text-clay" />
             </CardHeader>
             <CardContent>
               <dl>

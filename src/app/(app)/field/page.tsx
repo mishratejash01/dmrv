@@ -3,7 +3,9 @@ import { getAppContext } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { PageHeader, EmptyState } from "@/components/ui/misc";
 import { FieldCapture } from "@/components/field/field-capture";
-import { Flame } from "lucide-react";
+import {
+  Fire20Regular,
+} from "@/components/common/icons";
 
 export const metadata: Metadata = { title: "Field log" };
 
@@ -17,7 +19,7 @@ export default async function FieldPage() {
       <div>
         <PageHeader title="Field log" description="Record kiln runs from the field." />
         <EmptyState
-          icon={<Flame />}
+          icon={<Fire20Regular />}
           title="Operator access required"
           description="Only kiln operators (and supervisors) can log runs. Ask your project developer to assign you to a site."
         />

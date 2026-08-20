@@ -1,0 +1,90 @@
+"use client";
+
+/**
+ * Client barrel for the Fluent System Icons.
+ *
+ * @fluentui/react-icons builds its styles through griffel, which runs only on
+ * the client. Importing an icon straight into a server component therefore
+ * fails at build time with "Attempted to call __styles() from the server".
+ * Re-exporting them across a "use client" boundary hands server components a
+ * client reference instead, which they can render freely.
+ *
+ * Import every icon from here, never from the package directly.
+ */
+export {
+  Add20Regular,
+  Alert20Regular,
+  ApprovalsApp20Regular,
+  Archive20Regular,
+  ArrowCounterclockwise20Regular,
+  ArrowDown20Regular,
+  ArrowDownload20Regular,
+  ArrowLeft20Regular,
+  ArrowRight20Regular,
+  ArrowSwap20Regular,
+  ArrowSync20Regular,
+  ArrowUp20Regular,
+  ArrowUpRight20Regular,
+  Beaker20Regular,
+  Board20Regular,
+  BookOpen20Regular,
+  BoxMultiple20Regular,
+  Calculator20Regular,
+  CalendarLtr20Regular,
+  Camera20Regular,
+  ChatWarning20Regular,
+  CheckboxChecked20Regular,
+  Checkmark20Regular,
+  CheckmarkCircle20Regular,
+  CheckmarkStarburst20Regular,
+  ChevronDown20Regular,
+  ChevronUpDown20Regular,
+  Circle20Regular,
+  ClipboardCheckmark20Regular,
+  ClipboardTaskListLtr20Regular,
+  CloudOff20Regular,
+  Copy20Regular,
+  DataBarVertical20Regular,
+  Delete20Regular,
+  Dismiss20Regular,
+  DismissCircle20Regular,
+  Fire20Regular,
+  ImageOff20Regular,
+  Info20Regular,
+  Key20Regular,
+  Layer20Regular,
+  LeafOne20Regular,
+  Location20Regular,
+  LockClosed20Regular,
+  Mail20Regular,
+  Money20Regular,
+  Navigation20Regular,
+  Note20Regular,
+  Organization20Regular,
+  People20Regular,
+  PersonAdd20Regular,
+  PlantGrass20Regular,
+  PlugDisconnected20Regular,
+  Power20Regular,
+  Print20Regular,
+  Prohibited20Regular,
+  Ribbon20Regular,
+  Rss20Regular,
+  Save20Regular,
+  Scales20Regular,
+  Settings20Regular,
+  ShieldCheckmark20Regular,
+  ShieldError20Regular,
+  SignOut20Regular,
+  Sparkle20Regular,
+  SpinnerIos20Regular,
+  Temperature20Regular,
+  TextPercent20Regular,
+  ThumbDislike20Regular,
+  ThumbLike20Regular,
+  VehicleTruck20Regular,
+  Wallet20Regular,
+  Warning20Regular,
+} from "@fluentui/react-icons";
+
+export type { FluentIcon } from "@fluentui/react-icons";

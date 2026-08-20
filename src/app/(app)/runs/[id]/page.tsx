@@ -2,13 +2,13 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import {
-  ArrowLeft,
-  Camera,
-  ClipboardCheck,
-  MapPin,
-  StickyNote,
-  Thermometer,
-} from "lucide-react";
+  ArrowLeft20Regular,
+  Camera20Regular,
+  ClipboardCheckmark20Regular,
+  Location20Regular,
+  Note20Regular,
+  Temperature20Regular,
+} from "@/components/common/icons";
 import { getAppContext } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -108,7 +108,7 @@ export default async function RunDetailPage({
       >
         <Button asChild variant="outline">
           <Link href="/runs">
-            <ArrowLeft className="h-4 w-4" /> All runs
+            <ArrowLeft20Regular className="h-4 w-4" /> All runs
           </Link>
         </Button>
       </PageHeader>
@@ -119,7 +119,7 @@ export default async function RunDetailPage({
           <Card>
             <CardHeader className="flex-row items-center justify-between">
               <CardTitle className="flex items-center gap-2">
-                <Thermometer className="h-4 w-4 text-clay" /> Temperature curve
+                <Temperature20Regular className="h-4 w-4 text-clay" /> Temperature curve
               </CardTitle>
               <span className="text-sm text-muted tnum">
                 Peak {run.peak_temp_c ? `${fmt(Number(run.peak_temp_c), 0)} °C` : "—"}
@@ -144,7 +144,7 @@ export default async function RunDetailPage({
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Camera className="h-4 w-4 text-clay" /> Photo evidence
+                <Camera20Regular className="h-4 w-4 text-clay" /> Photo evidence
                 <span className="text-sm font-normal text-muted">({photos.length})</span>
               </CardTitle>
             </CardHeader>
@@ -157,7 +157,7 @@ export default async function RunDetailPage({
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <StickyNote className="h-4 w-4 text-ochre" /> Operator notes
+                  <Note20Regular className="h-4 w-4 text-ochre" /> Operator notes
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -170,7 +170,7 @@ export default async function RunDetailPage({
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <ClipboardCheck className="h-4 w-4 text-sage" /> Review
+                  <ClipboardCheckmark20Regular className="h-4 w-4 text-sage" /> Review
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -270,7 +270,7 @@ export default async function RunDetailPage({
             <Card className="overflow-hidden">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <MapPin className="h-4 w-4 text-clay" /> Location
+                  <Location20Regular className="h-4 w-4 text-clay" /> Location
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -301,7 +301,7 @@ export default async function RunDetailPage({
               </CardHeader>
               <CardContent>
                 <p className="mb-3 text-sm text-muted">
-                  Check the photos, temperature curve and measurements before deciding.
+                  Checkmark20Regular the photos, temperature curve and measurements before deciding.
                 </p>
                 <ReviewActions runId={run.id} />
               </CardContent>

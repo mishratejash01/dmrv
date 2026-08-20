@@ -3,7 +3,12 @@
 import * as React from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { Mail, KeyRound, Loader2, Sparkles } from "lucide-react";
+import {
+  Mail20Regular,
+  Key20Regular,
+  SpinnerIos20Regular,
+  Sparkle20Regular,
+} from "@/components/common/icons";
 import { toast } from "sonner";
 import { createClient } from "@/lib/supabase/client";
 import { BRAND } from "@/lib/brand";
@@ -125,11 +130,11 @@ export function AuthForm({ mode }: { mode: "login" | "signup" }) {
 
         <Button type="submit" className="w-full" disabled={loading} size="lg">
           {loading ? (
-            <Loader2 className="h-4 w-4 animate-spin" />
+            <SpinnerIos20Regular className="h-4 w-4 animate-spin" />
           ) : magic ? (
-            <Mail className="h-4 w-4" />
+            <Mail20Regular className="h-4 w-4" />
           ) : (
-            <KeyRound className="h-4 w-4" />
+            <Key20Regular className="h-4 w-4" />
           )}
           {magic ? "Send magic link" : mode === "signup" ? "Create account" : "Sign in"}
         </Button>
@@ -157,7 +162,7 @@ export function AuthForm({ mode }: { mode: "login" | "signup" }) {
       {/* Demo accounts */}
       <div className="mt-5 pt-6 border-t border-border">
         <div className="flex items-center gap-1.5 text-xs text-muted mb-3">
-          <Sparkles className="h-3.5 w-3.5 text-ochre" />
+          <Sparkle20Regular className="h-3.5 w-3.5 text-ochre" />
           One-click demo sign-in
         </div>
         <div className="grid grid-cols-2 gap-2">

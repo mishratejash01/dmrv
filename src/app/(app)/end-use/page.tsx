@@ -1,6 +1,12 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { Sprout, MapPin, Boxes, Users, Calendar } from "lucide-react";
+import {
+  PlantGrass20Regular,
+  Location20Regular,
+  BoxMultiple20Regular,
+  People20Regular,
+  CalendarLtr20Regular,
+} from "@/components/common/icons";
 import { getAppContext } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -65,15 +71,15 @@ export default async function EndUsePage() {
 
       {/* KPIs */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
-        <Stat label="Applications" value={fmt(records.length, 0)} icon={<Sprout />} tone="sage" hint="Carbon-locking events" />
-        <Stat label="Biochar applied" value={fmt(totalKg / 1000, 2)} unit="t" icon={<Boxes />} tone="clay" hint="Cumulative applied mass" />
-        <Stat label="Recipients" value={fmt(recipients.size, 0)} icon={<Users />} tone="ochre" hint="Distinct off-takers" />
-        <Stat label="Geolocated" value={fmt(mapPoints.length, 0)} icon={<MapPin />} tone="info" hint="Applications with GPS" />
+        <Stat label="Applications" value={fmt(records.length, 0)} icon={<PlantGrass20Regular />} tone="sage" hint="Carbon-locking events" />
+        <Stat label="Biochar applied" value={fmt(totalKg / 1000, 2)} unit="t" icon={<BoxMultiple20Regular />} tone="clay" hint="Cumulative applied mass" />
+        <Stat label="Recipients" value={fmt(recipients.size, 0)} icon={<People20Regular />} tone="ochre" hint="Distinct off-takers" />
+        <Stat label="Geolocated" value={fmt(mapPoints.length, 0)} icon={<Location20Regular />} tone="info" hint="Applications with GPS" />
       </div>
 
       {records.length === 0 ? (
         <EmptyState
-          icon={<Sprout />}
+          icon={<PlantGrass20Regular />}
           title="No end-use recorded yet"
           description="Record where the biochar was applied to close the traceability chain and evidence permanent carbon locking."
           action={canRecord ? <EndUseForm projectId={pid} batches={batches} /> : undefined}
@@ -84,7 +90,7 @@ export default async function EndUsePage() {
           <Card className="overflow-hidden">
             <CardHeader className="flex-row items-center justify-between">
               <div className="flex items-center gap-2">
-                <MapPin className="h-4 w-4 text-clay" />
+                <Location20Regular className="h-4 w-4 text-clay" />
                 <CardTitle>Application sites</CardTitle>
               </div>
             </CardHeader>
@@ -138,7 +144,7 @@ export default async function EndUsePage() {
                         </DataRow>
                         <DataRow label="Applied">
                           <span className="inline-flex items-center gap-1.5">
-                            <Calendar className="h-3.5 w-3.5 text-muted" />
+                            <CalendarLtr20Regular className="h-3.5 w-3.5 text-muted" />
                             {fmtDate(r.applied_at)}
                           </span>
                         </DataRow>
@@ -148,7 +154,7 @@ export default async function EndUsePage() {
                         <DataRow label="Location">
                           {r.latitude != null && r.longitude != null ? (
                             <span className="inline-flex items-center gap-1.5 tnum">
-                              <MapPin className="h-3.5 w-3.5 text-muted" />
+                              <Location20Regular className="h-3.5 w-3.5 text-muted" />
                               {Number(r.latitude).toFixed(4)}, {Number(r.longitude).toFixed(4)}
                             </span>
                           ) : (

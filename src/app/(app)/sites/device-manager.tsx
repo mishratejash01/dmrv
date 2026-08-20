@@ -2,7 +2,15 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
-import { Loader2, Plus, Radio, Trash2, TriangleAlert, PowerOff, Power } from "lucide-react";
+import {
+  SpinnerIos20Regular,
+  Add20Regular,
+  Rss20Regular,
+  Delete20Regular,
+  Warning20Regular,
+  PlugDisconnected20Regular,
+  Power20Regular,
+} from "@/components/common/icons";
 import { toast } from "sonner";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -56,7 +64,7 @@ export function DeviceManager({ projectId, kilns, devices, canManage }: Props) {
       />
       {devices.length === 0 ? (
         <EmptyState
-          icon={<Radio />}
+          icon={<Rss20Regular />}
           title="No sensor devices registered"
           description="Register a temperature logger to stream kiln readings automatically. Until a device reports, runs fall back to the operator's entered temperature."
         />
@@ -123,7 +131,7 @@ function DeviceItem({ device, canManage }: { device: DeviceRow; canManage: boole
             aria-label={device.active ? "Deactivate" : "Reactivate"}
             title={device.active ? "Deactivate" : "Reactivate"}
           >
-            {device.active ? <PowerOff className="h-4 w-4" /> : <Power className="h-4 w-4" />}
+            {device.active ? <PlugDisconnected20Regular className="h-4 w-4" /> : <Power20Regular className="h-4 w-4" />}
           </button>
           <button
             type="button"
@@ -132,7 +140,7 @@ function DeviceItem({ device, canManage }: { device: DeviceRow; canManage: boole
             className="text-muted hover:text-err transition-colors"
             aria-label="Remove device"
           >
-            {busy ? <Loader2 className="h-4 w-4 animate-spin" /> : <Trash2 className="h-4 w-4" />}
+            {busy ? <SpinnerIos20Regular className="h-4 w-4 animate-spin" /> : <Delete20Regular className="h-4 w-4" />}
           </button>
         </div>
       )}
@@ -190,7 +198,7 @@ function AddDeviceDialog({
     >
       <DialogTrigger asChild>
         <Button size="sm">
-          <Plus className="h-4 w-4" /> Add device
+          <Add20Regular className="h-4 w-4" /> Add device
         </Button>
       </DialogTrigger>
       <DialogContent>
@@ -206,7 +214,7 @@ function AddDeviceDialog({
             <div className="space-y-4">
               <div className="rounded-lg border border-ochre-soft bg-warn-tint px-3 py-2.5">
                 <p className="text-sm text-[#8a5200] flex items-start gap-1.5">
-                  <TriangleAlert className="h-4 w-4 shrink-0 mt-0.5" />
+                  <Warning20Regular className="h-4 w-4 shrink-0 mt-0.5" />
                   This is the only time this key is shown.
                 </p>
               </div>
@@ -264,7 +272,7 @@ function AddDeviceDialog({
                 Cancel
               </Button>
               <Button onClick={handleSubmit} disabled={busy}>
-                {busy && <Loader2 className="h-4 w-4 animate-spin" />} Issue key
+                {busy && <SpinnerIos20Regular className="h-4 w-4 animate-spin" />} Issue key
               </Button>
             </DialogFooter>
           </>

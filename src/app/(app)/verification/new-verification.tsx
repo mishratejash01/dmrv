@@ -2,7 +2,10 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
-import { Loader2, ClipboardCheck } from "lucide-react";
+import {
+  SpinnerIos20Regular,
+  ClipboardCheckmark20Regular,
+} from "@/components/common/icons";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
@@ -64,7 +67,7 @@ export function NewVerification({ projectId, batches, verifiers }: Props) {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button>
-          <ClipboardCheck className="h-4 w-4" /> Request verification
+          <ClipboardCheckmark20Regular className="h-4 w-4" /> Request verification
         </Button>
       </DialogTrigger>
       <DialogContent>
@@ -115,7 +118,7 @@ export function NewVerification({ projectId, batches, verifiers }: Props) {
             Cancel
           </Button>
           <Button onClick={handleSubmit} disabled={busy}>
-            {busy && <Loader2 className="h-4 w-4 animate-spin" />} Assign verification
+            {busy && <SpinnerIos20Regular className="h-4 w-4 animate-spin" />} Assign verification
           </Button>
         </DialogFooter>
       </DialogContent>

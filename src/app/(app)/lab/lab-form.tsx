@@ -2,7 +2,10 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
-import { FlaskConical, Loader2 } from "lucide-react";
+import {
+  Beaker20Regular,
+  SpinnerIos20Regular,
+} from "@/components/common/icons";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
@@ -96,7 +99,7 @@ export function LabForm({ batches }: Props) {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button>
-          <FlaskConical className="h-4 w-4" /> Record lab test
+          <Beaker20Regular className="h-4 w-4" /> Record lab test
         </Button>
       </DialogTrigger>
       <DialogContent>
@@ -231,7 +234,7 @@ export function LabForm({ batches }: Props) {
             Cancel
           </Button>
           <Button onClick={handleSubmit} disabled={busy}>
-            {busy && <Loader2 className="h-4 w-4 animate-spin" />} Record lab test
+            {busy && <SpinnerIos20Regular className="h-4 w-4 animate-spin" />} Record lab test
           </Button>
         </DialogFooter>
       </DialogContent>

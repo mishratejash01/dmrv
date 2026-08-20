@@ -1,5 +1,11 @@
 import type { Metadata } from "next";
-import { BarChart3, Boxes, Scale, BadgeCheck, Wallet } from "lucide-react";
+import {
+  DataBarVertical20Regular,
+  BoxMultiple20Regular,
+  Scales20Regular,
+  Ribbon20Regular,
+  Wallet20Regular,
+} from "@/components/common/icons";
 import { getAppContext } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -135,7 +141,7 @@ export default async function AnalyticsPage() {
           label="Biochar produced"
           value={fmt(totalDryT, 1)}
           unit="t dry"
-          icon={<Boxes />}
+          icon={<BoxMultiple20Regular />}
           tone="ochre"
           hint={`${runs.length} kiln runs`}
         />
@@ -143,7 +149,7 @@ export default async function AnalyticsPage() {
           label="Net CO₂ removed"
           value={fmt(totalNet, 1)}
           unit="tCO₂e"
-          icon={<Scale />}
+          icon={<Scales20Regular />}
           tone="sage"
           hint={`${netPerBatch.length} quantified batches`}
         />
@@ -151,7 +157,7 @@ export default async function AnalyticsPage() {
           label="Credits"
           value={fmt(totalCredits, 0)}
           unit="RCCs"
-          icon={<BadgeCheck />}
+          icon={<Ribbon20Regular />}
           tone="clay"
           hint={`${creditsByStatus.length} status types`}
         />
@@ -159,7 +165,7 @@ export default async function AnalyticsPage() {
           label="Buffer pool"
           value={fmt(bufferBal, 0)}
           unit="tCO₂e"
-          icon={<Wallet />}
+          icon={<Wallet20Regular />}
           tone="info"
           hint="Reversal insurance"
         />
@@ -170,7 +176,7 @@ export default async function AnalyticsPage() {
         <Card className="lg:col-span-2">
           <CardHeader className="flex-row items-center justify-between">
             <div className="flex items-center gap-2">
-              <BarChart3 className="h-4 w-4 text-clay" />
+              <DataBarVertical20Regular className="h-4 w-4 text-clay" />
               <CardTitle>Monthly biochar production</CardTitle>
             </div>
           </CardHeader>

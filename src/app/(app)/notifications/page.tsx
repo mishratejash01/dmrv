@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
-import { Bell } from "lucide-react";
+import {
+  Alert20Regular,
+} from "@/components/common/icons";
 import { getAppContext } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { Card } from "@/components/ui/card";
@@ -37,7 +39,7 @@ export default async function NotificationsPage() {
       {notifications.length === 0 ? (
         <Card>
           <EmptyState
-            icon={<Bell />}
+            icon={<Alert20Regular />}
             title="No notifications yet"
             description="Review requests, verification updates and issuance events will appear here."
             className="border-0"

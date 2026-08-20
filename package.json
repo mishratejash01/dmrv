@@ -13,6 +13,7 @@
     "db:setup": "npm run db:apply && npm run db:seed"
   },
   "dependencies": {
+    "@fluentui/react-icons": "^2.0.337",
     "@radix-ui/react-avatar": "^1.2.1",
     "@radix-ui/react-dialog": "^1.1.18",
     "@radix-ui/react-dropdown-menu": "^2.1.19",
@@ -32,7 +33,6 @@
     "jspdf": "^4.2.1",
     "jspdf-autotable": "^5.0.8",
     "leaflet": "^1.9.4",
-    "lucide-react": "^1.23.0",
     "next": "16.2.10",
     "papaparse": "^5.5.4",
     "react": "19.2.4",

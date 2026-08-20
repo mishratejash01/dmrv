@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ChevronDown, Scale } from "lucide-react";
+import {
+  ChevronDown20Regular,
+  Scales20Regular,
+} from "@/components/common/icons";
 import { getAppContext } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { Card, CardContent } from "@/components/ui/card";
@@ -117,7 +120,7 @@ export default async function GhgPage() {
 
       {calcBatches.length === 0 ? (
         <EmptyState
-          icon={<Scale />}
+          icon={<Scales20Regular />}
           title="No batches to quantify yet"
           description="Open a production batch and record its lab results, then the calculator can quantify net CO₂ removal here."
         />
@@ -143,7 +146,7 @@ export default async function GhgPage() {
         <SectionHeader title="Saved quantifications" />
         {quants.length === 0 ? (
           <EmptyState
-            icon={<Scale />}
+            icon={<Scales20Regular />}
             title="No quantifications saved"
             description="Use the calculator above to compute and persist a batch's net CO₂ removal."
           />
@@ -181,7 +184,7 @@ export default async function GhgPage() {
                             </p>
                             <p className="text-xs text-muted">net removed</p>
                           </div>
-                          <ChevronDown className="h-4 w-4 text-muted transition-transform group-open:rotate-180" />
+                          <ChevronDown20Regular className="h-4 w-4 text-muted transition-transform group-open:rotate-180" />
                         </div>
                       </summary>
                       <div className="pb-4">

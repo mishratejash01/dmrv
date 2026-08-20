@@ -2,19 +2,19 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import {
-  ArrowUpRight,
-  BadgeCheck,
-  Boxes,
-  Camera,
-  Flame,
-  FlaskConical,
-  Leaf,
-  Network,
-  Scale,
-  ShieldCheck,
-  Sprout,
-  Wallet,
-} from "lucide-react";
+  ArrowUpRight20Regular,
+  Ribbon20Regular,
+  BoxMultiple20Regular,
+  Camera20Regular,
+  Fire20Regular,
+  Beaker20Regular,
+  LeafOne20Regular,
+  Organization20Regular,
+  Scales20Regular,
+  ShieldCheckmark20Regular,
+  PlantGrass20Regular,
+  Wallet20Regular,
+} from "@/components/common/icons";
 import { getAppContext } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { Card, CardContent } from "@/components/ui/card";
@@ -96,7 +96,7 @@ function TraceLink({ href, children }: { href: string; children: ReactNode }) {
       href={href}
       className="text-sm text-clay hover:underline flex items-center gap-1 shrink-0"
     >
-      {children} <ArrowUpRight className="h-3.5 w-3.5" />
+      {children} <ArrowUpRight20Regular className="h-3.5 w-3.5" />
     </Link>
   );
 }
@@ -134,7 +134,7 @@ export default async function TraceabilityPage({
         <div>
           {header}
           <EmptyState
-            icon={<Network />}
+            icon={<Organization20Regular />}
             title="Credit not found"
             description={`No credit with serial ${creditSerial} exists in this project.`}
             action={<TraceLink href="/traceability">Back to traceability</TraceLink>}
@@ -272,7 +272,7 @@ export default async function TraceabilityPage({
     }[] = [];
 
     steps.push({
-      icon: <BadgeCheck />,
+      icon: <Ribbon20Regular />,
       eyebrow: "Carbon credit",
       title: <span className="tnum">{credit.serial_number}</span>,
       tone: "clay",
@@ -307,7 +307,7 @@ export default async function TraceabilityPage({
 
     if (issuance) {
       steps.push({
-        icon: <Wallet />,
+        icon: <Wallet20Regular />,
         eyebrow: "Issuance",
         title: `${fmt(Number(issuance.net_issued_tco2e), 0)} credits issued`,
         tone: "ochre",
@@ -344,7 +344,7 @@ export default async function TraceabilityPage({
 
     if (verification) {
       steps.push({
-        icon: <ShieldCheck />,
+        icon: <ShieldCheckmark20Regular />,
         eyebrow: "Verification",
         title: `${humanize(verification.audit_type)} audit`,
         tone: "sage",
@@ -362,7 +362,7 @@ export default async function TraceabilityPage({
 
     if (ghg) {
       steps.push({
-        icon: <Scale />,
+        icon: <Scales20Regular />,
         eyebrow: "GHG quantification",
         title: (
           <span className="tnum">{fmtCo2(Number(ghg.net_co2_removed_tco2e))} net removed</span>
@@ -386,7 +386,7 @@ export default async function TraceabilityPage({
 
     if (lab) {
       steps.push({
-        icon: <FlaskConical />,
+        icon: <Beaker20Regular />,
         eyebrow: "Lab test",
         title: String(lab.lab_name),
         tone: "info",
@@ -408,7 +408,7 @@ export default async function TraceabilityPage({
 
     if (batch) {
       steps.push({
-        icon: <Boxes />,
+        icon: <BoxMultiple20Regular />,
         eyebrow: "Production batch",
         title: batch.code,
         tone: "clay",
@@ -437,7 +437,7 @@ export default async function TraceabilityPage({
     }
 
     steps.push({
-      icon: <Flame />,
+      icon: <Fire20Regular />,
       eyebrow: "Kiln runs",
       title: `${runs.length} run${runs.length === 1 ? "" : "s"} in this batch`,
       tone: "clay",
@@ -474,7 +474,7 @@ export default async function TraceabilityPage({
     });
 
     steps.push({
-      icon: <Sprout />,
+      icon: <PlantGrass20Regular />,
       eyebrow: "Feedstock deliveries",
       title: `${feedstocks.length} deliver${feedstocks.length === 1 ? "y" : "ies"} at the root`,
       tone: "sage",
@@ -507,7 +507,7 @@ export default async function TraceabilityPage({
 
     if (photos.length > 0) {
       steps.push({
-        icon: <Camera />,
+        icon: <Camera20Regular />,
         eyebrow: "Field evidence",
         title: `${photos.length} run photo${photos.length === 1 ? "" : "s"}`,
         tone: "ochre",
@@ -517,7 +517,7 @@ export default async function TraceabilityPage({
 
     if (endUses.length > 0) {
       steps.push({
-        icon: <Leaf />,
+        icon: <LeafOne20Regular />,
         eyebrow: "Carbon locking",
         title: `${endUses.length} end-use record${endUses.length === 1 ? "" : "s"}`,
         tone: "sage",
@@ -587,7 +587,7 @@ export default async function TraceabilityPage({
         <div>
           {header}
           <EmptyState
-            icon={<Network />}
+            icon={<Organization20Regular />}
             title="Delivery not found"
             description="No feedstock delivery with that id exists in this project."
             action={<TraceLink href="/traceability">Back to traceability</TraceLink>}
@@ -673,7 +673,7 @@ export default async function TraceabilityPage({
     }[] = [];
 
     steps.push({
-      icon: <Sprout />,
+      icon: <PlantGrass20Regular />,
       eyebrow: "Feedstock delivery",
       title: feedstock.source,
       tone: "sage",
@@ -699,7 +699,7 @@ export default async function TraceabilityPage({
     });
 
     steps.push({
-      icon: <Flame />,
+      icon: <Fire20Regular />,
       eyebrow: "Kiln runs",
       title: `Charred in ${runs.length} run${runs.length === 1 ? "" : "s"}`,
       tone: "clay",
@@ -736,7 +736,7 @@ export default async function TraceabilityPage({
     });
 
     steps.push({
-      icon: <Boxes />,
+      icon: <BoxMultiple20Regular />,
       eyebrow: "Production batches",
       title: `Grouped into ${batches.length} batch${batches.length === 1 ? "" : "es"}`,
       tone: "ochre",
@@ -770,7 +770,7 @@ export default async function TraceabilityPage({
     });
 
     steps.push({
-      icon: <BadgeCheck />,
+      icon: <Ribbon20Regular />,
       eyebrow: "Carbon credits",
       title:
         issuances.length === 0
@@ -882,13 +882,13 @@ export default async function TraceabilityPage({
   }));
 
   const CHAIN = [
-    { icon: <Sprout />, label: "Feedstock delivery" },
-    { icon: <Flame />, label: "Kiln run" },
-    { icon: <Boxes />, label: "Production batch" },
-    { icon: <FlaskConical />, label: "Lab test" },
-    { icon: <Scale />, label: "GHG quantification" },
-    { icon: <ShieldCheck />, label: "Verification" },
-    { icon: <BadgeCheck />, label: "Carbon credit" },
+    { icon: <PlantGrass20Regular />, label: "Feedstock delivery" },
+    { icon: <Fire20Regular />, label: "Kiln run" },
+    { icon: <BoxMultiple20Regular />, label: "Production batch" },
+    { icon: <Beaker20Regular />, label: "Lab test" },
+    { icon: <Scales20Regular />, label: "GHG quantification" },
+    { icon: <ShieldCheckmark20Regular />, label: "Verification" },
+    { icon: <Ribbon20Regular />, label: "Carbon credit" },
   ];
 
   return (
@@ -898,7 +898,7 @@ export default async function TraceabilityPage({
       <Card className="mb-4">
         <CardContent className="pt-6">
           <div className="flex items-center gap-2 mb-4">
-            <Network className="h-4 w-4 text-clay" />
+            <Organization20Regular className="h-4 w-4 text-clay" />
             <h2 className="font-display text-lg text-ink">The full chain of custody</h2>
           </div>
           <p className="text-sm text-muted max-w-2xl text-pretty mb-5">
@@ -914,7 +914,7 @@ export default async function TraceabilityPage({
                   {c.label}
                 </span>
                 {i < CHAIN.length - 1 && (
-                  <ArrowUpRight className="h-3.5 w-3.5 rotate-45 text-faint" />
+                  <ArrowUpRight20Regular className="h-3.5 w-3.5 rotate-45 text-faint" />
                 )}
               </div>
             ))}

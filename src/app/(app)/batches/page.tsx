@@ -1,6 +1,10 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { Boxes, Flame, ArrowUpRight } from "lucide-react";
+import {
+  BoxMultiple20Regular,
+  Fire20Regular,
+  ArrowUpRight20Regular,
+} from "@/components/common/icons";
 import { getAppContext } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -40,7 +44,7 @@ export default async function BatchesPage() {
 
       {batches.length === 0 ? (
         <EmptyState
-          icon={<Boxes />}
+          icon={<BoxMultiple20Regular />}
           title="No production batches yet"
           description="Open a batch to start grouping kiln runs of the same kiln type, feedstock and temperature curve."
           action={ctx.can.canManageProject ? <NewBatch projectId={project.id} /> : undefined}
@@ -89,7 +93,7 @@ export default async function BatchesPage() {
                   <div className="flex flex-wrap items-center justify-between gap-2 pt-1">
                     <div className="flex items-center gap-2 text-sm text-muted">
                       <span className="flex items-center gap-1.5">
-                        <Flame className="h-3.5 w-3.5 text-clay" />
+                        <Fire20Regular className="h-3.5 w-3.5 text-clay" />
                         <span className="tnum">{b.run_count}</span> run{b.run_count === 1 ? "" : "s"}
                       </span>
                       <span aria-hidden>·</span>
@@ -106,7 +110,7 @@ export default async function BatchesPage() {
                         href={`/batches/${b.id}`}
                         className="text-sm text-clay hover:underline flex items-center gap-1"
                       >
-                        Detail <ArrowUpRight className="h-3.5 w-3.5" />
+                        Detail <ArrowUpRight20Regular className="h-3.5 w-3.5" />
                       </Link>
                     </div>
                   </div>

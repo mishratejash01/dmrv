@@ -2,7 +2,10 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
-import { BadgeCheck, Sprout } from "lucide-react";
+import {
+  Ribbon20Regular,
+  PlantGrass20Regular,
+} from "@/components/common/icons";
 import { NativeSelect, Field } from "@/components/ui/input";
 
 interface Props {
@@ -20,7 +23,7 @@ export function TraceSelector({ credits, feedstock }: Props) {
         hint="Follow a credit back to the feedstock it came from"
       >
         <div className="flex items-center gap-2">
-          <BadgeCheck className="h-4 w-4 text-clay shrink-0" />
+          <Ribbon20Regular className="h-4 w-4 text-clay shrink-0" />
           <NativeSelect
             defaultValue=""
             onChange={(e) => {
@@ -45,7 +48,7 @@ export function TraceSelector({ credits, feedstock }: Props) {
         hint="Follow a delivery forward to the credits it produced"
       >
         <div className="flex items-center gap-2">
-          <Sprout className="h-4 w-4 text-sage shrink-0" />
+          <PlantGrass20Regular className="h-4 w-4 text-sage shrink-0" />
           <NativeSelect
             defaultValue=""
             onChange={(e) => {

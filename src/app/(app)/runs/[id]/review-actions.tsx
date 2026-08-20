@@ -4,12 +4,12 @@ import * as React from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import {
-  CheckCircle2,
-  Loader2,
-  MessageSquareWarning,
-  XCircle,
-  type LucideIcon,
-} from "lucide-react";
+  CheckmarkCircle20Regular,
+  SpinnerIos20Regular,
+  ChatWarning20Regular,
+  DismissCircle20Regular,
+  type FluentIcon,
+} from "@/components/common/icons";
 import { reviewRun } from "@/lib/actions/runs";
 import { Button, type ButtonProps } from "@/components/ui/button";
 import { Field, Textarea } from "@/components/ui/input";
@@ -29,7 +29,7 @@ const META: Record<
   Decision,
   {
     label: string;
-    icon: LucideIcon;
+    icon: FluentIcon;
     variant: ButtonProps["variant"];
     title: string;
     description: string;
@@ -39,7 +39,7 @@ const META: Record<
 > = {
   approved: {
     label: "Approve",
-    icon: CheckCircle2,
+    icon: CheckmarkCircle20Regular,
     variant: "sage",
     title: "Approve this run",
     description:
@@ -49,7 +49,7 @@ const META: Record<
   },
   changes_requested: {
     label: "Request changes",
-    icon: MessageSquareWarning,
+    icon: ChatWarning20Regular,
     variant: "secondary",
     title: "Request changes",
     description:
@@ -59,7 +59,7 @@ const META: Record<
   },
   rejected: {
     label: "Reject",
-    icon: XCircle,
+    icon: DismissCircle20Regular,
     variant: "danger",
     title: "Reject this run",
     description:
@@ -142,7 +142,7 @@ export function ReviewActions({
                   </Button>
                 </DialogClose>
                 <Button variant={meta.variant} onClick={confirm} disabled={busy}>
-                  {busy && <Loader2 className="h-4 w-4 animate-spin" />}
+                  {busy && <SpinnerIos20Regular className="h-4 w-4 animate-spin" />}
                   {meta.confirm}
                 </Button>
               </DialogFooter>

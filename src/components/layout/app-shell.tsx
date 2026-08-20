@@ -4,14 +4,14 @@ import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
-  Menu,
-  X,
-  Bell,
-  ChevronsUpDown,
-  Check,
-  LogOut,
-  ChevronDown,
-} from "lucide-react";
+  Navigation20Regular,
+  Dismiss20Regular,
+  Alert20Regular,
+  ChevronUpDown20Regular,
+  Checkmark20Regular,
+  SignOut20Regular,
+  ChevronDown20Regular,
+} from "@/components/common/icons";
 import { cn } from "@/lib/utils";
 import { LogoLockup } from "@/components/common/logo";
 import { visibleNav, PROJECT_ROLE_LABEL } from "@/lib/nav";
@@ -85,7 +85,7 @@ export function AppShell({
             onClick={() => setOpen(false)}
             aria-label="Close menu"
           >
-            <X className="h-5 w-5" />
+            <Dismiss20Regular className="h-5 w-5" />
           </button>
         </div>
 
@@ -163,7 +163,7 @@ export function AppShell({
             onClick={() => setOpen(true)}
             aria-label="Open menu"
           >
-            <Menu className="h-5 w-5" />
+            <Navigation20Regular className="h-5 w-5" />
           </button>
 
           {/* Project switcher */}
@@ -174,7 +174,7 @@ export function AppShell({
                   {active.code}
                 </span>
                 <span className="truncate text-ink font-medium">{active.name}</span>
-                <ChevronsUpDown className="h-3.5 w-3.5 text-muted shrink-0" />
+                <ChevronUpDown20Regular className="h-3.5 w-3.5 text-muted shrink-0" />
               </DropdownTrigger>
               <DropdownContent align="start" className="min-w-64">
                 <DropdownLabel>Switch project</DropdownLabel>
@@ -190,7 +190,7 @@ export function AppShell({
                       </span>
                       <span className="truncate">{p.name}</span>
                     </span>
-                    {p.id === active.id && <Check className="h-4 w-4 text-clay" />}
+                    {p.id === active.id && <Checkmark20Regular className="h-4 w-4 text-clay" />}
                   </DropdownItem>
                 ))}
               </DropdownContent>
@@ -203,7 +203,7 @@ export function AppShell({
               className="relative grid h-9 w-9 place-items-center rounded-lg text-ink-soft hover:bg-surface transition-colors"
               aria-label="Notifications"
             >
-              <Bell className="h-4.5 w-4.5" />
+              <Alert20Regular className="h-4.5 w-4.5" />
               {unreadCount > 0 && (
                 <span className="absolute top-1.5 right-1.5 grid h-4 min-w-4 place-items-center rounded-full bg-err px-1 text-[9px] font-semibold text-elevated">
                   {unreadCount > 9 ? "9+" : unreadCount}
@@ -221,7 +221,7 @@ export function AppShell({
                   </span>
                   <span className="block text-[11px] text-muted max-w-32 truncate">{roleLabel}</span>
                 </span>
-                <ChevronDown className="h-3.5 w-3.5 text-muted hidden sm:block" />
+                <ChevronDown20Regular className="h-3.5 w-3.5 text-muted hidden sm:block" />
               </DropdownTrigger>
               <DropdownContent>
                 <div className="px-2.5 py-2">
@@ -233,14 +233,14 @@ export function AppShell({
                 </div>
                 <DropdownSeparator />
                 <DropdownItem asChild>
-                  <Link href="/settings">Settings</Link>
+                  <Link href="/settings">Settings20Regular</Link>
                 </DropdownItem>
                 <DropdownItem asChild>
                   <Link href="/registry-public">Public registry</Link>
                 </DropdownItem>
                 <DropdownSeparator />
                 <DropdownItem onSelect={() => signOutAction()} className="text-err data-[highlighted]:text-err">
-                  <LogOut className="text-err" /> Sign out
+                  <SignOut20Regular className="text-err" /> Sign out
                 </DropdownItem>
               </DropdownContent>
             </Dropdown>

@@ -2,7 +2,10 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
-import { Calculator, Loader2 } from "lucide-react";
+import {
+  Calculator20Regular,
+  SpinnerIos20Regular,
+} from "@/components/common/icons";
 import { toast } from "sonner";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -141,7 +144,7 @@ export function GhgCalculator({ batches, canCompute }: Props) {
     <Card>
       <CardHeader>
         <div className="flex items-center gap-2">
-          <Calculator className="h-4 w-4 text-clay" />
+          <Calculator20Regular className="h-4 w-4 text-clay" />
           <CardTitle>Live GHG calculator</CardTitle>
         </div>
         <CardDescription>
@@ -281,7 +284,7 @@ export function GhgCalculator({ batches, canCompute }: Props) {
 
             {canCompute ? (
               <Button onClick={handleSave} disabled={busy} className="w-full">
-                {busy && <Loader2 className="h-4 w-4 animate-spin" />} Save quantification
+                {busy && <SpinnerIos20Regular className="h-4 w-4 animate-spin" />} Save20Regular quantification
               </Button>
             ) : (
               <p className="text-xs text-muted text-center">

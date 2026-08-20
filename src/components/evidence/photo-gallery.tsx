@@ -1,7 +1,11 @@
 "use client";
 
 import * as React from "react";
-import { MapPin, Camera, ImageOff } from "lucide-react";
+import {
+  Location20Regular,
+  Camera20Regular,
+  ImageOff20Regular,
+} from "@/components/common/icons";
 import { storageUrl } from "@/lib/storage";
 import { humanize, fmtDateTime } from "@/lib/utils";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
@@ -27,7 +31,7 @@ export function PhotoGallery({
   if (!photos || photos.length === 0) {
     return (
       <div className="flex items-center gap-2 text-sm text-muted rounded-lg border border-dashed border-border-strong bg-surface/40 px-4 py-5 justify-center">
-        <ImageOff className="h-4 w-4" /> No photos attached
+        <ImageOff20Regular className="h-4 w-4" /> No photos attached
       </div>
     );
   }
@@ -57,11 +61,11 @@ export function PhotoGallery({
               <img src={url} alt={humanize(p.photo_type)} className="w-full rounded-lg" />
               <div className="mt-3 flex flex-wrap items-center gap-3 px-1 text-xs text-muted">
                 <span className="flex items-center gap-1">
-                  <Camera className="h-3.5 w-3.5" /> {humanize(p.photo_type) || "Photo"}
+                  <Camera20Regular className="h-3.5 w-3.5" /> {humanize(p.photo_type) || "Photo"}
                 </span>
                 {p.latitude != null && p.longitude != null && (
                   <span className="flex items-center gap-1">
-                    <MapPin className="h-3.5 w-3.5" />
+                    <Location20Regular className="h-3.5 w-3.5" />
                     {Number(p.latitude).toFixed(4)}, {Number(p.longitude).toFixed(4)}
                   </span>
                 )}

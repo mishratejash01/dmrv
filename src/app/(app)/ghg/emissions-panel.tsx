@@ -2,7 +2,12 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
-import { Loader2, Plus, Trash2, Truck } from "lucide-react";
+import {
+  SpinnerIos20Regular,
+  Add20Regular,
+  Delete20Regular,
+  VehicleTruck20Regular,
+} from "@/components/common/icons";
 import { toast } from "sonner";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -57,7 +62,7 @@ export function EmissionsPanel({ projectId, batches, entries, canManage }: Props
       />
       {entries.length === 0 ? (
         <EmptyState
-          icon={<Truck />}
+          icon={<VehicleTruck20Regular />}
           title="No emissions logged"
           description="Log vehicle transport, processing energy and capture emissions here; the GHG calculator subtracts them automatically per batch."
         />
@@ -110,7 +115,7 @@ function EmissionItem({ entry, canManage }: { entry: EmissionRow; canManage: boo
             className="text-muted hover:text-err transition-colors"
             aria-label="Remove"
           >
-            {busy ? <Loader2 className="h-4 w-4 animate-spin" /> : <Trash2 className="h-4 w-4" />}
+            {busy ? <SpinnerIos20Regular className="h-4 w-4 animate-spin" /> : <Delete20Regular className="h-4 w-4" />}
           </button>
         )}
       </div>
@@ -197,7 +202,7 @@ function AddEmissionDialog({
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button size="sm">
-          <Plus className="h-4 w-4" /> Log emission
+          <Add20Regular className="h-4 w-4" /> Log emission
         </Button>
       </DialogTrigger>
       <DialogContent>
@@ -284,7 +289,7 @@ function AddEmissionDialog({
             Cancel
           </Button>
           <Button onClick={handleSubmit} disabled={busy}>
-            {busy && <Loader2 className="h-4 w-4 animate-spin" />} Log emission
+            {busy && <SpinnerIos20Regular className="h-4 w-4 animate-spin" />} Log emission
           </Button>
         </DialogFooter>
       </DialogContent>

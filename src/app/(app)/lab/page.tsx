@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
-import { FlaskConical } from "lucide-react";
+import {
+  Beaker20Regular,
+} from "@/components/common/icons";
 import { getAppContext } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { Card } from "@/components/ui/card";
@@ -45,7 +47,7 @@ export default async function LabPage() {
 
       {tests.length === 0 ? (
         <EmptyState
-          icon={<FlaskConical />}
+          icon={<Beaker20Regular />}
           title="No lab tests yet"
           description="When a batch composite sample comes back from the accredited lab, record the results here to unlock GHG quantification."
           action={

@@ -2,7 +2,10 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
-import { Loader2, Sprout } from "lucide-react";
+import {
+  SpinnerIos20Regular,
+  PlantGrass20Regular,
+} from "@/components/common/icons";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
@@ -90,7 +93,7 @@ export function EndUseForm({ projectId, batches }: Props) {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button>
-          <Sprout className="h-4 w-4" /> Record application
+          <PlantGrass20Regular className="h-4 w-4" /> Record application
         </Button>
       </DialogTrigger>
       <DialogContent>
@@ -185,7 +188,7 @@ export function EndUseForm({ projectId, batches }: Props) {
             Cancel
           </Button>
           <Button onClick={handleSubmit} disabled={busy}>
-            {busy && <Loader2 className="h-4 w-4 animate-spin" />} Record application
+            {busy && <SpinnerIos20Regular className="h-4 w-4 animate-spin" />} Record application
           </Button>
         </DialogFooter>
       </DialogContent>

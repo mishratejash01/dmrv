@@ -4,29 +4,29 @@ import * as React from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import {
-  Bell,
-  CheckCheck,
-  CheckSquare,
-  AlertTriangle,
-  ShieldCheck,
-  BadgeCheck,
-  Leaf,
-  Info,
-  type LucideIcon,
-} from "lucide-react";
+  Alert20Regular,
+  CheckmarkStarburst20Regular,
+  CheckboxChecked20Regular,
+  Warning20Regular,
+  ShieldCheckmark20Regular,
+  Ribbon20Regular,
+  LeafOne20Regular,
+  Info20Regular,
+  type FluentIcon,
+} from "@/components/common/icons";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { cn, timeAgo } from "@/lib/utils";
 import { markNotificationRead, markAllNotificationsRead } from "@/lib/actions/notifications";
 import type { Notification } from "@/lib/types/db";
 
-const TYPE_META: Record<string, { icon: LucideIcon; tone: string }> = {
-  review_request: { icon: CheckSquare, tone: "text-ochre bg-ochre-tint" },
-  batch_limit: { icon: AlertTriangle, tone: "text-err bg-err-tint" },
-  verification_status: { icon: ShieldCheck, tone: "text-info bg-info-tint" },
-  issuance: { icon: BadgeCheck, tone: "text-clay bg-clay-tint" },
-  end_use: { icon: Leaf, tone: "text-sage bg-sage-tint" },
-  info: { icon: Info, tone: "text-ink-soft bg-surface-2" },
+const TYPE_META: Record<string, { icon: FluentIcon; tone: string }> = {
+  review_request: { icon: CheckboxChecked20Regular, tone: "text-ochre bg-ochre-tint" },
+  batch_limit: { icon: Warning20Regular, tone: "text-err bg-err-tint" },
+  verification_status: { icon: ShieldCheckmark20Regular, tone: "text-info bg-info-tint" },
+  issuance: { icon: Ribbon20Regular, tone: "text-clay bg-clay-tint" },
+  end_use: { icon: LeafOne20Regular, tone: "text-sage bg-sage-tint" },
+  info: { icon: Info20Regular, tone: "text-ink-soft bg-surface-2" },
 };
 
 export function NotificationsClient({ notifications }: { notifications: Notification[] }) {
@@ -59,14 +59,14 @@ export function NotificationsClient({ notifications }: { notifications: Notifica
       {hasUnread && (
         <div className="flex justify-end">
           <Button variant="secondary" size="sm" onClick={handleMarkAll} disabled={busy}>
-            <CheckCheck className="h-4 w-4" /> Mark all as read
+            <CheckmarkStarburst20Regular className="h-4 w-4" /> Mark all as read
           </Button>
         </div>
       )}
 
       <Card className="divide-y divide-border overflow-hidden p-0">
         {notifications.map((n) => {
-          const meta = TYPE_META[n.type] ?? { icon: Bell, tone: "text-ink-soft bg-surface-2" };
+          const meta = TYPE_META[n.type] ?? { icon: Alert20Regular, tone: "text-ink-soft bg-surface-2" };
           const Icon = meta.icon;
           const clickable = !n.read || Boolean(n.link);
           return (
