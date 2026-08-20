@@ -35,7 +35,7 @@ export function GhgBreakdown({ lines }: { lines: GhgLine[] }) {
             <p
               className={[
                 "tnum shrink-0 text-right",
-                isTotal ? "font-display text-lg text-[#5c6a4c]" : "text-sm",
+                isTotal ? "font-display text-lg text-[#2e7d32]" : "text-sm",
                 negative && !isTotal ? "text-err" : "text-ink",
               ].join(" ")}
             >

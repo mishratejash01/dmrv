@@ -115,7 +115,7 @@ export function AppShell({
                         className={cn(
                           "flex items-center gap-2.5 rounded-md px-2.5 py-2 text-sm transition-colors",
                           isActive
-                            ? "bg-clay-tint text-[#8a5f38] font-medium"
+                            ? "bg-clay-tint text-[#05543a] font-medium"
                             : "text-ink-soft hover:bg-surface hover:text-ink",
                         )}
                       >
@@ -159,7 +159,7 @@ export function AppShell({
           {active && (
             <Dropdown>
               <DropdownTrigger className="flex items-center gap-2 rounded-lg border border-border bg-elevated px-3 py-1.5 text-sm hover:bg-surface transition-colors max-w-64">
-                <span className="grid h-6 w-6 place-items-center rounded bg-sage-tint text-[11px] font-medium text-[#5c6a4c]">
+                <span className="grid h-6 w-6 place-items-center rounded bg-sage-tint text-[11px] font-medium text-[#2e7d32]">
                   {active.code}
                 </span>
                 <span className="truncate text-ink font-medium">{active.name}</span>

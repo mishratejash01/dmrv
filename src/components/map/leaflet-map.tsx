@@ -15,17 +15,17 @@ export interface MapPoint {
 }
 
 const TONE_HEX: Record<string, string> = {
-  clay: "#b08056",
-  sage: "#8a9a7b",
-  ochre: "#c9a24b",
-  info: "#6f8286",
+  clay: "#06805a",
+  sage: "#2e7d32",
+  ochre: "#b26b00",
+  info: "#1668b3",
 };
 
 function pinIcon(tone: string) {
   const color = TONE_HEX[tone] ?? TONE_HEX.clay;
   return L.divIcon({
     className: "",
-    html: `<span style="display:grid;place-items:center;width:26px;height:26px;border-radius:50% 50% 50% 0;background:${color};transform:rotate(-45deg);box-shadow:0 2px 6px rgba(58,50,42,.35);border:2px solid #fffdf9"><span style="width:7px;height:7px;border-radius:50%;background:#fffdf9;transform:rotate(45deg)"></span></span>`,
+    html: `<span style="display:grid;place-items:center;width:26px;height:26px;border-radius:50% 50% 50% 0;background:${color};transform:rotate(-45deg);box-shadow:0 2px 6px rgba(15,23,42,.32);border:2px solid #ffffff"><span style="width:7px;height:7px;border-radius:50%;background:#ffffff;transform:rotate(45deg)"></span></span>`,
     iconSize: [26, 26],
     iconAnchor: [13, 26],
     popupAnchor: [0, -24],

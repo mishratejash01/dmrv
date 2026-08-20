@@ -358,7 +358,7 @@ function DeliveryDialog({
             </Field>
           </div>
           {wetKg > 0 && (
-            <div className="rounded-lg bg-sage-tint/60 border border-sage-soft px-3 py-2.5 text-sm text-[#5c6a4c]">
+            <div className="rounded-lg bg-sage-tint/60 border border-sage-soft px-3 py-2.5 text-sm text-[#2e7d32]">
               ≈ <span className="font-medium tnum">{fmt(dryKg, 0)} kg</span> dry matter after
               moisture correction
             </div>

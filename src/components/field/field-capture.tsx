@@ -605,7 +605,7 @@ export function FieldCapture({ projectId, operatorId, sites, batches, feedstock 
                 type="checkbox"
                 checked={anomaly}
                 onChange={(e) => setAnomaly(e.target.checked)}
-                className="h-4 w-4 rounded border-border-strong accent-[#b08056]"
+                className="h-4 w-4 rounded border-border-strong accent-[#06805a]"
               />
               <AlertTriangle className="h-4 w-4 text-ochre" /> Flag an anomaly for supervisor attention
             </label>
@@ -680,7 +680,7 @@ export function FieldCapture({ projectId, operatorId, sites, batches, feedstock 
             </div>
             {queued > 0 && (
               <div className="rounded-lg border border-ochre-soft bg-warn-tint px-3 py-2.5">
-                <p className="text-sm text-[#8a6f22] flex items-center gap-1.5">
+                <p className="text-sm text-[#8a5200] flex items-center gap-1.5">
                   <CloudOff className="h-4 w-4" /> {queued} run{queued > 1 ? "s" : ""} queued offline
                 </p>
                 <Button variant="secondary" size="sm" className="w-full mt-2" onClick={syncNow} disabled={busy}>

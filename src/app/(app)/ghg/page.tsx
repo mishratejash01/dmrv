@@ -176,7 +176,7 @@ export default async function GhgPage() {
                         </div>
                         <div className="flex items-center gap-3">
                           <div className="text-right">
-                            <p className="font-display text-xl text-[#5c6a4c] tnum leading-tight">
+                            <p className="font-display text-xl text-[#2e7d32] tnum leading-tight">
                               {fmtCo2(Number(q.net_co2_removed_tco2e))}
                             </p>
                             <p className="text-xs text-muted">net removed</p>

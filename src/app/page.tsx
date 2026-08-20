@@ -34,7 +34,7 @@ export default async function Landing() {
           </Link>
           <Link
             href="/login"
-            className="inline-flex items-center gap-1.5 rounded-md bg-clay px-4 py-2 text-sm font-medium text-elevated shadow-sm hover:bg-[#9d6f47] transition-colors"
+            className="inline-flex items-center gap-1.5 rounded-md bg-clay px-4 py-2 text-sm font-medium text-elevated shadow-sm hover:bg-[#056b4b] transition-colors"
           >
             Sign in <ArrowRight className="h-3.5 w-3.5" />
           </Link>
@@ -60,7 +60,7 @@ export default async function Landing() {
           <div className="mt-8 flex flex-wrap gap-3">
             <Link
               href="/login"
-              className="inline-flex items-center gap-2 rounded-lg bg-clay px-5 py-3 text-sm font-medium text-elevated shadow-sm hover:bg-[#9d6f47] transition-colors"
+              className="inline-flex items-center gap-2 rounded-lg bg-clay px-5 py-3 text-sm font-medium text-elevated shadow-sm hover:bg-[#056b4b] transition-colors"
             >
               Open the dashboard <ArrowRight className="h-4 w-4" />
             </Link>

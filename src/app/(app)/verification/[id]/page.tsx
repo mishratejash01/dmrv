@@ -183,7 +183,7 @@ export default async function VerificationDetailPage({
                   <div className="flex flex-wrap items-end justify-between gap-3 mb-4">
                     <div>
                       <p className="text-sm text-muted">Net CO₂ removed</p>
-                      <p className="font-display text-3xl text-[#5c6a4c] tnum leading-tight">
+                      <p className="font-display text-3xl text-[#2e7d32] tnum leading-tight">
                         {fmtCo2(Number(ghg.net_co2_removed_tco2e))}
                       </p>
                     </div>
@@ -359,7 +359,7 @@ export default async function VerificationDetailPage({
           {openFindings > 0 && verification.status !== "rejected" && (
             <div className="no-print flex items-start gap-3 rounded-xl border border-ochre-soft bg-warn-tint px-4 py-3.5">
               <AlertTriangle className="h-5 w-5 text-ochre shrink-0 mt-0.5" />
-              <p className="text-sm text-[#8a6f22]">
+              <p className="text-sm text-[#8a5200]">
                 {openFindings} finding{openFindings === 1 ? "" : "s"} still open on this package.
               </p>
             </div>

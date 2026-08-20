@@ -17,16 +17,16 @@ import {
   YAxis,
 } from "recharts";
 
-export const CHART_COLORS = ["#b08056", "#8a9a7b", "#c9a24b", "#6f8286", "#a98d6a", "#9aa88b"];
+export const CHART_COLORS = ["#06805a", "#2e7d32", "#b26b00", "#1668b3", "#64748b", "#57a773"];
 
-const axis = { stroke: "#d8ccb6", fontSize: 11, tickLine: false, axisLine: false };
-const grid = { stroke: "#e7decf", strokeDasharray: "3 3", vertical: false };
+const axis = { stroke: "#cbd5e1", fontSize: 11, tickLine: false, axisLine: false };
+const grid = { stroke: "#e2e8f0", strokeDasharray: "3 3", vertical: false };
 
 export function AreaTrend({
   data,
   xKey,
   dataKey,
-  color = "#b08056",
+  color = "#06805a",
   height = 240,
   unit = "",
 }: {
@@ -51,7 +51,7 @@ export function AreaTrend({
         <YAxis {...axis} width={44} />
         <Tooltip
           formatter={(v) => [`${v}${unit}`, ""]}
-          contentStyle={{ borderRadius: 10, border: "1px solid #e7decf", background: "#fffdf9" }}
+          contentStyle={{ borderRadius: 10, border: "1px solid #e2e8f0", background: "#ffffff" }}
         />
         <Area type="monotone" dataKey={dataKey} stroke={color} strokeWidth={2} fill={`url(#grad-${dataKey})`} />
       </AreaChart>
@@ -63,7 +63,7 @@ export function BarSeries({
   data,
   xKey,
   dataKey,
-  color = "#8a9a7b",
+  color = "#2e7d32",
   height = 240,
   unit = "",
 }: {
@@ -81,9 +81,9 @@ export function BarSeries({
         <XAxis dataKey={xKey} {...axis} />
         <YAxis {...axis} width={44} />
         <Tooltip
-          cursor={{ fill: "#efe7d8" }}
+          cursor={{ fill: "#f1f5f9" }}
           formatter={(v) => [`${v}${unit}`, ""]}
-          contentStyle={{ borderRadius: 10, border: "1px solid #e7decf", background: "#fffdf9" }}
+          contentStyle={{ borderRadius: 10, border: "1px solid #e2e8f0", background: "#ffffff" }}
         />
         <Bar dataKey={dataKey} fill={color} radius={[6, 6, 0, 0]} maxBarSize={44} />
       </BarChart>
@@ -115,7 +115,7 @@ export function Donut({
           ))}
         </Pie>
         <Tooltip
-          contentStyle={{ borderRadius: 10, border: "1px solid #e7decf", background: "#fffdf9" }}
+          contentStyle={{ borderRadius: 10, border: "1px solid #e2e8f0", background: "#ffffff" }}
         />
       </PieChart>
     </ResponsiveContainer>
@@ -138,9 +138,9 @@ export function TempCurve({
         <Tooltip
           formatter={(v) => [`${v} °C`, "Temp"]}
           labelFormatter={(l) => `${l} min`}
-          contentStyle={{ borderRadius: 10, border: "1px solid #e7decf", background: "#fffdf9" }}
+          contentStyle={{ borderRadius: 10, border: "1px solid #e2e8f0", background: "#ffffff" }}
         />
-        <Line type="monotone" dataKey="temp" stroke="#b26a54" strokeWidth={2} dot={false} />
+        <Line type="monotone" dataKey="temp" stroke="#b3261e" strokeWidth={2} dot={false} />
       </LineChart>
     </ResponsiveContainer>
   );

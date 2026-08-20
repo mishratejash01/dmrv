@@ -9,14 +9,14 @@ const buttonVariants = cva(
     variants: {
       variant: {
         primary:
-          "bg-clay text-elevated hover:bg-[#9d6f47] active:bg-[#8c6340]",
+          "bg-clay text-elevated hover:bg-[#056b4b] active:bg-[#045840]",
         secondary:
           "bg-surface text-ink border border-border hover:border-border-strong hover:bg-surface-2",
         outline:
           "border border-border-strong text-ink bg-transparent hover:bg-surface",
         ghost: "text-ink-soft hover:bg-surface hover:text-ink",
-        sage: "bg-sage text-elevated hover:bg-[#78876a] active:bg-[#6b7a5e]",
-        danger: "bg-err text-elevated hover:bg-[#9e5b46] active:bg-[#8c5140]",
+        sage: "bg-sage text-elevated hover:bg-[#276b2a] active:bg-[#1f5622]",
+        danger: "bg-err text-elevated hover:bg-[#99201a] active:bg-[#7f1b16]",
         link: "text-clay underline-offset-4 hover:underline p-0 h-auto",
       },
       size: {

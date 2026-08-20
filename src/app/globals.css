@@ -1,46 +1,46 @@
 @import "tailwindcss";
 
 /*
-  Acres dMRV — Warm design system
-  Palette: warm light neutrals + muted, earthy, low-saturation accents.
+  Acres dMRV — Clean light design system
+  Palette: white surfaces + neutral greys, with the Acres green as the accent.
   No bright, neon, or electric colours. Colour carries meaning, not decoration.
 */
 
 @theme {
   /* ---- Surfaces & structure ---- */
   --color-base: #ffffff; /* white page */
-  --color-surface: #f5efe6; /* card / panel */
-  --color-surface-2: #efe7d8; /* recessed / hover */
-  --color-elevated: #fffdf9; /* raised surface */
-  --color-border: #e7decf; /* warm hairline */
-  --color-border-strong: #d8ccb6; /* stronger divider */
+  --color-surface: #f8fafc; /* card / panel */
+  --color-surface-2: #f1f5f9; /* recessed / hover */
+  --color-elevated: #ffffff; /* raised surface */
+  --color-border: #e2e8f0; /* neutral hairline */
+  --color-border-strong: #cbd5e1; /* stronger divider */
 
   /* ---- Text ---- */
-  --color-ink: #3a322a; /* warm near-black */
-  --color-ink-soft: #5c5346; /* secondary text */
-  --color-muted: #8a7e6e; /* warm grey / captions */
-  --color-faint: #b3a794; /* placeholder */
+  --color-ink: #0f172a; /* neutral ink */
+  --color-ink-soft: #475569; /* secondary text */
+  --color-muted: #64748b; /* grey / captions */
+  --color-faint: #94a3b8; /* placeholder */
 
-  /* ---- Earthy accents ---- */
-  --color-clay: #b08056; /* muted terracotta */
-  --color-clay-soft: #d9c3ac;
-  --color-clay-tint: #f0e5d8;
-  --color-sage: #8a9a7b; /* muted olive/sage */
-  --color-sage-soft: #cdd5c2;
-  --color-sage-tint: #e8ece1;
-  --color-ochre: #c9a24b; /* muted amber — sparingly */
-  --color-ochre-soft: #e6d3a3;
-  --color-ochre-tint: #f4ecd7;
+  /* ---- Accents (Acres green) ---- */
+  --color-clay: #06805a; /* Acres green — primary action */
+  --color-clay-soft: #b7e4d0;
+  --color-clay-tint: #ecfdf5;
+  --color-sage: #2e7d32; /* forest green */
+  --color-sage-soft: #b7dcb9;
+  --color-sage-tint: #eef7ef;
+  --color-ochre: #b26b00; /* amber — sparingly */
+  --color-ochre-soft: #e8c894;
+  --color-ochre-tint: #fdf4e3;
 
-  /* ---- Status (muted, warm-leaning) ---- */
-  --color-ok: #7e8e64; /* muted moss */
-  --color-ok-tint: #e9ede1;
-  --color-warn: #c9a24b; /* warm amber */
-  --color-warn-tint: #f4ecd7;
-  --color-err: #b26a54; /* muted brick */
-  --color-err-tint: #f2e2db;
-  --color-info: #6f8286; /* dusty teal-grey */
-  --color-info-tint: #e4eae9;
+  /* ---- Status (muted) ---- */
+  --color-ok: #2e7d32; /* green */
+  --color-ok-tint: #eef7ef;
+  --color-warn: #b26b00; /* amber */
+  --color-warn-tint: #fdf4e3;
+  --color-err: #b3261e; /* red */
+  --color-err-tint: #fdecea;
+  --color-info: #1668b3; /* blue */
+  --color-info-tint: #eaf2fb;
 
   /* ---- Radii ---- */
   --radius-xs: 0.25rem;
@@ -50,11 +50,11 @@
   --radius-xl: 1.125rem;
   --radius-2xl: 1.5rem;
 
-  /* ---- Soft, warm shadows ---- */
-  --shadow-xs: 0 1px 2px 0 rgb(58 50 42 / 0.04);
-  --shadow-sm: 0 1px 3px 0 rgb(58 50 42 / 0.06), 0 1px 2px -1px rgb(58 50 42 / 0.05);
-  --shadow-md: 0 4px 12px -2px rgb(58 50 42 / 0.08), 0 2px 6px -2px rgb(58 50 42 / 0.05);
-  --shadow-lg: 0 12px 28px -6px rgb(58 50 42 / 0.10), 0 6px 12px -6px rgb(58 50 42 / 0.06);
+  /* ---- Soft, neutral shadows ---- */
+  --shadow-xs: 0 1px 2px 0 rgb(15 23 42 / 0.04);
+  --shadow-sm: 0 1px 3px 0 rgb(15 23 42 / 0.06), 0 1px 2px -1px rgb(15 23 42 / 0.05);
+  --shadow-md: 0 4px 12px -2px rgb(15 23 42 / 0.08), 0 2px 6px -2px rgb(15 23 42 / 0.05);
+  --shadow-lg: 0 12px 28px -6px rgb(15 23 42 / 0.10), 0 6px 12px -6px rgb(15 23 42 / 0.06);
 
   /* ---- Fonts (wired via next/font in layout) ---- */
   --font-sans: var(--font-body), ui-sans-serif, system-ui, sans-serif;
@@ -88,7 +88,7 @@
     font-weight: 500;
   }
 
-  /* Warm, understated focus ring */
+  /* Understated focus ring */
   :focus-visible {
     outline: 2px solid var(--color-clay);
     outline-offset: 2px;
@@ -100,7 +100,7 @@
     color: var(--color-ink);
   }
 
-  /* Warm, thin scrollbars */
+  /* Thin, neutral scrollbars */
   * {
     scrollbar-width: thin;
     scrollbar-color: var(--color-border-strong) transparent;
@@ -145,7 +145,7 @@
   }
 }
 
-/* Leaflet map — warm-toned controls (loaded globally) */
+/* Leaflet map — neutral controls (loaded globally) */
 .leaflet-container {
   background: var(--color-surface-2);
   font-family: var(--font-sans);
@@ -166,7 +166,7 @@
   background: var(--color-elevated);
 }
 
-/* Recharts — inherit warm palette */
+/* Recharts — inherit neutral palette */
 .recharts-cartesian-axis-tick-value {
   fill: var(--color-muted);
   font-size: 11px;
@@ -214,7 +214,7 @@
     var(--color-clay) 50%,
     var(--color-ochre) 100%
   );
-  box-shadow: 0 0 8px rgba(176, 128, 86, 0.5);
+  box-shadow: 0 0 8px rgba(6, 128, 90, 0.45);
 }
 .wt-navprogress[data-active="true"] .wt-navprogress-bar {
   animation: wt-navprogress-slide 1.1s ease-in-out infinite;

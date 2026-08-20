@@ -167,8 +167,8 @@ export function LabForm({ batches }: Props) {
               className={[
                 "rounded-lg border px-3 py-2.5 text-sm flex items-center gap-2.5",
                 eligible
-                  ? "bg-sage-tint/60 border-sage-soft text-[#5c6a4c]"
-                  : "bg-err-tint border-[#e0bfb2] text-[#8f4a36]",
+                  ? "bg-sage-tint/60 border-sage-soft text-[#2e7d32]"
+                  : "bg-err-tint border-[#f4c7c3] text-[#b3261e]",
               ].join(" ")}
             >
               <Badge tone={eligible ? "ok" : "err"} dot>
@@ -208,7 +208,7 @@ export function LabForm({ batches }: Props) {
               type="checkbox"
               checked={pollutantsOk}
               onChange={(e) => setPollutantsOk(e.target.checked)}
-              className="mt-0.5 h-4 w-4 rounded border-border-strong accent-[#5c6a4c]"
+              className="mt-0.5 h-4 w-4 rounded border-border-strong accent-[#2e7d32]"
             />
             <span className="text-sm text-ink-soft">
               Pollutants within limits

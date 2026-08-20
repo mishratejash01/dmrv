@@ -259,7 +259,7 @@ function DecideDialog({
           </DialogDescription>
         </DialogHeader>
         {isApprove && openFindings > 0 && (
-          <div className="rounded-lg border border-ochre-soft bg-warn-tint px-3 py-2.5 text-sm text-[#8a6f22]">
+          <div className="rounded-lg border border-ochre-soft bg-warn-tint px-3 py-2.5 text-sm text-[#8a5200]">
             {openFindings} finding{openFindings === 1 ? "" : "s"} still open. Consider resolving
             them before approving.
           </div>

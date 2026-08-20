@@ -66,7 +66,7 @@ export default async function RegistryPublicPage() {
       {/* Transparency note */}
       <div className="mb-8 flex items-start gap-3 rounded-xl border border-sage-soft bg-sage-tint/40 px-4 py-3.5">
         <ShieldCheck className="h-5 w-5 text-sage shrink-0 mt-0.5" />
-        <p className="text-sm text-[#5c6a4c] text-pretty">
+        <p className="text-sm text-[#2e7d32] text-pretty">
           Retired credits are locked to a beneficiary and can never be reused. A share of every
           removal issuance is held in a shared buffer pool as reversal insurance. Serial numbers
           encode the geography, project, vintage and mechanism of each credit.

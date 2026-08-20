@@ -161,17 +161,17 @@ export default async function BatchDetailPage({
 
       {/* Over-limit / near-limit warnings */}
       {isOpen && (overTonnes || overAge) && (
-        <div className="mb-6 flex items-start gap-3 rounded-xl border border-[#e0bfb2] bg-err-tint px-4 py-3.5">
+        <div className="mb-6 flex items-start gap-3 rounded-xl border border-[#f4c7c3] bg-err-tint px-4 py-3.5">
           <AlertTriangle className="h-5 w-5 text-err shrink-0 mt-0.5" />
           <div>
-            <p className="text-sm font-medium text-[#8f4a36]">
+            <p className="text-sm font-medium text-[#b3261e]">
               {overTonnes && overAge
                 ? "Both validity limits reached — this batch must be closed."
                 : overTonnes
                   ? `Tonnage limit reached (${fmt(tonnes, 1)} of ${BATCH_LIMITS.maxTonnes} t) — this batch must be closed.`
                   : `Age limit reached (${fmt(age, 1)} of ${BATCH_LIMITS.maxMonths} months) — this batch must be closed.`}
             </p>
-            <p className="mt-0.5 text-sm text-[#8f4a36]/90">
+            <p className="mt-0.5 text-sm text-[#b3261e]/90">
               Under {METHODOLOGY.id}, a production batch is valid for at most {BATCH_LIMITS.maxMonths}{" "}
               months or {BATCH_LIMITS.maxTonnes} tonnes — whichever comes first. New runs should go
               to a fresh batch.
@@ -182,7 +182,7 @@ export default async function BatchDetailPage({
       {isOpen && !overTonnes && !overAge && (nearTonnes || nearAge) && (
         <div className="mb-6 flex items-start gap-3 rounded-xl border border-ochre-soft bg-warn-tint px-4 py-3.5">
           <AlertTriangle className="h-5 w-5 text-ochre shrink-0 mt-0.5" />
-          <p className="text-sm text-[#8a6f22]">
+          <p className="text-sm text-[#8a5200]">
             This batch is approaching its {nearTonnes && nearAge ? "tonnage and age limits" : nearTonnes ? `${BATCH_LIMITS.maxTonnes}-tonne limit` : `${BATCH_LIMITS.maxMonths}-month limit`}.
             Plan to close it and draw the composite samples soon.
           </p>
@@ -434,7 +434,7 @@ export default async function BatchDetailPage({
                   <div className="flex flex-wrap items-end justify-between gap-3 mb-4">
                     <div>
                       <p className="text-sm text-muted">Net CO₂ removed</p>
-                      <p className="font-display text-3xl text-[#5c6a4c] tnum leading-tight">
+                      <p className="font-display text-3xl text-[#2e7d32] tnum leading-tight">
                         {fmtCo2(Number(ghg.net_co2_removed_tco2e))}
                       </p>
                     </div>
@@ -477,7 +477,7 @@ export default async function BatchDetailPage({
                   <p className="mt-1.5 text-xs text-err">Over the {BATCH_LIMITS.maxTonnes}-tonne limit.</p>
                 )}
                 {nearTonnes && (
-                  <p className="mt-1.5 text-xs text-[#8a6f22]">
+                  <p className="mt-1.5 text-xs text-[#8a5200]">
                     Past {Math.round(BATCH_LIMITS.warnFraction * 100)}% of the tonnage limit.
                   </p>
                 )}
@@ -493,7 +493,7 @@ export default async function BatchDetailPage({
                   <p className="mt-1.5 text-xs text-err">Over the {BATCH_LIMITS.maxMonths}-month limit.</p>
                 )}
                 {nearAge && (
-                  <p className="mt-1.5 text-xs text-[#8a6f22]">
+                  <p className="mt-1.5 text-xs text-[#8a5200]">
                     Past {Math.round(BATCH_LIMITS.warnFraction * 100)}% of the age limit.
                   </p>
                 )}

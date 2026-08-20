@@ -205,7 +205,7 @@ function AddDeviceDialog({
             </DialogHeader>
             <div className="space-y-4">
               <div className="rounded-lg border border-ochre-soft bg-warn-tint px-3 py-2.5">
-                <p className="text-sm text-[#8a6f22] flex items-start gap-1.5">
+                <p className="text-sm text-[#8a5200] flex items-start gap-1.5">
                   <TriangleAlert className="h-4 w-4 shrink-0 mt-0.5" />
                   This is the only time this key is shown.
                 </p>

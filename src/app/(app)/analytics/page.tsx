@@ -12,12 +12,12 @@ export const metadata: Metadata = { title: "Analytics" };
 
 /** Warm colours per credit status for the donut. */
 const STATUS_COLOR: Record<string, string> = {
-  issued: "#6f8286",
-  verified: "#9aa88b",
-  transferred: "#b08056",
-  retired: "#8a9a7b",
-  buffer: "#c9a24b",
-  cancelled: "#b26a54",
+  issued: "#1668b3",
+  verified: "#57a773",
+  transferred: "#06805a",
+  retired: "#2e7d32",
+  buffer: "#b26b00",
+  cancelled: "#b3261e",
 };
 
 export default async function AnalyticsPage() {
@@ -256,7 +256,7 @@ export default async function AnalyticsPage() {
                 data={netPerBatch}
                 xKey="batch"
                 dataKey="net"
-                color="#8a9a7b"
+                color="#2e7d32"
                 unit=" tCO₂e"
                 height={280}
               />

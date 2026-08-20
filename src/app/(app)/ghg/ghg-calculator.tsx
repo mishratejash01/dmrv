@@ -249,7 +249,7 @@ export function GhgCalculator({ batches, canCompute }: Props) {
                   <Input type="number" step="0.1" min="0" max="100" inputMode="decimal" value={feedstockCarbon} onChange={(e) => setFeedstockCarbon(e.target.value)} />
                 </Field>
                 <label className="col-span-2 flex items-center gap-2 text-sm text-ink-soft">
-                  <input type="checkbox" checked={applyDiscount} onChange={(e) => setApplyDiscount(e.target.checked)} className="h-4 w-4 rounded border-border-strong accent-[#b08056]" />
+                  <input type="checkbox" checked={applyDiscount} onChange={(e) => setApplyDiscount(e.target.checked)} className="h-4 w-4 rounded border-border-strong accent-[#06805a]" />
                   Apply the 3% baseline-uncertainty discount
                 </label>
               </div>
@@ -262,7 +262,7 @@ export function GhgCalculator({ batches, canCompute }: Props) {
               <div className="flex flex-wrap items-end justify-between gap-3">
                 <div>
                   <p className="text-sm text-muted">Net CO₂ removed</p>
-                  <p className="font-display text-3xl text-[#5c6a4c] tnum leading-tight">
+                  <p className="font-display text-3xl text-[#2e7d32] tnum leading-tight">
                     {fmtCo2(result.netCo2Removed)}
                   </p>
                 </div>
