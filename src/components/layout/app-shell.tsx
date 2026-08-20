@@ -157,7 +157,7 @@ export function AppShell({
 
       {/* Main column */}
       <div className="flex-1 lg:pl-64 min-w-0 flex flex-col">
-        <header className="sticky top-0 z-20 h-14 border-b border-border bg-base/85 backdrop-blur flex items-center gap-3 px-4 md:px-6">
+        <header className="sticky top-0 z-20 h-14 border-b border-border bg-base/85 backdrop-blur flex items-center gap-3 px-3 md:px-4">
           <button
             className="lg:hidden text-ink-soft"
             onClick={() => setOpen(true)}
@@ -247,7 +247,7 @@ export function AppShell({
           </div>
         </header>
 
-        <main className="flex-1 px-4 md:px-6 py-4 md:py-5 max-w-[1400px] w-full mx-auto">
+        <main className="flex-1 w-full min-w-0 px-3 md:px-4 py-3 md:py-4">
           {children}
         </main>
       </div>
