@@ -194,18 +194,36 @@ export function AppShell({
         <nav className="hidden lg:flex items-center gap-0.5 ml-4 min-w-0">
           {sections.map((section) => {
             const on = section.title === activeSection?.title;
+            const SectionIcon = section.icon;
             return (
               <Link
                 key={section.title}
                 href={section.items[0].href}
                 className={cn(
-                  "rounded-md px-3 py-1.5 text-[14px] whitespace-nowrap transition-colors",
-                  on
-                    ? "bg-white/[0.14] text-white"
-                    : "text-white/70 hover:bg-white/[0.07] hover:text-white",
+                  "relative flex h-14 items-center gap-2 px-3 text-[14px] whitespace-nowrap transition-colors",
+                  on ? "text-white" : "text-white/65 hover:text-white",
                 )}
               >
+                <SectionIcon
+                  className={cn(
+                    "h-[18px] w-[18px] shrink-0 transition-colors",
+                    on ? "text-brand-accent" : "text-white/55",
+                  )}
+                />
                 {section.title}
+                {/* The marker is fullest under the label and thins away at both
+                    ends, so it reads as a highlight rather than a drawn border. */}
+                <span
+                  aria-hidden
+                  className={cn(
+                    "pointer-events-none absolute inset-x-1 bottom-0 h-[3px] rounded-full transition-opacity duration-200",
+                    on ? "opacity-100" : "opacity-0",
+                  )}
+                  style={{
+                    background:
+                      "linear-gradient(90deg, rgba(6,156,106,0) 0%, rgba(6,156,106,0.55) 18%, var(--color-brand-accent) 50%, rgba(6,156,106,0.55) 82%, rgba(6,156,106,0) 100%)",
+                  }}
+                />
               </Link>
             );
           })}

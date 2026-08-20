@@ -29,12 +29,14 @@ export interface NavItem {
 
 export interface NavSection {
   title: string;
+  icon: FluentIcon;
   items: NavItem[];
 }
 
 export const NAV: NavSection[] = [
   {
     title: "Overview",
+    icon: Home20Filled,
     items: [
       { href: "/dashboard", label: "Dashboard", icon: Home20Filled },
       { href: "/analytics", label: "Analytics", icon: DataTrending20Filled },
@@ -43,6 +45,7 @@ export const NAV: NavSection[] = [
   },
   {
     title: "Field operations",
+    icon: Fire20Filled,
     items: [
       { href: "/field", label: "Field log", icon: Notepad20Filled, show: (c) => c.canOperate },
       { href: "/runs", label: "Kiln runs", icon: Fire20Filled },
@@ -51,6 +54,7 @@ export const NAV: NavSection[] = [
   },
   {
     title: "Production",
+    icon: BoxMultiple20Filled,
     items: [
       { href: "/batches", label: "Production batches", icon: BoxMultiple20Filled },
       { href: "/feedstock", label: "Feedstock", icon: PlantGrass20Filled },
@@ -59,6 +63,7 @@ export const NAV: NavSection[] = [
   },
   {
     title: "Science & carbon",
+    icon: Beaker20Filled,
     items: [
       { href: "/lab", label: "Lab tests", icon: Beaker20Filled },
       { href: "/ghg", label: "GHG quantification", icon: Molecule20Filled },
@@ -68,6 +73,7 @@ export const NAV: NavSection[] = [
   },
   {
     title: "Registry",
+    icon: BookDatabase20Filled,
     items: [
       { href: "/registry", label: "Credit registry", icon: BookDatabase20Filled },
       { href: "/registry/buffer", label: "Buffer pool", icon: Vault20Filled },
@@ -75,6 +81,7 @@ export const NAV: NavSection[] = [
   },
   {
     title: "Manage",
+    icon: Settings20Filled,
     items: [
       { href: "/team", label: "Team & roles", icon: People20Filled, show: (c) => c.canManageProject },
       { href: "/settings", label: "Settings", icon: Settings20Filled },
