@@ -36,9 +36,14 @@ export async function updateSession(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   const path = request.nextUrl.pathname;
+  // API routes authenticate themselves (device key, bearer token, or their own
+  // session check) and must answer with a JSON status code. Redirecting them to
+  // the HTML login page would break every non-browser client — field sensors
+  // cannot follow a redirect.
+  const isApi = path.startsWith("/api/");
   const isPublic = PUBLIC_PREFIXES.some((p) => path.startsWith(p)) || path === "/";
 
-  if (!user && !isPublic) {
+  if (!user && !isPublic && !isApi) {
     const url = request.nextUrl.clone();
     url.pathname = "/login";
     url.searchParams.set("redirect", path);
