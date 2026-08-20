@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import {
   Navigation16Regular,
   Dismiss16Regular,
@@ -10,7 +10,6 @@ import {
   ChevronUpDown16Regular,
   Checkmark16Regular,
   SignOutRegular,
-  Search16Regular,
 } from "@/components/common/icons";
 import { cn } from "@/lib/utils";
 import { Logo } from "@/components/common/logo";
@@ -74,77 +73,6 @@ function NavRow({ item, pathname }: { item: NavItem; pathname: string }) {
         {item.label}
       </Link>
     </li>
-  );
-}
-
-/**
- * Searches the pages this user can actually reach, and goes to one. It is
- * deliberately a page finder rather than a data search: the app has no global
- * index, and a box that silently searches nothing would be worse than none.
- */
-function PageSearch({ sections }: { sections: NavSection[] }) {
-  const router = useRouter();
-  const [q, setQ] = React.useState("");
-  const [focused, setFocused] = React.useState(false);
-
-  const results = React.useMemo(() => {
-    const needle = q.trim().toLowerCase();
-    if (!needle) return [];
-    return sections
-      .flatMap((s) => s.items.map((i) => ({ item: i, section: s.title })))
-      .filter((r) => r.item.label.toLowerCase().includes(needle))
-      .slice(0, 7);
-  }, [q, sections]);
-
-  const go = (href: string) => {
-    setQ("");
-    setFocused(false);
-    router.push(href);
-  };
-
-  return (
-    <div className="relative hidden md:block w-44 xl:w-64 shrink-0">
-      <Search16Regular className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-[18px] w-[18px] text-white/45" />
-      <input
-        value={q}
-        onChange={(e) => setQ(e.target.value)}
-        onFocus={() => setFocused(true)}
-        onBlur={() => window.setTimeout(() => setFocused(false), 120)}
-        onKeyDown={(e) => {
-          if (e.key === "Enter" && results[0]) go(results[0].item.href);
-          if (e.key === "Escape") {
-            setQ("");
-            e.currentTarget.blur();
-          }
-        }}
-        placeholder="Search pages"
-        aria-label="Search pages"
-        className="w-full rounded-md border border-white/15 bg-white/[0.08] pl-9 pr-3 py-2 text-[14px] text-white placeholder:text-white/45 outline-none focus:border-white/30 focus:bg-white/[0.12] transition-colors"
-      />
-      {focused && q.trim() && (
-        <div className="absolute top-full left-0 right-0 mt-1 z-50 rounded-md border border-border bg-elevated py-1 shadow-lg">
-          {results.length === 0 ? (
-            <p className="px-3 py-2 text-sm text-muted">No page matches “{q.trim()}”</p>
-          ) : (
-            results.map((r) => {
-              const Icon = r.item.icon;
-              return (
-                <button
-                  key={r.item.href}
-                  onMouseDown={(e) => e.preventDefault()}
-                  onClick={() => go(r.item.href)}
-                  className="flex w-full items-center gap-2.5 px-3 py-2 text-left text-sm text-ink hover:bg-surface transition-colors"
-                >
-                  <Icon className="h-4 w-4 shrink-0 text-muted" />
-                  <span className="truncate">{r.item.label}</span>
-                  <span className="ml-auto text-[11px] text-faint shrink-0">{r.section}</span>
-                </button>
-              );
-            })
-          )}
-        </div>
-      )}
-    </div>
   );
 }
 
@@ -230,12 +158,10 @@ export function AppShell({
         </nav>
 
         <div className="ml-auto flex shrink-0 items-center gap-1.5">
-          <PageSearch sections={sections} />
-
           {/* Project switcher */}
           {active && (
             <Dropdown>
-              <DropdownTrigger className="hidden xl:flex items-center gap-2 rounded-md border border-white/15 bg-white/[0.08] px-3 py-2 text-[14px] text-white hover:bg-white/[0.14] transition-colors max-w-44 shrink-0">
+              <DropdownTrigger className="hidden sm:flex items-center gap-2 rounded-md border border-white/15 bg-white/[0.08] px-3 py-2 text-[14px] text-white hover:bg-white/[0.14] transition-colors max-w-56 shrink-0">
                 <span className="grid h-5 w-5 place-items-center rounded bg-white/15 font-mono text-[10px]">
                   {active.code}
                 </span>
