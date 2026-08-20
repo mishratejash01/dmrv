@@ -104,7 +104,7 @@ function PageSearch({ sections }: { sections: NavSection[] }) {
 
   return (
     <div className="relative hidden md:block w-56 lg:w-72">
-      <Search16Regular className="pointer-events-none absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-white/45" />
+      <Search16Regular className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-[18px] w-[18px] text-white/45" />
       <input
         value={q}
         onChange={(e) => setQ(e.target.value)}
@@ -119,7 +119,7 @@ function PageSearch({ sections }: { sections: NavSection[] }) {
         }}
         placeholder="Search pages"
         aria-label="Search pages"
-        className="w-full rounded-md border border-white/15 bg-white/[0.08] pl-8 pr-3 py-1.5 text-sm text-white placeholder:text-white/45 outline-none focus:border-white/30 focus:bg-white/[0.12] transition-colors"
+        className="w-full rounded-md border border-white/15 bg-white/[0.08] pl-9 pr-3 py-2 text-[14px] text-white placeholder:text-white/45 outline-none focus:border-white/30 focus:bg-white/[0.12] transition-colors"
       />
       {focused && q.trim() && (
         <div className="absolute top-full left-0 right-0 mt-1 z-50 rounded-md border border-border bg-elevated py-1 shadow-lg">
@@ -176,7 +176,7 @@ export function AppShell({
   return (
     <div className="h-screen flex flex-col overflow-hidden bg-brand-deep">
       {/* Top bar — brand, the section tabs, search and the account. */}
-      <header className="h-14 shrink-0 flex items-center gap-2 px-4 bg-brand-deep">
+      <header className="h-[68px] shrink-0 flex items-center gap-2 px-5 bg-brand-deep">
         <button
           className="lg:hidden text-white/70 hover:text-white transition-colors"
           onClick={() => setOpen(true)}
@@ -186,7 +186,7 @@ export function AppShell({
         </button>
 
         <Link href="/dashboard" className="flex items-center shrink-0">
-          <Logo variant="white" height={26} />
+          <Logo variant="white" height={32} />
         </Link>
 
         {/* Section tabs. Each opens its first page; the rail then carries the
@@ -200,13 +200,13 @@ export function AppShell({
                 key={section.title}
                 href={section.items[0].href}
                 className={cn(
-                  "relative flex h-14 items-center gap-2 px-3 text-[14px] whitespace-nowrap transition-colors",
+                  "relative flex h-[68px] items-center gap-2.5 px-3.5 text-[15px] whitespace-nowrap transition-colors",
                   on ? "text-white" : "text-white/65 hover:text-white",
                 )}
               >
                 <SectionIcon
                   className={cn(
-                    "h-[18px] w-[18px] shrink-0 transition-colors",
+                    "h-5 w-5 shrink-0 transition-colors",
                     on ? "text-brand-accent" : "text-white/55",
                   )}
                 />
@@ -235,7 +235,7 @@ export function AppShell({
           {/* Project switcher */}
           {active && (
             <Dropdown>
-              <DropdownTrigger className="hidden sm:flex items-center gap-2 rounded-md border border-white/15 bg-white/[0.08] px-2.5 py-1.5 text-sm text-white hover:bg-white/[0.14] transition-colors max-w-48">
+              <DropdownTrigger className="hidden sm:flex items-center gap-2 rounded-md border border-white/15 bg-white/[0.08] px-3 py-2 text-[14px] text-white hover:bg-white/[0.14] transition-colors max-w-48">
                 <span className="grid h-5 w-5 place-items-center rounded bg-white/15 font-mono text-[10px]">
                   {active.code}
                 </span>
@@ -265,10 +265,10 @@ export function AppShell({
 
           <Link
             href="/notifications"
-            className="relative grid h-9 w-9 place-items-center rounded-md text-white/70 hover:bg-white/10 hover:text-white transition-colors"
+            className="relative grid h-10 w-10 place-items-center rounded-md text-white/70 hover:bg-white/10 hover:text-white transition-colors"
             aria-label="Notifications"
           >
-            <Alert16Regular className="h-5 w-5" />
+            <Alert16Regular className="h-[22px] w-[22px]" />
             {unreadCount > 0 && (
               <span className="absolute top-1.5 right-1.5 grid h-4 min-w-4 place-items-center rounded-full bg-err px-1 text-[9px] font-semibold text-white">
                 {unreadCount > 9 ? "9+" : unreadCount}
@@ -279,10 +279,10 @@ export function AppShell({
           {/* Account — the avatar alone. The name and role live inside. */}
           <Dropdown>
             <DropdownTrigger
-              className="grid h-9 w-9 place-items-center rounded-md hover:bg-white/10 transition-colors"
+              className="grid h-10 w-10 place-items-center rounded-md hover:bg-white/10 transition-colors"
               aria-label="Account"
             >
-              <Avatar name={profile.full_name} size={28} />
+              <Avatar name={profile.full_name} size={32} />
             </DropdownTrigger>
             <DropdownContent align="end">
               <div className="px-2.5 py-2">
