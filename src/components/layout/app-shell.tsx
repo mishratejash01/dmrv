@@ -103,7 +103,7 @@ function PageSearch({ sections }: { sections: NavSection[] }) {
   };
 
   return (
-    <div className="relative hidden md:block w-56 lg:w-72">
+    <div className="relative hidden md:block w-44 xl:w-64 shrink-0">
       <Search16Regular className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-[18px] w-[18px] text-white/45" />
       <input
         value={q}
@@ -191,7 +191,7 @@ export function AppShell({
 
         {/* Section tabs. Each opens its first page; the rail then carries the
             rest of that section. */}
-        <nav className="hidden lg:flex items-center gap-0.5 ml-4 min-w-0">
+        <nav className="hidden lg:flex items-center gap-0.5 ml-3 min-w-0 flex-1 overflow-x-auto scrollbar-none">
           {sections.map((section) => {
             const on = section.title === activeSection?.title;
             const SectionIcon = section.icon;
@@ -229,13 +229,13 @@ export function AppShell({
           })}
         </nav>
 
-        <div className="ml-auto flex items-center gap-1.5">
+        <div className="ml-auto flex shrink-0 items-center gap-1.5">
           <PageSearch sections={sections} />
 
           {/* Project switcher */}
           {active && (
             <Dropdown>
-              <DropdownTrigger className="hidden sm:flex items-center gap-2 rounded-md border border-white/15 bg-white/[0.08] px-3 py-2 text-[14px] text-white hover:bg-white/[0.14] transition-colors max-w-48">
+              <DropdownTrigger className="hidden xl:flex items-center gap-2 rounded-md border border-white/15 bg-white/[0.08] px-3 py-2 text-[14px] text-white hover:bg-white/[0.14] transition-colors max-w-44 shrink-0">
                 <span className="grid h-5 w-5 place-items-center rounded bg-white/15 font-mono text-[10px]">
                   {active.code}
                 </span>
