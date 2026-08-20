@@ -113,9 +113,9 @@ export function AppShell({
   }, [pathname]);
 
   return (
-    <div className="min-h-screen bg-brand-deep">
+    <div className="h-screen flex flex-col overflow-hidden bg-brand-deep">
       {/* Top bar — the dark band carries the brand and the account. */}
-      <header className="sticky top-0 z-30 h-14 flex items-center gap-3 px-4 bg-brand-deep">
+      <header className="h-14 shrink-0 flex items-center gap-3 px-4 bg-brand-deep">
         <button
           className="lg:hidden text-white/70 hover:text-white transition-colors"
           onClick={() => setOpen(true)}
@@ -214,15 +214,19 @@ export function AppShell({
         </div>
       </header>
 
-      {/* The workspace sits on the dark ground as a light panel. */}
-      <div className="flex min-h-[calc(100vh-3.5rem)] bg-base lg:rounded-tl-xl overflow-hidden">
-        {/* Docked rail. Sticky rather than fixed, so it holds its own column and
-            the content never needs a matching offset to stay aligned. */}
-        <aside className="hidden lg:flex sticky top-14 h-[calc(100vh-3.5rem)] w-60 shrink-0 flex-col border-r border-border bg-elevated">
-          <NavList can={can} pathname={pathname} />
-        </aside>
+      {/* The workspace is a light panel inset on the dark ground, framed on the
+          sides and foot. It holds its own height: the panel never scrolls, only
+          the rail and the content within it do. */}
+      <div className="flex-1 min-h-0 px-2 pb-2">
+        <div className="h-full flex overflow-hidden rounded-[14px] bg-base">
+          <aside className="hidden lg:flex w-60 shrink-0 flex-col border-r border-border bg-elevated overflow-y-auto">
+            <NavList can={can} pathname={pathname} />
+          </aside>
 
-        <main className="flex-1 min-w-0 px-3 md:px-4 py-3 md:py-4">{children}</main>
+          <main className="flex-1 min-w-0 overflow-y-auto px-3 md:px-4 py-3 md:py-4">
+            {children}
+          </main>
+        </div>
       </div>
 
       {/* Mobile drawer */}
