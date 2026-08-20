@@ -78,8 +78,8 @@ export function AppShell({
           className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0)_220px)]"
         />
 
-        <div className="relative h-16 flex items-center gap-2.5 px-4 shrink-0">
-          <Logo variant="white" height={30} />
+        <div className="relative h-20 flex items-center gap-2.5 px-4 shrink-0">
+          <Logo variant="white" height={42} />
           <button
             className="ml-auto lg:hidden text-white/60 hover:text-white transition-colors"
             onClick={() => setOpen(false)}
