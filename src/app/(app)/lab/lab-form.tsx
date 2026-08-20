@@ -3,8 +3,8 @@
 import * as React from "react";
 import { useRouter } from "next/navigation";
 import {
-  Beaker20Regular,
-  SpinnerIos20Regular,
+  Beaker16Regular,
+  SpinnerIos16Regular,
 } from "@/components/common/icons";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -99,7 +99,7 @@ export function LabForm({ batches }: Props) {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button>
-          <Beaker20Regular className="h-4 w-4" /> Record lab test
+          <Beaker16Regular className="h-4 w-4" /> Record lab test
         </Button>
       </DialogTrigger>
       <DialogContent>
@@ -234,7 +234,7 @@ export function LabForm({ batches }: Props) {
             Cancel
           </Button>
           <Button onClick={handleSubmit} disabled={busy}>
-            {busy && <SpinnerIos20Regular className="h-4 w-4 animate-spin" />} Record lab test
+            {busy && <SpinnerIos16Regular className="h-4 w-4 animate-spin" />} Record lab test
           </Button>
         </DialogFooter>
       </DialogContent>

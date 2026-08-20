@@ -1,12 +1,12 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import {
-  ArrowRight20Regular,
-  LeafOne20Regular,
-  Fire20Regular,
-  ShieldCheckmark20Regular,
-  Ribbon20Regular,
-  Organization20Regular,
+  ArrowRight16Regular,
+  LeafOne16Regular,
+  Fire16Regular,
+  ShieldCheckmark16Regular,
+  Ribbon16Regular,
+  Organization16Regular,
 } from "@/components/common/icons";
 import { LogoLockup } from "@/components/common/logo";
 import { getUser } from "@/lib/auth";
@@ -18,10 +18,10 @@ export default async function Landing() {
   if (user) redirect("/dashboard");
 
   const lifecycle = [
-    { icon: Fire20Regular, label: "Field capture", note: "Kiln runs, photos, GPS — offline-ready" },
-    { icon: LeafOne20Regular, label: "End-use locking", note: "Durable soil application, proven" },
-    { icon: ShieldCheckmark20Regular, label: "Verification", note: "VVB audits the full evidence chain" },
-    { icon: Ribbon20Regular, label: "RCC issuance", note: "Serialised credits & buffer pool" },
+    { icon: Fire16Regular, label: "Field capture", note: "Kiln runs, photos, GPS — offline-ready" },
+    { icon: LeafOne16Regular, label: "End-use locking", note: "Durable soil application, proven" },
+    { icon: ShieldCheckmark16Regular, label: "Verification", note: "VVB audits the full evidence chain" },
+    { icon: Ribbon16Regular, label: "RCC issuance", note: "Serialised credits & buffer pool" },
   ];
 
   return (
@@ -41,7 +41,7 @@ export default async function Landing() {
             href="/login"
             className="inline-flex items-center gap-1.5 rounded-md bg-clay px-4 py-2 text-sm font-medium text-elevated shadow-sm hover:bg-[#056b4b] transition-colors"
           >
-            Sign in <ArrowRight20Regular className="h-3.5 w-3.5" />
+            Sign in <ArrowRight16Regular className="h-3.5 w-3.5" />
           </Link>
         </nav>
       </header>
@@ -67,13 +67,13 @@ export default async function Landing() {
               href="/login"
               className="inline-flex items-center gap-2 rounded-lg bg-clay px-5 py-3 text-sm font-medium text-elevated shadow-sm hover:bg-[#056b4b] transition-colors"
             >
-              Open the dashboard <ArrowRight20Regular className="h-4 w-4" />
+              Open the dashboard <ArrowRight16Regular className="h-4 w-4" />
             </Link>
             <Link
               href="/registry-public"
               className="inline-flex items-center gap-2 rounded-lg border border-border-strong px-5 py-3 text-sm font-medium text-ink hover:bg-surface transition-colors"
             >
-              <Organization20Regular className="h-4 w-4" /> Explore the registry
+              <Organization16Regular className="h-4 w-4" /> Explore the registry
             </Link>
           </div>
         </section>

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import {
-  BookOpen20Regular,
+  BookOpen16Regular,
 } from "@/components/common/icons";
 import { getAppContext } from "@/lib/auth";
 import { Card, CardContent, CardHeader, CardDescription, CardTitle } from "@/components/ui/card";
@@ -36,7 +36,7 @@ export default async function SettingsPage() {
         <div className="space-y-4">
           <Card>
             <CardHeader className="flex-row items-center gap-2">
-              <BookOpen20Regular className="h-4 w-4 text-clay" />
+              <BookOpen16Regular className="h-4 w-4 text-clay" />
               <div>
                 <CardTitle>Methodology</CardTitle>
                 <CardDescription>{METHODOLOGY.name}</CardDescription>

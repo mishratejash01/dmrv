@@ -4,14 +4,14 @@ import * as React from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import {
-  Alert20Regular,
-  CheckmarkStarburst20Regular,
-  CheckboxChecked20Regular,
-  Warning20Regular,
-  ShieldCheckmark20Regular,
-  Ribbon20Regular,
-  LeafOne20Regular,
-  Info20Regular,
+  Alert16Regular,
+  CheckmarkStarburst16Regular,
+  CheckboxChecked16Regular,
+  Warning16Regular,
+  ShieldCheckmark16Regular,
+  Ribbon16Regular,
+  LeafOne16Regular,
+  Info16Regular,
   type FluentIcon,
 } from "@/components/common/icons";
 import { Button } from "@/components/ui/button";
@@ -21,12 +21,12 @@ import { markNotificationRead, markAllNotificationsRead } from "@/lib/actions/no
 import type { Notification } from "@/lib/types/db";
 
 const TYPE_META: Record<string, { icon: FluentIcon; tone: string }> = {
-  review_request: { icon: CheckboxChecked20Regular, tone: "text-ochre bg-ochre-tint" },
-  batch_limit: { icon: Warning20Regular, tone: "text-err bg-err-tint" },
-  verification_status: { icon: ShieldCheckmark20Regular, tone: "text-info bg-info-tint" },
-  issuance: { icon: Ribbon20Regular, tone: "text-clay bg-clay-tint" },
-  end_use: { icon: LeafOne20Regular, tone: "text-sage bg-sage-tint" },
-  info: { icon: Info20Regular, tone: "text-ink-soft bg-surface-2" },
+  review_request: { icon: CheckboxChecked16Regular, tone: "text-ochre bg-ochre-tint" },
+  batch_limit: { icon: Warning16Regular, tone: "text-err bg-err-tint" },
+  verification_status: { icon: ShieldCheckmark16Regular, tone: "text-info bg-info-tint" },
+  issuance: { icon: Ribbon16Regular, tone: "text-clay bg-clay-tint" },
+  end_use: { icon: LeafOne16Regular, tone: "text-sage bg-sage-tint" },
+  info: { icon: Info16Regular, tone: "text-ink-soft bg-surface-2" },
 };
 
 export function NotificationsClient({ notifications }: { notifications: Notification[] }) {
@@ -59,14 +59,14 @@ export function NotificationsClient({ notifications }: { notifications: Notifica
       {hasUnread && (
         <div className="flex justify-end">
           <Button variant="secondary" size="sm" onClick={handleMarkAll} disabled={busy}>
-            <CheckmarkStarburst20Regular className="h-4 w-4" /> Mark all as read
+            <CheckmarkStarburst16Regular className="h-4 w-4" /> Mark all as read
           </Button>
         </div>
       )}
 
       <Card className="divide-y divide-border overflow-hidden p-0">
         {notifications.map((n) => {
-          const meta = TYPE_META[n.type] ?? { icon: Alert20Regular, tone: "text-ink-soft bg-surface-2" };
+          const meta = TYPE_META[n.type] ?? { icon: Alert16Regular, tone: "text-ink-soft bg-surface-2" };
           const Icon = meta.icon;
           const clickable = !n.read || Boolean(n.link);
           return (

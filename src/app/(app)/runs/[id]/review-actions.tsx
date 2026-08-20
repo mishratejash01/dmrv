@@ -4,10 +4,10 @@ import * as React from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import {
-  CheckmarkCircle20Regular,
-  SpinnerIos20Regular,
-  ChatWarning20Regular,
-  DismissCircle20Regular,
+  CheckmarkCircle16Regular,
+  SpinnerIos16Regular,
+  ChatWarning16Regular,
+  DismissCircle16Regular,
   type FluentIcon,
 } from "@/components/common/icons";
 import { reviewRun } from "@/lib/actions/runs";
@@ -39,7 +39,7 @@ const META: Record<
 > = {
   approved: {
     label: "Approve",
-    icon: CheckmarkCircle20Regular,
+    icon: CheckmarkCircle16Regular,
     variant: "sage",
     title: "Approve this run",
     description:
@@ -49,7 +49,7 @@ const META: Record<
   },
   changes_requested: {
     label: "Request changes",
-    icon: ChatWarning20Regular,
+    icon: ChatWarning16Regular,
     variant: "secondary",
     title: "Request changes",
     description:
@@ -59,7 +59,7 @@ const META: Record<
   },
   rejected: {
     label: "Reject",
-    icon: DismissCircle20Regular,
+    icon: DismissCircle16Regular,
     variant: "danger",
     title: "Reject this run",
     description:
@@ -142,7 +142,7 @@ export function ReviewActions({
                   </Button>
                 </DialogClose>
                 <Button variant={meta.variant} onClick={confirm} disabled={busy}>
-                  {busy && <SpinnerIos20Regular className="h-4 w-4 animate-spin" />}
+                  {busy && <SpinnerIos16Regular className="h-4 w-4 animate-spin" />}
                   {meta.confirm}
                 </Button>
               </DialogFooter>

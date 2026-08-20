@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import {
-  ChevronDown20Regular,
-  Scales20Regular,
+  ChevronDown16Regular,
+  Scales16Regular,
 } from "@/components/common/icons";
 import { getAppContext } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
@@ -120,7 +120,7 @@ export default async function GhgPage() {
 
       {calcBatches.length === 0 ? (
         <EmptyState
-          icon={<Scales20Regular />}
+          icon={<Scales16Regular />}
           title="No batches to quantify yet"
           description="Open a production batch and record its lab results, then the calculator can quantify net CO₂ removal here."
         />
@@ -146,7 +146,7 @@ export default async function GhgPage() {
         <SectionHeader title="Saved quantifications" />
         {quants.length === 0 ? (
           <EmptyState
-            icon={<Scales20Regular />}
+            icon={<Scales16Regular />}
             title="No quantifications saved"
             description="Use the calculator above to compute and persist a batch's net CO₂ removal."
           />
@@ -184,7 +184,7 @@ export default async function GhgPage() {
                             </p>
                             <p className="text-xs text-muted">net removed</p>
                           </div>
-                          <ChevronDown20Regular className="h-4 w-4 text-muted transition-transform group-open:rotate-180" />
+                          <ChevronDown16Regular className="h-4 w-4 text-muted transition-transform group-open:rotate-180" />
                         </div>
                       </summary>
                       <div className="pb-4">

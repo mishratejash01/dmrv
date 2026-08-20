@@ -2,9 +2,9 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import {
-  Fire20Regular,
-  ArrowUp20Regular,
-  ArrowDown20Regular,
+  Fire16Regular,
+  ArrowUp16Regular,
+  ArrowDown16Regular,
 } from "@/components/common/icons";
 import { getAppContext } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
@@ -172,7 +172,7 @@ export default async function RunsPage({
         >
           {label}
           {active &&
-            (dir === "asc" ? <ArrowUp20Regular className="h-3 w-3" /> : <ArrowDown20Regular className="h-3 w-3" />)}
+            (dir === "asc" ? <ArrowUp16Regular className="h-3 w-3" /> : <ArrowDown16Regular className="h-3 w-3" />)}
         </Link>
       </TH>
     );
@@ -190,7 +190,7 @@ export default async function RunsPage({
         {ctx.can.canOperate && (
           <Button asChild>
             <Link href="/field">
-              <Fire20Regular className="h-4 w-4" /> Log a kiln run
+              <Fire16Regular className="h-4 w-4" /> Log a kiln run
             </Link>
           </Button>
         )}
@@ -242,7 +242,7 @@ export default async function RunsPage({
       <Card>
         {runs.length === 0 ? (
           <EmptyState
-            icon={<Fire20Regular />}
+            icon={<Fire16Regular />}
             title={filtered ? "No runs match these filters" : "No kiln runs yet"}
             description={
               filtered

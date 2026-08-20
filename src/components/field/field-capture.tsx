@@ -3,17 +3,17 @@
 import * as React from "react";
 import { useRouter } from "next/navigation";
 import {
-  Fire20Regular,
-  Camera20Regular,
-  Location20Regular,
-  SpinnerIos20Regular,
-  CheckmarkCircle20Regular,
-  CloudOff20Regular,
-  ArrowSync20Regular,
-  Warning20Regular,
-  Sparkle20Regular,
-  Temperature20Regular,
-  Dismiss20Regular,
+  Fire16Regular,
+  Camera16Regular,
+  Location16Regular,
+  SpinnerIos16Regular,
+  CheckmarkCircle16Regular,
+  CloudOff16Regular,
+  ArrowSync16Regular,
+  Warning16Regular,
+  Sparkle16Regular,
+  Temperature16Regular,
+  Dismiss16Regular,
 } from "@/components/common/icons";
 import { toast } from "sonner";
 import { createClient } from "@/lib/supabase/client";
@@ -328,7 +328,7 @@ export function FieldCapture({ projectId, operatorId, sites, batches, feedstock 
       } else {
         await queueRun(entry);
         await refreshQueue();
-        toast.message("Saved offline — will sync when you reconnect.", { icon: <CloudOff20Regular /> });
+        toast.message("Saved offline — will sync when you reconnect.", { icon: <CloudOff16Regular /> });
         resetForm();
       }
     } catch (e) {
@@ -336,7 +336,7 @@ export function FieldCapture({ projectId, operatorId, sites, batches, feedstock 
       await refreshQueue();
       toast.message("Couldn't reach the server — queued for sync.", {
         description: e instanceof Error ? e.message : undefined,
-        icon: <CloudOff20Regular />,
+        icon: <CloudOff16Regular />,
       });
       resetForm();
     } finally {
@@ -396,12 +396,12 @@ export function FieldCapture({ projectId, operatorId, sites, batches, feedstock 
                 }}
                 className="absolute top-1 right-1 grid h-6 w-6 place-items-center rounded-full bg-ink/70 text-elevated"
               >
-                <Dismiss20Regular className="h-3.5 w-3.5" />
+                <Dismiss16Regular className="h-3.5 w-3.5" />
               </button>
             </>
           ) : (
             <span className="flex flex-col items-center gap-1 text-muted">
-              <Camera20Regular className="h-5 w-5" />
+              <Camera16Regular className="h-5 w-5" />
               <span className="text-xs">Add photo</span>
             </span>
           )}
@@ -433,7 +433,7 @@ export function FieldCapture({ projectId, operatorId, sites, batches, feedstock 
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <Fire20Regular className="h-4 w-4 text-clay" /> Kiln run
+              <Fire16Regular className="h-4 w-4 text-clay" /> Kiln run
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -482,7 +482,7 @@ export function FieldCapture({ projectId, operatorId, sites, batches, feedstock 
               hint="Auto-filled from the kiln sensor at submit when readings exist; otherwise this value is used"
             >
               <div className="relative">
-                <Temperature20Regular className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted" />
+                <Temperature16Regular className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted" />
                 <Input
                   className="pl-9"
                   type="number"
@@ -580,7 +580,7 @@ export function FieldCapture({ projectId, operatorId, sites, batches, feedstock 
                   onClick={estimateFromPhoto}
                   disabled={cvBusy}
                 >
-                  {cvBusy ? <SpinnerIos20Regular className="h-3.5 w-3.5 animate-spin" /> : <Sparkle20Regular className="h-3.5 w-3.5" />}
+                  {cvBusy ? <SpinnerIos16Regular className="h-3.5 w-3.5 animate-spin" /> : <Sparkle16Regular className="h-3.5 w-3.5" />}
                   Estimate from photo
                 </Button>
                 <span className="text-xs text-muted">Uses the biochar-scale photo below</span>
@@ -607,7 +607,7 @@ export function FieldCapture({ projectId, operatorId, sites, batches, feedstock 
                 onChange={(e) => setAnomaly(e.target.checked)}
                 className="h-4 w-4 rounded border-border-strong accent-[#06805a]"
               />
-              <Warning20Regular className="h-4 w-4 text-ochre" /> Flag an anomaly for supervisor attention
+              <Warning16Regular className="h-4 w-4 text-ochre" /> Flag an anomaly for supervisor attention
             </label>
           </CardContent>
         </Card>
@@ -616,7 +616,7 @@ export function FieldCapture({ projectId, operatorId, sites, batches, feedstock 
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <Camera20Regular className="h-4 w-4 text-clay" /> Required evidence
+              <Camera16Regular className="h-4 w-4 text-clay" /> Required evidence
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -668,7 +668,7 @@ export function FieldCapture({ projectId, operatorId, sites, batches, feedstock 
             </div>
             <div className="flex items-center justify-between">
               <span className="text-sm text-muted flex items-center gap-1.5">
-                <Location20Regular className="h-3.5 w-3.5" /> GPS
+                <Location16Regular className="h-3.5 w-3.5" /> GPS
               </span>
               <span className="text-sm text-ink tnum">
                 {gps.lat != null ? `${gps.lat.toFixed(3)}, ${gps.lng?.toFixed(3)}` : "—"}
@@ -681,10 +681,10 @@ export function FieldCapture({ projectId, operatorId, sites, batches, feedstock 
             {queued > 0 && (
               <div className="rounded-lg border border-ochre-soft bg-warn-tint px-3 py-2.5">
                 <p className="text-sm text-[#8a5200] flex items-center gap-1.5">
-                  <CloudOff20Regular className="h-4 w-4" /> {queued} run{queued > 1 ? "s" : ""} queued offline
+                  <CloudOff16Regular className="h-4 w-4" /> {queued} run{queued > 1 ? "s" : ""} queued offline
                 </p>
                 <Button variant="secondary" size="sm" className="w-full mt-2" onClick={syncNow} disabled={busy}>
-                  <ArrowSync20Regular className="h-3.5 w-3.5" /> Sync now
+                  <ArrowSync16Regular className="h-3.5 w-3.5" /> Sync now
                 </Button>
               </div>
             )}
@@ -693,11 +693,11 @@ export function FieldCapture({ projectId, operatorId, sites, batches, feedstock 
 
         <div className="space-y-2 sticky top-20">
           <Button className="w-full" size="lg" disabled={busy || !canComplete} onClick={() => handleSubmit("submitted")}>
-            {busy ? <SpinnerIos20Regular className="h-4 w-4 animate-spin" /> : <CheckmarkCircle20Regular className="h-4 w-4" />}
+            {busy ? <SpinnerIos16Regular className="h-4 w-4 animate-spin" /> : <CheckmarkCircle16Regular className="h-4 w-4" />}
             Submit for review
           </Button>
           <Button variant="secondary" className="w-full" disabled={busy} onClick={() => handleSubmit("draft")}>
-            Save20Regular as draft
+            Save16Regular as draft
           </Button>
           {!canComplete && (
             <p className="text-xs text-muted text-center px-2">

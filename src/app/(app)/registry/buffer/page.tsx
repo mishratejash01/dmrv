@@ -1,11 +1,11 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import {
-  ArrowLeft20Regular,
-  Wallet20Regular,
-  ShieldCheckmark20Regular,
-  Money20Regular,
-  TextPercent20Regular,
+  ArrowLeft16Regular,
+  Wallet16Regular,
+  ShieldCheckmark16Regular,
+  Money16Regular,
+  TextPercent16Regular,
 } from "@/components/common/icons";
 import { getAppContext } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
@@ -48,7 +48,7 @@ export default async function BufferPoolPage() {
           href="/registry"
           className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-clay"
         >
-          <ArrowLeft20Regular className="h-4 w-4" /> Registry
+          <ArrowLeft16Regular className="h-4 w-4" /> Registry
         </Link>
       </div>
 
@@ -63,7 +63,7 @@ export default async function BufferPoolPage() {
           label="Buffer balance"
           value={fmt(totalBuffer, 0)}
           unit="tCO₂e"
-          icon={<Wallet20Regular />}
+          icon={<Wallet16Regular />}
           tone="info"
           hint="This project's contribution"
         />
@@ -71,7 +71,7 @@ export default async function BufferPoolPage() {
           label="Credits held"
           value={fmt(heldCredits, 0)}
           unit="RCCs"
-          icon={<Money20Regular />}
+          icon={<Money16Regular />}
           tone="ochre"
           hint="Status: buffer"
         />
@@ -79,7 +79,7 @@ export default async function BufferPoolPage() {
           label="Minimum rate"
           value={fmt(pct, 0)}
           unit="%"
-          icon={<TextPercent20Regular />}
+          icon={<TextPercent16Regular />}
           tone="sage"
           hint="Of verified removals"
         />
@@ -88,7 +88,7 @@ export default async function BufferPoolPage() {
       {/* Explainer */}
       <Card className="mb-8">
         <CardHeader className="flex-row items-center gap-2">
-          <ShieldCheckmark20Regular className="h-4 w-4 text-sage" />
+          <ShieldCheckmark16Regular className="h-4 w-4 text-sage" />
           <CardTitle>How reversal insurance works</CardTitle>
         </CardHeader>
         <CardContent className="pt-0">
@@ -110,7 +110,7 @@ export default async function BufferPoolPage() {
         <Card>
           {ledger.length === 0 ? (
             <EmptyState
-              icon={<Wallet20Regular />}
+              icon={<Wallet16Regular />}
               title="No buffer contributions yet"
               description={`Once a removal issuance is approved, ${pct}% of its credits are recorded here.`}
               className="border-0"

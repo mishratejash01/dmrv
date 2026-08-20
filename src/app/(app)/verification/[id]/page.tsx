@@ -2,13 +2,13 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import {
-  ShieldCheckmark20Regular,
-  Fire20Regular,
-  Camera20Regular,
-  Beaker20Regular,
-  Scales20Regular,
-  Layer20Regular,
-  Warning20Regular,
+  ShieldCheckmark16Regular,
+  Fire16Regular,
+  Camera16Regular,
+  Beaker16Regular,
+  Scales16Regular,
+  LayerRegular,
+  Warning16Regular,
 } from "@/components/common/icons";
 import { getAppContext } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
@@ -135,7 +135,7 @@ export default async function VerificationDetailPage({
             <SectionHeader title="Batch under verification" />
             {!batch ? (
               <EmptyState
-                icon={<Layer20Regular />}
+                icon={<LayerRegular />}
                 title="No batch linked"
                 description="This verification is not linked to a production batch."
               />
@@ -173,7 +173,7 @@ export default async function VerificationDetailPage({
             <SectionHeader title="GHG quantification" />
             {!ghg ? (
               <EmptyState
-                icon={<Scales20Regular />}
+                icon={<Scales16Regular />}
                 title="No GHG result"
                 description="The batch has not been quantified — there is nothing to verify yet."
               />
@@ -209,7 +209,7 @@ export default async function VerificationDetailPage({
             <SectionHeader title="Laboratory results" />
             {!lab ? (
               <EmptyState
-                icon={<Beaker20Regular />}
+                icon={<Beaker16Regular />}
                 title="No lab test"
                 description="No accredited-laboratory result is on file for this batch."
               />
@@ -265,21 +265,21 @@ export default async function VerificationDetailPage({
             <div className="grid grid-cols-3 gap-4">
               <Card>
                 <CardContent className="pt-5 text-center">
-                  <Fire20Regular className="h-5 w-5 text-clay mx-auto" />
+                  <Fire16Regular className="h-5 w-5 text-clay mx-auto" />
                   <p className="mt-2 font-display text-2xl text-ink tnum">{runIds.length}</p>
                   <p className="text-xs text-muted">Kiln runs</p>
                 </CardContent>
               </Card>
               <Card>
                 <CardContent className="pt-5 text-center">
-                  <Camera20Regular className="h-5 w-5 text-ochre mx-auto" />
+                  <Camera16Regular className="h-5 w-5 text-ochre mx-auto" />
                   <p className="mt-2 font-display text-2xl text-ink tnum">{photoCount}</p>
                   <p className="text-xs text-muted">Run photos</p>
                 </CardContent>
               </Card>
               <Card>
                 <CardContent className="pt-5 text-center">
-                  <Beaker20Regular className="h-5 w-5 text-sage mx-auto" />
+                  <Beaker16Regular className="h-5 w-5 text-sage mx-auto" />
                   <p className="mt-2 font-display text-2xl text-ink tnum">{lab ? 1 : 0}</p>
                   <p className="text-xs text-muted">Lab tests</p>
                 </CardContent>
@@ -292,7 +292,7 @@ export default async function VerificationDetailPage({
             <SectionHeader title="Findings" />
             {findings.length === 0 ? (
               <EmptyState
-                icon={<ShieldCheckmark20Regular />}
+                icon={<ShieldCheckmark16Regular />}
                 title="No findings raised"
                 description="No non-conformities have been recorded against this evidence chain."
               />
@@ -330,7 +330,7 @@ export default async function VerificationDetailPage({
           <Card>
             <CardHeader className="flex-row items-center justify-between">
               <CardTitle>Verification</CardTitle>
-              <ShieldCheckmark20Regular className="h-4 w-4 text-sage" />
+              <ShieldCheckmark16Regular className="h-4 w-4 text-sage" />
             </CardHeader>
             <CardContent>
               <dl>
@@ -358,7 +358,7 @@ export default async function VerificationDetailPage({
 
           {openFindings > 0 && verification.status !== "rejected" && (
             <div className="no-print flex items-start gap-3 rounded-xl border border-ochre-soft bg-warn-tint px-4 py-3.5">
-              <Warning20Regular className="h-5 w-5 text-ochre shrink-0 mt-0.5" />
+              <Warning16Regular className="h-5 w-5 text-ochre shrink-0 mt-0.5" />
               <p className="text-sm text-[#8a5200]">
                 {openFindings} finding{openFindings === 1 ? "" : "s"} still open on this package.
               </p>

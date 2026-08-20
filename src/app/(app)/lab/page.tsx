@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import {
-  Beaker20Regular,
+  Beaker16Regular,
 } from "@/components/common/icons";
 import { getAppContext } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
@@ -47,7 +47,7 @@ export default async function LabPage() {
 
       {tests.length === 0 ? (
         <EmptyState
-          icon={<Beaker20Regular />}
+          icon={<Beaker16Regular />}
           title="No lab tests yet"
           description="When a batch composite sample comes back from the accredited lab, record the results here to unlock GHG quantification."
           action={

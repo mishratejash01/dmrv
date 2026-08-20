@@ -4,12 +4,12 @@ import * as React from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import {
-  SpinnerIos20Regular,
-  ApprovalsApp20Regular,
-  Ribbon20Regular,
-  Archive20Regular,
-  ArrowSwap20Regular,
-  ShieldCheckmark20Regular,
+  SpinnerIos16Regular,
+  ApprovalsApp16Regular,
+  Ribbon16Regular,
+  Archive16Regular,
+  ArrowSwap16Regular,
+  ShieldCheckmark16Regular,
 } from "@/components/common/icons";
 import { Button } from "@/components/ui/button";
 import { Input, Textarea, Field } from "@/components/ui/input";
@@ -60,7 +60,7 @@ export function InitiateIssuanceButton({
 
   return (
     <Button size="sm" onClick={run} disabled={busy}>
-      {busy ? <SpinnerIos20Regular className="h-4 w-4 animate-spin" /> : <ApprovalsApp20Regular className="h-4 w-4" />}
+      {busy ? <SpinnerIos16Regular className="h-4 w-4 animate-spin" /> : <ApprovalsApp16Regular className="h-4 w-4" />}
       Initiate issuance
     </Button>
   );
@@ -85,7 +85,7 @@ export function ApproveIssuanceButton({
       <Tooltip content="Two-person control — a different registry admin must approve this issuance.">
         <span className="inline-flex">
           <Button size="sm" variant="secondary" disabled>
-            <ShieldCheckmark20Regular className="h-4 w-4" /> Awaiting second admin
+            <ShieldCheckmark16Regular className="h-4 w-4" /> Awaiting second admin
           </Button>
         </span>
       </Tooltip>
@@ -106,7 +106,7 @@ export function ApproveIssuanceButton({
 
   return (
     <Button size="sm" variant="sage" onClick={run} disabled={busy}>
-      {busy ? <SpinnerIos20Regular className="h-4 w-4 animate-spin" /> : <Ribbon20Regular className="h-4 w-4" />}
+      {busy ? <SpinnerIos16Regular className="h-4 w-4 animate-spin" /> : <Ribbon16Regular className="h-4 w-4" />}
       Approve &amp; issue
     </Button>
   );
@@ -150,7 +150,7 @@ export function RetireCreditDialog({
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button size="sm" variant="secondary">
-          <Archive20Regular className="h-4 w-4" /> Retire
+          <Archive16Regular className="h-4 w-4" /> Retire
         </Button>
       </DialogTrigger>
       <DialogContent>
@@ -182,7 +182,7 @@ export function RetireCreditDialog({
             <Button variant="ghost">Cancel</Button>
           </DialogClose>
           <Button variant="sage" onClick={run} disabled={busy}>
-            {busy ? <SpinnerIos20Regular className="h-4 w-4 animate-spin" /> : <Archive20Regular className="h-4 w-4" />}
+            {busy ? <SpinnerIos16Regular className="h-4 w-4 animate-spin" /> : <Archive16Regular className="h-4 w-4" />}
             Retire credit
           </Button>
         </DialogFooter>
@@ -228,7 +228,7 @@ export function TransferCreditDialog({
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button size="sm" variant="secondary">
-          <ArrowSwap20Regular className="h-4 w-4" /> Transfer
+          <ArrowSwap16Regular className="h-4 w-4" /> Transfer
         </Button>
       </DialogTrigger>
       <DialogContent>
@@ -252,7 +252,7 @@ export function TransferCreditDialog({
             <Button variant="ghost">Cancel</Button>
           </DialogClose>
           <Button onClick={run} disabled={busy}>
-            {busy ? <SpinnerIos20Regular className="h-4 w-4 animate-spin" /> : <ArrowSwap20Regular className="h-4 w-4" />}
+            {busy ? <SpinnerIos16Regular className="h-4 w-4 animate-spin" /> : <ArrowSwap16Regular className="h-4 w-4" />}
             Transfer
           </Button>
         </DialogFooter>

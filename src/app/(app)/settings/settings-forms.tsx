@@ -4,8 +4,8 @@ import * as React from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import {
-  SpinnerIos20Regular,
-  Save20Regular,
+  SpinnerIos16Regular,
+  Save16Regular,
 } from "@/components/common/icons";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardDescription, CardTitle } from "@/components/ui/card";
@@ -86,8 +86,8 @@ function ProfileForm({ profile }: { profile: Profile }) {
         </Field>
         <div className="flex justify-end">
           <Button onClick={handleSave} disabled={busy}>
-            {busy ? <SpinnerIos20Regular className="h-4 w-4 animate-spin" /> : <Save20Regular className="h-4 w-4" />}
-            Save20Regular profile
+            {busy ? <SpinnerIos16Regular className="h-4 w-4 animate-spin" /> : <Save16Regular className="h-4 w-4" />}
+            Save16Regular profile
           </Button>
         </div>
       </CardContent>
@@ -212,8 +212,8 @@ function ProjectForm({ project }: { project: Project }) {
         </div>
         <div className="flex justify-end">
           <Button onClick={handleSave} disabled={busy}>
-            {busy ? <SpinnerIos20Regular className="h-4 w-4 animate-spin" /> : <Save20Regular className="h-4 w-4" />}
-            Save20Regular project
+            {busy ? <SpinnerIos16Regular className="h-4 w-4 animate-spin" /> : <Save16Regular className="h-4 w-4" />}
+            Save16Regular project
           </Button>
         </div>
       </CardContent>

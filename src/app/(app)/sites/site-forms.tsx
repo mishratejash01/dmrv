@@ -3,9 +3,9 @@
 import * as React from "react";
 import { useRouter } from "next/navigation";
 import {
-  Fire20Regular,
-  SpinnerIos20Regular,
-  Location20Regular,
+  Fire16Regular,
+  SpinnerIos16Regular,
+  Location16Regular,
 } from "@/components/common/icons";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -101,7 +101,7 @@ function AddSiteDialog({ projectId }: { projectId: string }) {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button>
-          <Location20Regular className="h-4 w-4" /> Add site
+          <Location16Regular className="h-4 w-4" /> Add site
         </Button>
       </DialogTrigger>
       <DialogContent>
@@ -149,7 +149,7 @@ function AddSiteDialog({ projectId }: { projectId: string }) {
             Cancel
           </Button>
           <Button onClick={handleSubmit} disabled={busy}>
-            {busy && <SpinnerIos20Regular className="h-4 w-4 animate-spin" />} Add site
+            {busy && <SpinnerIos16Regular className="h-4 w-4 animate-spin" />} Add site
           </Button>
         </DialogFooter>
       </DialogContent>
@@ -211,7 +211,7 @@ function AddKilnDialog({
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="secondary">
-          <Fire20Regular className="h-4 w-4" /> Add kiln
+          <Fire16Regular className="h-4 w-4" /> Add kiln
         </Button>
       </DialogTrigger>
       <DialogContent>
@@ -266,7 +266,7 @@ function AddKilnDialog({
             Cancel
           </Button>
           <Button onClick={handleSubmit} disabled={busy}>
-            {busy && <SpinnerIos20Regular className="h-4 w-4 animate-spin" />} Add kiln
+            {busy && <SpinnerIos16Regular className="h-4 w-4 animate-spin" />} Add kiln
           </Button>
         </DialogFooter>
       </DialogContent>

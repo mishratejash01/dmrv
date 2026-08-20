@@ -3,8 +3,8 @@
 import * as React from "react";
 import { useRouter } from "next/navigation";
 import {
-  SpinnerIos20Regular,
-  ClipboardCheckmark20Regular,
+  SpinnerIos16Regular,
+  ClipboardCheckmark16Regular,
 } from "@/components/common/icons";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -67,7 +67,7 @@ export function NewVerification({ projectId, batches, verifiers }: Props) {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button>
-          <ClipboardCheckmark20Regular className="h-4 w-4" /> Request verification
+          <ClipboardCheckmark16Regular className="h-4 w-4" /> Request verification
         </Button>
       </DialogTrigger>
       <DialogContent>
@@ -118,7 +118,7 @@ export function NewVerification({ projectId, batches, verifiers }: Props) {
             Cancel
           </Button>
           <Button onClick={handleSubmit} disabled={busy}>
-            {busy && <SpinnerIos20Regular className="h-4 w-4 animate-spin" />} Assign verification
+            {busy && <SpinnerIos16Regular className="h-4 w-4 animate-spin" />} Assign verification
           </Button>
         </DialogFooter>
       </DialogContent>

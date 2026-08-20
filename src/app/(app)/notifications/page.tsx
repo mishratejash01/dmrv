@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import {
-  Alert20Regular,
+  Alert16Regular,
 } from "@/components/common/icons";
 import { getAppContext } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
@@ -39,7 +39,7 @@ export default async function NotificationsPage() {
       {notifications.length === 0 ? (
         <Card>
           <EmptyState
-            icon={<Alert20Regular />}
+            icon={<Alert16Regular />}
             title="No notifications yet"
             description="Review requests, verification updates and issuance events will appear here."
             className="border-0"

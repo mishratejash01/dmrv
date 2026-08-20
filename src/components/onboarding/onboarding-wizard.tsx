@@ -3,8 +3,8 @@
 import * as React from "react";
 import { useRouter } from "next/navigation";
 import {
-  SpinnerIos20Regular,
-  ArrowRight20Regular,
+  SpinnerIos16Regular,
+  ArrowRight16Regular,
 } from "@/components/common/icons";
 import { toast } from "sonner";
 import { createProject } from "@/lib/actions/projects";
@@ -124,7 +124,7 @@ export function OnboardingWizard() {
               />
             </Field>
             <Button type="submit" size="lg" disabled={loading}>
-              {loading ? <SpinnerIos20Regular className="h-4 w-4 animate-spin" /> : <ArrowRight20Regular className="h-4 w-4" />}
+              {loading ? <SpinnerIos16Regular className="h-4 w-4 animate-spin" /> : <ArrowRight16Regular className="h-4 w-4" />}
               Create project
             </Button>
           </form>

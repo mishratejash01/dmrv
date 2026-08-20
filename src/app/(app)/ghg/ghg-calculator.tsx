@@ -3,8 +3,8 @@
 import * as React from "react";
 import { useRouter } from "next/navigation";
 import {
-  Calculator20Regular,
-  SpinnerIos20Regular,
+  Calculator16Regular,
+  SpinnerIos16Regular,
 } from "@/components/common/icons";
 import { toast } from "sonner";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -144,7 +144,7 @@ export function GhgCalculator({ batches, canCompute }: Props) {
     <Card>
       <CardHeader>
         <div className="flex items-center gap-2">
-          <Calculator20Regular className="h-4 w-4 text-clay" />
+          <Calculator16Regular className="h-4 w-4 text-clay" />
           <CardTitle>Live GHG calculator</CardTitle>
         </div>
         <CardDescription>
@@ -284,7 +284,7 @@ export function GhgCalculator({ batches, canCompute }: Props) {
 
             {canCompute ? (
               <Button onClick={handleSave} disabled={busy} className="w-full">
-                {busy && <SpinnerIos20Regular className="h-4 w-4 animate-spin" />} Save20Regular quantification
+                {busy && <SpinnerIos16Regular className="h-4 w-4 animate-spin" />} Save16Regular quantification
               </Button>
             ) : (
               <p className="text-xs text-muted text-center">

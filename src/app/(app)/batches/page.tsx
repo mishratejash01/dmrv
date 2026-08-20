@@ -1,9 +1,9 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import {
-  BoxMultiple20Regular,
-  Fire20Regular,
-  ArrowUpRight20Regular,
+  BoxMultipleRegular,
+  Fire16Regular,
+  ArrowUpRight16Regular,
 } from "@/components/common/icons";
 import { getAppContext } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
@@ -44,7 +44,7 @@ export default async function BatchesPage() {
 
       {batches.length === 0 ? (
         <EmptyState
-          icon={<BoxMultiple20Regular />}
+          icon={<BoxMultipleRegular />}
           title="No production batches yet"
           description="Open a batch to start grouping kiln runs of the same kiln type, feedstock and temperature curve."
           action={ctx.can.canManageProject ? <NewBatch projectId={project.id} /> : undefined}
@@ -93,7 +93,7 @@ export default async function BatchesPage() {
                   <div className="flex flex-wrap items-center justify-between gap-2 pt-1">
                     <div className="flex items-center gap-2 text-sm text-muted">
                       <span className="flex items-center gap-1.5">
-                        <Fire20Regular className="h-3.5 w-3.5 text-clay" />
+                        <Fire16Regular className="h-3.5 w-3.5 text-clay" />
                         <span className="tnum">{b.run_count}</span> run{b.run_count === 1 ? "" : "s"}
                       </span>
                       <span aria-hidden>·</span>
@@ -110,7 +110,7 @@ export default async function BatchesPage() {
                         href={`/batches/${b.id}`}
                         className="text-sm text-clay hover:underline flex items-center gap-1"
                       >
-                        Detail <ArrowUpRight20Regular className="h-3.5 w-3.5" />
+                        Detail <ArrowUpRight16Regular className="h-3.5 w-3.5" />
                       </Link>
                     </div>
                   </div>

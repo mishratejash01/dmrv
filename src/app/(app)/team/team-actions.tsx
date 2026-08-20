@@ -4,11 +4,11 @@ import * as React from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import {
-  Key20Regular,
-  SpinnerIos20Regular,
-  Location20Regular,
-  Delete20Regular,
-  PersonAdd20Regular,
+  Key16Regular,
+  SpinnerIos16Regular,
+  Location16Regular,
+  Delete16Regular,
+  PersonAdd16Regular,
 } from "@/components/common/icons";
 import { Button } from "@/components/ui/button";
 import {
@@ -97,7 +97,7 @@ export function InviteMemberDialog({ projectId }: { projectId: string }) {
     >
       <DialogTrigger asChild>
         <Button>
-          <PersonAdd20Regular className="h-4 w-4" /> Invite member
+          <PersonAdd16Regular className="h-4 w-4" /> Invite member
         </Button>
       </DialogTrigger>
       <DialogContent>
@@ -112,7 +112,7 @@ export function InviteMemberDialog({ projectId }: { projectId: string }) {
             </DialogHeader>
             <div className="flex items-center justify-between gap-3 rounded-lg border border-border bg-surface px-4 py-3">
               <span className="flex items-center gap-2 text-sm font-medium text-ink tnum">
-                <Key20Regular className="h-4 w-4 text-ochre" /> {issued.tempPassword}
+                <Key16Regular className="h-4 w-4 text-ochre" /> {issued.tempPassword}
               </span>
               <CopyButton value={issued.tempPassword} label="Copy" />
             </div>
@@ -172,7 +172,7 @@ export function InviteMemberDialog({ projectId }: { projectId: string }) {
                 <Button variant="secondary">Cancel</Button>
               </DialogClose>
               <Button onClick={handleInvite} disabled={busy}>
-                {busy ? <SpinnerIos20Regular className="h-4 w-4 animate-spin" /> : <PersonAdd20Regular className="h-4 w-4" />}
+                {busy ? <SpinnerIos16Regular className="h-4 w-4 animate-spin" /> : <PersonAdd16Regular className="h-4 w-4" />}
                 Invite
               </Button>
             </DialogFooter>
@@ -225,7 +225,7 @@ export function AssignOperatorDialog({
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="secondary">
-          <Location20Regular className="h-4 w-4" /> Assign to site
+          <Location16Regular className="h-4 w-4" /> Assign to site
         </Button>
       </DialogTrigger>
       <DialogContent>
@@ -268,7 +268,7 @@ export function AssignOperatorDialog({
             <Button variant="secondary">Cancel</Button>
           </DialogClose>
           <Button onClick={handleAssign} disabled={busy || !ready}>
-            {busy ? <SpinnerIos20Regular className="h-4 w-4 animate-spin" /> : <Location20Regular className="h-4 w-4" />}
+            {busy ? <SpinnerIos16Regular className="h-4 w-4 animate-spin" /> : <Location16Regular className="h-4 w-4" />}
             Assign
           </Button>
         </DialogFooter>
@@ -316,7 +316,7 @@ export function RemoveMemberButton({
           className="h-8 w-8 text-muted hover:text-err"
           aria-label={`Remove ${name}`}
         >
-          <Delete20Regular className="h-4 w-4" />
+          <Delete16Regular className="h-4 w-4" />
         </Button>
       </DialogTrigger>
       <DialogContent className="max-w-md">
@@ -332,7 +332,7 @@ export function RemoveMemberButton({
             <Button variant="secondary">Cancel</Button>
           </DialogClose>
           <Button variant="danger" onClick={handleRemove} disabled={busy}>
-            {busy ? <SpinnerIos20Regular className="h-4 w-4 animate-spin" /> : <Delete20Regular className="h-4 w-4" />}
+            {busy ? <SpinnerIos16Regular className="h-4 w-4 animate-spin" /> : <Delete16Regular className="h-4 w-4" />}
             Remove
           </Button>
         </DialogFooter>

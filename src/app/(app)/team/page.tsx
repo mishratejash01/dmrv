@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import {
-  People20Regular,
-  ShieldCheckmark20Regular,
-  Location20Regular,
-  Info20Regular,
+  People16Regular,
+  ShieldCheckmark16Regular,
+  Location16Regular,
+  Info16Regular,
 } from "@/components/common/icons";
 import { getAppContext } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
@@ -108,10 +108,10 @@ export default async function TeamPage() {
       </PageHeader>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
-        <Stat label="Developers" value={roleCount("project_developer")} icon={<ShieldCheckmark20Regular />} tone="clay" />
-        <Stat label="Supervisors" value={roleCount("kiln_supervisor")} icon={<People20Regular />} tone="sage" />
-        <Stat label="Operators" value={roleCount("kiln_operator")} icon={<Location20Regular />} tone="ochre" />
-        <Stat label="Verifiers" value={roleCount("verifier")} icon={<ShieldCheckmark20Regular />} tone="info" />
+        <Stat label="Developers" value={roleCount("project_developer")} icon={<ShieldCheckmark16Regular />} tone="clay" />
+        <Stat label="Supervisors" value={roleCount("kiln_supervisor")} icon={<People16Regular />} tone="sage" />
+        <Stat label="Operators" value={roleCount("kiln_operator")} icon={<Location16Regular />} tone="ochre" />
+        <Stat label="Verifiers" value={roleCount("verifier")} icon={<ShieldCheckmark16Regular />} tone="info" />
       </div>
 
       {/* Separation of duties note */}
@@ -119,7 +119,7 @@ export default async function TeamPage() {
         <CardContent className="pt-5">
           <div className="flex items-start gap-3">
             <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-sage-tint text-sage">
-              <Info20Regular className="h-4.5 w-4.5" />
+              <Info16Regular className="h-4.5 w-4.5" />
             </span>
             <div>
               <p className="font-display text-base text-ink">Separation of duties</p>
@@ -138,7 +138,7 @@ export default async function TeamPage() {
       <Card>
         {members.length === 0 ? (
           <EmptyState
-            icon={<People20Regular />}
+            icon={<People16Regular />}
             title="No members yet"
             description={
               canManage

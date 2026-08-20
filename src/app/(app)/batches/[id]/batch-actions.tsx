@@ -4,9 +4,9 @@ import * as React from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import {
-  SpinnerIos20Regular,
-  LockClosed20Regular,
-  ShieldCheckmark20Regular,
+  SpinnerIos16Regular,
+  LockClosed16Regular,
+  ShieldCheckmark16Regular,
 } from "@/components/common/icons";
 import { setBatchStatus } from "@/lib/actions/production";
 import { createVerification } from "@/lib/actions/verification";
@@ -84,7 +84,7 @@ function CloseBatchButton({ batchId }: { batchId: string }) {
 
   return (
     <Button variant="secondary" onClick={close} disabled={busy}>
-      {busy ? <SpinnerIos20Regular className="h-4 w-4 animate-spin" /> : <LockClosed20Regular className="h-4 w-4" />}
+      {busy ? <SpinnerIos16Regular className="h-4 w-4 animate-spin" /> : <LockClosed16Regular className="h-4 w-4" />}
       Close batch
     </Button>
   );
@@ -147,7 +147,7 @@ function RequestVerificationDialog({
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button>
-          <ShieldCheckmark20Regular className="h-4 w-4" /> Request verification
+          <ShieldCheckmark16Regular className="h-4 w-4" /> Request verification
         </Button>
       </DialogTrigger>
       <DialogContent>
@@ -204,7 +204,7 @@ function RequestVerificationDialog({
             </Button>
           </DialogClose>
           <Button onClick={handleSubmit} disabled={busy}>
-            {busy && <SpinnerIos20Regular className="h-4 w-4 animate-spin" />} Request verification
+            {busy && <SpinnerIos16Regular className="h-4 w-4 animate-spin" />} Request verification
           </Button>
         </DialogFooter>
       </DialogContent>

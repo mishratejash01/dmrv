@@ -1,8 +1,8 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import {
-  ShieldCheckmark20Regular,
-  ArrowUpRight20Regular,
+  ShieldCheckmark16Regular,
+  ArrowUpRight16Regular,
 } from "@/components/common/icons";
 import { getAppContext } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
@@ -82,7 +82,7 @@ export default async function VerificationPage() {
 
       {/* KPIs */}
       <div className="grid grid-cols-3 gap-4 mb-4">
-        <Stat label="Verifications" value={fmt(verifications.length, 0)} icon={<ShieldCheckmark20Regular />} tone="clay" hint="All monitoring periods" />
+        <Stat label="Verifications" value={fmt(verifications.length, 0)} icon={<ShieldCheckmark16Regular />} tone="clay" hint="All monitoring periods" />
         <Stat label="In progress" value={fmt(pending.length, 0)} tone="ochre" hint="Assigned or in review" />
         <Stat label="Approved" value={fmt(approved.length, 0)} tone="sage" hint="Cleared for issuance" />
       </div>
@@ -90,7 +90,7 @@ export default async function VerificationPage() {
       <Card>
         {verifications.length === 0 ? (
           <EmptyState
-            icon={<ShieldCheckmark20Regular />}
+            icon={<ShieldCheckmark16Regular />}
             title="No verifications yet"
             description={
               ctx.can.canReview
@@ -138,7 +138,7 @@ export default async function VerificationPage() {
                         href={`/verification/${v.id}`}
                         className="text-sm text-clay hover:underline inline-flex items-center gap-1"
                       >
-                        Open <ArrowUpRight20Regular className="h-3.5 w-3.5" />
+                        Open <ArrowUpRight16Regular className="h-3.5 w-3.5" />
                       </Link>
                     </TD>
                   </TR>

@@ -4,7 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import { PageHeader, EmptyState } from "@/components/ui/misc";
 import { FieldCapture } from "@/components/field/field-capture";
 import {
-  Fire20Regular,
+  Fire16Regular,
 } from "@/components/common/icons";
 
 export const metadata: Metadata = { title: "Field log" };
@@ -19,7 +19,7 @@ export default async function FieldPage() {
       <div>
         <PageHeader title="Field log" description="Record kiln runs from the field." />
         <EmptyState
-          icon={<Fire20Regular />}
+          icon={<Fire16Regular />}
           title="Operator access required"
           description="Only kiln operators (and supervisors) can log runs. Ask your project developer to assign you to a site."
         />

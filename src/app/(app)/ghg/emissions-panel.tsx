@@ -3,10 +3,10 @@
 import * as React from "react";
 import { useRouter } from "next/navigation";
 import {
-  SpinnerIos20Regular,
-  Add20Regular,
-  Delete20Regular,
-  VehicleTruck20Regular,
+  SpinnerIos16Regular,
+  Add16Regular,
+  Delete16Regular,
+  VehicleTruck16Regular,
 } from "@/components/common/icons";
 import { toast } from "sonner";
 import { Card, CardContent } from "@/components/ui/card";
@@ -62,7 +62,7 @@ export function EmissionsPanel({ projectId, batches, entries, canManage }: Props
       />
       {entries.length === 0 ? (
         <EmptyState
-          icon={<VehicleTruck20Regular />}
+          icon={<VehicleTruck16Regular />}
           title="No emissions logged"
           description="Log vehicle transport, processing energy and capture emissions here; the GHG calculator subtracts them automatically per batch."
         />
@@ -115,7 +115,7 @@ function EmissionItem({ entry, canManage }: { entry: EmissionRow; canManage: boo
             className="text-muted hover:text-err transition-colors"
             aria-label="Remove"
           >
-            {busy ? <SpinnerIos20Regular className="h-4 w-4 animate-spin" /> : <Delete20Regular className="h-4 w-4" />}
+            {busy ? <SpinnerIos16Regular className="h-4 w-4 animate-spin" /> : <Delete16Regular className="h-4 w-4" />}
           </button>
         )}
       </div>
@@ -202,7 +202,7 @@ function AddEmissionDialog({
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button size="sm">
-          <Add20Regular className="h-4 w-4" /> Log emission
+          <Add16Regular className="h-4 w-4" /> Log emission
         </Button>
       </DialogTrigger>
       <DialogContent>
@@ -289,7 +289,7 @@ function AddEmissionDialog({
             Cancel
           </Button>
           <Button onClick={handleSubmit} disabled={busy}>
-            {busy && <SpinnerIos20Regular className="h-4 w-4 animate-spin" />} Log emission
+            {busy && <SpinnerIos16Regular className="h-4 w-4 animate-spin" />} Log emission
           </Button>
         </DialogFooter>
       </DialogContent>

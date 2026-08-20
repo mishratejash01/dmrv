@@ -1,14 +1,14 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import {
-  Scales20Regular,
-  Ribbon20Regular,
-  Fire20Regular,
-  Location20Regular,
-  ArrowUpRight20Regular,
-  CheckboxChecked20Regular,
-  Wallet20Regular,
-  BoxMultiple20Regular,
+  Scales16Regular,
+  Ribbon16Regular,
+  Fire16Regular,
+  Location16Regular,
+  ArrowUpRight16Regular,
+  CheckboxChecked16Regular,
+  Wallet16Regular,
+  BoxMultipleRegular,
 } from "@/components/common/icons";
 import { getAppContext } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
@@ -84,7 +84,7 @@ export default async function DashboardPage() {
         {ctx.can.canOperate && (
           <Button asChild>
             <Link href="/field">
-              <Fire20Regular className="h-4 w-4" /> Log a kiln run
+              <Fire16Regular className="h-4 w-4" /> Log a kiln run
             </Link>
           </Button>
         )}
@@ -92,10 +92,10 @@ export default async function DashboardPage() {
 
       {/* KPIs */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
-        <Stat label="Net CO₂ removed" value={fmt(netCo2, 1)} unit="tCO₂e" icon={<Scales20Regular />} tone="sage" hint="Across quantified batches" />
-        <Stat label="RCCs issued" value={fmt(issued, 0)} unit="credits" icon={<Ribbon20Regular />} tone="clay" hint={`${retired} retired`} />
-        <Stat label="Biochar produced" value={fmt(dryKg / 1000, 1)} unit="t dry" icon={<BoxMultiple20Regular />} tone="ochre" hint={`${batches.length} batches`} />
-        <Stat label="Buffer pool" value={fmt(bufferBal, 0)} unit="tCO₂e" icon={<Wallet20Regular />} tone="info" hint="Reversal insurance" />
+        <Stat label="Net CO₂ removed" value={fmt(netCo2, 1)} unit="tCO₂e" icon={<Scales16Regular />} tone="sage" hint="Across quantified batches" />
+        <Stat label="RCCs issued" value={fmt(issued, 0)} unit="credits" icon={<Ribbon16Regular />} tone="clay" hint={`${retired} retired`} />
+        <Stat label="Biochar produced" value={fmt(dryKg / 1000, 1)} unit="t dry" icon={<BoxMultipleRegular />} tone="ochre" hint={`${batches.length} batches`} />
+        <Stat label="Buffer pool" value={fmt(bufferBal, 0)} unit="tCO₂e" icon={<Wallet16Regular />} tone="info" hint="Reversal insurance" />
       </div>
 
       <div className="grid lg:grid-cols-3 gap-4">
@@ -103,11 +103,11 @@ export default async function DashboardPage() {
         <Card className="lg:col-span-2 overflow-hidden">
           <CardHeader className="flex-row items-center justify-between">
             <div className="flex items-center gap-2">
-              <Location20Regular className="h-4 w-4 text-clay" />
+              <Location16Regular className="h-4 w-4 text-clay" />
               <CardTitle>Sites & operations</CardTitle>
             </div>
             <Link href="/sites" className="text-sm text-clay hover:underline flex items-center gap-1">
-              All sites <ArrowUpRight20Regular className="h-3.5 w-3.5" />
+              All sites <ArrowUpRight16Regular className="h-3.5 w-3.5" />
             </Link>
           </CardHeader>
           <CardContent>
@@ -163,7 +163,7 @@ export default async function DashboardPage() {
               <CardContent className="pt-5">
                 <div className="flex items-center gap-3">
                   <span className="grid h-10 w-10 place-items-center rounded-lg bg-ochre-tint text-ochre">
-                    <CheckboxChecked20Regular className="h-5 w-5" />
+                    <CheckboxChecked16Regular className="h-5 w-5" />
                   </span>
                   <div>
                     <p className="font-display text-lg text-ink tnum">{pendingRes.count ?? 0}</p>

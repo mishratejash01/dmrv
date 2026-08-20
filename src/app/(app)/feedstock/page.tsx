@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import {
-  LeafOne20Regular,
-  VehicleTruck20Regular,
-  ShieldCheckmark20Regular,
-  PlantGrass20Regular,
+  LeafOne16Regular,
+  VehicleTruck16Regular,
+  ShieldCheckmark16Regular,
+  PlantGrassRegular,
 } from "@/components/common/icons";
 import { getAppContext } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
@@ -76,17 +76,17 @@ export default async function FeedstockPage() {
 
       {/* KPIs */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
-        <Stat label="Approved types" value={fmt(activeApproved.length, 0)} icon={<ShieldCheckmark20Regular />} tone="sage" hint="Active on the project positive list" />
-        <Stat label="Deliveries" value={fmt(deliveryCount, 0)} icon={<VehicleTruck20Regular />} tone="clay" hint={deliveryCount > 50 ? "Most recent 50 shown below" : "All shown below"} />
-        <Stat label="Received (wet)" value={fmt(totalWetKg / 1000, 1)} unit="t" icon={<LeafOne20Regular />} tone="ochre" hint="As-delivered mass" />
-        <Stat label="Received (dry)" value={fmt(totalDryKg / 1000, 1)} unit="t" icon={<PlantGrass20Regular />} tone="info" hint="Moisture-corrected" />
+        <Stat label="Approved types" value={fmt(activeApproved.length, 0)} icon={<ShieldCheckmark16Regular />} tone="sage" hint="Active on the project positive list" />
+        <Stat label="Deliveries" value={fmt(deliveryCount, 0)} icon={<VehicleTruck16Regular />} tone="clay" hint={deliveryCount > 50 ? "Most recent 50 shown below" : "All shown below"} />
+        <Stat label="Received (wet)" value={fmt(totalWetKg / 1000, 1)} unit="t" icon={<LeafOne16Regular />} tone="ochre" hint="As-delivered mass" />
+        <Stat label="Received (dry)" value={fmt(totalDryKg / 1000, 1)} unit="t" icon={<PlantGrassRegular />} tone="info" hint="Moisture-corrected" />
       </div>
 
       {/* Methodology positive list */}
       <Card className="mb-8">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <ShieldCheckmark20Regular className="h-4 w-4 text-sage" /> Methodology positive list
+            <ShieldCheckmark16Regular className="h-4 w-4 text-sage" /> Methodology positive list
           </CardTitle>
           <CardDescription>
             Waste and residue biomass eligible under the biomass feedstock module. A project&apos;s
@@ -108,7 +108,7 @@ export default async function FeedstockPage() {
         <Card>
           {approved.length === 0 ? (
             <EmptyState
-              icon={<ShieldCheckmark20Regular />}
+              icon={<ShieldCheckmark16Regular />}
               title="No approved feedstock yet"
               description="Add feedstock types from the positive list so deliveries and kiln runs can reference them."
               className="border-0"
@@ -150,7 +150,7 @@ export default async function FeedstockPage() {
         <Card>
           {deliveries.length === 0 ? (
             <EmptyState
-              icon={<VehicleTruck20Regular />}
+              icon={<VehicleTruck16Regular />}
               title="No deliveries recorded"
               description="Record incoming feedstock with its wet weight and moisture — dry mass is computed for traceability."
               className="border-0"

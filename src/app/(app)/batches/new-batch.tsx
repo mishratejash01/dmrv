@@ -3,8 +3,8 @@
 import * as React from "react";
 import { useRouter } from "next/navigation";
 import {
-  Add20Regular,
-  SpinnerIos20Regular,
+  Add16Regular,
+  SpinnerIos16Regular,
 } from "@/components/common/icons";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -58,7 +58,7 @@ export function NewBatch({ projectId }: { projectId: string }) {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button>
-          <Add20Regular className="h-4 w-4" /> New batch
+          <Add16Regular className="h-4 w-4" /> New batch
         </Button>
       </DialogTrigger>
       <DialogContent>
@@ -117,7 +117,7 @@ export function NewBatch({ projectId }: { projectId: string }) {
             </Button>
           </DialogClose>
           <Button onClick={handleCreate} disabled={busy}>
-            {busy ? <SpinnerIos20Regular className="h-4 w-4 animate-spin" /> : <Add20Regular className="h-4 w-4" />}
+            {busy ? <SpinnerIos16Regular className="h-4 w-4 animate-spin" /> : <Add16Regular className="h-4 w-4" />}
             Open batch
           </Button>
         </DialogFooter>

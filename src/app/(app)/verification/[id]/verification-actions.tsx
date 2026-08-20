@@ -3,11 +3,11 @@
 import * as React from "react";
 import { useRouter } from "next/navigation";
 import {
-  SpinnerIos20Regular,
-  Add20Regular,
-  Checkmark20Regular,
-  ThumbLike20Regular,
-  ThumbDislike20Regular,
+  SpinnerIos16Regular,
+  Add16Regular,
+  Checkmark16Regular,
+  ThumbLike16Regular,
+  ThumbDislike16Regular,
 } from "@/components/common/icons";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -118,7 +118,7 @@ function ResolveRow({ finding, verificationId }: { finding: Finding; verificatio
         </div>
       </div>
       <Button variant="outline" size="sm" onClick={resolve} disabled={busy}>
-        {busy ? <SpinnerIos20Regular className="h-4 w-4 animate-spin" /> : <Checkmark20Regular className="h-4 w-4" />} Resolve
+        {busy ? <SpinnerIos16Regular className="h-4 w-4 animate-spin" /> : <Checkmark16Regular className="h-4 w-4" />} Resolve
       </Button>
     </div>
   );
@@ -162,7 +162,7 @@ function AddFindingDialog({ verificationId }: { verificationId: string }) {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="secondary" className="w-full">
-          <Add20Regular className="h-4 w-4" /> Raise a finding
+          <Add16Regular className="h-4 w-4" /> Raise a finding
         </Button>
       </DialogTrigger>
       <DialogContent>
@@ -210,7 +210,7 @@ function AddFindingDialog({ verificationId }: { verificationId: string }) {
             Cancel
           </Button>
           <Button onClick={handleSubmit} disabled={busy}>
-            {busy && <SpinnerIos20Regular className="h-4 w-4 animate-spin" />} Raise finding
+            {busy && <SpinnerIos16Regular className="h-4 w-4 animate-spin" />} Raise finding
           </Button>
         </DialogFooter>
       </DialogContent>
@@ -251,7 +251,7 @@ function DecideDialog({
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant={isApprove ? "sage" : "danger"} className="w-full">
-          {isApprove ? <ThumbLike20Regular className="h-4 w-4" /> : <ThumbDislike20Regular className="h-4 w-4" />}
+          {isApprove ? <ThumbLike16Regular className="h-4 w-4" /> : <ThumbDislike16Regular className="h-4 w-4" />}
           {isApprove ? "Approve" : "Reject"}
         </Button>
       </DialogTrigger>
@@ -288,7 +288,7 @@ function DecideDialog({
             Cancel
           </Button>
           <Button variant={isApprove ? "sage" : "danger"} onClick={handleSubmit} disabled={busy}>
-            {busy && <SpinnerIos20Regular className="h-4 w-4 animate-spin" />}
+            {busy && <SpinnerIos16Regular className="h-4 w-4 animate-spin" />}
             {isApprove ? "Approve verification" : "Reject verification"}
           </Button>
         </DialogFooter>

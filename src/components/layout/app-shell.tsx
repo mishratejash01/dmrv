@@ -4,13 +4,13 @@ import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
-  Navigation20Regular,
-  Dismiss20Regular,
-  Alert20Regular,
-  ChevronUpDown20Regular,
-  Checkmark20Regular,
-  SignOut20Regular,
-  ChevronDown20Regular,
+  Navigation16Regular,
+  Dismiss16Regular,
+  Alert16Regular,
+  ChevronUpDown16Regular,
+  Checkmark16Regular,
+  SignOutRegular,
+  ChevronDown16Regular,
 } from "@/components/common/icons";
 import { cn } from "@/lib/utils";
 import { LogoLockup } from "@/components/common/logo";
@@ -67,7 +67,7 @@ export function AppShell({
       <aside
         className={cn(
           "fixed inset-y-0 left-0 z-40 w-52 flex flex-col transition-transform lg:translate-x-0",
-          "relative bg-brand-deep",
+          "bg-brand-deep",
           open ? "translate-x-0" : "-translate-x-full",
         )}
       >
@@ -85,7 +85,7 @@ export function AppShell({
             onClick={() => setOpen(false)}
             aria-label="Close menu"
           >
-            <Dismiss20Regular className="h-5 w-5" />
+            <Dismiss16Regular className="h-5 w-5" />
           </button>
         </div>
 
@@ -123,8 +123,8 @@ export function AppShell({
                       >
                         <Icon
                           className={cn(
-                            "h-4 w-4 shrink-0",
-                            isActive ? "text-brand-accent" : "text-white/40",
+                            "h-5 w-5 shrink-0",
+                            isActive ? "text-brand-accent" : "text-white/45",
                           )}
                         />
                         {item.label}
@@ -158,7 +158,7 @@ export function AppShell({
             onClick={() => setOpen(true)}
             aria-label="Open menu"
           >
-            <Navigation20Regular className="h-5 w-5" />
+            <Navigation16Regular className="h-5 w-5" />
           </button>
 
           {/* Project switcher */}
@@ -169,7 +169,7 @@ export function AppShell({
                   {active.code}
                 </span>
                 <span className="truncate text-ink font-medium">{active.name}</span>
-                <ChevronUpDown20Regular className="h-3.5 w-3.5 text-muted shrink-0" />
+                <ChevronUpDown16Regular className="h-3.5 w-3.5 text-muted shrink-0" />
               </DropdownTrigger>
               <DropdownContent align="start" className="min-w-64">
                 <DropdownLabel>Switch project</DropdownLabel>
@@ -185,7 +185,7 @@ export function AppShell({
                       </span>
                       <span className="truncate">{p.name}</span>
                     </span>
-                    {p.id === active.id && <Checkmark20Regular className="h-4 w-4 text-clay" />}
+                    {p.id === active.id && <Checkmark16Regular className="h-4 w-4 text-clay" />}
                   </DropdownItem>
                 ))}
               </DropdownContent>
@@ -198,7 +198,7 @@ export function AppShell({
               className="relative grid h-9 w-9 place-items-center rounded-lg text-ink-soft hover:bg-surface transition-colors"
               aria-label="Notifications"
             >
-              <Alert20Regular className="h-4.5 w-4.5" />
+              <Alert16Regular className="h-4.5 w-4.5" />
               {unreadCount > 0 && (
                 <span className="absolute top-1.5 right-1.5 grid h-4 min-w-4 place-items-center rounded-full bg-err px-1 text-[9px] font-semibold text-elevated">
                   {unreadCount > 9 ? "9+" : unreadCount}
@@ -216,7 +216,7 @@ export function AppShell({
                   </span>
                   <span className="block text-[11px] text-muted max-w-32 truncate">{roleLabel}</span>
                 </span>
-                <ChevronDown20Regular className="h-3.5 w-3.5 text-muted hidden sm:block" />
+                <ChevronDown16Regular className="h-3.5 w-3.5 text-muted hidden sm:block" />
               </DropdownTrigger>
               <DropdownContent>
                 <div className="px-2.5 py-2">
@@ -228,14 +228,14 @@ export function AppShell({
                 </div>
                 <DropdownSeparator />
                 <DropdownItem asChild>
-                  <Link href="/settings">Settings20Regular</Link>
+                  <Link href="/settings">Settings16Regular</Link>
                 </DropdownItem>
                 <DropdownItem asChild>
                   <Link href="/registry-public">Public registry</Link>
                 </DropdownItem>
                 <DropdownSeparator />
                 <DropdownItem onSelect={() => signOutAction()} className="text-err data-[highlighted]:text-err">
-                  <SignOut20Regular className="text-err" /> Sign out
+                  <SignOutRegular className="text-err" /> Sign out
                 </DropdownItem>
               </DropdownContent>
             </Dropdown>

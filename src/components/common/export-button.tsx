@@ -3,8 +3,8 @@
 import * as React from "react";
 import Papa from "papaparse";
 import {
-  ArrowDownload20Regular,
-  Print20Regular,
+  ArrowDownload16Regular,
+  Print16Regular,
 } from "@/components/common/icons";
 import { Button } from "@/components/ui/button";
 
@@ -30,7 +30,7 @@ export function ExportCsvButton({
   }
   return (
     <Button variant="secondary" size="sm" onClick={download} disabled={rows.length === 0}>
-      <ArrowDownload20Regular className="h-4 w-4" /> {label}
+      <ArrowDownload16Regular className="h-4 w-4" /> {label}
     </Button>
   );
 }
@@ -39,7 +39,7 @@ export function ExportCsvButton({
 export function PrintButton({ label = "Print / PDF" }: { label?: string }) {
   return (
     <Button variant="secondary" size="sm" onClick={() => window.print()} className="no-print">
-      <Print20Regular className="h-4 w-4" /> {label}
+      <Print16Regular className="h-4 w-4" /> {label}
     </Button>
   );
 }

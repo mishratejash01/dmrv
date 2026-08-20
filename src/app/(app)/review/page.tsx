@@ -1,11 +1,11 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import {
-  ArrowUpRight20Regular,
-  CheckboxChecked20Regular,
-  Fire20Regular,
-  ShieldError20Regular,
-  Temperature20Regular,
+  ArrowUpRight16Regular,
+  CheckboxChecked16Regular,
+  Fire16Regular,
+  ShieldError16Regular,
+  Temperature16Regular,
 } from "@/components/common/icons";
 import { getAppContext } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
@@ -30,7 +30,7 @@ export default async function ReviewQueuePage() {
           description="Approve, reject or request changes on submitted kiln runs."
         />
         <EmptyState
-          icon={<ShieldError20Regular />}
+          icon={<ShieldError16Regular />}
           title="Reviewer access required"
           description="Only supervisors and project developers can review submitted kiln runs. Ask a project admin if you need access."
         />
@@ -76,7 +76,7 @@ export default async function ReviewQueuePage() {
 
       {runs.length === 0 ? (
         <EmptyState
-          icon={<CheckboxChecked20Regular />}
+          icon={<CheckboxChecked16Regular />}
           title="Nothing to review"
           description="Every submitted run has been reviewed. New submissions from the field will appear here."
         />
@@ -96,7 +96,7 @@ export default async function ReviewQueuePage() {
                           href={`/runs/${r.id}`}
                           className="font-display text-lg text-ink hover:text-clay flex items-center gap-1.5"
                         >
-                          <Fire20Regular className="h-4 w-4 text-clay shrink-0" />
+                          <Fire16Regular className="h-4 w-4 text-clay shrink-0" />
                           {runCode}
                         </Link>
                         <StatusBadge kind="run" value={r.status} />
@@ -117,14 +117,14 @@ export default async function ReviewQueuePage() {
                       href={`/runs/${r.id}`}
                       className="text-sm text-clay hover:underline flex items-center gap-1 shrink-0"
                     >
-                      Full record <ArrowUpRight20Regular className="h-3.5 w-3.5" />
+                      Full record <ArrowUpRight16Regular className="h-3.5 w-3.5" />
                     </Link>
                   </div>
 
                   <div className="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-3">
                     <div className="rounded-lg bg-surface/60 px-3 py-2.5">
                       <p className="font-display text-lg text-ink tnum flex items-center gap-1.5">
-                        <Temperature20Regular className="h-3.5 w-3.5 text-clay" />
+                        <Temperature16Regular className="h-3.5 w-3.5 text-clay" />
                         {r.peak_temp_c ? `${fmt(Number(r.peak_temp_c), 0)} °C` : "—"}
                       </p>
                       <p className="text-xs text-muted mt-0.5">Peak temp</p>

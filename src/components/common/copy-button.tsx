@@ -2,8 +2,8 @@
 
 import * as React from "react";
 import {
-  Copy20Regular,
-  Checkmark20Regular,
+  Copy16Regular,
+  Checkmark16Regular,
 } from "@/components/common/icons";
 import { cn } from "@/lib/utils";
 
@@ -27,7 +27,7 @@ export function CopyButton({ value, className, label }: { value: string; classNa
       )}
       aria-label="Copy"
     >
-      {copied ? <Checkmark20Regular className="h-3.5 w-3.5 [stroke-width:1.5] text-ok" /> : <Copy20Regular className="h-3.5 w-3.5 [stroke-width:1.5]" />}
+      {copied ? <Checkmark16Regular className="h-3.5 w-3.5 [stroke-width:1.5] text-ok" /> : <Copy16Regular className="h-3.5 w-3.5 [stroke-width:1.5]" />}
       {label && <span className="text-xs">{copied ? "Copied" : label}</span>}
     </button>
   );

@@ -2,13 +2,13 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import {
-  Warning20Regular,
-  ArrowUpRight20Regular,
-  Fire20Regular,
-  Beaker20Regular,
-  Layer20Regular,
-  Scales20Regular,
-  ShieldCheckmark20Regular,
+  Warning16Regular,
+  ArrowUpRight16Regular,
+  Fire16Regular,
+  Beaker16Regular,
+  LayerRegular,
+  Scales16Regular,
+  ShieldCheckmark16Regular,
 } from "@/components/common/icons";
 import { getAppContext } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
@@ -162,7 +162,7 @@ export default async function BatchDetailPage({
       {/* Over-limit / near-limit warnings */}
       {isOpen && (overTonnes || overAge) && (
         <div className="mb-4 flex items-start gap-3 rounded-xl border border-[#f4c7c3] bg-err-tint px-4 py-3.5">
-          <Warning20Regular className="h-5 w-5 text-err shrink-0 mt-0.5" />
+          <Warning16Regular className="h-5 w-5 text-err shrink-0 mt-0.5" />
           <div>
             <p className="text-sm font-medium text-[#b3261e]">
               {overTonnes && overAge
@@ -181,7 +181,7 @@ export default async function BatchDetailPage({
       )}
       {isOpen && !overTonnes && !overAge && (nearTonnes || nearAge) && (
         <div className="mb-4 flex items-start gap-3 rounded-xl border border-ochre-soft bg-warn-tint px-4 py-3.5">
-          <Warning20Regular className="h-5 w-5 text-ochre shrink-0 mt-0.5" />
+          <Warning16Regular className="h-5 w-5 text-ochre shrink-0 mt-0.5" />
           <p className="text-sm text-[#8a5200]">
             This batch is approaching its {nearTonnes && nearAge ? "tonnage and age limits" : nearTonnes ? `${BATCH_LIMITS.maxTonnes}-tonne limit` : `${BATCH_LIMITS.maxMonths}-month limit`}.
             Plan to close it and draw the composite samples soon.
@@ -198,14 +198,14 @@ export default async function BatchDetailPage({
               title="Kiln runs"
               action={
                 <Link href="/runs" className="text-sm text-clay hover:underline flex items-center gap-1">
-                  All runs <ArrowUpRight20Regular className="h-3.5 w-3.5" />
+                  All runs <ArrowUpRight16Regular className="h-3.5 w-3.5" />
                 </Link>
               }
             />
             <Card>
               {runs.length === 0 ? (
                 <EmptyState
-                  icon={<Fire20Regular />}
+                  icon={<Fire16Regular />}
                   title="No runs assigned"
                   description="Runs recorded in the field are assigned to this batch by operators, or from the review queue."
                   className="border-0"
@@ -264,7 +264,7 @@ export default async function BatchDetailPage({
             <SectionHeader title="Composite sampling chain" />
             {samples.length === 0 ? (
               <EmptyState
-                icon={<Layer20Regular />}
+                icon={<LayerRegular />}
                 title="No composite samples yet"
                 description="Each run adds a subsample to its site pile. Site samples and the batch representative sample are drawn when the batch is closed."
               />
@@ -329,14 +329,14 @@ export default async function BatchDetailPage({
               action={
                 lab && (
                   <Link href="/lab" className="text-sm text-clay hover:underline flex items-center gap-1">
-                    All tests <ArrowUpRight20Regular className="h-3.5 w-3.5" />
+                    All tests <ArrowUpRight16Regular className="h-3.5 w-3.5" />
                   </Link>
                 )
               }
             />
             {!lab ? (
               <EmptyState
-                icon={<Beaker20Regular />}
+                icon={<Beaker16Regular />}
                 title="No lab test recorded"
                 description="Send the batch representative sample to an accredited laboratory and record the results."
                 action={
@@ -410,14 +410,14 @@ export default async function BatchDetailPage({
               action={
                 ghg && (
                   <Link href="/ghg" className="text-sm text-clay hover:underline flex items-center gap-1">
-                    All quantifications <ArrowUpRight20Regular className="h-3.5 w-3.5" />
+                    All quantifications <ArrowUpRight16Regular className="h-3.5 w-3.5" />
                   </Link>
                 )
               }
             />
             {!ghg ? (
               <EmptyState
-                icon={<Scales20Regular />}
+                icon={<Scales16Regular />}
                 title="Not yet quantified"
                 description="Compute the net CO₂ removal for this batch once the lab results are recorded."
                 action={
@@ -532,7 +532,7 @@ export default async function BatchDetailPage({
           <Card>
             <CardHeader className="flex-row items-center justify-between">
               <CardTitle>Verifications</CardTitle>
-              <ShieldCheckmark20Regular className="h-4 w-4 text-sage" />
+              <ShieldCheckmark16Regular className="h-4 w-4 text-sage" />
             </CardHeader>
             <CardContent className="space-y-3">
               {verifications.length === 0 ? (
