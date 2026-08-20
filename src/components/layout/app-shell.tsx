@@ -216,7 +216,7 @@ export function AppShell({
                 <span
                   aria-hidden
                   className={cn(
-                    "pointer-events-none absolute inset-x-1 bottom-0 h-[3px] rounded-full transition-opacity duration-200",
+                    "pointer-events-none absolute inset-x-1 bottom-2.5 h-[3px] rounded-full transition-opacity duration-200",
                     on ? "opacity-100" : "opacity-0",
                   )}
                   style={{
