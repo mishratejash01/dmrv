@@ -66,7 +66,7 @@ export function AppShell({
       {/* Sidebar */}
       <aside
         className={cn(
-          "fixed inset-y-0 left-0 z-40 w-64 flex flex-col transition-transform lg:translate-x-0",
+          "fixed inset-y-0 left-0 z-40 w-52 flex flex-col transition-transform lg:translate-x-0",
           "relative bg-brand-deep",
           open ? "translate-x-0" : "-translate-x-full",
         )}
@@ -94,11 +94,8 @@ export function AppShell({
             <div key={section.title}>
               {/* Label then a hairline running to the edge — the divider off a
                   printed register, not a floating pill header. */}
-              <div className="flex items-center gap-2.5 pl-4 pr-3 mb-1.5">
-                <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-white/40">
-                  {section.title}
-                </span>
-                <span aria-hidden className="h-px flex-1 bg-white/10" />
+              <div className="pl-3.5 pr-3 mb-1">
+                <span className="text-[11px] font-medium text-white/40">{section.title}</span>
               </div>
               <ul>
                 {section.items.map((item) => {
@@ -141,10 +138,8 @@ export function AppShell({
         </nav>
 
         <div className="relative border-t border-white/10 px-4 py-3 shrink-0">
-          <p className="text-[10px] uppercase tracking-[0.16em] text-white/35">Signed in as</p>
-          <p className="mt-1 font-mono text-[11px] uppercase tracking-wider text-brand-accent truncate">
-            {roleLabel}
-          </p>
+          <p className="text-[11px] text-white/35">Signed in as</p>
+          <p className="mt-0.5 text-[12px] text-brand-accent truncate">{roleLabel}</p>
         </div>
       </aside>
 
@@ -156,7 +151,7 @@ export function AppShell({
       )}
 
       {/* Main column */}
-      <div className="flex-1 lg:pl-64 min-w-0 flex flex-col">
+      <div className="flex-1 lg:pl-52 min-w-0 flex flex-col">
         <header className="sticky top-0 z-20 h-14 border-b border-border bg-base/85 backdrop-blur flex items-center gap-3 px-3 md:px-4">
           <button
             className="lg:hidden text-ink-soft"
