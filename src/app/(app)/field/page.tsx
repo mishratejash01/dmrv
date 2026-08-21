@@ -4,6 +4,7 @@ import { getAppContext } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { PageHeader, EmptyState } from "@/components/ui/misc";
 import { Banner } from "@/components/ui/banner";
+import { FieldCaptureVisual } from "@/components/ui/banner-visual";
 import { Button } from "@/components/ui/button";
 import { FieldCapture } from "@/components/field/field-capture";
 
@@ -68,6 +69,7 @@ export default async function FieldPage() {
             <Link href="/runs">View logged runs</Link>
           </Button>
         }
+        aside={<FieldCaptureVisual />}
       />
 
       <FieldCapture
