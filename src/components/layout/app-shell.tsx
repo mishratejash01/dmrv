@@ -233,7 +233,7 @@ export function AppShell({
       {/* The workspace is a light panel inset on the dark ground, framed on the
           sides and foot. It holds its own height: the panel never scrolls, only
           the rail and the content within it do. */}
-      <div className="flex-1 min-h-0 px-2 pb-2 lg:pb-2 max-lg:pb-[calc(3.75rem+env(safe-area-inset-bottom))]">
+      <div className="flex-1 min-h-0 px-2 pb-2 lg:pb-2 max-lg:pb-[calc(4.25rem+env(safe-area-inset-bottom))]">
         <div className="h-full flex overflow-hidden rounded-[14px] bg-surface">
           {showRail && activeSection && (
             <aside className="hidden lg:flex w-60 shrink-0 flex-col border-r border-border bg-elevated overflow-y-auto overscroll-contain scrollbar-none">
@@ -257,7 +257,7 @@ export function AppShell({
           fit comfortably; the rest live behind More, which opens the drawer.
           A thumb reaches the bottom of a phone, not a hamburger in the corner. */}
       <nav
-        className="fixed inset-x-0 bottom-0 z-40 flex border-t border-border bg-elevated pb-[env(safe-area-inset-bottom)] lg:hidden"
+        className="fixed inset-x-0 bottom-0 z-40 flex bg-brand-deep pb-[env(safe-area-inset-bottom)] lg:hidden"
         aria-label="Sections"
       >
         {sections.slice(0, 4).map((section) => {
@@ -269,11 +269,11 @@ export function AppShell({
               href={section.items[0].href}
               aria-current={on ? "page" : undefined}
               className={cn(
-                "flex flex-1 flex-col items-center justify-center gap-0.5 py-2 transition-colors",
-                on ? "text-clay" : "text-muted",
+                "flex flex-1 flex-col items-center justify-center gap-1 py-2.5 transition-colors",
+                on ? "text-brand-accent" : "text-white/60",
               )}
             >
-              <SectionIcon className="h-5 w-5 shrink-0" />
+              <SectionIcon className="h-6 w-6 shrink-0" />
               <span className="max-w-full truncate px-1 text-[10px] leading-tight">
                 {section.title}
               </span>
@@ -285,11 +285,11 @@ export function AppShell({
           onClick={() => setOpen(true)}
           aria-expanded={open}
           className={cn(
-            "flex flex-1 flex-col items-center justify-center gap-0.5 py-2 transition-colors",
-            open ? "text-clay" : "text-muted",
+            "flex flex-1 flex-col items-center justify-center gap-1 py-2.5 transition-colors",
+            open ? "text-brand-accent" : "text-white/60",
           )}
         >
-          <Navigation16Regular className="h-5 w-5 shrink-0" />
+          <Navigation16Regular className="h-6 w-6 shrink-0" />
           <span className="text-[10px] leading-tight">More</span>
         </button>
       </nav>
