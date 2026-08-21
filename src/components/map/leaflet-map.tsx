@@ -15,10 +15,10 @@ export interface MapPoint {
 }
 
 const TONE_HEX: Record<string, string> = {
-  clay: "#06805a",
-  sage: "#2e7d32",
-  ochre: "#b26b00",
-  info: "#1668b3",
+  clay: "#2f7ff5",
+  sage: "#009467",
+  ochre: "#d97706",
+  info: "#2f7ff5",
 };
 
 function pinIcon(tone: string) {

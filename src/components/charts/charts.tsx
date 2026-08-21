@@ -27,10 +27,10 @@ import {
  * first two, which no reader could separate, colour-blind or not.
  */
 export const CHART_COLORS = [
-  "#009467", // green
-  "#2f7ff5", // blue
-  "#d97706", // amber
+  "#2f7ff5", // blue — the default series
   "#9333ea", // violet
+  "#009467", // green
+  "#d97706", // amber
   "#0e8fa8", // teal
   "#e11d6b", // magenta
 ];
