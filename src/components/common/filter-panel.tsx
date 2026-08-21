@@ -221,10 +221,7 @@ export function FilterPanel({
                     type="button"
                     onClick={() => setExpanded(isOpen ? null : g.key)}
                     aria-expanded={isOpen}
-                    className={cn(
-                      "flex w-full items-center justify-between rounded-md px-2.5 py-2.5 text-left text-sm transition-colors",
-                      isOpen ? "bg-clay-tint text-ink" : "text-ink hover:bg-surface",
-                    )}
+                    className="flex w-full items-center justify-between rounded-md px-2.5 py-2.5 text-left text-sm text-ink transition-colors hover:text-clay"
                   >
                     <span>
                       {g.label}
@@ -241,14 +238,14 @@ export function FilterPanel({
                   </button>
 
                   {isOpen && (
-                    <div className="grid grid-cols-2 gap-x-4 gap-y-1 px-2.5 pb-3 pt-1 sm:grid-cols-3">
+                    <div className="flex flex-wrap gap-x-5 gap-y-1.5 px-2.5 pb-3 pt-1">
                       {g.options.length === 0 && (
                         <p className="col-span-full text-sm text-muted">Nothing to filter by</p>
                       )}
                       {g.options.map((o) => (
                         <label
                           key={o.value}
-                          className="flex cursor-pointer items-center gap-2 py-1 text-sm text-ink-soft hover:text-ink"
+                          className="flex max-w-full cursor-pointer items-center gap-2 py-1 text-sm text-ink-soft hover:text-ink"
                         >
                           <input
                             type="checkbox"
@@ -256,7 +253,7 @@ export function FilterPanel({
                             onChange={() => toggle(g.key, o.value)}
                             className="h-4 w-4 shrink-0 rounded border-border-strong accent-clay"
                           />
-                          <span className="truncate">
+                          <span className="min-w-0">
                             {o.label}
                             {typeof o.count === "number" && (
                               <span className="ml-1 text-faint tnum">{o.count}</span>
