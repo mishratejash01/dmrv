@@ -242,9 +242,9 @@ export function AppShell({
           sides and foot. It holds its own height: the panel never scrolls, only
           the rail and the content within it do. */}
       <div className="flex-1 min-h-0 px-2 pb-2">
-        <div className="h-full flex overflow-hidden rounded-[14px] bg-base">
+        <div className="h-full flex overflow-hidden rounded-[14px] bg-surface">
           {showRail && activeSection && (
-            <aside className="hidden lg:flex w-60 shrink-0 flex-col border-r border-border bg-elevated overflow-y-auto scrollbar-none">
+            <aside className="hidden lg:flex w-60 shrink-0 flex-col border-r border-border bg-elevated overflow-y-auto overscroll-contain scrollbar-none">
               <nav className="flex-1 px-2.5 py-4">
                 <ul className="space-y-0.5">
                   {activeSection.items.map((item) => (
@@ -255,7 +255,7 @@ export function AppShell({
             </aside>
           )}
 
-          <main className="flex-1 min-w-0 overflow-y-auto scrollbar-none px-3 md:px-4 py-3 md:py-4">
+          <main className="flex-1 min-w-0 overflow-y-auto overscroll-contain scrollbar-none bg-surface px-5 md:px-7 py-5 md:py-6">
             {children}
           </main>
         </div>

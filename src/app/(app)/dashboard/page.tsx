@@ -91,14 +91,14 @@ export default async function DashboardPage() {
       </PageHeader>
 
       {/* KPIs */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 mb-5">
         <Stat label="Net CO₂ removed" value={fmt(netCo2, 1)} unit="tCO₂e" icon={<Scales16Regular />} tone="sage" hint="Across quantified batches" />
         <Stat label="RCCs issued" value={fmt(issued, 0)} unit="credits" icon={<Ribbon16Regular />} tone="clay" hint={`${retired} retired`} />
         <Stat label="Biochar produced" value={fmt(dryKg / 1000, 1)} unit="t dry" icon={<BoxMultipleRegular />} tone="ochre" hint={`${batches.length} batches`} />
         <Stat label="Buffer pool" value={fmt(bufferBal, 0)} unit="tCO₂e" icon={<Wallet16Regular />} tone="info" hint="Reversal insurance" />
       </div>
 
-      <div className="grid lg:grid-cols-3 gap-4">
+      <div className="grid lg:grid-cols-3 gap-5">
         {/* Map */}
         <Card className="lg:col-span-2 overflow-hidden">
           <CardHeader className="flex-row items-center justify-between">
@@ -130,7 +130,7 @@ export default async function DashboardPage() {
         </Card>
 
         {/* Batch progress + review */}
-        <div className="space-y-4">
+        <div className="space-y-5">
           <Card>
             <CardHeader className="flex-row items-center justify-between">
               <CardTitle>Open batches</CardTitle>

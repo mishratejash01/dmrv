@@ -14,7 +14,7 @@ export function PageHeader({
   className?: string;
 }) {
   return (
-    <div className={cn("flex flex-wrap items-start justify-between gap-3 mb-3", className)}>
+    <div className={cn("flex flex-wrap items-start justify-between gap-3 mb-5", className)}>
       <div className="min-w-0">
         <h1 className="font-display text-xl md:text-2xl font-semibold text-brand-deep leading-tight text-balance">
           {title}
