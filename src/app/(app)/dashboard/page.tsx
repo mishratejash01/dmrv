@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { getAppContext } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { Card, CardContent } from "@/components/ui/card";
-import { Stat, PageHeader, SectionHeader, EmptyState } from "@/components/ui/misc";
+import { Stat, PageHeader, EmptyState } from "@/components/ui/misc";
 import { Meter } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
 import { StatusBadge } from "@/components/status-badge";
@@ -221,14 +221,17 @@ export default async function DashboardPage() {
 
       {/* Recent runs */}
       <div className="mt-5">
-        <SectionHeader
-          title="Recent kiln runs"
-          action={<Link href="/runs" className="text-sm text-clay hover:underline">View all</Link>}
-        />
         <Card>
+          {/* A table's title sits inside its card: the rows are already blocks
+              on the grey, so a heading above them would float unattached. */}
+          <div className="flex items-center justify-between px-5 pt-4 pb-1">
+            <h2 className="text-[15px] font-semibold text-ink">Recent kiln runs</h2>
+            <Link href="/runs" className="text-sm text-clay hover:underline">View all</Link>
+          </div>
           {runs.length === 0 ? (
             <EmptyState title="No kiln runs yet" className="border-0" />
           ) : (
+            <div className="px-4 pb-4">
             <Table>
               <THead>
                 <TR>
@@ -259,6 +262,7 @@ export default async function DashboardPage() {
                 })}
               </TBody>
             </Table>
+            </div>
           )}
         </Card>
       </div>

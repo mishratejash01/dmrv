@@ -1,10 +1,21 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 
+/**
+ * Rows are blocks, not lines between hairlines: the table separates its rows
+ * with space and gives each one its own surface, so a row reads as a single
+ * record you could click rather than a strip in a grid.
+ *
+ * That needs `border-separate`, since `border-collapse` merges cell edges and
+ * would drop both the spacing and the rounded ends.
+ */
 export function Table({ className, ...props }: React.TableHTMLAttributes<HTMLTableElement>) {
   return (
     <div className="w-full overflow-x-auto">
-      <table className={cn("w-full text-sm border-collapse", className)} {...props} />
+      <table
+        className={cn("w-full text-sm border-separate border-spacing-y-1.5", className)}
+        {...props}
+      />
     </div>
   );
 }
@@ -21,7 +32,10 @@ export function TR({ className, ...props }: React.HTMLAttributes<HTMLTableRowEle
   return (
     <tr
       className={cn(
-        "border-b border-border last:border-0 hover:bg-surface/60 transition-colors",
+        "group bg-surface/70 transition-colors hover:bg-surface-2",
+        // The row's ends are rounded on its first and last cell, since a <tr>
+        // cannot carry a radius of its own.
+        "[&>td:first-child]:rounded-l-lg [&>td:last-child]:rounded-r-lg",
         className,
       )}
       {...props}
@@ -33,7 +47,7 @@ export function TH({ className, ...props }: React.ThHTMLAttributes<HTMLTableCell
   return (
     <th
       className={cn(
-        "text-left font-semibold text-muted text-xs uppercase tracking-wide px-2.5 py-1.5 whitespace-nowrap",
+        "text-left text-[12px] font-medium text-muted px-3 pb-1 whitespace-nowrap",
         className,
       )}
       {...props}
@@ -42,5 +56,5 @@ export function TH({ className, ...props }: React.ThHTMLAttributes<HTMLTableCell
 }
 
 export function TD({ className, ...props }: React.TdHTMLAttributes<HTMLTableCellElement>) {
-  return <td className={cn("px-2.5 py-2 text-ink align-middle", className)} {...props} />;
+  return <td className={cn("px-3 py-3 text-ink align-middle", className)} {...props} />;
 }
