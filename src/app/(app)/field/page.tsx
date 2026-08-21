@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { getAppContext } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { PageHeader, EmptyState } from "@/components/ui/misc";
+import { Banner } from "@/components/ui/banner";
+import { Button } from "@/components/ui/button";
 import { FieldCapture } from "@/components/field/field-capture";
 import {
   Fire16Regular,
@@ -56,10 +59,22 @@ export default async function FieldPage() {
 
   return (
     <div>
-      <PageHeader
-        title="Field log"
-        description="Record a kiln run — feedstock, temperatures, photos and mass. Works offline and syncs when you reconnect."
+      <PageHeader title="Field log" />
+
+      {/* Offline capture is the thing operators most often do not know they
+          have, and the kiln sites have no reliable signal. */}
+      <Banner
+        className="mb-5"
+        eyebrow="Works offline"
+        title="Log a run with no signal at the kiln"
+        body="Runs, temperatures and photos are held on the device and sync on their own once you are back in range. Nothing to switch on."
+        action={
+          <Button asChild variant="secondary">
+            <Link href="/runs">View logged runs</Link>
+          </Button>
+        }
       />
+
       <FieldCapture
         projectId={pid}
         operatorId={ctx.profile.id}

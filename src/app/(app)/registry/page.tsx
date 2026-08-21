@@ -95,10 +95,7 @@ export default async function RegistryPage() {
 
   return (
     <div>
-      <PageHeader
-        title="Credit registry"
-        description="Acres' internal issuance ledger — issue Rainbow Carbon Credits under two-person control, then transfer or retire them on a serialised ledger."
-      >
+      <PageHeader title="Credit registry">
         <Button asChild variant="secondary">
           <Link href="/registry/buffer">
             <Wallet16Regular className="h-4 w-4" /> Buffer pool
