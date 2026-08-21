@@ -16,11 +16,17 @@ export function MailMark({ email, className }: { email?: string | null; classNam
 
   if (domain === "gmail.com" || domain === "googlemail.com") {
     return (
-      <svg {...size} role="img" aria-label="Gmail">
-        <path d="M2 6.5A1.5 1.5 0 0 1 3.5 5h.7L12 11.2 19.8 5h.7A1.5 1.5 0 0 1 22 6.5v11a1.5 1.5 0 0 1-1.5 1.5H19V9.6l-7 5.5-7-5.5V19H3.5A1.5 1.5 0 0 1 2 17.5z" fill="#e5e7eb" />
-        <path d="M2 6.5A1.5 1.5 0 0 1 3.5 5h.7L12 11.2V15L5 9.6V19H3.5A1.5 1.5 0 0 1 2 17.5z" fill="#4285f4" />
-        <path d="M22 6.5A1.5 1.5 0 0 0 20.5 5h-.7L12 11.2V15l7-5.4V19h1.5a1.5 1.5 0 0 0 1.5-1.5z" fill="#34a853" />
-        <path d="M2 6.5A1.5 1.5 0 0 1 3.5 5h.7L12 11.2 19.8 5h.7A1.5 1.5 0 0 1 22 6.5v.8L12 15 2 7.3z" fill="#ea4335" />
+      <svg
+        viewBox="0 0 52 40"
+        role="img"
+        aria-label="Gmail"
+        className={`h-3 w-auto shrink-0 ${className ?? ""}`}
+      >
+        <path fill="#4285f4" d="M3.64 40h8.18V20.18L0 11v25.45C0 38.4 1.63 40 3.64 40z" />
+        <path fill="#34a853" d="M40.18 40h8.18c2.01 0 3.64-1.6 3.64-3.55V11l-11.82 9.18z" />
+        <path fill="#fbbc04" d="M40.18 3.55v16.63L52 11V5.36c0-4.5-5.14-7.06-8.73-4.36z" />
+        <path fill="#ea4335" d="M11.82 20.18V3.55L26 14.18 40.18 3.55v16.63L26 30.82z" />
+        <path fill="#c5221f" d="M0 5.36V11l11.82 9.18V3.55L8.73 1C5.14-1.7 0 .86 0 5.36z" />
       </svg>
     );
   }
