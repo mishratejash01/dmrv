@@ -105,14 +105,6 @@ export function AppShell({
     <div className="h-screen flex flex-col overflow-hidden bg-brand-deep">
       {/* Top bar — brand, the section tabs, search and the account. */}
       <header className="h-[68px] shrink-0 flex items-center gap-2 px-5 bg-brand-deep">
-        <button
-          className="lg:hidden text-white/70 hover:text-white transition-colors"
-          onClick={() => setOpen(true)}
-          aria-label="Open menu"
-        >
-          <Navigation16Regular className="h-5 w-5" />
-        </button>
-
         <Link href="/dashboard" className="flex items-center shrink-0">
           <Logo variant="white" height={32} />
         </Link>
@@ -241,7 +233,7 @@ export function AppShell({
       {/* The workspace is a light panel inset on the dark ground, framed on the
           sides and foot. It holds its own height: the panel never scrolls, only
           the rail and the content within it do. */}
-      <div className="flex-1 min-h-0 px-2 pb-2">
+      <div className="flex-1 min-h-0 px-2 pb-2 lg:pb-2 max-lg:pb-[calc(3.75rem+env(safe-area-inset-bottom))]">
         <div className="h-full flex overflow-hidden rounded-[14px] bg-surface">
           {showRail && activeSection && (
             <aside className="hidden lg:flex w-60 shrink-0 flex-col border-r border-border bg-elevated overflow-y-auto overscroll-contain scrollbar-none">
@@ -260,6 +252,47 @@ export function AppShell({
           </main>
         </div>
       </div>
+
+      {/* Bottom bar — the sections the top tabs carry on a wide screen. Four
+          fit comfortably; the rest live behind More, which opens the drawer.
+          A thumb reaches the bottom of a phone, not a hamburger in the corner. */}
+      <nav
+        className="fixed inset-x-0 bottom-0 z-40 flex border-t border-border bg-elevated pb-[env(safe-area-inset-bottom)] lg:hidden"
+        aria-label="Sections"
+      >
+        {sections.slice(0, 4).map((section) => {
+          const on = section.title === activeSection?.title && !open;
+          const SectionIcon = section.icon;
+          return (
+            <Link
+              key={section.title}
+              href={section.items[0].href}
+              aria-current={on ? "page" : undefined}
+              className={cn(
+                "flex flex-1 flex-col items-center justify-center gap-0.5 py-2 transition-colors",
+                on ? "text-clay" : "text-muted",
+              )}
+            >
+              <SectionIcon className="h-5 w-5 shrink-0" />
+              <span className="max-w-full truncate px-1 text-[10px] leading-tight">
+                {section.title}
+              </span>
+            </Link>
+          );
+        })}
+        <button
+          type="button"
+          onClick={() => setOpen(true)}
+          aria-expanded={open}
+          className={cn(
+            "flex flex-1 flex-col items-center justify-center gap-0.5 py-2 transition-colors",
+            open ? "text-clay" : "text-muted",
+          )}
+        >
+          <Navigation16Regular className="h-5 w-5 shrink-0" />
+          <span className="text-[10px] leading-tight">More</span>
+        </button>
+      </nav>
 
       {/* Mobile drawer keeps the whole tree, since there is no room for tabs. */}
       {open && (
