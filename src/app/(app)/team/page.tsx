@@ -3,8 +3,8 @@ import { getAppContext } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { Card, CardContent } from "@/components/ui/card";
 import { PageHeader, SectionHeader, EmptyState, Stat } from "@/components/ui/misc";
-import { Badge } from "@/components/ui/badge";
 import { Avatar } from "@/components/ui/avatar";
+import { MailMark } from "@/components/ui/mail-mark";
 import { Table, TableSection, THead, TBody, TR, TH, TD } from "@/components/ui/table";
 import { PROJECT_ROLE_LABEL } from "@/lib/nav";
 import { fmtDate } from "@/lib/utils";
@@ -19,12 +19,6 @@ import {
 
 export const metadata: Metadata = { title: "Team & roles" };
 
-const ROLE_TONE: Record<string, "clay" | "sage" | "ochre" | "info"> = {
-  project_developer: "clay",
-  kiln_supervisor: "sage",
-  kiln_operator: "ochre",
-  verifier: "info",
-};
 
 export default async function TeamPage() {
   const ctx = await getAppContext();
@@ -47,12 +41,20 @@ export default async function TeamPage() {
   // Fetch profile names/emails separately to avoid ambiguous embeds.
   const userIds = Array.from(new Set(members.map((m) => m.user_id)));
   const profilesRes = userIds.length
-    ? await supabase.from("profiles").select("id, full_name, email, organization").in("id", userIds)
+    ? await supabase
+        .from("profiles")
+        .select("id, full_name, email, organization, avatar_url")
+        .in("id", userIds)
     : { data: [] };
   const profileById = new Map(
     (profilesRes.data ?? []).map((p) => [
       p.id,
-      { full_name: p.full_name, email: p.email, organization: p.organization },
+      {
+        full_name: p.full_name,
+        email: p.email,
+        organization: p.organization,
+        avatar_url: p.avatar_url,
+      },
     ]),
   );
 
@@ -160,18 +162,23 @@ export default async function TeamPage() {
                   <TR key={m.id}>
                     <TD>
                       <div className="flex items-center gap-3">
-                        <Avatar name={name} size={32} />
-                        <div className="min-w-0">
+                        {/* 46px matches the three text lines beside it, so the
+                            frame starts with the name and ends with the org. */}
+                        <Avatar name={name} src={p?.avatar_url} size={46} rounded="md" />
+                        <div className="min-w-0 leading-tight">
                           <p className="font-medium text-ink truncate">{name}</p>
-                          <p className="text-xs text-muted truncate">
-                            {p?.email}
-                            {p?.organization ? ` · ${p.organization}` : ""}
-                          </p>
+                          <span className="mt-0.5 flex items-center gap-1.5 text-xs text-muted">
+                            <MailMark email={p?.email} />
+                            <span className="truncate">{p?.email}</span>
+                          </span>
+                          {p?.organization && (
+                            <p className="mt-0.5 text-xs text-faint truncate">{p.organization}</p>
+                          )}
                         </div>
                       </div>
                     </TD>
                     <TD>
-                      <Badge tone={ROLE_TONE[m.role] ?? "neutral"}>{roleLabel}</Badge>
+                      <span className="text-sm text-ink">{roleLabel}</span>
                     </TD>
                     <TD className="text-muted">
                       {m.role === "kiln_operator"
