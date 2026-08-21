@@ -1,13 +1,9 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import {
-  Scales16Regular,
-  Ribbon16Regular,
   Fire16Regular,
   ArrowUpRight16Regular,
   CheckboxChecked16Regular,
-  Wallet16Regular,
-  BoxMultipleRegular,
 } from "@/components/common/icons";
 import { getAppContext } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
@@ -91,10 +87,10 @@ export default async function DashboardPage() {
 
       {/* KPIs */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 mb-5">
-        <Stat label="Net CO₂ removed" value={fmt(netCo2, 1)} unit="tCO₂e" icon={<Scales16Regular />} tone="sage" hint="Across quantified batches" />
-        <Stat label="RCCs issued" value={fmt(issued, 0)} unit="credits" icon={<Ribbon16Regular />} tone="clay" hint={`${retired} retired`} />
-        <Stat label="Biochar produced" value={fmt(dryKg / 1000, 1)} unit="t dry" icon={<BoxMultipleRegular />} tone="ochre" hint={`${batches.length} batches`} />
-        <Stat label="Buffer pool" value={fmt(bufferBal, 0)} unit="tCO₂e" icon={<Wallet16Regular />} tone="info" hint="Reversal insurance" />
+        <Stat label="Net CO₂ removed" value={fmt(netCo2, 1)} unit="tCO₂e" hint="Across quantified batches" />
+        <Stat label="RCCs issued" value={fmt(issued, 0)} unit="credits" hint={`${retired} retired`} />
+        <Stat label="Biochar produced" value={fmt(dryKg / 1000, 1)} unit="t dry" hint={`${batches.length} batches`} />
+        <Stat label="Buffer pool" value={fmt(bufferBal, 0)} unit="tCO₂e" hint="Reversal insurance" />
       </div>
 
       <div className="grid lg:grid-cols-3 gap-5">

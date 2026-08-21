@@ -112,41 +112,24 @@ export function Stat({
   value,
   unit,
   hint,
-  icon,
-  tone = "clay",
   className,
 }: {
   label: string;
   value: React.ReactNode;
   unit?: string;
   hint?: string;
+  /** Accepted and ignored: tiles read as figures, not as badges. */
   icon?: React.ReactNode;
   tone?: "clay" | "sage" | "ochre" | "info" | "neutral";
   className?: string;
 }) {
-  const toneMap: Record<string, string> = {
-    clay: "text-clay bg-clay-tint",
-    sage: "text-sage bg-sage-tint",
-    ochre: "text-ochre bg-ochre-tint",
-    info: "text-info bg-info-tint",
-    neutral: "text-ink-soft bg-surface-2",
-  };
   return (
-    <div className={cn("rounded border border-border bg-elevated p-4", className)}>
-      <div className="flex items-start justify-between gap-3">
-        <div className="min-w-0">
-          <p className="text-sm text-muted">{label}</p>
-          <p className="mt-1 font-display text-2xl font-semibold text-brand-deep tnum leading-tight">
-            {value}
-            {unit && <span className="text-base text-muted ml-1 font-sans">{unit}</span>}
-          </p>
-        </div>
-        {icon && (
-          <div className={cn("rounded-lg p-2 [&_svg]:h-5 [&_svg]:w-5 shrink-0", toneMap[tone])}>
-            {icon}
-          </div>
-        )}
-      </div>
+    <div className={cn("rounded-lg border border-border bg-elevated px-5 py-4", className)}>
+      <p className="text-[13px] text-muted">{label}</p>
+      <p className="mt-2 font-display text-[28px] font-semibold text-ink tnum leading-none">
+        {value}
+        {unit && <span className="ml-1.5 font-sans text-[15px] font-normal text-muted">{unit}</span>}
+      </p>
       {hint && <p className="mt-2 text-xs text-muted">{hint}</p>}
     </div>
   );

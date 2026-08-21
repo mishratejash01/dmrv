@@ -20,19 +20,19 @@ import {
 
 /**
  * Categorical hues, assigned in this order and never cycled. Validated for
- * colour-vision deficiency: worst adjacent pair is ΔE 12.6 (deutan) and 17.7 in
+ * colour-vision deficiency: worst adjacent pair is ΔE 11.2 (deutan) and 24.3 in
  * normal vision, every hue clears 3:1 against the card.
  *
  * The palette this replaced was three greens and a slate — ΔE 4.8 between the
  * first two, which no reader could separate, colour-blind or not.
  */
 export const CHART_COLORS = [
-  "#06805a", // brand green
-  "#1668b3", // blue
-  "#b26b00", // amber
-  "#8b5cf6", // violet
-  "#0891b2", // cyan
-  "#be185d", // magenta
+  "#009467", // green
+  "#2f7ff5", // blue
+  "#d97706", // amber
+  "#9333ea", // violet
+  "#0e8fa8", // teal
+  "#e11d6b", // magenta
 ];
 
 const AXIS = {

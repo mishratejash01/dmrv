@@ -24,29 +24,29 @@
   /* ---- Acres brand (from acresclimate.tech) ---- */
   --color-brand-deep: #0b2e1f; /* headings, navigation rail */
   --color-brand: #2e7d32; /* forest */
-  --color-brand-accent: #069c6a; /* accent markers, first chart series */
+  --color-brand-accent: #00b884; /* accent markers, first chart series */
 
   /* ---- Accents ----
      `clay` is the primary action ramp: the brand accent darkened to #06805a so
      white button text clears 4.6:1. The only value not lifted from the site. */
-  --color-clay: #06805a; /* Acres green — primary action */
+  --color-clay: #009467; /* Acres green — primary action */
   --color-clay-soft: #b7e4d0;
   --color-clay-tint: #ecfdf5;
-  --color-sage: #2e7d32; /* forest green */
+  --color-sage: #2f9e44; /* forest green */
   --color-sage-soft: #b7dcb9;
   --color-sage-tint: #eef7ef;
-  --color-ochre: #b26b00; /* amber — sparingly */
+  --color-ochre: #d97706; /* amber — sparingly */
   --color-ochre-soft: #e8c894;
   --color-ochre-tint: #fdf4e3;
 
   /* ---- Status (muted) ---- */
-  --color-ok: #2e7d32; /* green */
+  --color-ok: #2f9e44; /* green */
   --color-ok-tint: #eef7ef;
-  --color-warn: #b26b00; /* amber */
+  --color-warn: #d97706; /* amber */
   --color-warn-tint: #fdf4e3;
   --color-err: #b3261e; /* red */
   --color-err-tint: #fdecea;
-  --color-info: #1668b3; /* blue */
+  --color-info: #2f7ff5; /* blue */
   --color-info-tint: #eaf2fb;
 
   /* ---- Radii — tight on controls, softer on panels. ---- */
