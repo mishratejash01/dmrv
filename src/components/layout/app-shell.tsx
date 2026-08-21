@@ -66,17 +66,10 @@ function NavRow({ item, pathname }: { item: NavItem; pathname: string }) {
         href={item.href}
         className={cn(
           "flex items-center gap-3 rounded-md px-2.5 py-2 text-[15px] transition-colors",
-          isActive
-            ? "bg-white/[0.12] text-white"
-            : "text-white/70 hover:bg-white/[0.06] hover:text-white",
+          isActive ? "bg-surface-2 text-ink" : "text-ink-soft hover:bg-surface hover:text-ink",
         )}
       >
-        <Icon
-          className={cn(
-            "h-5 w-5 shrink-0",
-            isActive ? "text-brand-accent" : "text-white/55",
-          )}
-        />
+        <Icon className={cn("h-5 w-5 shrink-0", isActive ? "text-brand" : "text-muted")} />
         {item.label}
       </Link>
     </li>
@@ -249,10 +242,10 @@ export function AppShell({
           sides and foot. It holds its own height: the panel never scrolls, only
           the rail and the content within it do. */}
       <div className="flex-1 min-h-0 px-2 pb-2">
-        <div className="h-full flex gap-3 overflow-hidden rounded-[14px] bg-surface p-3">
+        <div className="h-full flex overflow-hidden rounded-[14px] bg-surface">
           {showRail && activeSection && (
-            <aside className="hidden lg:flex w-56 shrink-0 flex-col rounded-xl bg-brand-deep overflow-y-auto overscroll-contain scrollbar-none">
-              <nav className="flex-1 px-2.5 py-3">
+            <aside className="hidden lg:flex w-60 shrink-0 flex-col border-r border-border bg-elevated overflow-y-auto overscroll-contain scrollbar-none">
+              <nav className="flex-1 px-2.5 py-4">
                 <ul className="space-y-0.5">
                   {activeSection.items.map((item) => (
                     <NavRow key={item.href} item={item} pathname={pathname} />
@@ -262,7 +255,7 @@ export function AppShell({
             </aside>
           )}
 
-          <main className="flex-1 min-w-0 overflow-y-auto overscroll-contain scrollbar-none rounded-xl bg-surface px-4 md:px-6 py-4 md:py-5">
+          <main className="flex-1 min-w-0 overflow-y-auto overscroll-contain scrollbar-none bg-surface px-5 md:px-7 py-5 md:py-6">
             {children}
           </main>
         </div>
@@ -272,11 +265,11 @@ export function AppShell({
       {open && (
         <>
           <div className="fixed inset-0 z-40 bg-ink/40 lg:hidden" onClick={() => setOpen(false)} />
-          <aside className="fixed inset-y-0 left-0 z-50 w-64 flex flex-col bg-brand-deep lg:hidden">
-            <div className="h-14 flex items-center px-4 shrink-0 border-b border-white/10">
-              <span className="text-sm text-white/70">Menu</span>
+          <aside className="fixed inset-y-0 left-0 z-50 w-64 flex flex-col bg-elevated lg:hidden">
+            <div className="h-14 flex items-center px-4 shrink-0 border-b border-border">
+              <span className="text-sm text-ink-soft">Menu</span>
               <button
-                className="ml-auto text-white/60 hover:text-white transition-colors"
+                className="ml-auto text-muted hover:text-ink transition-colors"
                 onClick={() => setOpen(false)}
                 aria-label="Close menu"
               >
@@ -286,7 +279,7 @@ export function AppShell({
             <nav className="flex-1 overflow-y-auto scrollbar-none px-2.5 py-4 space-y-5">
               {sections.map((section) => (
                 <div key={section.title}>
-                  <p className="px-2.5 mb-1.5 text-[12px] text-white/45">{section.title}</p>
+                  <p className="px-2.5 mb-1.5 text-[12px] text-muted">{section.title}</p>
                   <ul className="space-y-0.5">
                     {section.items.map((item) => (
                       <NavRow key={item.href} item={item} pathname={pathname} />

@@ -2,12 +2,17 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 /**
- * A full-width feature banner on the deep brand ground: an eyebrow, a headline,
+ * A full-width feature banner on a deep teal ground: an eyebrow, a headline,
  * a line of copy, optional figures, and one action.
  *
  * It is the one place in the product where promotional voice is allowed, so it
  * has to earn its space. Use it to surface a capability the reader has not
  * switched on yet — never to restate what the page below already shows.
+ *
+ * The ground is a deep teal rather than the brand green: green is the product's
+ * action colour, and a banner is not an action. Teal reads as water and earth
+ * and keeps the environmental register without competing with a button. White
+ * text sits on it at 11.7:1, and the sand eyebrow at 6.1:1.
  */
 export function Banner({
   eyebrow,
@@ -30,20 +35,20 @@ export function Banner({
   return (
     <section
       className={cn(
-        "relative overflow-hidden rounded-xl bg-brand-deep px-6 py-7 md:px-8 md:py-8",
+        "relative overflow-hidden rounded-xl bg-[#0b3d4d] px-6 py-7 md:px-8 md:py-8",
         className,
       )}
     >
       {/* Light falling from the top-left, so the ground reads as a surface. */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_140%_at_0%_0%,rgba(0,184,132,0.20),transparent_55%)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_140%_at_0%_0%,rgba(95,212,196,0.18),transparent_55%)]"
       />
 
       <div className="relative flex flex-col gap-6 lg:flex-row lg:items-center">
         <div className="min-w-0 flex-1">
           {eyebrow && (
-            <p className="text-[12px] font-medium uppercase tracking-wider text-brand-accent">
+            <p className="text-[12px] font-medium uppercase tracking-wider text-[#e8b25f]">
               {eyebrow}
             </p>
           )}
