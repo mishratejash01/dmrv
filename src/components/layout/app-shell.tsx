@@ -59,17 +59,15 @@ function isItemActive(href: string, pathname: string) {
 
 function NavRow({ item, pathname }: { item: NavItem; pathname: string }) {
   const isActive = isItemActive(item.href, pathname);
-  const Icon = item.icon;
   return (
     <li>
       <Link
         href={item.href}
         className={cn(
-          "flex items-center gap-3 rounded-md px-2.5 py-2 text-[15px] transition-colors",
+          "block rounded-md px-3 py-2 text-[15px] transition-colors",
           isActive ? "bg-surface-2 text-ink" : "text-ink-soft hover:bg-surface hover:text-ink",
         )}
       >
-        <Icon className={cn("h-5 w-5 shrink-0", isActive ? "text-brand" : "text-muted")} />
         {item.label}
       </Link>
     </li>

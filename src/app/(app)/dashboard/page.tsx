@@ -4,7 +4,6 @@ import {
   Scales16Regular,
   Ribbon16Regular,
   Fire16Regular,
-  Location16Regular,
   ArrowUpRight16Regular,
   CheckboxChecked16Regular,
   Wallet16Regular,
@@ -12,7 +11,7 @@ import {
 } from "@/components/common/icons";
 import { getAppContext } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Stat, PageHeader, SectionHeader, EmptyState } from "@/components/ui/misc";
 import { Meter } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
@@ -100,17 +99,15 @@ export default async function DashboardPage() {
 
       <div className="grid lg:grid-cols-3 gap-5">
         {/* Map */}
-        <Card className="lg:col-span-2 overflow-hidden">
-          <CardHeader className="flex-row items-center justify-between">
-            <div className="flex items-center gap-2">
-              <Location16Regular className="h-4 w-4 text-clay" />
-              <CardTitle>Sites & operations</CardTitle>
-            </div>
+        <section className="lg:col-span-2">
+          <div className="mb-2.5 flex items-center justify-between">
+            <h2 className="text-[15px] font-semibold text-ink">Sites &amp; operations</h2>
             <Link href="/sites" className="text-sm text-clay hover:underline flex items-center gap-1">
               All sites <ArrowUpRight16Regular className="h-3.5 w-3.5" />
             </Link>
-          </CardHeader>
-          <CardContent>
+          </div>
+          <Card className="overflow-hidden">
+          <CardContent className="pt-5">
             <Map points={mapPoints} height={340} />
             <div className="mt-4 grid grid-cols-3 gap-3 text-center">
               <div className="rounded-lg bg-surface/60 py-2.5">
@@ -127,16 +124,18 @@ export default async function DashboardPage() {
               </div>
             </div>
           </CardContent>
-        </Card>
+          </Card>
+        </section>
 
         {/* Batch progress + review */}
         <div className="space-y-5">
+          <section>
+          <div className="mb-2.5 flex items-center justify-between">
+            <h2 className="text-[15px] font-semibold text-ink">Open batches</h2>
+            <Link href="/batches" className="text-sm text-clay hover:underline">All</Link>
+          </div>
           <Card>
-            <CardHeader className="flex-row items-center justify-between">
-              <CardTitle>Open batches</CardTitle>
-              <Link href="/batches" className="text-sm text-clay hover:underline">All</Link>
-            </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent className="space-y-4 pt-5">
               {openBatches.length === 0 && (
                 <p className="text-sm text-muted">No open batches. Every batch is closed or verified.</p>
               )}
@@ -157,6 +156,7 @@ export default async function DashboardPage() {
               })}
             </CardContent>
           </Card>
+          </section>
 
           {ctx.can.canReview && (
             <Card>
