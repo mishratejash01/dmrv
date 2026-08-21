@@ -1,92 +1,104 @@
 "use client";
 
 import * as React from "react";
-import { useRouter, useSearchParams, usePathname } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { NativeSelect } from "@/components/ui/input";
 
-export interface RunsFilterSite {
+export interface FilterSite {
   id: string;
   name: string;
-  code: string;
-  kilns: { id: string; name: string; code: string }[];
-}
-
-interface Props {
-  sites: RunsFilterSite[];
-  /** run counts keyed by site id and kiln id (real DB counts) */
-  siteCounts: Record<string, number>;
-  kilnCounts: Record<string, number>;
-  activeSite: string;
-  activeKiln: string;
+  kilns?: { id: string; name: string | null; code: string | null }[] | null;
 }
 
 /**
- * Site → kiln dependent dropdowns for the runs list (client slide 5). Selecting
- * a site narrows the kiln list to that site; both push URL params so the server
- * component re-queries with real WHERE clauses. Counts come straight from the
- * database, so "runs for this site/kiln" is always accurate.
+ * Site, kiln and status as dropdowns rather than rows of selectable chips.
+ * Chips cost a line of layout per option and grow with the data — a project
+ * with twenty kilns wrapped to three rows above the table it filtered.
+ *
+ * Each control writes to the query string, so the filtered view stays
+ * linkable and the server keeps doing the filtering.
  */
-export function RunsFilters({ sites, siteCounts, kilnCounts, activeSite, activeKiln }: Props) {
+export function RunsFilters({
+  sites,
+  siteCounts,
+  kilnCounts,
+  activeSite,
+  activeKiln,
+  statuses,
+  activeStatus,
+}: {
+  sites: FilterSite[];
+  siteCounts?: Record<string, number>;
+  kilnCounts?: Record<string, number>;
+  activeSite?: string;
+  activeKiln?: string;
+  statuses?: { key: string; label: string }[];
+  activeStatus?: string;
+}) {
   const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
+  const params = useSearchParams();
 
-  const kilns = React.useMemo(() => {
-    if (!activeSite) return sites.flatMap((s) => s.kilns);
-    return sites.find((s) => s.id === activeSite)?.kilns ?? [];
-  }, [sites, activeSite]);
+  const setParam = (key: string, value: string) => {
+    const next = new URLSearchParams(params.toString());
+    if (value) next.set(key, value);
+    else next.delete(key);
+    // Choosing a different site invalidates whichever kiln was picked under it.
+    if (key === "site") next.delete("kiln");
+    const qs = next.toString();
+    router.push(qs ? `/runs?${qs}` : "/runs");
+  };
 
-  function navigate(next: { site?: string; kiln?: string }) {
-    const params = new URLSearchParams(searchParams.toString());
-    if ("site" in next) {
-      if (next.site) params.set("site", next.site);
-      else params.delete("site");
-      // Changing site invalidates the kiln selection.
-      params.delete("kiln");
-    }
-    if ("kiln" in next) {
-      if (next.kiln) params.set("kiln", next.kiln);
-      else params.delete("kiln");
-    }
-    const qs = params.toString();
-    router.push(qs ? `${pathname}?${qs}` : pathname);
-  }
-
-  const totalRuns = Object.values(siteCounts).reduce((a, b) => a + b, 0);
+  const kilns = sites.find((s) => s.id === activeSite)?.kilns ?? [];
+  const count = (n?: number) => (typeof n === "number" ? ` (${n})` : "");
 
   return (
-    <div className="flex flex-wrap items-end gap-3">
-      <label className="flex flex-col gap-1">
-        <span className="text-xs font-medium text-ink-soft">Site</span>
-        <NativeSelect
-          className="min-w-[13rem]"
-          value={activeSite}
-          onChange={(e) => navigate({ site: e.target.value })}
-        >
-          <option value="">All sites ({totalRuns})</option>
-          {sites.map((s) => (
-            <option key={s.id} value={s.id}>
-              {s.name} ({siteCounts[s.id] ?? 0})
-            </option>
-          ))}
-        </NativeSelect>
-      </label>
+    <>
+      <NativeSelect
+        aria-label="Filter by site"
+        className="h-9 w-auto min-w-40 text-sm"
+        value={activeSite ?? ""}
+        onChange={(e) => setParam("site", e.target.value)}
+      >
+        <option value="">All sites</option>
+        {sites.map((s) => (
+          <option key={s.id} value={s.id}>
+            {s.name}
+            {count(siteCounts?.[s.id])}
+          </option>
+        ))}
+      </NativeSelect>
 
-      <label className="flex flex-col gap-1">
-        <span className="text-xs font-medium text-ink-soft">Kiln</span>
+      {activeSite && kilns.length > 0 && (
         <NativeSelect
-          className="min-w-[12rem]"
-          value={activeKiln}
-          onChange={(e) => navigate({ kiln: e.target.value })}
+          aria-label="Filter by kiln"
+          className="h-9 w-auto min-w-36 text-sm"
+          value={activeKiln ?? ""}
+          onChange={(e) => setParam("kiln", e.target.value)}
         >
-          <option value="">{activeSite ? "All kilns on site" : "All kilns"}</option>
+          <option value="">All kilns</option>
           {kilns.map((k) => (
             <option key={k.id} value={k.id}>
-              {k.name} ({kilnCounts[k.id] ?? 0})
+              {k.code ?? k.name ?? "Kiln"}
+              {count(kilnCounts?.[k.id])}
             </option>
           ))}
         </NativeSelect>
-      </label>
-    </div>
+      )}
+
+      {statuses && statuses.length > 0 && (
+        <NativeSelect
+          aria-label="Filter by status"
+          className="h-9 w-auto min-w-36 text-sm"
+          value={activeStatus ?? ""}
+          onChange={(e) => setParam("status", e.target.value)}
+        >
+          {statuses.map((f) => (
+            <option key={f.label} value={f.key}>
+              {f.label}
+            </option>
+          ))}
+        </NativeSelect>
+      )}
+    </>
   );
 }

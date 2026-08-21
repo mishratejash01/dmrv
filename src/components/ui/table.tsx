@@ -43,7 +43,7 @@ export function TableSection({
   className?: string;
 }) {
   return (
-    <section className={cn("rounded-xl border border-border bg-surface p-4 md:p-5", className)}>
+    <section className={cn("rounded-xl border border-border bg-elevated p-4 md:p-5", className)}>
       {(title || action) && (
         <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
           {title && <h2 className="text-[15px] font-semibold text-ink">{title}</h2>}
@@ -68,7 +68,9 @@ export function TR({ className, ...props }: React.HTMLAttributes<HTMLTableRowEle
   return (
     <tr
       className={cn(
-        "bg-elevated transition-colors hover:bg-surface-2",
+        "bg-elevated border border-border transition-colors hover:border-border-strong hover:bg-surface/60",
+        // The outline is drawn on the cells, since a <tr> takes no border.
+        "[&>td]:border-y [&>td]:border-border [&>td:first-child]:border-l [&>td:last-child]:border-r",
         // A <tr> cannot carry a radius, so the row's ends take it.
         "[&>td:first-child]:rounded-l-lg [&>td:last-child]:rounded-r-lg",
         className,

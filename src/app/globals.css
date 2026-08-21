@@ -9,8 +9,8 @@
 @theme {
   /* ---- Surfaces & structure ---- */
   --color-base: #ffffff; /* white page */
-  --color-surface: #f4f6f9; /* workspace ground, under the cards */
-  --color-surface-2: #f1f5f9; /* recessed / hover */
+  --color-surface: #eef1f6; /* workspace ground, under the panels */
+  --color-surface-2: #e4e9f0; /* hover / pressed */
   --color-elevated: #ffffff; /* raised surface */
   --color-border: #e2e8f0; /* neutral hairline */
   --color-border-strong: #cbd5e1; /* stronger divider */

@@ -204,39 +204,15 @@ export default async function RunsPage({
           </span>
         }
         filters={
-          <>
-            <RunsFilters
-              sites={sites}
-              siteCounts={siteCounts}
-              kilnCounts={kilnCounts}
-              activeSite={siteFilter}
-              activeKiln={kilnFilter}
-            />
-            {FILTERS.map((f) => {
-              const active = (f.key || undefined) === status;
-              const params = new URLSearchParams();
-              if (f.key) params.set("status", f.key);
-              if (siteFilter) params.set("site", siteFilter);
-              if (kilnFilter) params.set("kiln", kilnFilter);
-              if (sp.sort) params.set("sort", sp.sort);
-              if (sp.dir) params.set("dir", sp.dir);
-              const href = params.toString() ? `/runs?${params.toString()}` : "/runs";
-              return (
-                <Link
-                  key={f.label}
-                  href={href}
-                  className={cn(
-                    "rounded border px-2.5 py-1 text-xs font-medium transition-colors",
-                    active
-                      ? "border-clay-soft bg-clay-tint text-clay"
-                      : "border-border bg-surface text-ink-soft hover:bg-surface-2",
-                  )}
-                >
-                  {f.label}
-                </Link>
-              );
-            })}
-          </>
+          <RunsFilters
+            sites={sites}
+            siteCounts={siteCounts}
+            kilnCounts={kilnCounts}
+            activeSite={siteFilter}
+            activeKiln={kilnFilter}
+            statuses={FILTERS}
+            activeStatus={status ?? ""}
+          />
         }
       >
         {runs.length === 0 ? (
