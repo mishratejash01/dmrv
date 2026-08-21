@@ -2,35 +2,40 @@ import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
-const badgeVariants = cva(
-  "inline-flex items-center gap-1.5 rounded px-2 py-0.5 text-xs font-medium border whitespace-nowrap",
-  {
-    variants: {
-      tone: {
-        neutral: "bg-surface text-ink-soft border-border",
-        clay: "bg-clay-tint text-clay border-clay-soft",
-        sage: "bg-sage-tint text-ink border-sage-soft",
-        ochre: "bg-ochre-tint text-warn border-ochre-soft",
-        ok: "bg-ok-tint text-ink border-ok/30",
-        warn: "bg-warn-tint text-warn border-ochre-soft",
-        err: "bg-err-tint text-err border-err/30",
-        info: "bg-info-tint text-info border-info/30",
-      },
+/**
+ * A state, written as a word. No fill, no border, no dot — the tone's colour on
+ * the text is the whole signal, which keeps a column of states reading as a
+ * column of words rather than a stack of blocks.
+ *
+ * Tones stay in the product's semantic set, so `err` is the red the rest of the
+ * app uses for failure, not a decorative choice per call site.
+ */
+const badgeVariants = cva("inline-flex items-center whitespace-nowrap text-sm font-semibold", {
+  variants: {
+    tone: {
+      neutral: "text-muted",
+      clay: "text-clay",
+      sage: "text-sage",
+      ochre: "text-ochre",
+      ok: "text-ok",
+      warn: "text-warn",
+      err: "text-err",
+      info: "text-info",
     },
-    defaultVariants: { tone: "neutral" },
   },
-);
+  defaultVariants: { tone: "neutral" },
+});
 
 export interface BadgeProps
   extends React.HTMLAttributes<HTMLSpanElement>,
     VariantProps<typeof badgeVariants> {
+  /** Accepted and ignored: the colour on the word carries the state. */
   dot?: boolean;
 }
 
-export function Badge({ className, tone, dot, children, ...props }: BadgeProps) {
+export function Badge({ className, tone, children, ...props }: BadgeProps) {
   return (
     <span className={cn(badgeVariants({ tone }), className)} {...props}>
-      {dot && <span className="h-1.5 w-1.5 rounded-full bg-current opacity-70" />}
       {children}
     </span>
   );

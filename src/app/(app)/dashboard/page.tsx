@@ -119,8 +119,8 @@ export default async function DashboardPage() {
             {monthDelta !== null && (
               <span
                 className={cn(
-                  "rounded px-1.5 py-0.5 text-[12px] font-medium tnum",
-                  monthDelta >= 0 ? "bg-ok-tint text-ok" : "bg-err-tint text-err",
+                  "text-[12px] font-semibold tnum",
+                  monthDelta >= 0 ? "text-ok" : "text-err",
                 )}
               >
                 {monthDelta >= 0 ? "+" : ""}
