@@ -1,53 +1,89 @@
 import * as React from "react";
 
 /**
- * The visual in the field-log banner: the capture form as it actually appears,
- * built from the real labels on that form — Site, Kiln, Peak temp, Biochar
- * mass, Required photos — with the offline state showing.
+ * The visual in the field-log banner: the product on a desktop, in a browser
+ * frame — the green top bar, the section rail, and the capture form with its
+ * connection row reading Offline.
  *
- * Built in HTML rather than as an image or abstract SVG, so it uses the
- * product's own type and tokens and stays legible at any size. Field values are
- * illustrative; every label and control is the real one.
+ * Built in HTML rather than as an image, so it renders in the product's own
+ * type and tokens at full sharpness, scales without blurring, and cannot go
+ * stale the way a screenshot would. Every label is the real one; the field
+ * values are illustrative.
  */
 export function FieldCaptureVisual() {
   return (
-    <div className="relative select-none" aria-hidden>
-      <div className="rounded-xl border border-white/10 bg-white p-3.5 shadow-lg">
-        {/* Connection state — the row this banner exists to point at. */}
-        <div className="mb-3 flex items-center justify-between rounded-md bg-[#fdf4e3] px-2.5 py-1.5">
-          <span className="text-[11px] font-medium text-[#8a5200]">Connection</span>
-          <span className="text-[11px] font-semibold text-[#8a5200]">Offline</span>
-        </div>
-
-        <div className="grid grid-cols-2 gap-2">
-          <Field label="Site" value="Baramati" />
-          <Field label="Kiln" value="KLN-03" />
-          <Field label="Peak temp (°C)" value="642" />
-          <Field label="Moisture (%)" value="11.4" />
-        </div>
-
-        <div className="mt-2">
-          <Field label="Biochar mass (kg, wet)" value="418" />
-        </div>
-
-        <p className="mt-3 mb-1.5 text-[11px] font-medium text-[#475569]">Required photos</p>
-        <div className="flex gap-1.5">
-          <div className="h-11 flex-1 rounded-md bg-[#cfe3dc]" />
-          <div className="h-11 flex-1 rounded-md border border-dashed border-[#dbe2ea] bg-[#f8fafc]" />
-          <div className="grid h-11 flex-1 place-items-center rounded-md border border-dashed border-[#dbe2ea] bg-[#f8fafc]">
-            <span className="text-[9px] text-[#94a3b8]">Add photo</span>
-          </div>
-        </div>
-
-        <div className="mt-3 rounded-md bg-[#009467] py-2 text-center text-[12px] font-medium text-white">
-          Save run
+    <div
+      aria-hidden
+      className="select-none overflow-hidden rounded-lg border border-white/12 bg-white shadow-xl"
+    >
+      {/* Browser chrome */}
+      <div className="flex items-center gap-1.5 bg-[#e4e9f0] px-2.5 py-1.5">
+        <span className="h-1.5 w-1.5 rounded-full bg-[#c0453c]" />
+        <span className="h-1.5 w-1.5 rounded-full bg-[#d97706]" />
+        <span className="h-1.5 w-1.5 rounded-full bg-[#009467]" />
+        <div className="ml-1.5 flex-1 rounded bg-white/80 px-2 py-0.5 text-[7px] text-[#94a3b8]">
+          acres-dmrv.app/field
         </div>
       </div>
 
-      {/* The queue, sitting off the card's corner. */}
-      <div className="absolute -bottom-3 -left-3 rounded-lg bg-white px-3 py-2 shadow-lg">
-        <p className="text-[11px] font-semibold text-[#1e293b]">2 runs queued</p>
-        <p className="text-[10px] text-[#64748b]">Syncs when back in range</p>
+      {/* App top bar */}
+      <div className="flex items-center gap-2 bg-[#0b2e1f] px-2.5 py-1.5">
+        <span className="text-[8px] font-semibold tracking-wide text-white">acres</span>
+        <div className="ml-1 flex gap-1.5">
+          {["Overview", "Field ops", "Production"].map((t, i) => (
+            <span
+              key={t}
+              className={i === 1 ? "text-[7px] text-white" : "text-[7px] text-white/50"}
+            >
+              {t}
+            </span>
+          ))}
+        </div>
+        <span className="ml-auto h-3 w-3 rounded-full bg-white/20" />
+      </div>
+
+      <div className="flex bg-[#eef1f6] p-1.5">
+        {/* Rail */}
+        <div className="w-[26%] shrink-0 rounded bg-white p-1.5">
+          {["Field log", "Kiln runs", "Review queue"].map((t, i) => (
+            <div
+              key={t}
+              className={
+                i === 0
+                  ? "mb-0.5 rounded bg-[#e4e9f0] px-1.5 py-1 text-[7px] font-medium text-[#1e293b]"
+                  : "mb-0.5 px-1.5 py-1 text-[7px] text-[#64748b]"
+              }
+            >
+              {t}
+            </div>
+          ))}
+        </div>
+
+        {/* Content */}
+        <div className="ml-1.5 min-w-0 flex-1 rounded bg-white p-2">
+          <div className="mb-1.5 flex items-center justify-between rounded bg-[#fdf4e3] px-1.5 py-1">
+            <span className="text-[7px] font-medium text-[#8a5200]">Connection</span>
+            <span className="text-[7px] font-semibold text-[#8a5200]">Offline</span>
+          </div>
+
+          <div className="grid grid-cols-2 gap-1.5">
+            <Field label="Site" value="Baramati" />
+            <Field label="Kiln" value="KLN-03" />
+            <Field label="Peak temp (°C)" value="642" />
+            <Field label="Moisture (%)" value="11.4" />
+          </div>
+
+          <p className="mb-1 mt-2 text-[7px] font-medium text-[#475569]">Required photos</p>
+          <div className="flex gap-1">
+            <div className="h-6 flex-1 rounded-sm bg-[#cfe3dc]" />
+            <div className="h-6 flex-1 rounded-sm border border-dashed border-[#dbe2ea] bg-[#f8fafc]" />
+            <div className="h-6 flex-1 rounded-sm border border-dashed border-[#dbe2ea] bg-[#f8fafc]" />
+          </div>
+
+          <div className="mt-2 rounded-sm bg-[#009467] py-1 text-center text-[7px] font-medium text-white">
+            Save run
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -56,8 +92,8 @@ export function FieldCaptureVisual() {
 function Field({ label, value }: { label: string; value: string }) {
   return (
     <div>
-      <p className="mb-1 text-[10px] text-[#64748b]">{label}</p>
-      <div className="rounded-md border border-[#e2e8f0] bg-white px-2 py-1.5 text-[11px] text-[#1e293b]">
+      <p className="mb-0.5 text-[6px] text-[#64748b]">{label}</p>
+      <div className="truncate rounded-sm border border-[#e2e8f0] px-1.5 py-1 text-[7px] text-[#1e293b]">
         {value}
       </div>
     </div>
