@@ -275,7 +275,7 @@ export default async function RunsPage({
                       {batch ? (
                         <Link
                           href={`/batches/${batch.id}`}
-                          className="text-clay hover:underline"
+                          className="text-ink hover:text-clay transition-colors"
                         >
                           {batch.code}
                         </Link>

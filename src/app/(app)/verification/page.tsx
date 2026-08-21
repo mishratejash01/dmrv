@@ -136,7 +136,7 @@ export default async function VerificationPage() {
                     <TD className="text-right">
                       <Link
                         href={`/verification/${v.id}`}
-                        className="text-sm text-clay hover:underline inline-flex items-center gap-1"
+                        className="text-sm text-ink hover:text-clay transition-colors inline-flex items-center gap-1"
                       >
                         Open <ArrowUpRight16Regular className="h-3.5 w-3.5" />
                       </Link>
