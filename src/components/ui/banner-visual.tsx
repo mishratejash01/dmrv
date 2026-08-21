@@ -1,68 +1,65 @@
 import * as React from "react";
 
 /**
- * The visual that sits in the field-log banner: an abstract rendering of the
- * capture form on a handset, with the offline state showing.
+ * The visual in the field-log banner: the capture form as it actually appears,
+ * built from the real labels on that form — Site, Kiln, Peak temp, Biochar
+ * mass, Required photos — with the offline state showing.
  *
- * Drawn as inline SVG rather than a screenshot, so it scales cleanly, needs no
- * asset, and cannot go stale when the real form changes. It is deliberately
- * abstract — bars where text would be — so it reads as an illustration of the
- * flow rather than a claim about exact UI.
+ * Built in HTML rather than as an image or abstract SVG, so it uses the
+ * product's own type and tokens and stays legible at any size. Field values are
+ * illustrative; every label and control is the real one.
  */
 export function FieldCaptureVisual() {
   return (
-    <svg
-      viewBox="0 0 320 220"
-      role="img"
-      aria-label="Illustration of a kiln run being captured on a handset while offline"
-      className="h-auto w-full max-w-sm"
-    >
-      {/* Ground glow, so the device sits on the teal rather than floating. */}
-      <ellipse cx="160" cy="200" rx="120" ry="14" fill="rgba(0,0,0,0.18)" />
+    <div className="relative select-none" aria-hidden>
+      <div className="rounded-xl border border-white/10 bg-white p-3.5 shadow-lg">
+        {/* Connection state — the row this banner exists to point at. */}
+        <div className="mb-3 flex items-center justify-between rounded-md bg-[#fdf4e3] px-2.5 py-1.5">
+          <span className="text-[11px] font-medium text-[#8a5200]">Connection</span>
+          <span className="text-[11px] font-semibold text-[#8a5200]">Offline</span>
+        </div>
 
-      {/* Handset */}
-      <g transform="translate(96 14)">
-        <rect x="0" y="0" width="128" height="182" rx="14" fill="#0f2f3a" />
-        <rect x="4" y="4" width="120" height="174" rx="11" fill="#ffffff" />
+        <div className="grid grid-cols-2 gap-2">
+          <Field label="Site" value="Baramati" />
+          <Field label="Kiln" value="KLN-03" />
+          <Field label="Peak temp (°C)" value="642" />
+          <Field label="Moisture (%)" value="11.4" />
+        </div>
 
-        {/* Status strip */}
-        <rect x="4" y="4" width="120" height="20" rx="11" fill="#f4f6f9" />
-        <rect x="14" y="11" width="26" height="5" rx="2.5" fill="#94a3b8" />
-        <circle cx="108" cy="14" r="3.5" fill="#e8b25f" />
+        <div className="mt-2">
+          <Field label="Biochar mass (kg, wet)" value="418" />
+        </div>
 
-        {/* Title + fields */}
-        <rect x="14" y="34" width="54" height="7" rx="3.5" fill="#1e293b" />
-        <rect x="14" y="50" width="100" height="14" rx="4" fill="#eef1f6" />
-        <rect x="14" y="70" width="100" height="14" rx="4" fill="#eef1f6" />
-        <rect x="14" y="90" width="46" height="14" rx="4" fill="#eef1f6" />
-        <rect x="68" y="90" width="46" height="14" rx="4" fill="#eef1f6" />
+        <p className="mt-3 mb-1.5 text-[11px] font-medium text-[#475569]">Required photos</p>
+        <div className="flex gap-1.5">
+          <div className="h-11 flex-1 rounded-md bg-[#cfe3dc]" />
+          <div className="h-11 flex-1 rounded-md border border-dashed border-[#dbe2ea] bg-[#f8fafc]" />
+          <div className="grid h-11 flex-1 place-items-center rounded-md border border-dashed border-[#dbe2ea] bg-[#f8fafc]">
+            <span className="text-[9px] text-[#94a3b8]">Add photo</span>
+          </div>
+        </div>
 
-        {/* Photo tiles, one already captured */}
-        <rect x="14" y="112" width="30" height="26" rx="4" fill="#cfe3dc" />
-        <path d="M20 132l7-8 6 6 4-4 5 6z" fill="#5f8a6a" />
-        <rect x="48" y="112" width="30" height="26" rx="4" fill="#f4f6f9" stroke="#dbe2ea" strokeDasharray="3 3" />
-        <rect x="82" y="112" width="32" height="26" rx="4" fill="#f4f6f9" stroke="#dbe2ea" strokeDasharray="3 3" />
+        <div className="mt-3 rounded-md bg-[#009467] py-2 text-center text-[12px] font-medium text-white">
+          Save run
+        </div>
+      </div>
 
-        {/* Primary action */}
-        <rect x="14" y="148" width="100" height="18" rx="5" fill="#009467" />
-        <rect x="46" y="155" width="36" height="5" rx="2.5" fill="#ffffff" opacity="0.9" />
-      </g>
+      {/* The queue, sitting off the card's corner. */}
+      <div className="absolute -bottom-3 -left-3 rounded-lg bg-white px-3 py-2 shadow-lg">
+        <p className="text-[11px] font-semibold text-[#1e293b]">2 runs queued</p>
+        <p className="text-[10px] text-[#64748b]">Syncs when back in range</p>
+      </div>
+    </div>
+  );
+}
 
-      {/* Offline chip, overlapping the device so the two read as one scene. */}
-      <g transform="translate(14 118)">
-        <rect x="0" y="0" width="118" height="34" rx="8" fill="#ffffff" />
-        <circle cx="17" cy="17" r="6" fill="#e8b25f" />
-        <rect x="30" y="10" width="52" height="5" rx="2.5" fill="#1e293b" />
-        <rect x="30" y="20" width="72" height="4" rx="2" fill="#94a3b8" />
-      </g>
-
-      {/* Sync chip, above and behind — the queue clearing once back in range. */}
-      <g transform="translate(196 46)">
-        <rect x="0" y="0" width="104" height="30" rx="8" fill="rgba(255,255,255,0.12)" />
-        <circle cx="16" cy="15" r="5.5" fill="#5fd4c4" />
-        <rect x="28" y="9" width="46" height="4.5" rx="2.25" fill="rgba(255,255,255,0.85)" />
-        <rect x="28" y="18" width="62" height="4" rx="2" fill="rgba(255,255,255,0.45)" />
-      </g>
-    </svg>
+function Field({ label, value }: { label: string; value: string }) {
+  return (
+    <div>
+      <p className="mb-1 text-[10px] text-[#64748b]">{label}</p>
+      <div className="rounded-md border border-[#e2e8f0] bg-white px-2 py-1.5 text-[11px] text-[#1e293b]">
+        {value}
+      </div>
+    </div>
   );
 }

@@ -80,7 +80,7 @@ export function Banner({
           {action && <div className="mt-5 flex flex-wrap items-center gap-2.5">{action}</div>}
         </div>
 
-        {aside && <div className="shrink-0 lg:w-[22rem] lg:self-center">{aside}</div>}
+        {aside && <div className="shrink-0 lg:w-[20rem] lg:self-center lg:pl-4">{aside}</div>}
       </div>
     </section>
   );
