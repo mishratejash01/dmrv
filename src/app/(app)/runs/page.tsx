@@ -9,11 +9,10 @@ import {
 import { getAppContext } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import type { RunStatus } from "@/lib/types/db";
-import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { PageHeader, EmptyState } from "@/components/ui/misc";
-import { Table, THead, TBody, TR, TH, TD } from "@/components/ui/table";
+import { Table, TableSection, THead, TBody, TR, TH, TD } from "@/components/ui/table";
 import { StatusBadge } from "@/components/status-badge";
 import { ExportCsvButton } from "@/components/common/export-button";
 import { RunsFilters } from "./runs-filters";
@@ -196,50 +195,50 @@ export default async function RunsPage({
         )}
       </PageHeader>
 
-      {/* Site / kiln filters */}
-      <div className="mb-4">
-        <RunsFilters
-          sites={sites}
-          siteCounts={siteCounts}
-          kilnCounts={kilnCounts}
-          activeSite={siteFilter}
-          activeKiln={kilnFilter}
-        />
-      </div>
-
-      {/* Status filter */}
-      <div className="flex flex-wrap items-center gap-2 mb-4">
-        {FILTERS.map((f) => {
-          const active = (f.key || undefined) === status;
-          const params = new URLSearchParams();
-          if (f.key) params.set("status", f.key);
-          if (siteFilter) params.set("site", siteFilter);
-          if (kilnFilter) params.set("kiln", kilnFilter);
-          if (sp.sort) params.set("sort", sp.sort);
-          if (sp.dir) params.set("dir", sp.dir);
-          const href = params.toString() ? `/runs?${params.toString()}` : "/runs";
-          return (
-            <Link
-              key={f.label}
-              href={href}
-              className={cn(
-                "rounded border px-2.5 py-1 text-xs font-medium transition-colors",
-                active
-                  ? "border-clay-soft bg-clay-tint text-clay"
-                  : "border-border bg-surface text-ink-soft hover:bg-surface-2",
-              )}
-            >
-              {f.label}
-            </Link>
-          );
-        })}
-        <span className="ml-auto text-xs text-muted">
-          {runs.length} run{runs.length === 1 ? "" : "s"}
-          {filtered ? " matching" : ""}
-        </span>
-      </div>
-
-      <Card>
+      <TableSection
+        title="Kiln runs"
+        action={
+          <span className="text-xs text-muted">
+            {runs.length} run{runs.length === 1 ? "" : "s"}
+            {filtered ? " matching" : ""}
+          </span>
+        }
+        filters={
+          <>
+            <RunsFilters
+              sites={sites}
+              siteCounts={siteCounts}
+              kilnCounts={kilnCounts}
+              activeSite={siteFilter}
+              activeKiln={kilnFilter}
+            />
+            {FILTERS.map((f) => {
+              const active = (f.key || undefined) === status;
+              const params = new URLSearchParams();
+              if (f.key) params.set("status", f.key);
+              if (siteFilter) params.set("site", siteFilter);
+              if (kilnFilter) params.set("kiln", kilnFilter);
+              if (sp.sort) params.set("sort", sp.sort);
+              if (sp.dir) params.set("dir", sp.dir);
+              const href = params.toString() ? `/runs?${params.toString()}` : "/runs";
+              return (
+                <Link
+                  key={f.label}
+                  href={href}
+                  className={cn(
+                    "rounded border px-2.5 py-1 text-xs font-medium transition-colors",
+                    active
+                      ? "border-clay-soft bg-clay-tint text-clay"
+                      : "border-border bg-surface text-ink-soft hover:bg-surface-2",
+                  )}
+                >
+                  {f.label}
+                </Link>
+              );
+            })}
+          </>
+        }
+      >
         {runs.length === 0 ? (
           <EmptyState
             icon={<Fire16Regular />}
@@ -317,7 +316,7 @@ export default async function RunsPage({
             </TBody>
           </Table>
         )}
-      </Card>
+      </TableSection>
     </div>
   );
 }
