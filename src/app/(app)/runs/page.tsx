@@ -15,7 +15,7 @@ import { PageHeader, EmptyState } from "@/components/ui/misc";
 import { Table, TableSection, THead, TBody, TR, TH, TD } from "@/components/ui/table";
 import { StatusBadge } from "@/components/status-badge";
 import { ExportCsvButton } from "@/components/common/export-button";
-import { RunsFilters } from "./runs-filters";
+import { FilterPanel } from "@/components/common/filter-panel";
 import { cn, fmt, fmtDate } from "@/lib/utils";
 
 export const metadata: Metadata = { title: "Kiln runs" };
@@ -42,7 +42,15 @@ const SORT_COLUMNS = {
 type SortKey = keyof typeof SORT_COLUMNS | "site";
 const SORT_KEYS: SortKey[] = ["code", "site", "date", "biochar", "status"];
 
-type SearchParams = { status?: string; site?: string; kiln?: string; sort?: string; dir?: string };
+type SearchParams = {
+  status?: string;
+  site?: string;
+  kiln?: string;
+  operator?: string;
+  code?: string;
+  sort?: string;
+  dir?: string;
+};
 
 export default async function RunsPage({
   searchParams,
@@ -54,11 +62,14 @@ export default async function RunsPage({
   const supabase = await createClient();
 
   const sp = await searchParams;
-  const status = RUN_STATUSES.includes(sp.status as RunStatus)
-    ? (sp.status as RunStatus)
-    : undefined;
-  const siteFilter = sp.site || "";
-  const kilnFilter = sp.kiln || "";
+  const list = (v?: string) => (v ? v.split(",").filter(Boolean) : []);
+  const statuses = list(sp.status).filter((v): v is RunStatus =>
+    RUN_STATUSES.includes(v as RunStatus),
+  );
+  const siteFilter = list(sp.site);
+  const kilnFilter = list(sp.kiln);
+  const operatorFilter = list(sp.operator);
+  const codeQuery = (sp.code ?? "").trim();
   const sort: SortKey = (SORT_KEYS as string[]).includes(sp.sort ?? "")
     ? (sp.sort as SortKey)
     : "date";
@@ -97,9 +108,11 @@ export default async function RunsPage({
       "id, code, status, anomaly_flag, started_at, created_at, biochar_dry_kg, operator_id, site_id, kiln_id, sites(name, code), kilns(name, code), production_batches(id, code)",
     )
     .eq("project_id", project.id);
-  if (status) query = query.eq("status", status);
-  if (siteFilter) query = query.eq("site_id", siteFilter);
-  if (kilnFilter) query = query.eq("kiln_id", kilnFilter);
+  if (statuses.length) query = query.in("status", statuses);
+  if (siteFilter.length) query = query.in("site_id", siteFilter);
+  if (kilnFilter.length) query = query.in("kiln_id", kilnFilter);
+  if (operatorFilter.length) query = query.in("operator_id", operatorFilter);
+  if (codeQuery) query = query.ilike("code", `%${codeQuery}%`);
   if (sort !== "site") {
     query = query.order(SORT_COLUMNS[sort], { ascending, nullsFirst: false });
   } else {
@@ -148,9 +161,11 @@ export default async function RunsPage({
   // Build a header link that toggles direction on the active column.
   function sortHref(key: SortKey): string {
     const params = new URLSearchParams();
-    if (status) params.set("status", status);
-    if (siteFilter) params.set("site", siteFilter);
-    if (kilnFilter) params.set("kiln", kilnFilter);
+    if (statuses.length) params.set("status", statuses.join(","));
+    if (siteFilter.length) params.set("site", siteFilter.join(","));
+    if (kilnFilter.length) params.set("kiln", kilnFilter.join(","));
+    if (operatorFilter.length) params.set("operator", operatorFilter.join(","));
+    if (codeQuery) params.set("code", codeQuery);
     params.set("sort", key);
     params.set("dir", sort === key && dir === "asc" ? "desc" : "asc");
     return `/runs?${params.toString()}`;
@@ -177,7 +192,23 @@ export default async function RunsPage({
     );
   }
 
-  const filtered = Boolean(status || siteFilter || kilnFilter);
+  const filtered =
+    statuses.length > 0 ||
+    siteFilter.length > 0 ||
+    kilnFilter.length > 0 ||
+    operatorFilter.length > 0 ||
+    codeQuery.length > 0;
+
+  // Operators who actually have runs on this project, for the filter list.
+  const { data: operatorRows } = await supabase
+    .from("kiln_runs")
+    .select("operator_id")
+    .eq("project_id", project.id)
+    .not("operator_id", "is", null);
+  const operatorIdList = [...new Set((operatorRows ?? []).map((r) => r.operator_id))] as string[];
+  const { data: operatorProfiles } = operatorIdList.length
+    ? await supabase.from("profiles").select("id, full_name").in("id", operatorIdList)
+    : { data: [] };
 
   return (
     <div>
@@ -204,14 +235,15 @@ export default async function RunsPage({
           </span>
         }
         filters={
-          <RunsFilters
-            sites={sites}
-            siteCounts={siteCounts}
-            kilnCounts={kilnCounts}
-            activeSite={siteFilter}
-            activeKiln={kilnFilter}
-            statuses={FILTERS}
-            activeStatus={status ?? ""}
+          <FilterPanel
+            basePath="/runs"
+            searchFields={[{ key: "code", label: "Run ID", placeholder: "e.g. KR-2026-014" }]}
+            groups={[
+              { key: "status", label: "Status", options: FILTERS.filter((f) => f.key).map((f) => ({ value: f.key, label: f.label })) },
+              { key: "site", label: "Site", options: sites.map((x) => ({ value: x.id, label: x.name, count: siteCounts[x.id] })) },
+              { key: "kiln", label: "Kiln", options: sites.flatMap((x) => (x.kilns ?? []).map((k) => ({ value: k.id, label: k.code ?? k.name ?? "Kiln", count: kilnCounts[k.id] }))) },
+              { key: "operator", label: "Operator", options: (operatorProfiles ?? []).map((o) => ({ value: o.id, label: o.full_name })) },
+            ]}
           />
         }
       >
