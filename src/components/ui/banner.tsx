@@ -9,10 +9,14 @@ import { cn } from "@/lib/utils";
  * has to earn its space. Use it to surface a capability the reader has not
  * switched on yet — never to restate what the page below already shows.
  *
- * The ground is a deep teal rather than the brand green: green is the product's
- * action colour, and a banner is not an action. Teal reads as water and earth
- * and keeps the environmental register without competing with a button. White
- * text sits on it at 11.7:1, and the sand eyebrow at 6.1:1.
+ * The ground is a near-black ink with a faint cool cast — not a saturated hue.
+ * A brand colour here competes with the buttons, and a bright one dates fast;
+ * ink stays quiet and lets the type carry the block. The only warmth is the
+ * eyebrow, in a muted sand.
+ *
+ * Its artistry is deliberately slight: a hairline rule grid at 3% and one soft
+ * fall of light, both barely visible, so the surface has depth without pattern.
+ * White text sits on the ground at 17.7:1 and the sand eyebrow at 10.8:1.
  */
 export function Banner({
   eyebrow,
@@ -35,20 +39,35 @@ export function Banner({
   return (
     <section
       className={cn(
-        "relative overflow-hidden rounded-xl bg-[#0b3d4d] px-6 py-7 md:px-8 md:py-8",
+        "relative overflow-hidden rounded-xl bg-[#101922] px-6 py-7 md:px-8 md:py-9",
         className,
       )}
     >
-      {/* Light falling from the top-left, so the ground reads as a surface. */}
+      {/* A ruled grid and one fall of light, both barely there — enough to give
+          the ground depth without becoming a pattern. */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_140%_at_0%_0%,rgba(95,212,196,0.18),transparent_55%)]"
+        className="pointer-events-none absolute inset-0 opacity-[0.035]"
+        style={{
+          backgroundImage:
+            "linear-gradient(to right, #ffffff 1px, transparent 1px), linear-gradient(to bottom, #ffffff 1px, transparent 1px)",
+          backgroundSize: "44px 44px",
+        }}
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(90%_120%_at_100%_0%,rgba(255,255,255,0.07),transparent_60%)]"
+      />
+      {/* A single hairline along the top edge, catching the light. */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent"
       />
 
       <div className="relative flex flex-col gap-6 lg:flex-row lg:items-center">
         <div className="min-w-0 flex-1">
           {eyebrow && (
-            <p className="text-[12px] font-medium uppercase tracking-wider text-[#e8b25f]">
+            <p className="text-[11px] font-medium uppercase tracking-[0.14em] text-[#d8c9a8]">
               {eyebrow}
             </p>
           )}
@@ -56,7 +75,7 @@ export function Banner({
             {title}
           </h2>
           {body && (
-            <p className="mt-2 max-w-2xl text-[14px] leading-relaxed text-white/70 text-pretty">
+            <p className="mt-2.5 max-w-xl text-[14px] leading-relaxed text-white/65 text-pretty">
               {body}
             </p>
           )}
