@@ -223,12 +223,6 @@ export default async function RunsPage({
       </PageHeader>
 
       <TableSection
-        action={
-          <span className="text-xs text-muted">
-            {runs.length} run{runs.length === 1 ? "" : "s"}
-            {filtered ? " matching" : ""}
-          </span>
-        }
         filters={
           <FilterPanel
             basePath="/runs"
