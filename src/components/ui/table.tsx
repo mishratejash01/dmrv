@@ -57,7 +57,15 @@ export function TableSection({
 }
 
 export function THead({ className, ...props }: React.HTMLAttributes<HTMLTableSectionElement>) {
-  return <thead className={cn("", className)} {...props} />;
+  return (
+    <thead
+      // The heading row is not a record, so it takes neither the row surface
+      // nor its hover. TR's borders and radii already miss it, since those are
+      // drawn on <td> and the heading row holds <th>.
+      className={cn("[&_tr]:bg-transparent [&_tr:hover]:bg-transparent", className)}
+      {...props}
+    />
+  );
 }
 
 export function TBody({ className, ...props }: React.HTMLAttributes<HTMLTableSectionElement>) {
