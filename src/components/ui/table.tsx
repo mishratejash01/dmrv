@@ -45,9 +45,11 @@ export function TableSection({
   return (
     <section className={cn("rounded-xl border border-border bg-elevated p-4 md:p-5", className)}>
       {(title || action) && (
-        <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
+        <div className="mb-3 flex flex-wrap items-center gap-3">
           {title && <h2 className="text-[15px] font-semibold text-ink">{title}</h2>}
-          {action && <div className="flex items-center gap-2">{action}</div>}
+          {/* ml-auto rather than justify-between, so a lone action still sits
+              right when the section has no title of its own. */}
+          {action && <div className="ml-auto flex items-center gap-2">{action}</div>}
         </div>
       )}
       {filters && <div className="mb-3 flex flex-wrap items-center gap-2">{filters}</div>}

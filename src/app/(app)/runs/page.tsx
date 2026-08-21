@@ -2,7 +2,6 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import {
-  Fire16Regular,
   ArrowUp16Regular,
   ArrowDown16Regular,
 } from "@/components/common/icons";
@@ -214,20 +213,16 @@ export default async function RunsPage({
     <div>
       <PageHeader
         title="Kiln runs"
-        description="Every burn logged in the field, with evidence, review status and batch assignment."
       >
         <ExportCsvButton rows={csvRows} filename="kiln-runs" />
         {ctx.can.canOperate && (
           <Button asChild>
-            <Link href="/field">
-              <Fire16Regular className="h-4 w-4" /> Log a kiln run
-            </Link>
+            <Link href="/field">Log a kiln run</Link>
           </Button>
         )}
       </PageHeader>
 
       <TableSection
-        title="Kiln runs"
         action={
           <span className="text-xs text-muted">
             {runs.length} run{runs.length === 1 ? "" : "s"}
@@ -249,13 +244,7 @@ export default async function RunsPage({
       >
         {runs.length === 0 ? (
           <EmptyState
-            icon={<Fire16Regular />}
             title={filtered ? "No runs match these filters" : "No kiln runs yet"}
-            description={
-              filtered
-                ? "Try a different site, kiln or status — or clear the filters."
-                : "Runs logged in the field will appear here with their evidence and review status."
-            }
             className="border-0"
           />
         ) : (
