@@ -10,7 +10,7 @@ import { StatusBadge } from "@/components/status-badge";
 import { Map } from "@/components/map/map";
 import { BarSeries } from "@/components/charts/charts";
 import { Table, TableSection, THead, TBody, TR, TH, TD } from "@/components/ui/table";
-import { cn, fmt, fmtDate, fmtCo2 } from "@/lib/utils";
+import { cn, fmt, fmtDate } from "@/lib/utils";
 import { monthsBetween } from "@/lib/utils";
 import { BATCH_LIMITS } from "@/lib/methodology";
 

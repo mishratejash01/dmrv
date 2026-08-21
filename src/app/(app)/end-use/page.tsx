@@ -1,12 +1,5 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import {
-  PlantGrassRegular,
-  Location16Regular,
-  BoxMultipleRegular,
-  People16Regular,
-  CalendarLtr16Regular,
-} from "@/components/common/icons";
 import { getAppContext } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -42,13 +35,13 @@ export default async function EndUsePage() {
   const records = recordsRes.data ?? [];
   const batches = batchesRes.data ?? [];
 
-  const totalKg = records.reduce((s, r) => s + Number(r.quantity_kg || 0), 0);
+  const totalKg = records.reduce((s, r) =>s + Number(r.quantity_kg || 0), 0);
   const recipients = new Set(
-    records.map((r) => r.recipient_name).filter((x): x is string => !!x),
+    records.map((r) =>r.recipient_name).filter((x): x is string => !!x),
   );
 
   const mapPoints = records
-    .filter((r) => r.latitude && r.longitude)
+    .filter((r) =>r.latitude && r.longitude)
     .map((r) => ({
       id: r.id,
       lat: Number(r.latitude),
@@ -68,18 +61,15 @@ export default async function EndUsePage() {
       >
         {canRecord && <EndUseForm projectId={pid} batches={batches} />}
       </PageHeader>
-
-      {/* KPIs */}
+              {/* KPIs */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
-        <Stat label="Applications" value={fmt(records.length, 0)} icon={<PlantGrassRegular />} tone="sage" hint="Carbon-locking events" />
-        <Stat label="Biochar applied" value={fmt(totalKg / 1000, 2)} unit="t" icon={<BoxMultipleRegular />} tone="clay" hint="Cumulative applied mass" />
-        <Stat label="Recipients" value={fmt(recipients.size, 0)} icon={<People16Regular />} tone="ochre" hint="Distinct off-takers" />
-        <Stat label="Geolocated" value={fmt(mapPoints.length, 0)} icon={<Location16Regular />} tone="info" hint="Applications with GPS" />
+        <Stat label="Applications" value={fmt(records.length, 0)} tone="sage" hint="Carbon-locking events" />
+        <Stat label="Biochar applied" value={fmt(totalKg / 1000, 2)} unit="t" tone="clay" hint="Cumulative applied mass" />
+        <Stat label="Recipients" value={fmt(recipients.size, 0)} tone="ochre" hint="Distinct off-takers" />
+        <Stat label="Geolocated" value={fmt(mapPoints.length, 0)} tone="info" hint="Applications with GPS" />
       </div>
-
-      {records.length === 0 ? (
+              {records.length === 0 ? (
         <EmptyState
-          icon={<PlantGrassRegular />}
           title="No end-use recorded yet"
           description="Record where the biochar was applied to close the traceability chain and evidence permanent carbon locking."
           action={canRecord ? <EndUseForm projectId={pid} batches={batches} /> : undefined}
@@ -90,7 +80,7 @@ export default async function EndUsePage() {
           <Card className="overflow-hidden">
             <CardHeader className="flex-row items-center justify-between">
               <div className="flex items-center gap-2">
-                <Location16Regular className="h-4 w-4 text-clay" />
+                
                 <CardTitle>Application sites</CardTitle>
               </div>
             </CardHeader>
@@ -98,8 +88,7 @@ export default async function EndUsePage() {
               <Map points={mapPoints} height={340} />
             </CardContent>
           </Card>
-
-          {/* Records */}
+              {/* Records */}
           <section>
             <SectionHeader title="Applications" />
             <div className="grid lg:grid-cols-2 gap-4">
@@ -144,8 +133,7 @@ export default async function EndUsePage() {
                         </DataRow>
                         <DataRow label="Applied">
                           <span className="inline-flex items-center gap-1.5">
-                            <CalendarLtr16Regular className="h-3.5 w-3.5 text-muted" />
-                            {fmtDate(r.applied_at)}
+              {fmtDate(r.applied_at)}
                           </span>
                         </DataRow>
                         <DataRow label="Recipient contact">
@@ -154,16 +142,14 @@ export default async function EndUsePage() {
                         <DataRow label="Location">
                           {r.latitude != null && r.longitude != null ? (
                             <span className="inline-flex items-center gap-1.5 tnum">
-                              <Location16Regular className="h-3.5 w-3.5 text-muted" />
-                              {Number(r.latitude).toFixed(4)}, {Number(r.longitude).toFixed(4)}
+              {Number(r.latitude).toFixed(4)}, {Number(r.longitude).toFixed(4)}
                             </span>
                           ) : (
                             <span className="text-muted">Not geolocated</span>
                           )}
                         </DataRow>
                       </dl>
-
-                      {r.notes && (
+              {r.notes && (
                         <p className="mt-3 text-sm text-muted text-pretty">{r.notes}</p>
                       )}
 

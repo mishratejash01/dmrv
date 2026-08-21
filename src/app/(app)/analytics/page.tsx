@@ -1,18 +1,11 @@
 import type { Metadata } from "next";
-import {
-  DataBarVertical16Regular,
-  BoxMultipleRegular,
-  Scales16Regular,
-  Ribbon16Regular,
-  Wallet16Regular,
-} from "@/components/common/icons";
 import { getAppContext } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Stat, PageHeader, EmptyState } from "@/components/ui/misc";
 import { AreaTrend, BarSeries, Donut, CHART_COLORS } from "@/components/charts/charts";
 import { ExportCsvButton } from "@/components/common/export-button";
-import { fmt, fmtDate, humanize } from "@/lib/utils";
+import { fmt, humanize } from "@/lib/utils";
 
 export const metadata: Metadata = { title: "Analytics" };
 
@@ -70,7 +63,7 @@ export default async function AnalyticsPage() {
     monthMap.set(key, (monthMap.get(key) ?? 0) + Number(r.biochar_dry_kg));
   }
   const monthly = Array.from(monthMap.entries())
-    .sort(([a], [b]) => a.localeCompare(b))
+    .sort(([a], [b]) =>a.localeCompare(b))
     .map(([key, kg]) => {
       const [y, m] = key.split("-").map(Number);
       const label = new Date(Date.UTC(y, m - 1, 1)).toLocaleDateString("en-GB", {
@@ -90,7 +83,7 @@ export default async function AnalyticsPage() {
   }
   const bySite = Array.from(siteMap.entries())
     .map(([site, kg]) => ({ site, tonnes: Number((kg / 1000).toFixed(2)) }))
-    .sort((a, b) => b.tonnes - a.tonnes);
+    .sort((a, b) =>b.tonnes - a.tonnes);
 
   // --- Credits by status ------------------------------------------------
   const statusMap = new Map<string, number>();
@@ -112,13 +105,13 @@ export default async function AnalyticsPage() {
   }
   const netPerBatch = Array.from(batchMap.entries())
     .map(([batch, net]) => ({ batch, net: Number(net.toFixed(1)) }))
-    .sort((a, b) => b.net - a.net);
+    .sort((a, b) =>b.net - a.net);
 
   // --- Totals -----------------------------------------------------------
-  const totalDryT = runs.reduce((s, r) => s + Number(r.biochar_dry_kg || 0), 0) / 1000;
-  const totalNet = ghg.reduce((s, g) => s + Number(g.net_co2_removed_tco2e || 0), 0);
+  const totalDryT = runs.reduce((s, r) =>s + Number(r.biochar_dry_kg || 0), 0) / 1000;
+  const totalNet = ghg.reduce((s, g) =>s + Number(g.net_co2_removed_tco2e || 0), 0);
   const totalCredits = credits.length;
-  const bufferBal = buffer.reduce((s, b) => s + Number(b.contribution_tco2e || 0), 0);
+  const bufferBal = buffer.reduce((s, b) =>s + Number(b.contribution_tco2e || 0), 0);
 
   const exportRows = monthly.map((m) => ({ month: m.month, dry_tonnes: m.tonnes }));
 
@@ -134,14 +127,12 @@ export default async function AnalyticsPage() {
           label="Export monthly"
         />
       </PageHeader>
-
-      {/* KPIs */}
+              {/* KPIs */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
         <Stat
           label="Biochar produced"
           value={fmt(totalDryT, 1)}
           unit="t dry"
-          icon={<BoxMultipleRegular />}
           tone="ochre"
           hint={`${runs.length} kiln runs`}
         />
@@ -149,7 +140,6 @@ export default async function AnalyticsPage() {
           label="Net CO₂ removed"
           value={fmt(totalNet, 1)}
           unit="tCO₂e"
-          icon={<Scales16Regular />}
           tone="sage"
           hint={`${netPerBatch.length} quantified batches`}
         />
@@ -157,7 +147,6 @@ export default async function AnalyticsPage() {
           label="Credits"
           value={fmt(totalCredits, 0)}
           unit="RCCs"
-          icon={<Ribbon16Regular />}
           tone="clay"
           hint={`${creditsByStatus.length} status types`}
         />
@@ -165,7 +154,6 @@ export default async function AnalyticsPage() {
           label="Buffer pool"
           value={fmt(bufferBal, 0)}
           unit="tCO₂e"
-          icon={<Wallet16Regular />}
           tone="info"
           hint="Reversal insurance"
         />
@@ -176,7 +164,7 @@ export default async function AnalyticsPage() {
         <Card className="lg:col-span-2">
           <CardHeader className="flex-row items-center justify-between">
             <div className="flex items-center gap-2">
-              <DataBarVertical16Regular className="h-4 w-4 text-clay" />
+              
               <CardTitle>Monthly biochar production</CardTitle>
             </div>
           </CardHeader>
@@ -192,8 +180,7 @@ export default async function AnalyticsPage() {
             )}
           </CardContent>
         </Card>
-
-        {/* Credits by status */}
+              {/* Credits by status */}
         <Card>
           <CardHeader>
             <CardTitle>Credits by status</CardTitle>
@@ -226,8 +213,7 @@ export default async function AnalyticsPage() {
             )}
           </CardContent>
         </Card>
-
-        {/* Production by site */}
+              {/* Production by site */}
         <Card className="lg:col-span-2">
           <CardHeader>
             <CardTitle>Production by site</CardTitle>
@@ -244,8 +230,7 @@ export default async function AnalyticsPage() {
             )}
           </CardContent>
         </Card>
-
-        {/* Net CO₂ per batch */}
+              {/* Net CO₂ per batch */}
         <Card>
           <CardHeader>
             <CardTitle>Net tCO₂e per batch</CardTitle>

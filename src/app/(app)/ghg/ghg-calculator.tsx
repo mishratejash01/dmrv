@@ -2,10 +2,7 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
-import {
-  Calculator16Regular,
-  SpinnerIos16Regular,
-} from "@/components/common/icons";
+import { SpinnerIos16Regular } from "@/components/common/icons";
 import { toast } from "sonner";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -46,7 +43,7 @@ export function GhgCalculator({ batches, canCompute }: Props) {
 
   const first = batches[0];
   const [batchId, setBatchId] = React.useState(first?.id ?? "");
-  const batch = batches.find((b) => b.id === batchId) ?? first ?? null;
+  const batch = batches.find((b) =>b.id === batchId) ?? first ?? null;
 
   const [freshTonnes, setFreshTonnes] = React.useState(str(first?.freshTonnes));
   const [moisture, setMoisture] = React.useState(str(first?.moisturePct ?? 15));
@@ -68,7 +65,7 @@ export function GhgCalculator({ batches, canCompute }: Props) {
 
   function pickBatch(id: string) {
     setBatchId(id);
-    const b = batches.find((x) => x.id === id);
+    const b = batches.find((x) =>x.id === id);
     if (!b) return;
     setFreshTonnes(str(b.freshTonnes));
     if (b.moisturePct != null) setMoisture(str(b.moisturePct));
@@ -144,7 +141,7 @@ export function GhgCalculator({ batches, canCompute }: Props) {
     <Card>
       <CardHeader>
         <div className="flex items-center gap-2">
-          <Calculator16Regular className="h-4 w-4 text-clay" />
+          
           <CardTitle>Live GHG calculator</CardTitle>
         </div>
         <CardDescription>
@@ -158,7 +155,7 @@ export function GhgCalculator({ batches, canCompute }: Props) {
           {/* Inputs */}
           <div className="space-y-4">
             <Field label="Production batch" required hint="Prefills the lab values and project settings">
-              <NativeSelect value={batchId} onChange={(e) => pickBatch(e.target.value)}>
+              <NativeSelect value={batchId} onChange={(e) =>pickBatch(e.target.value)}>
                 {batches.map((b) => (
                   <option key={b.id} value={b.id}>
                     {b.code}
@@ -170,30 +167,30 @@ export function GhgCalculator({ batches, canCompute }: Props) {
 
             <div className="grid grid-cols-2 gap-4">
               <Field label="Fresh biochar (t)" required>
-                <Input type="number" step="0.1" min="0" inputMode="decimal" value={freshTonnes} onChange={(e) => setFreshTonnes(e.target.value)} />
+                <Input type="number" step="0.1" min="0" inputMode="decimal" value={freshTonnes} onChange={(e) =>setFreshTonnes(e.target.value)} />
               </Field>
               <Field label="Moisture (%)" required>
-                <Input type="number" step="0.1" min="0" max="99" inputMode="decimal" value={moisture} onChange={(e) => setMoisture(e.target.value)} />
+                <Input type="number" step="0.1" min="0" max="99" inputMode="decimal" value={moisture} onChange={(e) =>setMoisture(e.target.value)} />
               </Field>
             </div>
 
             <div className="grid grid-cols-2 gap-4">
               <Field label="Organic carbon (%)" required hint="C_org from the lab">
-                <Input type="number" step="0.1" min="0" max="100" inputMode="decimal" value={organicCarbon} onChange={(e) => setOrganicCarbon(e.target.value)} />
+                <Input type="number" step="0.1" min="0" max="100" inputMode="decimal" value={organicCarbon} onChange={(e) =>setOrganicCarbon(e.target.value)} />
               </Field>
               <Field label="H/C_org ratio" required hint={`< ${HC_ORG.maxEligible} to qualify`}>
-                <Input type="number" step="0.01" min="0" inputMode="decimal" value={hcRatio} onChange={(e) => setHcRatio(e.target.value)} />
+                <Input type="number" step="0.01" min="0" inputMode="decimal" value={hcRatio} onChange={(e) =>setHcRatio(e.target.value)} />
               </Field>
             </div>
 
             <div className="grid grid-cols-2 gap-4">
               <Field label="Soil temperature (°C)" required hint="Selects permanence coefficients">
-                <Input type="number" step="0.1" inputMode="decimal" value={soilTemp} onChange={(e) => setSoilTemp(e.target.value)} />
+                <Input type="number" step="0.1" inputMode="decimal" value={soilTemp} onChange={(e) =>setSoilTemp(e.target.value)} />
               </Field>
               <Field label="Durability pathway" required>
                 <NativeSelect
                   value={String(durability)}
-                  onChange={(e) => setDurability(Number(e.target.value) as DurabilityPathway)}
+                  onChange={(e) =>setDurability(Number(e.target.value) as DurabilityPathway)}
                 >
                   <option value="100">100-year permanence</option>
                   <option value="1000">1000-year permanence</option>
@@ -208,19 +205,19 @@ export function GhgCalculator({ batches, canCompute }: Props) {
               </p>
               <div className="grid grid-cols-3 gap-4">
                 <Field label="Capture (tCO₂e)" hint="From ledger">
-                  <Input type="number" step="0.000001" min="0" inputMode="decimal" value={capture} onChange={(e) => setCapture(e.target.value)} />
+                  <Input type="number" step="0.000001" min="0" inputMode="decimal" value={capture} onChange={(e) =>setCapture(e.target.value)} />
                 </Field>
                 <Field label="Processing (tCO₂e)" hint="From ledger">
-                  <Input type="number" step="0.000001" min="0" inputMode="decimal" value={processing} onChange={(e) => setProcessing(e.target.value)} />
+                  <Input type="number" step="0.000001" min="0" inputMode="decimal" value={processing} onChange={(e) =>setProcessing(e.target.value)} />
                 </Field>
                 <Field label="Transport (tCO₂e)" hint="From ledger">
-                  <Input type="number" step="0.000001" min="0" inputMode="decimal" value={transport} onChange={(e) => setTransport(e.target.value)} />
+                  <Input type="number" step="0.000001" min="0" inputMode="decimal" value={transport} onChange={(e) =>setTransport(e.target.value)} />
                 </Field>
               </div>
             </div>
 
             <Field label="Uncertainty tier" required>
-              <NativeSelect value={tier} onChange={(e) => setTier(e.target.value as UncertaintyTier)}>
+              <NativeSelect value={tier} onChange={(e) =>setTier(e.target.value as UncertaintyTier)}>
                 {UNCERTAINTY_DISCOUNTS.map((u) => (
                   <option key={u.key} value={u.key}>
                     {u.label} — −{Math.round(u.discount * 100)}%
@@ -228,14 +225,13 @@ export function GhgCalculator({ batches, canCompute }: Props) {
                 ))}
               </NativeSelect>
             </Field>
-
-            {durability === 1000 && (
+              {durability === 1000 && (
               <div className="grid grid-cols-2 gap-4">
                 <Field label="R_o > 2% fraction (%)" hint="Reflectance sample fraction">
-                  <Input type="number" step="0.1" min="0" max="100" inputMode="decimal" value={reflectPct} onChange={(e) => setReflectPct(e.target.value)} />
+                  <Input type="number" step="0.1" min="0" max="100" inputMode="decimal" value={reflectPct} onChange={(e) =>setReflectPct(e.target.value)} />
                 </Field>
                 <Field label="Residual carbon (%)" hint="Durable-C fraction">
-                  <Input type="number" step="0.1" min="0" max="100" inputMode="decimal" value={residualPct} onChange={(e) => setResidualPct(e.target.value)} />
+                  <Input type="number" step="0.1" min="0" max="100" inputMode="decimal" value={residualPct} onChange={(e) =>setResidualPct(e.target.value)} />
                 </Field>
               </div>
             )}
@@ -246,20 +242,19 @@ export function GhgCalculator({ batches, canCompute }: Props) {
               </summary>
               <div className="mt-3 grid grid-cols-2 gap-4">
                 <Field label="Feedstock (t dry)" hint="For the 0.5% baseline">
-                  <Input type="number" step="0.1" min="0" inputMode="decimal" value={feedstockDryT} onChange={(e) => setFeedstockDryT(e.target.value)} />
+                  <Input type="number" step="0.1" min="0" inputMode="decimal" value={feedstockDryT} onChange={(e) =>setFeedstockDryT(e.target.value)} />
                 </Field>
                 <Field label="Feedstock carbon (%)">
-                  <Input type="number" step="0.1" min="0" max="100" inputMode="decimal" value={feedstockCarbon} onChange={(e) => setFeedstockCarbon(e.target.value)} />
+                  <Input type="number" step="0.1" min="0" max="100" inputMode="decimal" value={feedstockCarbon} onChange={(e) =>setFeedstockCarbon(e.target.value)} />
                 </Field>
                 <label className="col-span-2 flex items-center gap-2 text-sm text-ink-soft">
-                  <input type="checkbox" checked={applyDiscount} onChange={(e) => setApplyDiscount(e.target.checked)} className="h-4 w-4 rounded border-border-strong accent-[#06805a]" />
+                  <input type="checkbox" checked={applyDiscount} onChange={(e) =>setApplyDiscount(e.target.checked)} className="h-4 w-4 rounded border-border-strong accent-[#06805a]" />
                   Apply the 3% baseline-uncertainty discount
                 </label>
               </div>
             </details>
           </div>
-
-          {/* Live result */}
+              {/* Live result */}
           <div className="space-y-4">
             <div className="rounded-xl border border-border bg-surface/40 px-4 py-4">
               <div className="flex flex-wrap items-end justify-between gap-3">
@@ -281,8 +276,7 @@ export function GhgCalculator({ batches, canCompute }: Props) {
             </div>
 
             <GhgBreakdown lines={result.lines} />
-
-            {canCompute ? (
+              {canCompute ? (
               <Button onClick={handleSave} disabled={busy} className="w-full">
                 {busy && <SpinnerIos16Regular className="h-4 w-4 animate-spin" />} Save16Regular quantification
               </Button>

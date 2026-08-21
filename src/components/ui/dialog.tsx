@@ -2,9 +2,7 @@
 
 import * as React from "react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
-import {
-  Dismiss16Regular,
-} from "@/components/common/icons";
+import { Dismiss16Regular } from "@/components/common/icons";
 import { cn } from "@/lib/utils";
 
 export const Dialog = DialogPrimitive.Root;

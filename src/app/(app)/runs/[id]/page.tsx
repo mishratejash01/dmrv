@@ -1,14 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import {
-  ArrowLeft16Regular,
-  Camera16Regular,
-  ClipboardCheckmark16Regular,
-  Location16Regular,
-  Note16Regular,
-  Temperature16Regular,
-} from "@/components/common/icons";
 import { getAppContext } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -108,7 +100,7 @@ export default async function RunDetailPage({
       >
         <Button asChild variant="outline">
           <Link href="/runs">
-            <ArrowLeft16Regular className="h-4 w-4" /> All runs
+             All runs
           </Link>
         </Button>
       </PageHeader>
@@ -119,7 +111,7 @@ export default async function RunDetailPage({
           <Card>
             <CardHeader className="flex-row items-center justify-between">
               <CardTitle className="flex items-center gap-2">
-                <Temperature16Regular className="h-4 w-4 text-clay" /> Temperature curve
+                 Temperature curve
               </CardTitle>
               <span className="text-sm text-muted tnum">
                 Peak {run.peak_temp_c ? `${fmt(Number(run.peak_temp_c), 0)} °C` : "—"}
@@ -144,7 +136,7 @@ export default async function RunDetailPage({
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Camera16Regular className="h-4 w-4 text-clay" /> Photo evidence
+                 Photo evidence
                 <span className="text-sm font-normal text-muted">({photos.length})</span>
               </CardTitle>
             </CardHeader>
@@ -152,12 +144,11 @@ export default async function RunDetailPage({
               <PhotoGallery photos={photos} />
             </CardContent>
           </Card>
-
-          {run.notes && (
+              {run.notes && (
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Note16Regular className="h-4 w-4 text-ochre" /> Operator notes
+                   Operator notes
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -170,7 +161,7 @@ export default async function RunDetailPage({
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <ClipboardCheckmark16Regular className="h-4 w-4 text-sage" /> Review
+                   Review
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -187,8 +178,7 @@ export default async function RunDetailPage({
             </Card>
           )}
         </div>
-
-        {/* Record */}
+              {/* Record */}
         <div className="space-y-4">
           <Card>
             <CardHeader>
@@ -265,12 +255,11 @@ export default async function RunDetailPage({
               </dl>
             </CardContent>
           </Card>
-
-          {run.latitude != null && run.longitude != null && (
+              {run.latitude != null && run.longitude != null && (
             <Card className="overflow-hidden">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Location16Regular className="h-4 w-4 text-clay" /> Location
+                   Location
                 </CardTitle>
               </CardHeader>
               <CardContent>

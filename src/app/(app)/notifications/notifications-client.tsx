@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import {
   Alert16Regular,
-  CheckmarkStarburst16Regular,
   CheckboxChecked16Regular,
   Warning16Regular,
   ShieldCheckmark16Regular,
@@ -59,7 +58,7 @@ export function NotificationsClient({ notifications }: { notifications: Notifica
       {hasUnread && (
         <div className="flex justify-end">
           <Button variant="secondary" size="sm" onClick={handleMarkAll} disabled={busy}>
-            <CheckmarkStarburst16Regular className="h-4 w-4" /> Mark all as read
+            Mark all as read
           </Button>
         </div>
       )}
@@ -73,7 +72,7 @@ export function NotificationsClient({ notifications }: { notifications: Notifica
             <button
               key={n.id}
               type="button"
-              onClick={() => handleClick(n)}
+              onClick={() =>handleClick(n)}
               disabled={!clickable}
               className={cn(
                 "flex w-full items-start gap-3 px-4 py-3.5 text-left transition-colors",

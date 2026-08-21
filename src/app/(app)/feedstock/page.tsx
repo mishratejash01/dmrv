@@ -1,10 +1,4 @@
 import type { Metadata } from "next";
-import {
-  LeafOne16Regular,
-  VehicleTruck16Regular,
-  ShieldCheckmark16Regular,
-  PlantGrassRegular,
-} from "@/components/common/icons";
 import { getAppContext } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -18,7 +12,7 @@ import { FeedstockForms } from "./feedstock-forms";
 export const metadata: Metadata = { title: "Feedstock" };
 
 function categoryLabel(key: string) {
-  return FEEDSTOCK_CATEGORIES.find((c) => c.key === key)?.label ?? humanize(key);
+  return FEEDSTOCK_CATEGORIES.find((c) =>c.key === key)?.label ?? humanize(key);
 }
 
 export default async function FeedstockPage() {
@@ -49,10 +43,10 @@ export default async function FeedstockPage() {
   const sites = sitesRes.data ?? [];
   const allWeights = allWeightsRes.data ?? [];
 
-  const activeApproved = approved.filter((f) => f.active);
+  const activeApproved = approved.filter((f) =>f.active);
   const deliveryCount = allWeights.length;
-  const totalDryKg = allWeights.reduce((s, d) => s + Number(d.dry_weight_kg || 0), 0);
-  const totalWetKg = allWeights.reduce((s, d) => s + Number(d.weight_kg || 0), 0);
+  const totalDryKg = allWeights.reduce((s, d) =>s + Number(d.dry_weight_kg || 0), 0);
+  const totalWetKg = allWeights.reduce((s, d) =>s + Number(d.weight_kg || 0), 0);
 
   const canManageApproved = ctx.can.canReview;
   const canAddDelivery = ctx.can.canOperate;
@@ -73,20 +67,18 @@ export default async function FeedstockPage() {
           />
         )}
       </PageHeader>
-
-      {/* KPIs */}
+              {/* KPIs */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
-        <Stat label="Approved types" value={fmt(activeApproved.length, 0)} icon={<ShieldCheckmark16Regular />} tone="sage" hint="Active on the project positive list" />
-        <Stat label="Deliveries" value={fmt(deliveryCount, 0)} icon={<VehicleTruck16Regular />} tone="clay" hint={deliveryCount > 50 ? "Most recent 50 shown below" : "All shown below"} />
-        <Stat label="Received (wet)" value={fmt(totalWetKg / 1000, 1)} unit="t" icon={<LeafOne16Regular />} tone="ochre" hint="As-delivered mass" />
-        <Stat label="Received (dry)" value={fmt(totalDryKg / 1000, 1)} unit="t" icon={<PlantGrassRegular />} tone="info" hint="Moisture-corrected" />
+        <Stat label="Approved types" value={fmt(activeApproved.length, 0)} tone="sage" hint="Active on the project positive list" />
+        <Stat label="Deliveries" value={fmt(deliveryCount, 0)} tone="clay" hint={deliveryCount > 50 ? "Most recent 50 shown below" : "All shown below"} />
+        <Stat label="Received (wet)" value={fmt(totalWetKg / 1000, 1)} unit="t" tone="ochre" hint="As-delivered mass" />
+        <Stat label="Received (dry)" value={fmt(totalDryKg / 1000, 1)} unit="t" tone="info" hint="Moisture-corrected" />
       </div>
-
-      {/* Methodology positive list */}
+              {/* Methodology positive list */}
       <Card className="mb-8">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <ShieldCheckmark16Regular className="h-4 w-4 text-sage" /> Methodology positive list
+             Methodology positive list
           </CardTitle>
           <CardDescription>
             Waste and residue biomass eligible under the biomass feedstock module. A project&apos;s
@@ -101,14 +93,12 @@ export default async function FeedstockPage() {
           </div>
         </CardContent>
       </Card>
-
-      {/* Approved feedstock */}
+              {/* Approved feedstock */}
       <div className="mb-8">
         <SectionHeader title="Approved feedstock" />
         <Card>
           {approved.length === 0 ? (
             <EmptyState
-              icon={<ShieldCheckmark16Regular />}
               title="No approved feedstock yet"
               description="Add feedstock types from the positive list so deliveries and kiln runs can reference them."
               className="border-0"
@@ -143,14 +133,12 @@ export default async function FeedstockPage() {
           )}
         </Card>
       </div>
-
-      {/* Deliveries */}
+              {/* Deliveries */}
       <div>
         <SectionHeader title="Deliveries" />
         <Card>
           {deliveries.length === 0 ? (
             <EmptyState
-              icon={<VehicleTruck16Regular />}
               title="No deliveries recorded"
               description="Record incoming feedstock with its wet weight and moisture — dry mass is computed for traceability."
               className="border-0"

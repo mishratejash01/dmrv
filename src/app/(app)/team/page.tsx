@@ -1,10 +1,4 @@
 import type { Metadata } from "next";
-import {
-  People16Regular,
-  ShieldCheckmark16Regular,
-  Location16Regular,
-  Info16Regular,
-} from "@/components/common/icons";
 import { getAppContext } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -51,7 +45,7 @@ export default async function TeamPage() {
   const sites = sitesRes.data ?? [];
 
   // Fetch profile names/emails separately to avoid ambiguous embeds.
-  const userIds = Array.from(new Set(members.map((m) => m.user_id)));
+  const userIds = Array.from(new Set(members.map((m) =>m.user_id)));
   const profilesRes = userIds.length
     ? await supabase.from("profiles").select("id, full_name, email, organization").in("id", userIds)
     : { data: [] };
@@ -68,7 +62,7 @@ export default async function TeamPage() {
     ? await supabase
         .from("site_assignments")
         .select("id, site_id, user_id")
-        .in("site_id", sites.map((s) => s.id))
+        .in("site_id", sites.map((s) =>s.id))
     : { data: [] };
   const sitesByUser = new Map<string, string[]>();
   for (const a of assignRes.data ?? []) {
@@ -79,12 +73,12 @@ export default async function TeamPage() {
     sitesByUser.set(a.user_id, list);
   }
 
-  const roleCount = (role: ProjectRole) => members.filter((m) => m.role === role).length;
+  const roleCount = (role: ProjectRole) =>members.filter((m) =>m.role === role).length;
 
   const operators: OperatorOption[] = Array.from(
     new Map(
       members
-        .filter((m) => m.role === "kiln_operator")
+        .filter((m) =>m.role === "kiln_operator")
         .map((m) => {
           const p = profileById.get(m.user_id);
           return [m.user_id, { id: m.user_id, full_name: p?.full_name ?? "Unknown", email: p?.email ?? "" }];
@@ -108,25 +102,24 @@ export default async function TeamPage() {
       </PageHeader>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
-        <Stat label="Developers" value={roleCount("project_developer")} icon={<ShieldCheckmark16Regular />} tone="clay" />
-        <Stat label="Supervisors" value={roleCount("kiln_supervisor")} icon={<People16Regular />} tone="sage" />
-        <Stat label="Operators" value={roleCount("kiln_operator")} icon={<Location16Regular />} tone="ochre" />
-        <Stat label="Verifiers" value={roleCount("verifier")} icon={<ShieldCheckmark16Regular />} tone="info" />
+        <Stat label="Developers" value={roleCount("project_developer")} tone="clay" />
+        <Stat label="Supervisors" value={roleCount("kiln_supervisor")} tone="sage" />
+        <Stat label="Operators" value={roleCount("kiln_operator")} tone="ochre" />
+        <Stat label="Verifiers" value={roleCount("verifier")} tone="info" />
       </div>
-
-      {/* Separation of duties note */}
+              {/* Separation of duties note */}
       <Card className="mb-4 border-sage-soft bg-sage-tint/40">
         <CardContent className="pt-5">
           <div className="flex items-start gap-3">
             <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-sage-tint text-sage">
-              <Info16Regular className="h-4.5 w-4.5" />
+              
             </span>
             <div>
               <p className="font-display text-base text-ink">Separation of duties</p>
               <p className="mt-1 text-sm text-ink-soft text-pretty max-w-3xl">
-                The people who <span className="font-medium">produce</span> biochar — kiln operators —
+                The people who <span className="font-medium">produce</span>biochar — kiln operators —
                 are kept strictly separate from those who <span className="font-medium">review and
-                report</span> the data: supervisors, developers and independent verifiers. This
+                report</span>the data: supervisors, developers and independent verifiers. This
                 separation prevents conflicts of interest and keeps every carbon claim credible.
               </p>
             </div>
@@ -138,7 +131,6 @@ export default async function TeamPage() {
       <Card>
         {members.length === 0 ? (
           <EmptyState
-            icon={<People16Regular />}
             title="No members yet"
             description={
               canManage
@@ -206,8 +198,7 @@ export default async function TeamPage() {
           </Table>
         )}
       </Card>
-
-      {!canManage && (
+              {!canManage && (
         <p className="mt-4 text-xs text-muted">
           You are viewing the team in read-only mode. Only project developers can invite or remove
           members.

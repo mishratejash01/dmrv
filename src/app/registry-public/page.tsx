@@ -1,11 +1,4 @@
 import type { Metadata } from "next";
-import {
-  Money16Regular,
-  ArrowSwap16Regular,
-  Archive16Regular,
-  Wallet16Regular,
-  ShieldCheckmark16Regular,
-} from "@/components/common/icons";
 import { createClient } from "@/lib/supabase/server";
 import { Card, CardContent } from "@/components/ui/card";
 import { Stat, SectionHeader, EmptyState } from "@/components/ui/misc";
@@ -45,7 +38,7 @@ export default async function RegistryPublicPage() {
   const retired = retiredRes.count ?? 0;
   const bufferCredits = bufferCntRes.count ?? 0;
   const bufferBal = (bufferRes.data ?? []).reduce(
-    (s, r) => s + Number(r.contribution_tco2e || 0),
+    (s, r) =>s + Number(r.contribution_tco2e || 0),
     0,
   );
 
@@ -60,32 +53,28 @@ export default async function RegistryPublicPage() {
           batch of distributed open-kiln biochar. This ledger is open for anyone to inspect.
         </p>
       </div>
-
-      {/* KPIs */}
+              {/* KPIs */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-        <Stat label="Credits on ledger" value={fmt(totalCredits, 0)} unit="RCCs" icon={<Money16Regular />} tone="clay" />
-        <Stat label="Live / transferred" value={fmt(issued, 0)} unit="RCCs" icon={<ArrowSwap16Regular />} tone="info" />
-        <Stat label="Retired" value={fmt(retired, 0)} unit="RCCs" icon={<Archive16Regular />} tone="sage" hint="Permanently claimed" />
-        <Stat label="Buffer pool" value={fmt(bufferBal, 0)} unit="tCO₂e" icon={<Wallet16Regular />} tone="ochre" hint={`${bufferCredits} credits`} />
+        <Stat label="Credits on ledger" value={fmt(totalCredits, 0)} unit="RCCs" tone="clay" />
+        <Stat label="Live / transferred" value={fmt(issued, 0)} unit="RCCs" tone="info" />
+        <Stat label="Retired" value={fmt(retired, 0)} unit="RCCs" tone="sage" hint="Permanently claimed" />
+        <Stat label="Buffer pool" value={fmt(bufferBal, 0)} unit="tCO₂e" tone="ochre" hint={`${bufferCredits} credits`} />
       </div>
-
-      {/* Transparency note */}
+              {/* Transparency note */}
       <div className="mb-8 flex items-start gap-3 rounded-xl border border-sage-soft bg-sage-tint/40 px-4 py-3.5">
-        <ShieldCheckmark16Regular className="h-5 w-5 text-sage shrink-0 mt-0.5" />
+        
         <p className="text-sm text-[#2e7d32] text-pretty">
           Retired credits are locked to a beneficiary and can never be reused. A share of every
           removal issuance is held in a shared buffer pool as reversal insurance. Serial numbers
           encode the geography, project, vintage and mechanism of each credit.
         </p>
       </div>
-
-      {/* Ledger */}
+              {/* Ledger */}
       <section>
         <SectionHeader title="Credit ledger" />
         <Card>
           {credits.length === 0 ? (
             <EmptyState
-              icon={<Money16Regular />}
               title="No credits issued yet"
               description="Issued Rainbow Carbon Credits will appear here as they are minted."
               className="border-0"

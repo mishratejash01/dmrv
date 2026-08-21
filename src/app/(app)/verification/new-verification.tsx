@@ -2,10 +2,7 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
-import {
-  SpinnerIos16Regular,
-  ClipboardCheckmark16Regular,
-} from "@/components/common/icons";
+import { SpinnerIos16Regular } from "@/components/common/icons";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
@@ -67,7 +64,7 @@ export function NewVerification({ projectId, batches, verifiers }: Props) {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button>
-          <ClipboardCheckmark16Regular className="h-4 w-4" /> Request verification
+           Request verification
         </Button>
       </DialogTrigger>
       <DialogContent>
@@ -80,7 +77,7 @@ export function NewVerification({ projectId, batches, verifiers }: Props) {
         </DialogHeader>
         <div className="space-y-4">
           <Field label="Production batch" required hint={batches.length === 0 ? "No batches to verify yet" : undefined}>
-            <NativeSelect value={batchId} onChange={(e) => setBatchId(e.target.value)}>
+            <NativeSelect value={batchId} onChange={(e) =>setBatchId(e.target.value)}>
               <option value="">— select a batch —</option>
               {batches.map((b) => (
                 <option key={b.id} value={b.id}>{b.code}</option>
@@ -88,7 +85,7 @@ export function NewVerification({ projectId, batches, verifiers }: Props) {
             </NativeSelect>
           </Field>
           <Field label="Verifier" required hint={verifiers.length === 0 ? "No verifiers on this project" : undefined}>
-            <NativeSelect value={verifierId} onChange={(e) => setVerifierId(e.target.value)}>
+            <NativeSelect value={verifierId} onChange={(e) =>setVerifierId(e.target.value)}>
               <option value="">— select a verifier —</option>
               {verifiers.map((v) => (
                 <option key={v.id} value={v.id}>{v.name}</option>
@@ -97,16 +94,16 @@ export function NewVerification({ projectId, batches, verifiers }: Props) {
           </Field>
           <div className="grid sm:grid-cols-2 gap-4">
             <Field label="Monitoring period start">
-              <Input type="date" value={start} onChange={(e) => setStart(e.target.value)} />
+              <Input type="date" value={start} onChange={(e) =>setStart(e.target.value)} />
             </Field>
             <Field label="Monitoring period end">
-              <Input type="date" value={end} onChange={(e) => setEnd(e.target.value)} />
+              <Input type="date" value={end} onChange={(e) =>setEnd(e.target.value)} />
             </Field>
           </div>
           <Field label="Audit type" required>
             <NativeSelect
               value={auditType}
-              onChange={(e) => setAuditType(e.target.value as "remote" | "in_person")}
+              onChange={(e) =>setAuditType(e.target.value as "remote" | "in_person")}
             >
               <option value="remote">Remote audit</option>
               <option value="in_person">In-person site audit</option>
@@ -114,7 +111,7 @@ export function NewVerification({ projectId, batches, verifiers }: Props) {
           </Field>
         </div>
         <DialogFooter>
-          <Button variant="ghost" onClick={() => setOpen(false)} disabled={busy}>
+          <Button variant="ghost" onClick={() =>setOpen(false)} disabled={busy}>
             Cancel
           </Button>
           <Button onClick={handleSubmit} disabled={busy}>

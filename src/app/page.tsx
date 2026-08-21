@@ -1,12 +1,10 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import {
-  ArrowRight16Regular,
   LeafOne16Regular,
   Fire16Regular,
   ShieldCheckmark16Regular,
   Ribbon16Regular,
-  Organization16Regular,
 } from "@/components/common/icons";
 import { LogoLockup } from "@/components/common/logo";
 import { getUser } from "@/lib/auth";
@@ -41,7 +39,7 @@ export default async function Landing() {
             href="/login"
             className="inline-flex items-center gap-1.5 rounded-md bg-clay px-4 py-2 text-sm font-medium text-elevated shadow-sm hover:bg-[#056b4b] transition-colors"
           >
-            Sign in <ArrowRight16Regular className="h-3.5 w-3.5" />
+            Sign in 
           </Link>
         </nav>
       </header>
@@ -67,18 +65,17 @@ export default async function Landing() {
               href="/login"
               className="inline-flex items-center gap-2 rounded-lg bg-clay px-5 py-3 text-sm font-medium text-elevated shadow-sm hover:bg-[#056b4b] transition-colors"
             >
-              Open the dashboard <ArrowRight16Regular className="h-4 w-4" />
+              Open the dashboard 
             </Link>
             <Link
               href="/registry-public"
               className="inline-flex items-center gap-2 rounded-lg border border-border-strong px-5 py-3 text-sm font-medium text-ink hover:bg-surface transition-colors"
             >
-              <Organization16Regular className="h-4 w-4" /> Explore the registry
+               Explore the registry
             </Link>
           </div>
         </section>
-
-        {/* Lifecycle */}
+              {/* Lifecycle */}
         <section className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 pb-10">
           {lifecycle.map((s) => (
             <div key={s.label} className="rounded-xl border border-border bg-elevated p-5 shadow-sm">
@@ -90,8 +87,7 @@ export default async function Landing() {
             </div>
           ))}
         </section>
-
-        {/* Methodology rules */}
+              {/* Methodology rules */}
         <section className="pb-20">
           <h2 className="font-display text-2xl text-ink mb-1">Faithful to the methodology</h2>
           <p className="text-muted mb-4">The real rules of the Rainbow Standard, enforced in software.</p>

@@ -1,12 +1,5 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import {
-  ArrowUpRight16Regular,
-  CheckboxChecked16Regular,
-  Fire16Regular,
-  ShieldError16Regular,
-  Temperature16Regular,
-} from "@/components/common/icons";
 import { getAppContext } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { Card, CardContent } from "@/components/ui/card";
@@ -30,7 +23,6 @@ export default async function ReviewQueuePage() {
           description="Approve, reject or request changes on submitted kiln runs."
         />
         <EmptyState
-          icon={<ShieldError16Regular />}
           title="Reviewer access required"
           description="Only supervisors and project developers can review submitted kiln runs. Ask a project admin if you need access."
         />
@@ -52,7 +44,7 @@ export default async function ReviewQueuePage() {
 
   // kiln_runs → profiles has two FKs; fetch operator names in a separate query.
   const operatorIds = [
-    ...new Set(runs.map((r) => r.operator_id).filter((x): x is string => !!x)),
+    ...new Set(runs.map((r) =>r.operator_id).filter((x): x is string => !!x)),
   ];
   const operatorName = new Map<string, string>();
   if (operatorIds.length > 0) {
@@ -73,10 +65,8 @@ export default async function ReviewQueuePage() {
           {runs.length} awaiting review
         </Badge>
       </PageHeader>
-
-      {runs.length === 0 ? (
+              {runs.length === 0 ? (
         <EmptyState
-          icon={<CheckboxChecked16Regular />}
           title="Nothing to review"
           description="Every submitted run has been reviewed. New submissions from the field will appear here."
         />
@@ -96,8 +86,7 @@ export default async function ReviewQueuePage() {
                           href={`/runs/${r.id}`}
                           className="font-display text-lg text-ink hover:text-clay flex items-center gap-1.5"
                         >
-                          <Fire16Regular className="h-4 w-4 text-clay shrink-0" />
-                          {runCode}
+              {runCode}
                         </Link>
                         <StatusBadge kind="run" value={r.status} />
                         {r.anomaly_flag && (
@@ -117,15 +106,14 @@ export default async function ReviewQueuePage() {
                       href={`/runs/${r.id}`}
                       className="text-sm text-clay hover:underline flex items-center gap-1 shrink-0"
                     >
-                      Full record <ArrowUpRight16Regular className="h-3.5 w-3.5" />
+                      Full record 
                     </Link>
                   </div>
 
                   <div className="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-3">
                     <div className="rounded-lg bg-surface/60 px-3 py-2.5">
                       <p className="font-display text-lg text-ink tnum flex items-center gap-1.5">
-                        <Temperature16Regular className="h-3.5 w-3.5 text-clay" />
-                        {r.peak_temp_c ? `${fmt(Number(r.peak_temp_c), 0)} °C` : "—"}
+              {r.peak_temp_c ? `${fmt(Number(r.peak_temp_c), 0)} °C` : "—"}
                       </p>
                       <p className="text-xs text-muted mt-0.5">Peak temp</p>
                     </div>

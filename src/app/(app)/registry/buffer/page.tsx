@@ -1,12 +1,5 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import {
-  ArrowLeft16Regular,
-  Wallet16Regular,
-  ShieldCheckmark16Regular,
-  Money16Regular,
-  TextPercent16Regular,
-} from "@/components/common/icons";
 import { getAppContext } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -37,7 +30,7 @@ export default async function BufferPoolPage() {
   ]);
 
   const ledger = ledgerRes.data ?? [];
-  const totalBuffer = ledger.reduce((s, r) => s + Number(r.contribution_tco2e || 0), 0);
+  const totalBuffer = ledger.reduce((s, r) =>s + Number(r.contribution_tco2e || 0), 0);
   const heldCredits = bufferCreditsRes.count ?? 0;
   const pct = Math.round(BUFFER_POOL.minFraction * 100);
 
@@ -48,7 +41,7 @@ export default async function BufferPoolPage() {
           href="/registry"
           className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-clay"
         >
-          <ArrowLeft16Regular className="h-4 w-4" /> Registry
+           Registry
         </Link>
       </div>
 
@@ -56,14 +49,12 @@ export default async function BufferPoolPage() {
         title="Buffer pool"
         description="A shared reversal-insurance reserve held under the Rainbow Standard. A minimum share of every removal issuance is set aside here so reversals can be covered across all projects."
       />
-
-      {/* KPIs */}
+              {/* KPIs */}
       <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
         <Stat
           label="Buffer balance"
           value={fmt(totalBuffer, 0)}
           unit="tCO₂e"
-          icon={<Wallet16Regular />}
           tone="info"
           hint="This project's contribution"
         />
@@ -71,7 +62,6 @@ export default async function BufferPoolPage() {
           label="Credits held"
           value={fmt(heldCredits, 0)}
           unit="RCCs"
-          icon={<Money16Regular />}
           tone="ochre"
           hint="Status: buffer"
         />
@@ -79,22 +69,20 @@ export default async function BufferPoolPage() {
           label="Minimum rate"
           value={fmt(pct, 0)}
           unit="%"
-          icon={<TextPercent16Regular />}
           tone="sage"
           hint="Of verified removals"
         />
       </div>
-
-      {/* Explainer */}
+              {/* Explainer */}
       <Card className="mb-8">
         <CardHeader className="flex-row items-center gap-2">
-          <ShieldCheckmark16Regular className="h-4 w-4 text-sage" />
+          
           <CardTitle>How reversal insurance works</CardTitle>
         </CardHeader>
         <CardContent className="pt-0">
           <p className="text-sm text-muted text-pretty">
             Under the Rainbow Standard, at least{" "}
-            <span className="font-medium text-ink">{pct}%</span> of every batch&rsquo;s verified
+            <span className="font-medium text-ink">{pct}%</span>of every batch&rsquo;s verified
             removal credits are transferred into the buffer pool at issuance instead of being handed
             to the developer. If sequestered carbon is later reversed — for example biochar that
             fails to persist — buffered credits are cancelled to make the atmosphere whole, so no
@@ -103,14 +91,12 @@ export default async function BufferPoolPage() {
           </p>
         </CardContent>
       </Card>
-
-      {/* Ledger */}
+              {/* Ledger */}
       <section>
         <SectionHeader title="Buffer ledger" />
         <Card>
           {ledger.length === 0 ? (
             <EmptyState
-              icon={<Wallet16Regular />}
               title="No buffer contributions yet"
               description={`Once a removal issuance is approved, ${pct}% of its credits are recorded here.`}
               className="border-0"

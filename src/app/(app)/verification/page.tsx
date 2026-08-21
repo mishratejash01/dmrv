@@ -1,9 +1,5 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import {
-  ShieldCheckmark16Regular,
-  ArrowUpRight16Regular,
-} from "@/components/common/icons";
 import { getAppContext } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { Card } from "@/components/ui/card";
@@ -41,13 +37,13 @@ export default async function VerificationPage() {
 
   const verifications = verifsRes.data ?? [];
   const batches = batchesRes.data ?? [];
-  const verifierIds = (verifierMembersRes.data ?? []).map((m) => m.user_id);
+  const verifierIds = (verifierMembersRes.data ?? []).map((m) =>m.user_id);
 
   // Verifier names — separate query (verifications has verifier_id + created_by).
   const people = new Map<string, string>();
   const peopleIds = Array.from(
     new Set([
-      ...verifications.map((v) => v.verifier_id).filter((x): x is string => !!x),
+      ...verifications.map((v) =>v.verifier_id).filter((x): x is string => !!x),
       ...verifierIds,
     ]),
   );
@@ -59,11 +55,11 @@ export default async function VerificationPage() {
     for (const p of profs ?? []) people.set(p.id, p.full_name);
   }
 
-  const pending = verifications.filter((v) => v.status === "assigned" || v.status === "in_review");
-  const approved = verifications.filter((v) => v.status === "approved");
+  const pending = verifications.filter((v) =>v.status === "assigned" || v.status === "in_review");
+  const approved = verifications.filter((v) =>v.status === "approved");
 
   // Batches eligible to verify — closed or testing (not open, not already verified).
-  const verifiableBatches = batches.filter((b) => b.status !== "open");
+  const verifiableBatches = batches.filter((b) =>b.status !== "open");
 
   return (
     <div>
@@ -79,10 +75,9 @@ export default async function VerificationPage() {
           />
         )}
       </PageHeader>
-
-      {/* KPIs */}
+              {/* KPIs */}
       <div className="grid grid-cols-3 gap-4 mb-4">
-        <Stat label="Verifications" value={fmt(verifications.length, 0)} icon={<ShieldCheckmark16Regular />} tone="clay" hint="All monitoring periods" />
+        <Stat label="Verifications" value={fmt(verifications.length, 0)} tone="clay" hint="All monitoring periods" />
         <Stat label="In progress" value={fmt(pending.length, 0)} tone="ochre" hint="Assigned or in review" />
         <Stat label="Approved" value={fmt(approved.length, 0)} tone="sage" hint="Cleared for issuance" />
       </div>
@@ -90,7 +85,6 @@ export default async function VerificationPage() {
       <Card>
         {verifications.length === 0 ? (
           <EmptyState
-            icon={<ShieldCheckmark16Regular />}
             title="No verifications yet"
             description={
               ctx.can.canReview
@@ -138,7 +132,7 @@ export default async function VerificationPage() {
                         href={`/verification/${v.id}`}
                         className="text-sm text-ink hover:text-clay transition-colors inline-flex items-center gap-1"
                       >
-                        Open <ArrowUpRight16Regular className="h-3.5 w-3.5" />
+                        Open 
                       </Link>
                     </TD>
                   </TR>

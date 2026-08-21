@@ -1,15 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import {
-  Warning16Regular,
-  ArrowUpRight16Regular,
-  Fire16Regular,
-  Beaker16Regular,
-  LayerRegular,
-  Scales16Regular,
-  ShieldCheckmark16Regular,
-} from "@/components/common/icons";
 import { getAppContext } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -103,13 +94,13 @@ export default async function BatchDetailPage({
   const lab = labRes.data?.[0] ?? null;
   const ghg = ghgRes.data?.[0] ?? null;
   const verifications = verifRes.data ?? [];
-  const verifierIds = (verifierMembersRes.data ?? []).map((m) => m.user_id);
+  const verifierIds = (verifierMembersRes.data ?? []).map((m) =>m.user_id);
 
   // People names — separate query (kiln_runs has two FKs to profiles).
   const peopleIds = Array.from(
     new Set([
-      ...runs.map((r) => r.operator_id).filter((x): x is string => !!x),
-      ...verifications.map((v) => v.verifier_id).filter((x): x is string => !!x),
+      ...runs.map((r) =>r.operator_id).filter((x): x is string => !!x),
+      ...verifications.map((v) =>v.verifier_id).filter((x): x is string => !!x),
       ...verifierIds,
     ]),
   );
@@ -134,7 +125,7 @@ export default async function BatchDetailPage({
   const nearAge = !overAge && age >= BATCH_LIMITS.maxMonths * BATCH_LIMITS.warnFraction;
   const isOpen = batch.status === "open";
 
-  const kilnLabel = KILN_TYPES.find((k) => k.key === batch.kiln_type)?.label ?? humanize(batch.kiln_type);
+  const kilnLabel = KILN_TYPES.find((k) =>k.key === batch.kiln_type)?.label ?? humanize(batch.kiln_type);
 
   // --- Lab eligibility ---------------------------------------------------
   const hc = lab ? Number(lab.hydrogen_carbon_molar_ratio) : null;
@@ -158,11 +149,10 @@ export default async function BatchDetailPage({
           verifiers={verifierIds.map((vid) => ({ id: vid, name: people.get(vid) ?? "Verifier" }))}
         />
       </PageHeader>
-
-      {/* Over-limit / near-limit warnings */}
+              {/* Over-limit / near-limit warnings */}
       {isOpen && (overTonnes || overAge) && (
         <div className="mb-4 flex items-start gap-3 rounded-xl border border-[#f4c7c3] bg-err-tint px-4 py-3.5">
-          <Warning16Regular className="h-5 w-5 text-err shrink-0 mt-0.5" />
+          
           <div>
             <p className="text-sm font-medium text-[#b3261e]">
               {overTonnes && overAge
@@ -181,7 +171,7 @@ export default async function BatchDetailPage({
       )}
       {isOpen && !overTonnes && !overAge && (nearTonnes || nearAge) && (
         <div className="mb-4 flex items-start gap-3 rounded-xl border border-ochre-soft bg-warn-tint px-4 py-3.5">
-          <Warning16Regular className="h-5 w-5 text-ochre shrink-0 mt-0.5" />
+          
           <p className="text-sm text-[#8a5200]">
             This batch is approaching its {nearTonnes && nearAge ? "tonnage and age limits" : nearTonnes ? `${BATCH_LIMITS.maxTonnes}-tonne limit` : `${BATCH_LIMITS.maxMonths}-month limit`}.
             Plan to close it and draw the composite samples soon.
@@ -198,14 +188,13 @@ export default async function BatchDetailPage({
               title="Kiln runs"
               action={
                 <Link href="/runs" className="text-sm text-clay hover:underline flex items-center gap-1">
-                  All runs <ArrowUpRight16Regular className="h-3.5 w-3.5" />
+                  All runs 
                 </Link>
               }
             />
             <Card>
               {runs.length === 0 ? (
                 <EmptyState
-                  icon={<Fire16Regular />}
                   title="No runs assigned"
                   description="Runs recorded in the field are assigned to this batch by operators, or from the review queue."
                   className="border-0"
@@ -258,13 +247,11 @@ export default async function BatchDetailPage({
               )}
             </Card>
           </section>
-
-          {/* Composite sampling chain */}
+              {/* Composite sampling chain */}
           <section>
             <SectionHeader title="Composite sampling chain" />
             {samples.length === 0 ? (
               <EmptyState
-                icon={<LayerRegular />}
                 title="No composite samples yet"
                 description="Each run adds a subsample to its site pile. Site samples and the batch representative sample are drawn when the batch is closed."
               />
@@ -272,8 +259,8 @@ export default async function BatchDetailPage({
               <Card>
                 <CardContent className="pt-5 space-y-4">
                   {SAMPLE_STAGES.map((stage, idx) => {
-                    const rows = samples.filter((s) => s.stage === stage.key);
-                    const total = rows.reduce((sum, s) => sum + Number(s.mass_kg || 0), 0);
+                    const rows = samples.filter((s) =>s.stage === stage.key);
+                    const total = rows.reduce((sum, s) =>sum + Number(s.mass_kg || 0), 0);
                     return (
                       <div key={stage.key}>
                         <div className="flex items-baseline justify-between gap-3 mb-1">
@@ -321,22 +308,20 @@ export default async function BatchDetailPage({
               </Card>
             )}
           </section>
-
-          {/* Lab test */}
+              {/* Lab test */}
           <section>
             <SectionHeader
               title="Lab test"
               action={
                 lab && (
                   <Link href="/lab" className="text-sm text-clay hover:underline flex items-center gap-1">
-                    All tests <ArrowUpRight16Regular className="h-3.5 w-3.5" />
+                    All tests 
                   </Link>
                 )
               }
             />
             {!lab ? (
               <EmptyState
-                icon={<Beaker16Regular />}
                 title="No lab test recorded"
                 description="Send the batch representative sample to an accredited laboratory and record the results."
                 action={
@@ -402,22 +387,20 @@ export default async function BatchDetailPage({
               </Card>
             )}
           </section>
-
-          {/* GHG quantification */}
+              {/* GHG quantification */}
           <section>
             <SectionHeader
               title="GHG quantification"
               action={
                 ghg && (
                   <Link href="/ghg" className="text-sm text-clay hover:underline flex items-center gap-1">
-                    All quantifications <ArrowUpRight16Regular className="h-3.5 w-3.5" />
+                    All quantifications 
                   </Link>
                 )
               }
             />
             {!ghg ? (
               <EmptyState
-                icon={<Scales16Regular />}
                 title="Not yet quantified"
                 description="Compute the net CO₂ removal for this batch once the lab results are recorded."
                 action={
@@ -458,8 +441,7 @@ export default async function BatchDetailPage({
             )}
           </section>
         </div>
-
-        {/* Side column */}
+              {/* Side column */}
         <div className="space-y-4">
           <Card>
             <CardHeader>
@@ -532,7 +514,7 @@ export default async function BatchDetailPage({
           <Card>
             <CardHeader className="flex-row items-center justify-between">
               <CardTitle>Verifications</CardTitle>
-              <ShieldCheckmark16Regular className="h-4 w-4 text-sage" />
+              
             </CardHeader>
             <CardContent className="space-y-3">
               {verifications.length === 0 ? (

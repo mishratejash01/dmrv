@@ -1,12 +1,5 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import {
-  ApprovalsApp16Regular,
-  ShieldCheckmark16Regular,
-  Money16Regular,
-  Wallet16Regular,
-  ArrowUpRight16Regular,
-} from "@/components/common/icons";
 import { getAppContext } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -65,7 +58,7 @@ export default async function RegistryPage() {
 
   // Issuable = GHG quantifications for VERIFIED batches that have no issuance yet.
   const issuedGhgIds = new Set(
-    issuances.map((i) => i.ghg_quantification_id).filter((x): x is string => !!x),
+    issuances.map((i) =>i.ghg_quantification_id).filter((x): x is string => !!x),
   );
   const issuable = ghg.filter((g) => {
     const batch = g.production_batches as { status: string } | null;
@@ -75,11 +68,11 @@ export default async function RegistryPage() {
   const batchCode = new Map((batchesRes.data ?? []).map((b) => [b.id, b.code]));
 
   // Ledger metrics.
-  const issued = credits.filter((c) => c.status === "issued" || c.status === "transferred").length;
-  const retired = credits.filter((c) => c.status === "retired").length;
-  const bufferCredits = credits.filter((c) => c.status === "buffer").length;
+  const issued = credits.filter((c) =>c.status === "issued" || c.status === "transferred").length;
+  const retired = credits.filter((c) =>c.status === "retired").length;
+  const bufferCredits = credits.filter((c) =>c.status === "buffer").length;
   const bufferBal = (bufferRes.data ?? []).reduce(
-    (s, r) => s + Number(r.contribution_tco2e || 0),
+    (s, r) =>s + Number(r.contribution_tco2e || 0),
     0,
   );
 
@@ -98,31 +91,28 @@ export default async function RegistryPage() {
       <PageHeader title="Credit registry">
         <Button asChild variant="secondary">
           <Link href="/registry/buffer">
-            <Wallet16Regular className="h-4 w-4" /> Buffer pool
+             Buffer pool
           </Link>
         </Button>
         <Button asChild variant="outline">
           <Link href="/registry-public" target="_blank">
-            Public registry <ArrowUpRight16Regular className="h-3.5 w-3.5" />
+            Public registry 
           </Link>
         </Button>
       </PageHeader>
-
-      {/* KPIs */}
+              {/* KPIs */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-        <Stat label="Credits issued" value={fmt(issued, 0)} unit="RCCs" icon={<Money16Regular />} tone="clay" hint={`${credits.length} minted total`} />
-        <Stat label="Retired" value={fmt(retired, 0)} unit="RCCs" icon={<ShieldCheckmark16Regular />} tone="sage" hint="Locked to beneficiaries" />
-        <Stat label="Buffer pool" value={fmt(bufferBal, 0)} unit="tCO₂e" icon={<Wallet16Regular />} tone="info" hint={`${bufferCredits} credits held`} />
-        <Stat label="Awaiting issuance" value={fmt(issuable.length, 0)} unit="batches" icon={<ApprovalsApp16Regular />} tone="ochre" hint="Verified & quantified" />
+        <Stat label="Credits issued" value={fmt(issued, 0)} unit="RCCs" tone="clay" hint={`${credits.length} minted total`} />
+        <Stat label="Retired" value={fmt(retired, 0)} unit="RCCs" tone="sage" hint="Locked to beneficiaries" />
+        <Stat label="Buffer pool" value={fmt(bufferBal, 0)} unit="tCO₂e" tone="info" hint={`${bufferCredits} credits held`} />
+        <Stat label="Awaiting issuance" value={fmt(issuable.length, 0)} unit="batches" tone="ochre" hint="Verified & quantified" />
       </div>
-
-      {/* 1 · Issuable */}
+              {/* 1 · Issuable */}
       <section className="mb-10">
         <SectionHeader title="Ready to issue" />
         <Card>
           {issuable.length === 0 ? (
             <EmptyState
-              icon={<ApprovalsApp16Regular />}
               title="Nothing awaiting issuance"
               description="A batch becomes issuable once it is verified by a VVB and its GHG removal has been quantified."
               className="border-0"
@@ -176,8 +166,7 @@ export default async function RegistryPage() {
           </p>
         )}
       </section>
-
-      {/* 2 · Issuances */}
+              {/* 2 · Issuances */}
       <section className="mb-10">
         <SectionHeader title="Issuances" />
         <Card>
@@ -246,8 +235,7 @@ export default async function RegistryPage() {
           )}
         </Card>
       </section>
-
-      {/* 3 · Credit ledger */}
+              {/* 3 · Credit ledger */}
       <section>
         <SectionHeader
           title="Credit ledger"
@@ -256,7 +244,6 @@ export default async function RegistryPage() {
         <Card>
           {credits.length === 0 ? (
             <EmptyState
-              icon={<Money16Regular />}
               title="No credits minted"
               description="Approved issuances mint one serialised RCC per whole tonne of net CO₂ removed."
               className="border-0"
@@ -326,8 +313,7 @@ export default async function RegistryPage() {
             </div>
           )}
         </Card>
-
-        {/* Serial format legend */}
+              {/* Serial format legend */}
         <Card className="mt-4">
           <CardHeader>
             <CardTitle>Serial number format</CardTitle>

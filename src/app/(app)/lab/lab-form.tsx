@@ -2,10 +2,7 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
-import {
-  Beaker16Regular,
-  SpinnerIos16Regular,
-} from "@/components/common/icons";
+import { SpinnerIos16Regular } from "@/components/common/icons";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
@@ -99,7 +96,7 @@ export function LabForm({ batches }: Props) {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button>
-          <Beaker16Regular className="h-4 w-4" /> Record lab test
+           Record lab test
         </Button>
       </DialogTrigger>
       <DialogContent>
@@ -112,7 +109,7 @@ export function LabForm({ batches }: Props) {
         </DialogHeader>
         <div className="space-y-4">
           <Field label="Production batch" required hint="The batch this composite sample represents">
-            <NativeSelect value={batchId} onChange={(e) => setBatchId(e.target.value)}>
+            <NativeSelect value={batchId} onChange={(e) =>setBatchId(e.target.value)}>
               {batches.map((b) => (
                 <option key={b.id} value={b.id}>
                   {b.code}
@@ -123,19 +120,19 @@ export function LabForm({ batches }: Props) {
 
           <div className="grid sm:grid-cols-2 gap-4">
             <Field label="Laboratory" required hint="e.g. Eurofins — Bengaluru">
-              <Input value={labName} onChange={(e) => setLabName(e.target.value)} placeholder="Accredited lab name" />
+              <Input value={labName} onChange={(e) =>setLabName(e.target.value)} placeholder="Accredited lab name" />
             </Field>
             <Field label="Accreditation" hint="e.g. NABL / ISO 17025 ref.">
-              <Input value={accreditation} onChange={(e) => setAccreditation(e.target.value)} placeholder="Accreditation ref." />
+              <Input value={accreditation} onChange={(e) =>setAccreditation(e.target.value)} placeholder="Accreditation ref." />
             </Field>
           </div>
 
           <div className="grid sm:grid-cols-2 gap-4">
             <Field label="Sample ID">
-              <Input value={sampleId} onChange={(e) => setSampleId(e.target.value)} placeholder="Lab sample reference" />
+              <Input value={sampleId} onChange={(e) =>setSampleId(e.target.value)} placeholder="Lab sample reference" />
             </Field>
             <Field label="Tested on">
-              <Input type="date" value={testedAt} onChange={(e) => setTestedAt(e.target.value)} />
+              <Input type="date" value={testedAt} onChange={(e) =>setTestedAt(e.target.value)} />
             </Field>
           </div>
 
@@ -148,7 +145,7 @@ export function LabForm({ batches }: Props) {
                 max="100"
                 inputMode="decimal"
                 value={organicCarbon}
-                onChange={(e) => setOrganicCarbon(e.target.value)}
+                onChange={(e) =>setOrganicCarbon(e.target.value)}
                 placeholder="e.g. 82"
               />
             </Field>
@@ -159,13 +156,12 @@ export function LabForm({ batches }: Props) {
                 min="0"
                 inputMode="decimal"
                 value={hcRatio}
-                onChange={(e) => setHcRatio(e.target.value)}
+                onChange={(e) =>setHcRatio(e.target.value)}
                 placeholder="e.g. 0.35"
               />
             </Field>
           </div>
-
-          {hasHc && (
+              {hasHc && (
             <div
               className={[
                 "rounded-lg border px-3 py-2.5 text-sm flex items-center gap-2.5",
@@ -187,22 +183,22 @@ export function LabForm({ batches }: Props) {
 
           <div className="grid sm:grid-cols-3 gap-4">
             <Field label="Ash content (%)">
-              <Input type="number" step="0.1" min="0" max="100" inputMode="decimal" value={ash} onChange={(e) => setAsh(e.target.value)} />
+              <Input type="number" step="0.1" min="0" max="100" inputMode="decimal" value={ash} onChange={(e) =>setAsh(e.target.value)} />
             </Field>
             <Field label="Moisture (%)">
-              <Input type="number" step="0.1" min="0" max="100" inputMode="decimal" value={moisture} onChange={(e) => setMoisture(e.target.value)} />
+              <Input type="number" step="0.1" min="0" max="100" inputMode="decimal" value={moisture} onChange={(e) =>setMoisture(e.target.value)} />
             </Field>
             <Field label="pH">
-              <Input type="number" step="0.1" min="0" max="14" inputMode="decimal" value={ph} onChange={(e) => setPh(e.target.value)} />
+              <Input type="number" step="0.1" min="0" max="14" inputMode="decimal" value={ph} onChange={(e) =>setPh(e.target.value)} />
             </Field>
           </div>
 
           <div className="grid sm:grid-cols-2 gap-4">
             <Field label="Inertinite (%)" hint="Optional — petrographic fraction">
-              <Input type="number" step="0.1" min="0" max="100" inputMode="decimal" value={inertinite} onChange={(e) => setInertinite(e.target.value)} />
+              <Input type="number" step="0.1" min="0" max="100" inputMode="decimal" value={inertinite} onChange={(e) =>setInertinite(e.target.value)} />
             </Field>
             <Field label="Random reflectance (%)" hint="For the 1000-yr pathway (R_o > 2%)">
-              <Input type="number" step="0.01" min="0" max="100" inputMode="decimal" value={reflectance} onChange={(e) => setReflectance(e.target.value)} />
+              <Input type="number" step="0.01" min="0" max="100" inputMode="decimal" value={reflectance} onChange={(e) =>setReflectance(e.target.value)} />
             </Field>
           </div>
 
@@ -210,7 +206,7 @@ export function LabForm({ batches }: Props) {
             <input
               type="checkbox"
               checked={pollutantsOk}
-              onChange={(e) => setPollutantsOk(e.target.checked)}
+              onChange={(e) =>setPollutantsOk(e.target.checked)}
               className="mt-0.5 h-4 w-4 rounded border-border-strong accent-[#2e7d32]"
             />
             <span className="text-sm text-ink-soft">
@@ -224,13 +220,13 @@ export function LabForm({ batches }: Props) {
           <Field label="Stability notes">
             <Textarea
               value={stabilityNotes}
-              onChange={(e) => setStabilityNotes(e.target.value)}
+              onChange={(e) =>setStabilityNotes(e.target.value)}
               placeholder="Anything a verifier should know about permanence, morphology or sampling…"
             />
           </Field>
         </div>
         <DialogFooter>
-          <Button variant="ghost" onClick={() => setOpen(false)} disabled={busy}>
+          <Button variant="ghost" onClick={() =>setOpen(false)} disabled={busy}>
             Cancel
           </Button>
           <Button onClick={handleSubmit} disabled={busy}>

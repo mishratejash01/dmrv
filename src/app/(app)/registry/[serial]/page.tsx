@@ -1,16 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import {
-  ArrowLeft16Regular,
-  Money16Regular,
-  ApprovalsApp16Regular,
-  ArrowSwap16Regular,
-  Archive16Regular,
-  Prohibited16Regular,
-  Wallet16Regular,
-  Circle16Regular,
-} from "@/components/common/icons";
 import { getAppContext } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -34,13 +24,13 @@ const TONE_TEXT: Record<string, string> = {
 
 const TXN_META: Record<
   string,
-  { label: string; icon: React.ReactNode; tone: "clay" | "sage" | "ochre" | "info" | "err" }
+  { label: string; tone: "clay" | "sage" | "ochre" | "info" | "err" }
 > = {
-  issue: { label: "Issued", icon: <ApprovalsApp16Regular className="h-4 w-4" />, tone: "info" },
-  transfer: { label: "Transferred", icon: <ArrowSwap16Regular className="h-4 w-4" />, tone: "clay" },
-  retire: { label: "Retired", icon: <Archive16Regular className="h-4 w-4" />, tone: "sage" },
-  buffer: { label: "Buffered", icon: <Wallet16Regular className="h-4 w-4" />, tone: "ochre" },
-  cancel: { label: "Cancelled", icon: <Prohibited16Regular className="h-4 w-4" />, tone: "err" },
+  issue: { label: "Issued", tone: "info" },
+  transfer: { label: "Transferred", tone: "clay" },
+  retire: { label: "Retired", tone: "sage" },
+  buffer: { label: "Buffered", tone: "ochre" },
+  cancel: { label: "Cancelled", tone: "err" },
 };
 
 export default async function CreditDetailPage({
@@ -90,7 +80,7 @@ export default async function CreditDetailPage({
           href="/registry"
           className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-clay"
         >
-          <ArrowLeft16Regular className="h-4 w-4" /> Registry
+           Registry
         </Link>
       </div>
 
@@ -112,7 +102,6 @@ export default async function CreditDetailPage({
             <CardContent className="pt-0">
               {txns.length === 0 ? (
                 <EmptyState
-                  icon={<Circle16Regular />}
                   title="No transactions recorded"
                   description="Issuance and any transfers or retirements will appear here as an immutable timeline."
                   className="border-0"
@@ -122,7 +111,6 @@ export default async function CreditDetailPage({
                   {txns.map((t) => {
                     const tm = TXN_META[t.txn_type] ?? {
                       label: humanize(t.txn_type),
-                      icon: <Circle16Regular className="h-4 w-4" />,
                       tone: "info" as const,
                     };
                     return (
@@ -130,7 +118,6 @@ export default async function CreditDetailPage({
                         <span
                           className={`absolute -left-[2.1rem] grid h-7 w-7 place-items-center rounded-full border border-border bg-elevated ${TONE_TEXT[tm.tone] ?? "text-info"}`}
                         >
-                          {tm.icon}
                         </span>
                         <div className="flex flex-wrap items-baseline justify-between gap-2">
                           <p className="text-sm font-medium text-ink">{tm.label}</p>
@@ -157,13 +144,12 @@ export default async function CreditDetailPage({
             </CardContent>
           </Card>
         </div>
-
-        {/* Details */}
+              {/* Details */}
         <div className="space-y-4">
           <Card>
             <CardHeader className="flex-row items-center justify-between">
               <CardTitle>Credit</CardTitle>
-              <Money16Regular className="h-4 w-4 text-clay" />
+              
             </CardHeader>
             <CardContent>
               <dl>
@@ -186,8 +172,7 @@ export default async function CreditDetailPage({
               </dl>
             </CardContent>
           </Card>
-
-          {parsed.valid && (
+              {parsed.valid && (
             <Card>
               <CardHeader>
                 <CardTitle>Decoded serial</CardTitle>

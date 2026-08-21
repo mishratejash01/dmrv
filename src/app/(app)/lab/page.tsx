@@ -1,7 +1,4 @@
 import type { Metadata } from "next";
-import {
-  Beaker16Regular,
-} from "@/components/common/icons";
 import { getAppContext } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { Card } from "@/components/ui/card";
@@ -44,10 +41,8 @@ export default async function LabPage() {
       >
         {ctx.can.canReview && batches.length > 0 && <LabForm batches={batches} />}
       </PageHeader>
-
-      {tests.length === 0 ? (
+              {tests.length === 0 ? (
         <EmptyState
-          icon={<Beaker16Regular />}
           title="No lab tests yet"
           description="When a batch composite sample comes back from the accredited lab, record the results here to unlock GHG quantification."
           action={

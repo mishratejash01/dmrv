@@ -2,10 +2,7 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
-import {
-  Add16Regular,
-  SpinnerIos16Regular,
-} from "@/components/common/icons";
+import { SpinnerIos16Regular } from "@/components/common/icons";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
@@ -58,7 +55,7 @@ export function NewBatch({ projectId }: { projectId: string }) {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button>
-          <Add16Regular className="h-4 w-4" /> New batch
+           New batch
         </Button>
       </DialogTrigger>
       <DialogContent>
@@ -73,7 +70,7 @@ export function NewBatch({ projectId }: { projectId: string }) {
 
         <div className="space-y-4">
           <Field label="Kiln type" required>
-            <NativeSelect value={kilnType} onChange={(e) => setKilnType(e.target.value as KilnType)}>
+            <NativeSelect value={kilnType} onChange={(e) =>setKilnType(e.target.value as KilnType)}>
               {KILN_TYPES.map((k) => (
                 <option key={k.key} value={k.key}>
                   {k.label}
@@ -83,7 +80,7 @@ export function NewBatch({ projectId }: { projectId: string }) {
           </Field>
 
           <Field label="Feedstock category" hint="Optional — leave blank if mixed within the approved list">
-            <NativeSelect value={feedstock} onChange={(e) => setFeedstock(e.target.value)}>
+            <NativeSelect value={feedstock} onChange={(e) =>setFeedstock(e.target.value)}>
               <option value="">— not specified —</option>
               {FEEDSTOCK_CATEGORIES.map((f) => (
                 <option key={f.key} value={f.key}>
@@ -96,7 +93,7 @@ export function NewBatch({ projectId }: { projectId: string }) {
           <Field label="Temperature profile" hint="e.g. 550–620 °C flame-curtain curve">
             <Input
               value={tempProfile}
-              onChange={(e) => setTempProfile(e.target.value)}
+              onChange={(e) =>setTempProfile(e.target.value)}
               placeholder="Describe the shared temperature curve"
             />
           </Field>
@@ -104,7 +101,7 @@ export function NewBatch({ projectId }: { projectId: string }) {
           <Field label="Notes">
             <Textarea
               value={notes}
-              onChange={(e) => setNotes(e.target.value)}
+              onChange={(e) =>setNotes(e.target.value)}
               placeholder="Anything reviewers should know about this batch?"
             />
           </Field>
@@ -117,7 +114,7 @@ export function NewBatch({ projectId }: { projectId: string }) {
             </Button>
           </DialogClose>
           <Button onClick={handleCreate} disabled={busy}>
-            {busy ? <SpinnerIos16Regular className="h-4 w-4 animate-spin" /> : <Add16Regular className="h-4 w-4" />}
+            {busy ? <SpinnerIos16Regular className="h-4 w-4 animate-spin" /> : null}
             Open batch
           </Button>
         </DialogFooter>

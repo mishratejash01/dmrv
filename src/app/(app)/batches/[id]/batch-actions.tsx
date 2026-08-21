@@ -3,11 +3,7 @@
 import * as React from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import {
-  SpinnerIos16Regular,
-  LockClosed16Regular,
-  ShieldCheckmark16Regular,
-} from "@/components/common/icons";
+import { SpinnerIos16Regular } from "@/components/common/icons";
 import { setBatchStatus } from "@/lib/actions/production";
 import { createVerification } from "@/lib/actions/verification";
 import { Button } from "@/components/ui/button";
@@ -84,7 +80,7 @@ function CloseBatchButton({ batchId }: { batchId: string }) {
 
   return (
     <Button variant="secondary" onClick={close} disabled={busy}>
-      {busy ? <SpinnerIos16Regular className="h-4 w-4 animate-spin" /> : <LockClosed16Regular className="h-4 w-4" />}
+      {busy ? <SpinnerIos16Regular className="h-4 w-4 animate-spin" /> : null}
       Close batch
     </Button>
   );
@@ -147,7 +143,7 @@ function RequestVerificationDialog({
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button>
-          <ShieldCheckmark16Regular className="h-4 w-4" /> Request verification
+           Request verification
         </Button>
       </DialogTrigger>
       <DialogContent>
@@ -162,7 +158,7 @@ function RequestVerificationDialog({
             label="Verifier"
             hint={verifiers.length === 0 ? "No verifiers on this project yet" : "Notified on assignment"}
           >
-            <NativeSelect value={verifierId} onChange={(e) => setVerifierId(e.target.value)}>
+            <NativeSelect value={verifierId} onChange={(e) =>setVerifierId(e.target.value)}>
               <option value="">— unassigned —</option>
               {verifiers.map((v) => (
                 <option key={v.id} value={v.id}>
@@ -176,19 +172,19 @@ function RequestVerificationDialog({
               <Input
                 type="date"
                 value={periodStart}
-                onChange={(e) => setPeriodStart(e.target.value)}
+                onChange={(e) =>setPeriodStart(e.target.value)}
               />
             </Field>
             <Field label="Monitoring period end" required>
               <Input
                 type="date"
                 value={periodEnd}
-                onChange={(e) => setPeriodEnd(e.target.value)}
+                onChange={(e) =>setPeriodEnd(e.target.value)}
               />
             </Field>
           </div>
           <Field label="Audit type" required>
-            <NativeSelect value={auditType} onChange={(e) => setAuditType(e.target.value)}>
+            <NativeSelect value={auditType} onChange={(e) =>setAuditType(e.target.value)}>
               {AUDIT_TYPES.map((a) => (
                 <option key={a.key} value={a.key}>
                   {a.label}

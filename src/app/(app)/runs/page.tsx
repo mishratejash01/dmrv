@@ -1,10 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import {
-  ArrowUp16Regular,
-  ArrowDown16Regular,
-} from "@/components/common/icons";
+import { ArrowUp16Regular, ArrowDown16Regular } from "@/components/common/icons";
 import { getAppContext } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import type { RunStatus } from "@/lib/types/db";
@@ -130,7 +127,7 @@ export default async function RunsPage({
   }
 
   // kiln_runs → profiles has two FKs; fetch operator names separately.
-  const operatorIds = [...new Set(runs.map((r) => r.operator_id).filter(Boolean))] as string[];
+  const operatorIds = [...new Set(runs.map((r) =>r.operator_id).filter(Boolean))] as string[];
   const names = new Map<string, string>();
   if (operatorIds.length > 0) {
     const { data: profiles } = await supabase
@@ -204,7 +201,7 @@ export default async function RunsPage({
     .select("operator_id")
     .eq("project_id", project.id)
     .not("operator_id", "is", null);
-  const operatorIdList = [...new Set((operatorRows ?? []).map((r) => r.operator_id))] as string[];
+  const operatorIdList = [...new Set((operatorRows ?? []).map((r) =>r.operator_id))] as string[];
   const { data: operatorProfiles } = operatorIdList.length
     ? await supabase.from("profiles").select("id, full_name").in("id", operatorIdList)
     : { data: [] };
@@ -228,7 +225,7 @@ export default async function RunsPage({
             basePath="/runs"
             searchFields={[{ key: "code", label: "Run ID", placeholder: "e.g. KR-2026-014" }]}
             groups={[
-              { key: "status", label: "Status", options: FILTERS.filter((f) => f.key).map((f) => ({ value: f.key, label: f.label })) },
+              { key: "status", label: "Status", options: FILTERS.filter((f) =>f.key).map((f) => ({ value: f.key, label: f.label })) },
               { key: "site", label: "Site", options: sites.map((x) => ({ value: x.id, label: x.name, count: siteCounts[x.id] })) },
               { key: "kiln", label: "Kiln", options: sites.flatMap((x) => (x.kilns ?? []).map((k) => ({ value: k.id, label: k.code ?? k.name ?? "Kiln", count: kilnCounts[k.id] }))) },
               { key: "operator", label: "Operator", options: (operatorProfiles ?? []).map((o) => ({ value: o.id, label: o.full_name })) },

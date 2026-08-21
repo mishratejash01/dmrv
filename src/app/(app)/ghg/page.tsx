@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import {
-  ChevronDown16Regular,
-  Scales16Regular,
-} from "@/components/common/icons";
+import { ChevronDown16Regular } from "@/components/common/icons";
 import { getAppContext } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { Card, CardContent } from "@/components/ui/card";
@@ -117,10 +114,8 @@ export default async function GhgPage() {
         title="GHG quantification"
         description={`Net CO₂ removal computed as a comparative life-cycle assessment per ${METHODOLOGY.lcaStandard}. Functional unit: ${METHODOLOGY.functionalUnit}.`}
       />
-
-      {calcBatches.length === 0 ? (
+              {calcBatches.length === 0 ? (
         <EmptyState
-          icon={<Scales16Regular />}
           title="No batches to quantify yet"
           description="Open a production batch and record its lab results, then the calculator can quantify net CO₂ removal here."
         />
@@ -146,7 +141,6 @@ export default async function GhgPage() {
         <SectionHeader title="Saved quantifications" />
         {quants.length === 0 ? (
           <EmptyState
-            icon={<Scales16Regular />}
             title="No quantifications saved"
             description="Use the calculator above to compute and persist a batch's net CO₂ removal."
           />

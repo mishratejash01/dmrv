@@ -2,13 +2,7 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
-import {
-  SpinnerIos16Regular,
-  Add16Regular,
-  Checkmark16Regular,
-  ThumbLike16Regular,
-  ThumbDislike16Regular,
-} from "@/components/common/icons";
+import { SpinnerIos16Regular, Checkmark16Regular } from "@/components/common/icons";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -54,7 +48,7 @@ export function VerificationActions({ verificationId, canDecide, status, finding
   if (!canDecide) return null;
 
   const decided = status === "approved" || status === "rejected";
-  const openFindings = findings.filter((f) => f.status === "open");
+  const openFindings = findings.filter((f) =>f.status === "open");
 
   return (
     <Card className="no-print">
@@ -71,8 +65,7 @@ export function VerificationActions({ verificationId, canDecide, status, finding
         ) : (
           <>
             <AddFindingDialog verificationId={verificationId} />
-
-            {openFindings.length > 0 && (
+              {openFindings.length > 0 && (
               <div>
                 <p className="text-xs font-medium text-muted mb-2">Open findings</p>
                 <div className="space-y-2">
@@ -162,7 +155,7 @@ function AddFindingDialog({ verificationId }: { verificationId: string }) {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="secondary" className="w-full">
-          <Add16Regular className="h-4 w-4" /> Raise a finding
+           Raise a finding
         </Button>
       </DialogTrigger>
       <DialogContent>
@@ -178,12 +171,12 @@ function AddFindingDialog({ verificationId }: { verificationId: string }) {
             <Field label="Category" required hint="e.g. Sampling, GHG, Feedstock">
               <Input
                 value={category}
-                onChange={(e) => setCategory(e.target.value)}
+                onChange={(e) =>setCategory(e.target.value)}
                 placeholder="Category"
               />
             </Field>
             <Field label="Severity" required>
-              <NativeSelect value={severity} onChange={(e) => setSeverity(e.target.value as Severity)}>
+              <NativeSelect value={severity} onChange={(e) =>setSeverity(e.target.value as Severity)}>
                 {SEVERITIES.map((s) => (
                   <option key={s.key} value={s.key}>{s.label}</option>
                 ))}
@@ -193,20 +186,20 @@ function AddFindingDialog({ verificationId }: { verificationId: string }) {
           <Field label="Description" required>
             <Textarea
               value={description}
-              onChange={(e) => setDescription(e.target.value)}
+              onChange={(e) =>setDescription(e.target.value)}
               placeholder="What is the issue and what evidence supports it?"
             />
           </Field>
           <Field label="Related entity" hint="Run code, sample id, document reference…">
             <Input
               value={relatedEntity}
-              onChange={(e) => setRelatedEntity(e.target.value)}
+              onChange={(e) =>setRelatedEntity(e.target.value)}
               placeholder="e.g. Run KR-0142"
             />
           </Field>
         </div>
         <DialogFooter>
-          <Button variant="ghost" onClick={() => setOpen(false)} disabled={busy}>
+          <Button variant="ghost" onClick={() =>setOpen(false)} disabled={busy}>
             Cancel
           </Button>
           <Button onClick={handleSubmit} disabled={busy}>
@@ -251,7 +244,6 @@ function DecideDialog({
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant={isApprove ? "sage" : "danger"} className="w-full">
-          {isApprove ? <ThumbLike16Regular className="h-4 w-4" /> : <ThumbDislike16Regular className="h-4 w-4" />}
           {isApprove ? "Approve" : "Reject"}
         </Button>
       </DialogTrigger>
@@ -274,7 +266,7 @@ function DecideDialog({
           <Field label={isApprove ? "Summary" : "Reason"} hint="Recorded on the verification package">
             <Textarea
               value={summary}
-              onChange={(e) => setSummary(e.target.value)}
+              onChange={(e) =>setSummary(e.target.value)}
               placeholder={
                 isApprove
                   ? "The evidence chain was reviewed and found complete…"
@@ -284,7 +276,7 @@ function DecideDialog({
           </Field>
         </div>
         <DialogFooter>
-          <Button variant="ghost" onClick={() => setOpen(false)} disabled={busy}>
+          <Button variant="ghost" onClick={() =>setOpen(false)} disabled={busy}>
             Cancel
           </Button>
           <Button variant={isApprove ? "sage" : "danger"} onClick={handleSubmit} disabled={busy}>

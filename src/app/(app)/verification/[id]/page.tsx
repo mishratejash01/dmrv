@@ -1,15 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import {
-  ShieldCheckmark16Regular,
-  Fire16Regular,
-  Camera16Regular,
-  Beaker16Regular,
-  Scales16Regular,
-  LayerRegular,
-  Warning16Regular,
-} from "@/components/common/icons";
 import { getAppContext } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -79,7 +70,7 @@ export default async function VerificationDetailPage({
     | null;
   const ghg = (ghgRes.data as GhgRow[] | null)?.[0] ?? null;
   const lab = (labRes.data as LabRow[] | null)?.[0] ?? null;
-  const runIds = ((runsRes.data as { id: string }[] | null) ?? []).map((r) => r.id);
+  const runIds = ((runsRes.data as { id: string }[] | null) ?? []).map((r) =>r.id);
   const findings = findingsRes.data ?? [];
 
   // Run-photo count across the batch's runs.
@@ -106,7 +97,7 @@ export default async function VerificationDetailPage({
   const canDecide =
     ctx.can.canVerify && verification.verifier_id === ctx.profile.id;
 
-  const openFindings = findings.filter((f) => f.status === "open").length;
+  const openFindings = findings.filter((f) =>f.status === "open").length;
   const hc = lab ? Number(lab.hydrogen_carbon_molar_ratio) : null;
   const hcEligible = hc !== null && hc < HC_ORG.maxEligible;
 
@@ -135,7 +126,6 @@ export default async function VerificationDetailPage({
             <SectionHeader title="Batch under verification" />
             {!batch ? (
               <EmptyState
-                icon={<LayerRegular />}
                 title="No batch linked"
                 description="This verification is not linked to a production batch."
               />
@@ -167,13 +157,11 @@ export default async function VerificationDetailPage({
               </Card>
             )}
           </section>
-
-          {/* GHG result */}
+              {/* GHG result */}
           <section>
             <SectionHeader title="GHG quantification" />
             {!ghg ? (
               <EmptyState
-                icon={<Scales16Regular />}
                 title="No GHG result"
                 description="The batch has not been quantified — there is nothing to verify yet."
               />
@@ -203,13 +191,11 @@ export default async function VerificationDetailPage({
               </Card>
             )}
           </section>
-
-          {/* Lab summary */}
+              {/* Lab summary */}
           <section>
             <SectionHeader title="Laboratory results" />
             {!lab ? (
               <EmptyState
-                icon={<Beaker16Regular />}
                 title="No lab test"
                 description="No accredited-laboratory result is on file for this batch."
               />
@@ -258,41 +244,38 @@ export default async function VerificationDetailPage({
               </Card>
             )}
           </section>
-
-          {/* Evidence counts */}
+              {/* Evidence counts */}
           <section>
             <SectionHeader title="Evidence chain" />
             <div className="grid grid-cols-3 gap-4">
               <Card>
                 <CardContent className="pt-5 text-center">
-                  <Fire16Regular className="h-5 w-5 text-clay mx-auto" />
+                  
                   <p className="mt-2 font-display text-2xl text-ink tnum">{runIds.length}</p>
                   <p className="text-xs text-muted">Kiln runs</p>
                 </CardContent>
               </Card>
               <Card>
                 <CardContent className="pt-5 text-center">
-                  <Camera16Regular className="h-5 w-5 text-ochre mx-auto" />
+                  
                   <p className="mt-2 font-display text-2xl text-ink tnum">{photoCount}</p>
                   <p className="text-xs text-muted">Run photos</p>
                 </CardContent>
               </Card>
               <Card>
                 <CardContent className="pt-5 text-center">
-                  <Beaker16Regular className="h-5 w-5 text-sage mx-auto" />
+                  
                   <p className="mt-2 font-display text-2xl text-ink tnum">{lab ? 1 : 0}</p>
                   <p className="text-xs text-muted">Lab tests</p>
                 </CardContent>
               </Card>
             </div>
           </section>
-
-          {/* Findings */}
+              {/* Findings */}
           <section>
             <SectionHeader title="Findings" />
             {findings.length === 0 ? (
               <EmptyState
-                icon={<ShieldCheckmark16Regular />}
                 title="No findings raised"
                 description="No non-conformities have been recorded against this evidence chain."
               />
@@ -324,13 +307,12 @@ export default async function VerificationDetailPage({
             )}
           </section>
         </div>
-
-        {/* Side column */}
+              {/* Side column */}
         <div className="space-y-4">
           <Card>
             <CardHeader className="flex-row items-center justify-between">
               <CardTitle>Verification</CardTitle>
-              <ShieldCheckmark16Regular className="h-4 w-4 text-sage" />
+              
             </CardHeader>
             <CardContent>
               <dl>
@@ -355,10 +337,9 @@ export default async function VerificationDetailPage({
               )}
             </CardContent>
           </Card>
-
-          {openFindings > 0 && verification.status !== "rejected" && (
+              {openFindings > 0 && verification.status !== "rejected" && (
             <div className="no-print flex items-start gap-3 rounded-xl border border-ochre-soft bg-warn-tint px-4 py-3.5">
-              <Warning16Regular className="h-5 w-5 text-ochre shrink-0 mt-0.5" />
+              
               <p className="text-sm text-[#8a5200]">
                 {openFindings} finding{openFindings === 1 ? "" : "s"} still open on this package.
               </p>

@@ -1,12 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import {
-  ArrowLeft16Regular,
-  ClipboardTaskListLtrRegular,
-  Fire16Regular,
-  Location16Regular,
-} from "@/components/common/icons";
 import { getAppContext } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -60,8 +54,8 @@ export default async function SiteDetailPage({
   const peopleIds = [
     ...new Set(
       [
-        ...runs.map((r) => r.operator_id),
-        ...audits.map((a) => a.supervisor_id),
+        ...runs.map((r) =>r.operator_id),
+        ...audits.map((a) =>a.supervisor_id),
       ].filter((x): x is string => !!x),
     ),
   ];
@@ -101,8 +95,7 @@ export default async function SiteDetailPage({
         }
         description={
           <span className="flex flex-wrap items-center gap-1.5">
-            <Location16Regular className="h-3.5 w-3.5" />
-            {site.region ?? "Region not set"}
+              {site.region ?? "Region not set"}
             {hasGps && (
               <span className="tnum">
                 {" · "}
@@ -114,15 +107,15 @@ export default async function SiteDetailPage({
       >
         <Button asChild variant="outline">
           <Link href="/sites">
-            <ArrowLeft16Regular className="h-4 w-4" /> All sites
+             All sites
           </Link>
         </Button>
       </PageHeader>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
-        <Stat label="Kilns" value={fmt(kilns.length, 0)} icon={<Fire16Regular />} tone="clay" />
+        <Stat label="Kilns" value={fmt(kilns.length, 0)} tone="clay" />
         <Stat label="Kiln runs" value={fmt(runs.length, 0)} tone="ochre" hint="Most recent 12" />
-        <Stat label="Site audits" value={fmt(audits.length, 0)} icon={<ClipboardTaskListLtrRegular />} tone="sage" />
+        <Stat label="Site audits" value={fmt(audits.length, 0)} tone="sage" />
         <Stat label="Code" value={site.code} tone="info" />
       </div>
 
@@ -135,7 +128,6 @@ export default async function SiteDetailPage({
             <Card>
               {kilns.length === 0 ? (
                 <EmptyState
-                  icon={<Fire16Regular />}
                   title="No kilns at this site"
                   description="Register the kilns installed here to start logging runs against them."
                   className="border-0"
@@ -174,8 +166,7 @@ export default async function SiteDetailPage({
               )}
             </Card>
           </section>
-
-          {/* Recent runs */}
+              {/* Recent runs */}
           <section>
             <SectionHeader
               title="Recent kiln runs"
@@ -188,7 +179,6 @@ export default async function SiteDetailPage({
             <Card>
               {runs.length === 0 ? (
                 <EmptyState
-                  icon={<Fire16Regular />}
                   title="No runs logged here yet"
                   description="Kiln runs recorded at this site will appear here."
                   className="border-0"
@@ -241,13 +231,11 @@ export default async function SiteDetailPage({
               )}
             </Card>
           </section>
-
-          {/* Site audits */}
+              {/* Site audits */}
           <section>
             <SectionHeader title="Site audits" />
             {audits.length === 0 ? (
               <EmptyState
-                icon={<ClipboardTaskListLtrRegular />}
                 title="No site audits recorded"
                 description="Supervisor visits and their findings will be listed here."
               />
@@ -299,13 +287,12 @@ export default async function SiteDetailPage({
             )}
           </section>
         </div>
-
-        {/* Side column */}
+              {/* Side column */}
         <div className="space-y-4">
           <Card className="overflow-hidden">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Location16Regular className="h-4 w-4 text-clay" /> Location
+                 Location
               </CardTitle>
             </CardHeader>
             <CardContent>

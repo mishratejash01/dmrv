@@ -3,14 +3,7 @@
 import * as React from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import {
-  SpinnerIos16Regular,
-  ApprovalsApp16Regular,
-  Ribbon16Regular,
-  Archive16Regular,
-  ArrowSwap16Regular,
-  ShieldCheckmark16Regular,
-} from "@/components/common/icons";
+import { SpinnerIos16Regular } from "@/components/common/icons";
 import { Button } from "@/components/ui/button";
 import { Input, Textarea, Field } from "@/components/ui/input";
 import {
@@ -60,7 +53,7 @@ export function InitiateIssuanceButton({
 
   return (
     <Button size="sm" onClick={run} disabled={busy}>
-      {busy ? <SpinnerIos16Regular className="h-4 w-4 animate-spin" /> : <ApprovalsApp16Regular className="h-4 w-4" />}
+      {busy ? <SpinnerIos16Regular className="h-4 w-4 animate-spin" /> : null}
       Initiate issuance
     </Button>
   );
@@ -85,7 +78,7 @@ export function ApproveIssuanceButton({
       <Tooltip content="Two-person control — a different registry admin must approve this issuance.">
         <span className="inline-flex">
           <Button size="sm" variant="secondary" disabled>
-            <ShieldCheckmark16Regular className="h-4 w-4" /> Awaiting second admin
+             Awaiting second admin
           </Button>
         </span>
       </Tooltip>
@@ -106,7 +99,7 @@ export function ApproveIssuanceButton({
 
   return (
     <Button size="sm" variant="sage" onClick={run} disabled={busy}>
-      {busy ? <SpinnerIos16Regular className="h-4 w-4 animate-spin" /> : <Ribbon16Regular className="h-4 w-4" />}
+      {busy ? <SpinnerIos16Regular className="h-4 w-4 animate-spin" /> : null}
       Approve &amp; issue
     </Button>
   );
@@ -150,14 +143,14 @@ export function RetireCreditDialog({
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button size="sm" variant="secondary">
-          <Archive16Regular className="h-4 w-4" /> Retire
+           Retire
         </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Retire credit</DialogTitle>
           <DialogDescription>
-            Retiring locks <span className="font-mono text-ink">{serial}</span> to a beneficiary
+            Retiring locks <span className="font-mono text-ink">{serial}</span>to a beneficiary
             forever. It can never be transferred or claimed again.
           </DialogDescription>
         </DialogHeader>
@@ -165,14 +158,14 @@ export function RetireCreditDialog({
           <Field label="Beneficiary" required hint="Who claims the climate benefit">
             <Input
               value={beneficiary}
-              onChange={(e) => setBeneficiary(e.target.value)}
+              onChange={(e) =>setBeneficiary(e.target.value)}
               placeholder="e.g. Acme Corp — FY2026 net-zero claim"
             />
           </Field>
           <Field label="Reason" required>
             <Textarea
               value={reason}
-              onChange={(e) => setReason(e.target.value)}
+              onChange={(e) =>setReason(e.target.value)}
               placeholder="e.g. Voluntary offsetting of Scope 1 emissions"
             />
           </Field>
@@ -182,7 +175,7 @@ export function RetireCreditDialog({
             <Button variant="ghost">Cancel</Button>
           </DialogClose>
           <Button variant="sage" onClick={run} disabled={busy}>
-            {busy ? <SpinnerIos16Regular className="h-4 w-4 animate-spin" /> : <Archive16Regular className="h-4 w-4" />}
+            {busy ? <SpinnerIos16Regular className="h-4 w-4 animate-spin" /> : null}
             Retire credit
           </Button>
         </DialogFooter>
@@ -228,7 +221,7 @@ export function TransferCreditDialog({
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button size="sm" variant="secondary">
-          <ArrowSwap16Regular className="h-4 w-4" /> Transfer
+           Transfer
         </Button>
       </DialogTrigger>
       <DialogContent>
@@ -243,7 +236,7 @@ export function TransferCreditDialog({
         <Field label="New holder" required>
           <Input
             value={toHolder}
-            onChange={(e) => setToHolder(e.target.value)}
+            onChange={(e) =>setToHolder(e.target.value)}
             placeholder="e.g. Windward Climate Fund"
           />
         </Field>
@@ -252,7 +245,7 @@ export function TransferCreditDialog({
             <Button variant="ghost">Cancel</Button>
           </DialogClose>
           <Button onClick={run} disabled={busy}>
-            {busy ? <SpinnerIos16Regular className="h-4 w-4 animate-spin" /> : <ArrowSwap16Regular className="h-4 w-4" />}
+            {busy ? <SpinnerIos16Regular className="h-4 w-4 animate-spin" /> : null}
             Transfer
           </Button>
         </DialogFooter>

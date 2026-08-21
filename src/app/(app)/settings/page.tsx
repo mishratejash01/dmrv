@@ -1,7 +1,4 @@
 import type { Metadata } from "next";
-import {
-  BookOpen16Regular,
-} from "@/components/common/icons";
 import { getAppContext } from "@/lib/auth";
 import { Card, CardContent, CardHeader, CardDescription, CardTitle } from "@/components/ui/card";
 import { PageHeader, SectionHeader, DataRow } from "@/components/ui/misc";
@@ -31,12 +28,11 @@ export default async function SettingsPage() {
             canManageProject={ctx.can.canManageProject}
           />
         </div>
-
-        {/* Methodology reference (read-only) */}
+              {/* Methodology reference (read-only) */}
         <div className="space-y-4">
           <Card>
             <CardHeader className="flex-row items-center gap-2">
-              <BookOpen16Regular className="h-4 w-4 text-clay" />
+              
               <div>
                 <CardTitle>Methodology</CardTitle>
                 <CardDescription>{METHODOLOGY.name}</CardDescription>
@@ -85,15 +81,14 @@ export default async function SettingsPage() {
           </Card>
         </div>
       </div>
-
-      {!ctx.can.canManageProject && (
+              {!ctx.can.canManageProject && (
         <div className="mt-4">
           <SectionHeader title="Project configuration" />
           <Card>
             <CardContent className="pt-5">
               <p className="text-sm text-muted">
                 Project settings are managed by project developers.{" "}
-                <Badge tone="neutral">{project.code}</Badge> is currently{" "}
+                <Badge tone="neutral">{project.code}</Badge>is currently{" "}
                 <span className="text-ink">{project.status}</span>.
               </p>
             </CardContent>

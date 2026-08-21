@@ -3,13 +3,7 @@
 import * as React from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import {
-  Key16Regular,
-  SpinnerIos16Regular,
-  Location16Regular,
-  Delete16Regular,
-  PersonAdd16Regular,
-} from "@/components/common/icons";
+import { SpinnerIos16Regular } from "@/components/common/icons";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -97,7 +91,7 @@ export function InviteMemberDialog({ projectId }: { projectId: string }) {
     >
       <DialogTrigger asChild>
         <Button>
-          <PersonAdd16Regular className="h-4 w-4" /> Invite member
+           Invite member
         </Button>
       </DialogTrigger>
       <DialogContent>
@@ -112,7 +106,7 @@ export function InviteMemberDialog({ projectId }: { projectId: string }) {
             </DialogHeader>
             <div className="flex items-center justify-between gap-3 rounded-lg border border-border bg-surface px-4 py-3">
               <span className="flex items-center gap-2 text-sm font-medium text-ink tnum">
-                <Key16Regular className="h-4 w-4 text-ochre" /> {issued.tempPassword}
+                 {issued.tempPassword}
               </span>
               <CopyButton value={issued.tempPassword} label="Copy" />
             </div>
@@ -141,7 +135,7 @@ export function InviteMemberDialog({ projectId }: { projectId: string }) {
                 <Input
                   type="email"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e) =>setEmail(e.target.value)}
                   placeholder="name@example.org"
                   autoComplete="off"
                 />
@@ -149,7 +143,7 @@ export function InviteMemberDialog({ projectId }: { projectId: string }) {
               <Field label="Full name" hint="Used when creating a new account">
                 <Input
                   value={fullName}
-                  onChange={(e) => setFullName(e.target.value)}
+                  onChange={(e) =>setFullName(e.target.value)}
                   placeholder="e.g. Asha Verma"
                 />
               </Field>
@@ -158,7 +152,7 @@ export function InviteMemberDialog({ projectId }: { projectId: string }) {
                 required
                 hint="Operators produce biochar; supervisors, developers and verifiers review it. Keep these duties separate."
               >
-                <NativeSelect value={role} onChange={(e) => setRole(e.target.value as ProjectRole)}>
+                <NativeSelect value={role} onChange={(e) =>setRole(e.target.value as ProjectRole)}>
                   {ROLE_OPTIONS.map(([key, label]) => (
                     <option key={key} value={key}>
                       {label}
@@ -172,7 +166,7 @@ export function InviteMemberDialog({ projectId }: { projectId: string }) {
                 <Button variant="secondary">Cancel</Button>
               </DialogClose>
               <Button onClick={handleInvite} disabled={busy}>
-                {busy ? <SpinnerIos16Regular className="h-4 w-4 animate-spin" /> : <PersonAdd16Regular className="h-4 w-4" />}
+                {busy ? <SpinnerIos16Regular className="h-4 w-4 animate-spin" /> : null}
                 Invite
               </Button>
             </DialogFooter>
@@ -225,7 +219,7 @@ export function AssignOperatorDialog({
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="secondary">
-          <Location16Regular className="h-4 w-4" /> Assign to site
+           Assign to site
         </Button>
       </DialogTrigger>
       <DialogContent>
@@ -238,7 +232,7 @@ export function AssignOperatorDialog({
         {ready ? (
           <div className="space-y-4">
             <Field label="Operator" required>
-              <NativeSelect value={userId} onChange={(e) => setUserId(e.target.value)}>
+              <NativeSelect value={userId} onChange={(e) =>setUserId(e.target.value)}>
                 {operators.map((o) => (
                   <option key={o.id} value={o.id}>
                     {o.full_name} ({o.email})
@@ -247,7 +241,7 @@ export function AssignOperatorDialog({
               </NativeSelect>
             </Field>
             <Field label="Site" required>
-              <NativeSelect value={siteId} onChange={(e) => setSiteId(e.target.value)}>
+              <NativeSelect value={siteId} onChange={(e) =>setSiteId(e.target.value)}>
                 {sites.map((s) => (
                   <option key={s.id} value={s.id}>
                     {s.name} ({s.code})
@@ -268,7 +262,7 @@ export function AssignOperatorDialog({
             <Button variant="secondary">Cancel</Button>
           </DialogClose>
           <Button onClick={handleAssign} disabled={busy || !ready}>
-            {busy ? <SpinnerIos16Regular className="h-4 w-4 animate-spin" /> : <Location16Regular className="h-4 w-4" />}
+            {busy ? <SpinnerIos16Regular className="h-4 w-4 animate-spin" /> : null}
             Assign
           </Button>
         </DialogFooter>
@@ -316,7 +310,7 @@ export function RemoveMemberButton({
           className="h-8 w-8 text-muted hover:text-err"
           aria-label={`Remove ${name}`}
         >
-          <Delete16Regular className="h-4 w-4" />
+          
         </Button>
       </DialogTrigger>
       <DialogContent className="max-w-md">
@@ -332,7 +326,7 @@ export function RemoveMemberButton({
             <Button variant="secondary">Cancel</Button>
           </DialogClose>
           <Button variant="danger" onClick={handleRemove} disabled={busy}>
-            {busy ? <SpinnerIos16Regular className="h-4 w-4 animate-spin" /> : <Delete16Regular className="h-4 w-4" />}
+            {busy ? <SpinnerIos16Regular className="h-4 w-4 animate-spin" /> : null}
             Remove
           </Button>
         </DialogFooter>

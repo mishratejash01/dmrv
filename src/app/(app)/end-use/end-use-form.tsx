@@ -2,10 +2,7 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
-import {
-  SpinnerIos16Regular,
-  PlantGrassRegular,
-} from "@/components/common/icons";
+import { SpinnerIos16Regular } from "@/components/common/icons";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
@@ -93,7 +90,7 @@ export function EndUseForm({ projectId, batches }: Props) {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button>
-          <PlantGrassRegular className="h-4 w-4" /> Record application
+           Record application
         </Button>
       </DialogTrigger>
       <DialogContent>
@@ -107,7 +104,7 @@ export function EndUseForm({ projectId, batches }: Props) {
         <div className="space-y-4">
           <div className="grid sm:grid-cols-2 gap-4">
             <Field label="Production batch" hint={batches.length === 0 ? "No batches yet" : "Traceability back to the batch"}>
-              <NativeSelect value={batchId} onChange={(e) => setBatchId(e.target.value)}>
+              <NativeSelect value={batchId} onChange={(e) =>setBatchId(e.target.value)}>
                 <option value="">— unassigned —</option>
                 {batches.map((b) => (
                   <option key={b.id} value={b.id}>{b.code}</option>
@@ -120,13 +117,13 @@ export function EndUseForm({ projectId, batches }: Props) {
                 min="0"
                 inputMode="decimal"
                 value={quantity}
-                onChange={(e) => setQuantity(e.target.value)}
+                onChange={(e) =>setQuantity(e.target.value)}
                 placeholder="e.g. 850"
               />
             </Field>
           </div>
           <Field label="Application method" required>
-            <NativeSelect value={method} onChange={(e) => setMethod(e.target.value)}>
+            <NativeSelect value={method} onChange={(e) =>setMethod(e.target.value)}>
               {APPLICATION_METHODS.map((m) => (
                 <option key={m.key} value={m.key}>{m.label}</option>
               ))}
@@ -136,14 +133,14 @@ export function EndUseForm({ projectId, batches }: Props) {
             <Field label="Recipient" hint="Farmer, cooperative or off-taker">
               <Input
                 value={recipientName}
-                onChange={(e) => setRecipientName(e.target.value)}
+                onChange={(e) =>setRecipientName(e.target.value)}
                 placeholder="e.g. Karwar farmer collective"
               />
             </Field>
             <Field label="Recipient contact">
               <Input
                 value={recipientContact}
-                onChange={(e) => setRecipientContact(e.target.value)}
+                onChange={(e) =>setRecipientContact(e.target.value)}
                 placeholder="Phone or email"
               />
             </Field>
@@ -154,7 +151,7 @@ export function EndUseForm({ projectId, batches }: Props) {
                 type="number"
                 inputMode="decimal"
                 value={latitude}
-                onChange={(e) => setLatitude(e.target.value)}
+                onChange={(e) =>setLatitude(e.target.value)}
                 placeholder="e.g. 14.8138"
               />
             </Field>
@@ -163,7 +160,7 @@ export function EndUseForm({ projectId, batches }: Props) {
                 type="number"
                 inputMode="decimal"
                 value={longitude}
-                onChange={(e) => setLongitude(e.target.value)}
+                onChange={(e) =>setLongitude(e.target.value)}
                 placeholder="e.g. 74.1297"
               />
             </Field>
@@ -171,20 +168,20 @@ export function EndUseForm({ projectId, batches }: Props) {
               <Input
                 type="datetime-local"
                 value={appliedAt}
-                onChange={(e) => setAppliedAt(e.target.value)}
+                onChange={(e) =>setAppliedAt(e.target.value)}
               />
             </Field>
           </div>
           <Field label="Notes">
             <Textarea
               value={notes}
-              onChange={(e) => setNotes(e.target.value)}
+              onChange={(e) =>setNotes(e.target.value)}
               placeholder="Field conditions, application rate, anything a verifier should know…"
             />
           </Field>
         </div>
         <DialogFooter>
-          <Button variant="ghost" onClick={() => setOpen(false)} disabled={busy}>
+          <Button variant="ghost" onClick={() =>setOpen(false)} disabled={busy}>
             Cancel
           </Button>
           <Button onClick={handleSubmit} disabled={busy}>

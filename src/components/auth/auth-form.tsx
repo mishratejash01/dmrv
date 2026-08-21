@@ -3,12 +3,7 @@
 import * as React from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
-import {
-  Mail16Regular,
-  Key16Regular,
-  SpinnerIos16Regular,
-  Sparkle16Regular,
-} from "@/components/common/icons";
+import { SpinnerIos16Regular } from "@/components/common/icons";
 import { toast } from "sonner";
 import { createClient } from "@/lib/supabase/client";
 import { BRAND } from "@/lib/brand";
@@ -36,7 +31,7 @@ export function AuthForm({ mode }: { mode: "login" | "signup" }) {
   const [loading, setLoading] = React.useState(false);
   const [magic, setMagic] = React.useState(false);
 
-  const supabase = React.useMemo(() => createClient(), []);
+  const supabase = React.useMemo(() =>createClient(), []);
 
   async function signIn(withEmail: string, withPassword: string) {
     setLoading(true);
@@ -99,7 +94,7 @@ export function AuthForm({ mode }: { mode: "login" | "signup" }) {
           <Field label="Full name">
             <Input
               value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
+              onChange={(e) =>setFullName(e.target.value)}
               placeholder="Your name"
               autoComplete="name"
             />
@@ -109,7 +104,7 @@ export function AuthForm({ mode }: { mode: "login" | "signup" }) {
           <Input
             type="email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) =>setEmail(e.target.value)}
             placeholder="you@organisation.com"
             autoComplete="email"
             required
@@ -120,7 +115,7 @@ export function AuthForm({ mode }: { mode: "login" | "signup" }) {
             <Input
               type="password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) =>setPassword(e.target.value)}
               placeholder="••••••••"
               autoComplete={mode === "signup" ? "new-password" : "current-password"}
               required
@@ -129,13 +124,7 @@ export function AuthForm({ mode }: { mode: "login" | "signup" }) {
         )}
 
         <Button type="submit" className="w-full" disabled={loading} size="lg">
-          {loading ? (
-            <SpinnerIos16Regular className="h-4 w-4 animate-spin" />
-          ) : magic ? (
-            <Mail16Regular className="h-4 w-4" />
-          ) : (
-            <Key16Regular className="h-4 w-4" />
-          )}
+          {loading && <SpinnerIos16Regular className="h-4 w-4 animate-spin" />}
           {magic ? "Send magic link" : mode === "signup" ? "Create account" : "Sign in"}
         </Button>
       </form>
@@ -143,7 +132,7 @@ export function AuthForm({ mode }: { mode: "login" | "signup" }) {
       <div className="mt-3 flex items-center justify-between text-sm">
         <button
           type="button"
-          onClick={() => setMagic((m) => !m)}
+          onClick={() =>setMagic((m) => !m)}
           className="text-clay hover:underline"
         >
           {magic ? "Use a password" : "Email me a magic link"}
@@ -158,12 +147,10 @@ export function AuthForm({ mode }: { mode: "login" | "signup" }) {
           </Link>
         )}
       </div>
-
-      {/* Demo accounts */}
+              {/* Demo accounts */}
       <div className="mt-5 pt-6 border-t border-border">
         <div className="flex items-center gap-1.5 text-xs text-muted mb-3">
-          <Sparkle16Regular className="h-3.5 w-3.5 text-ochre" />
-          One-click demo sign-in
+              One-click demo sign-in
         </div>
         <div className="grid grid-cols-2 gap-2">
           {DEMO_ACCOUNTS.map((a) => (
@@ -171,7 +158,7 @@ export function AuthForm({ mode }: { mode: "login" | "signup" }) {
               key={a.email}
               type="button"
               disabled={loading}
-              onClick={() => signIn(a.email, DEMO_PASSWORD)}
+              onClick={() =>signIn(a.email, DEMO_PASSWORD)}
               className="text-left rounded-lg border border-border bg-surface/60 px-3 py-2 hover:bg-surface hover:border-border-strong transition-colors disabled:opacity-50"
             >
               <span className="block text-sm font-medium text-ink">{a.role}</span>

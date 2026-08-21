@@ -2,15 +2,7 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
-import {
-  SpinnerIos16Regular,
-  Add16Regular,
-  Rss16Regular,
-  Delete16Regular,
-  Warning16Regular,
-  PlugDisconnected16Regular,
-  PowerRegular,
-} from "@/components/common/icons";
+import { SpinnerIos16Regular } from "@/components/common/icons";
 import { toast } from "sonner";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -64,7 +56,6 @@ export function DeviceManager({ projectId, kilns, devices, canManage }: Props) {
       />
       {devices.length === 0 ? (
         <EmptyState
-          icon={<Rss16Regular />}
           title="No sensor devices registered"
           description="Register a temperature logger to stream kiln readings automatically. Until a device reports, runs fall back to the operator's entered temperature."
         />
@@ -131,8 +122,7 @@ function DeviceItem({ device, canManage }: { device: DeviceRow; canManage: boole
             aria-label={device.active ? "Deactivate" : "Reactivate"}
             title={device.active ? "Deactivate" : "Reactivate"}
           >
-            {device.active ? <PlugDisconnected16Regular className="h-4 w-4" /> : <PowerRegular className="h-4 w-4" />}
-          </button>
+            </button>
           <button
             type="button"
             onClick={remove}
@@ -140,7 +130,7 @@ function DeviceItem({ device, canManage }: { device: DeviceRow; canManage: boole
             className="text-muted hover:text-err transition-colors"
             aria-label="Remove device"
           >
-            {busy ? <SpinnerIos16Regular className="h-4 w-4 animate-spin" /> : <Delete16Regular className="h-4 w-4" />}
+            {busy ? <SpinnerIos16Regular className="h-4 w-4 animate-spin" /> : null}
           </button>
         </div>
       )}
@@ -165,7 +155,7 @@ function AddDeviceDialog({
   async function handleSubmit() {
     if (!label.trim()) return toast.error("Give the device a name.");
     setBusy(true);
-    const kiln = kilns.find((k) => k.id === kilnId);
+    const kiln = kilns.find((k) =>k.id === kilnId);
     const res = await createIngestDevice({
       project_id: projectId,
       kiln_id: kilnId || null,
@@ -198,7 +188,7 @@ function AddDeviceDialog({
     >
       <DialogTrigger asChild>
         <Button size="sm">
-          <Add16Regular className="h-4 w-4" /> Add device
+           Add device
         </Button>
       </DialogTrigger>
       <DialogContent>
@@ -214,8 +204,7 @@ function AddDeviceDialog({
             <div className="space-y-4">
               <div className="rounded-lg border border-ochre-soft bg-warn-tint px-3 py-2.5">
                 <p className="text-sm text-[#8a5200] flex items-start gap-1.5">
-                  <Warning16Regular className="h-4 w-4 shrink-0 mt-0.5" />
-                  This is the only time this key is shown.
+              This is the only time this key is shown.
                 </p>
               </div>
               <div className="rounded-lg border border-border bg-surface/60 p-3">
@@ -230,7 +219,7 @@ function AddDeviceDialog({
                   POST /api/sensors/ingest
                 </div>
                 <p className="mt-1.5 text-xs text-muted">
-                  Send the key as <span className="font-mono">Authorization: Bearer …</span> with
+                  Send the key as <span className="font-mono">Authorization: Bearer …</span>with
                   readings of <span className="font-mono">
                     {"{ reading_type, value, unit, recorded_at }"}
                   </span>.
@@ -254,12 +243,12 @@ function AddDeviceDialog({
               <Field label="Device name" required hint="e.g. Kon-Tiki 1 thermocouple">
                 <Input
                   value={label}
-                  onChange={(e) => setLabel(e.target.value)}
+                  onChange={(e) =>setLabel(e.target.value)}
                   placeholder="Device name"
                 />
               </Field>
               <Field label="Kiln" hint="Readings without an explicit kiln default to this one">
-                <NativeSelect value={kilnId} onChange={(e) => setKilnId(e.target.value)}>
+                <NativeSelect value={kilnId} onChange={(e) =>setKilnId(e.target.value)}>
                   <option value="">— unassigned —</option>
                   {kilns.map((k) => (
                     <option key={k.id} value={k.id}>{k.name}</option>

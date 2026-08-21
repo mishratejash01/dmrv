@@ -1,20 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import {
-  ArrowUpRight16Regular,
-  Ribbon16Regular,
-  BoxMultipleRegular,
-  Camera16Regular,
-  Fire16Regular,
-  Beaker16Regular,
-  LeafOne16Regular,
-  Organization16Regular,
-  Scales16Regular,
-  ShieldCheckmark16Regular,
-  PlantGrassRegular,
-  Wallet16Regular,
-} from "@/components/common/icons";
 import { getAppContext } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { Card, CardContent } from "@/components/ui/card";
@@ -44,7 +30,6 @@ const TONE_RING: Record<StepTone, string> = {
 function Step({
   index,
   total,
-  icon,
   eyebrow,
   title,
   tone = "clay",
@@ -53,7 +38,6 @@ function Step({
 }: {
   index: number;
   total: number;
-  icon: ReactNode;
   eyebrow: string;
   title: ReactNode;
   tone?: StepTone;
@@ -74,7 +58,6 @@ function Step({
           TONE_RING[tone],
         )}
       >
-        {icon}
       </span>
       <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
         <p className="text-xs uppercase tracking-wide text-muted">
@@ -96,7 +79,7 @@ function TraceLink({ href, children }: { href: string; children: ReactNode }) {
       href={href}
       className="text-sm text-clay hover:underline flex items-center gap-1 shrink-0"
     >
-      {children} <ArrowUpRight16Regular className="h-3.5 w-3.5" />
+      {children} 
     </Link>
   );
 }
@@ -134,7 +117,6 @@ export default async function TraceabilityPage({
         <div>
           {header}
           <EmptyState
-            icon={<Organization16Regular />}
             title="Credit not found"
             description={`No credit with serial ${creditSerial} exists in this project.`}
             action={<TraceLink href="/traceability">Back to traceability</TraceLink>}
@@ -223,9 +205,9 @@ export default async function TraceabilityPage({
 
     // Feedstock deliveries feeding those runs
     const fsIds = Array.from(
-      new Set(runs.map((r) => r.feedstock_batch_id).filter((x): x is string => !!x)),
+      new Set(runs.map((r) =>r.feedstock_batch_id).filter((x): x is string => !!x)),
     );
-    const runIds = runs.map((r) => r.id);
+    const runIds = runs.map((r) =>r.id);
     const [fsRes, photoRes] = await Promise.all([
       fsIds.length
         ? supabase
@@ -258,12 +240,11 @@ export default async function TraceabilityPage({
 
     const parsed = parseSerial(credit.serial_number);
     const kilnLabel = batch
-      ? KILN_TYPES.find((k) => k.key === batch.kiln_type)?.label ?? humanize(batch.kiln_type)
+      ? KILN_TYPES.find((k) =>k.key === batch.kiln_type)?.label ?? humanize(batch.kiln_type)
       : "—";
 
     // Build the ordered chain of steps that actually exist.
     const steps: {
-      icon: ReactNode;
       eyebrow: string;
       title: ReactNode;
       tone: StepTone;
@@ -272,7 +253,6 @@ export default async function TraceabilityPage({
     }[] = [];
 
     steps.push({
-      icon: <Ribbon16Regular />,
       eyebrow: "Carbon credit",
       title: <span className="tnum">{credit.serial_number}</span>,
       tone: "clay",
@@ -307,7 +287,6 @@ export default async function TraceabilityPage({
 
     if (issuance) {
       steps.push({
-        icon: <Wallet16Regular />,
         eyebrow: "Issuance",
         title: `${fmt(Number(issuance.net_issued_tco2e), 0)} credits issued`,
         tone: "ochre",
@@ -333,7 +312,7 @@ export default async function TraceabilityPage({
                 <span className="tnum">{fmtCo2(Number(issuance.net_issued_tco2e), 0)}</span>
               </DataRow>
               <DataRow label="This serial is 1 of">
-                <span className="tnum">{creditsInIssuance}</span> credits
+                <span className="tnum">{creditsInIssuance}</span>credits
               </DataRow>
               <DataRow label="Issued">{fmtDate(issuance.issued_at)}</DataRow>
             </dl>
@@ -344,7 +323,6 @@ export default async function TraceabilityPage({
 
     if (verification) {
       steps.push({
-        icon: <ShieldCheckmark16Regular />,
         eyebrow: "Verification",
         title: `${humanize(verification.audit_type)} audit`,
         tone: "sage",
@@ -362,7 +340,6 @@ export default async function TraceabilityPage({
 
     if (ghg) {
       steps.push({
-        icon: <Scales16Regular />,
         eyebrow: "GHG quantification",
         title: (
           <span className="tnum">{fmtCo2(Number(ghg.net_co2_removed_tco2e))} net removed</span>
@@ -386,7 +363,6 @@ export default async function TraceabilityPage({
 
     if (lab) {
       steps.push({
-        icon: <Beaker16Regular />,
         eyebrow: "Lab test",
         title: String(lab.lab_name),
         tone: "info",
@@ -408,7 +384,6 @@ export default async function TraceabilityPage({
 
     if (batch) {
       steps.push({
-        icon: <BoxMultipleRegular />,
         eyebrow: "Production batch",
         title: batch.code,
         tone: "clay",
@@ -437,7 +412,6 @@ export default async function TraceabilityPage({
     }
 
     steps.push({
-      icon: <Fire16Regular />,
       eyebrow: "Kiln runs",
       title: `${runs.length} run${runs.length === 1 ? "" : "s"} in this batch`,
       tone: "clay",
@@ -474,7 +448,6 @@ export default async function TraceabilityPage({
     });
 
     steps.push({
-      icon: <PlantGrassRegular />,
       eyebrow: "Feedstock deliveries",
       title: `${feedstocks.length} deliver${feedstocks.length === 1 ? "y" : "ies"} at the root`,
       tone: "sage",
@@ -507,7 +480,6 @@ export default async function TraceabilityPage({
 
     if (photos.length > 0) {
       steps.push({
-        icon: <Camera16Regular />,
         eyebrow: "Field evidence",
         title: `${photos.length} run photo${photos.length === 1 ? "" : "s"}`,
         tone: "ochre",
@@ -517,7 +489,6 @@ export default async function TraceabilityPage({
 
     if (endUses.length > 0) {
       steps.push({
-        icon: <LeafOne16Regular />,
         eyebrow: "Carbon locking",
         title: `${endUses.length} end-use record${endUses.length === 1 ? "" : "s"}`,
         tone: "sage",
@@ -558,7 +529,6 @@ export default async function TraceabilityPage({
               key={i}
               index={i}
               total={steps.length}
-              icon={s.icon}
               eyebrow={s.eyebrow}
               title={s.title}
               tone={s.tone}
@@ -587,7 +557,6 @@ export default async function TraceabilityPage({
         <div>
           {header}
           <EmptyState
-            icon={<Organization16Regular />}
             title="Delivery not found"
             description="No feedstock delivery with that id exists in this project."
             action={<TraceLink href="/traceability">Back to traceability</TraceLink>}
@@ -615,7 +584,7 @@ export default async function TraceabilityPage({
     }[];
 
     const batchIds = Array.from(
-      new Set(runs.map((r) => r.production_batch_id).filter((x): x is string => !!x)),
+      new Set(runs.map((r) =>r.production_batch_id).filter((x): x is string => !!x)),
     );
 
     const [batchesRes, issuancesRes] = await Promise.all([
@@ -648,7 +617,7 @@ export default async function TraceabilityPage({
       serial_prefix: string | null;
     }[];
 
-    const issuanceIds = issuances.map((i) => i.id);
+    const issuanceIds = issuances.map((i) =>i.id);
     const { data: creditsData } = issuanceIds.length
       ? await supabase
           .from("rcc_credits")
@@ -664,7 +633,6 @@ export default async function TraceabilityPage({
     }[];
 
     const steps: {
-      icon: ReactNode;
       eyebrow: string;
       title: ReactNode;
       tone: StepTone;
@@ -673,7 +641,6 @@ export default async function TraceabilityPage({
     }[] = [];
 
     steps.push({
-      icon: <PlantGrassRegular />,
       eyebrow: "Feedstock delivery",
       title: feedstock.source,
       tone: "sage",
@@ -699,7 +666,6 @@ export default async function TraceabilityPage({
     });
 
     steps.push({
-      icon: <Fire16Regular />,
       eyebrow: "Kiln runs",
       title: `Charred in ${runs.length} run${runs.length === 1 ? "" : "s"}`,
       tone: "clay",
@@ -736,7 +702,6 @@ export default async function TraceabilityPage({
     });
 
     steps.push({
-      icon: <BoxMultipleRegular />,
       eyebrow: "Production batches",
       title: `Grouped into ${batches.length} batch${batches.length === 1 ? "" : "es"}`,
       tone: "ochre",
@@ -770,7 +735,6 @@ export default async function TraceabilityPage({
     });
 
     steps.push({
-      icon: <Ribbon16Regular />,
       eyebrow: "Carbon credits",
       title:
         issuances.length === 0
@@ -786,7 +750,7 @@ export default async function TraceabilityPage({
         ) : (
           <div className="space-y-4">
             {issuances.map((iss) => {
-              const isCredits = credits.filter((c) => c.issuance_id === iss.id);
+              const isCredits = credits.filter((c) =>c.issuance_id === iss.id);
               return (
                 <div key={iss.id}>
                   <div className="flex items-center justify-between gap-3 mb-2">
@@ -840,7 +804,6 @@ export default async function TraceabilityPage({
               key={i}
               index={i}
               total={steps.length}
-              icon={s.icon}
               eyebrow={s.eyebrow}
               title={s.title}
               tone={s.tone}
@@ -882,13 +845,13 @@ export default async function TraceabilityPage({
   }));
 
   const CHAIN = [
-    { icon: <PlantGrassRegular />, label: "Feedstock delivery" },
-    { icon: <Fire16Regular />, label: "Kiln run" },
-    { icon: <BoxMultipleRegular />, label: "Production batch" },
-    { icon: <Beaker16Regular />, label: "Lab test" },
-    { icon: <Scales16Regular />, label: "GHG quantification" },
-    { icon: <ShieldCheckmark16Regular />, label: "Verification" },
-    { icon: <Ribbon16Regular />, label: "Carbon credit" },
+    { label: "Feedstock delivery" },
+    { label: "Kiln run" },
+    { label: "Production batch" },
+    { label: "Lab test" },
+    { label: "GHG quantification" },
+    { label: "Verification" },
+    { label: "Carbon credit" },
   ];
 
   return (
@@ -898,24 +861,20 @@ export default async function TraceabilityPage({
       <Card className="mb-4">
         <CardContent className="pt-6">
           <div className="flex items-center gap-2 mb-4">
-            <Organization16Regular className="h-4 w-4 text-clay" />
+            
             <h2 className="font-display text-lg text-ink">The full chain of custody</h2>
           </div>
           <p className="text-sm text-muted max-w-2xl text-pretty mb-5">
             Every carbon credit is traceable end to end. Pick a credit to walk the chain{" "}
-            <span className="text-ink">backward</span> to the biomass it came from, or a delivery to
-            follow it <span className="text-ink">forward</span> to the credits it produced.
+            <span className="text-ink">backward</span>to the biomass it came from, or a delivery to
+            follow it <span className="text-ink">forward</span>to the credits it produced.
           </p>
           <div className="flex flex-wrap items-center gap-x-1 gap-y-3">
             {CHAIN.map((c, i) => (
               <div key={c.label} className="flex items-center gap-1">
-                <span className="inline-flex items-center gap-1.5 rounded border border-border bg-surface/60 px-2.5 py-1.5 text-xs text-ink-soft [&_svg]:h-3.5 [&_svg]:w-3.5 [&_svg]:text-clay">
-                  {c.icon}
+                <span className="inline-flex items-center rounded border border-border bg-surface/60 px-2.5 py-1.5 text-xs text-ink-soft">
                   {c.label}
                 </span>
-                {i < CHAIN.length - 1 && (
-                  <ArrowUpRight16Regular className="h-3.5 w-3.5 rotate-45 text-faint" />
-                )}
               </div>
             ))}
           </div>

@@ -1,10 +1,5 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import {
-  ArrowUpRight16Regular,
-  Fire16Regular,
-  Location16Regular,
-} from "@/components/common/icons";
 import { getAppContext } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -56,7 +51,7 @@ export default async function SitesPage() {
   for (const r of runs) runCount.set(r.site_id, (runCount.get(r.site_id) ?? 0) + 1);
 
   const mapPoints = sites
-    .filter((s) => s.latitude && s.longitude)
+    .filter((s) =>s.latitude && s.longitude)
     .map((s) => ({
       id: s.id,
       lat: Number(s.latitude),
@@ -83,7 +78,7 @@ export default async function SitesPage() {
       <Card className="mb-8 overflow-hidden">
         <CardHeader className="flex-row items-center justify-between">
           <div className="flex items-center gap-2">
-            <Location16Regular className="h-4 w-4 text-clay" />
+            
             <CardTitle>Site map</CardTitle>
           </div>
           <span className="text-sm text-muted tnum">
@@ -98,7 +93,6 @@ export default async function SitesPage() {
       <SectionHeader title="All sites" />
       {sites.length === 0 ? (
         <EmptyState
-          icon={<Location16Regular />}
           title="No sites yet"
           description="Add your first production site to start placing kilns and logging runs."
         />
@@ -116,8 +110,7 @@ export default async function SitesPage() {
                       {s.name}
                     </Link>
                     <p className="mt-0.5 text-sm text-muted flex items-center gap-1.5">
-                      <Location16Regular className="h-3.5 w-3.5 shrink-0" />
-                      {s.region ?? "Region not set"}
+              {s.region ?? "Region not set"}
                     </p>
                   </div>
                   <Badge tone={s.status === "active" ? "ok" : "neutral"} dot>
@@ -129,7 +122,7 @@ export default async function SitesPage() {
                   <div className="rounded-lg bg-surface/60 px-3 py-2.5">
                     <p className="font-display text-xl text-ink tnum">{kilnCount.get(s.id) ?? 0}</p>
                     <p className="text-xs text-muted flex items-center gap-1">
-                      <Fire16Regular className="h-3 w-3" /> Kilns
+                       Kilns
                     </p>
                   </div>
                   <div className="rounded-lg bg-surface/60 px-3 py-2.5">
@@ -144,7 +137,7 @@ export default async function SitesPage() {
                     href={`/sites/${s.id}`}
                     className="text-sm text-clay hover:underline flex items-center gap-1"
                   >
-                    Open site <ArrowUpRight16Regular className="h-3.5 w-3.5" />
+                    Open site 
                   </Link>
                 </div>
               </CardContent>

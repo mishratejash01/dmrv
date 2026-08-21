@@ -6,9 +6,6 @@ import { PageHeader, EmptyState } from "@/components/ui/misc";
 import { Banner } from "@/components/ui/banner";
 import { Button } from "@/components/ui/button";
 import { FieldCapture } from "@/components/field/field-capture";
-import {
-  Fire16Regular,
-} from "@/components/common/icons";
 
 export const metadata: Metadata = { title: "Field log" };
 
@@ -22,7 +19,6 @@ export default async function FieldPage() {
       <div>
         <PageHeader title="Field log" description="Record kiln runs from the field." />
         <EmptyState
-          icon={<Fire16Regular />}
           title="Operator access required"
           description="Only kiln operators (and supervisors) can log runs. Ask your project developer to assign you to a site."
         />
@@ -53,15 +49,14 @@ export default async function FieldPage() {
       .limit(24),
   ]);
 
-  const assigned = new Set((assignedRes.data ?? []).map((r) => r.site_id));
+  const assigned = new Set((assignedRes.data ?? []).map((r) =>r.site_id));
   const allSites = sitesRes.data ?? [];
-  const sites = ctx.can.canReview ? allSites : allSites.filter((s) => assigned.has(s.id));
+  const sites = ctx.can.canReview ? allSites : allSites.filter((s) =>assigned.has(s.id));
 
   return (
     <div>
       <PageHeader title="Field log" />
-
-      {/* Offline capture is the thing operators most often do not know they
+              {/* Offline capture is the thing operators most often do not know they
           have, and the kiln sites have no reliable signal. */}
       <Banner
         className="mb-5"

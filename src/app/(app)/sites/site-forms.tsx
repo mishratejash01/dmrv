@@ -2,11 +2,7 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
-import {
-  Fire16Regular,
-  SpinnerIos16Regular,
-  Location16Regular,
-} from "@/components/common/icons";
+import { SpinnerIos16Regular } from "@/components/common/icons";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
@@ -101,7 +97,7 @@ function AddSiteDialog({ projectId }: { projectId: string }) {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button>
-          <Location16Regular className="h-4 w-4" /> Add site
+           Add site
         </Button>
       </DialogTrigger>
       <DialogContent>
@@ -114,38 +110,38 @@ function AddSiteDialog({ projectId }: { projectId: string }) {
         <div className="space-y-4">
           <div className="grid sm:grid-cols-[1fr_8rem] gap-4">
             <Field label="Name" required>
-              <Input value={name} onChange={(e) => setName(e.target.value)} placeholder="e.g. Kodagu North" />
+              <Input value={name} onChange={(e) =>setName(e.target.value)} placeholder="e.g. Kodagu North" />
             </Field>
             <Field label="Code" required hint="Unique per project">
-              <Input value={code} onChange={(e) => setCode(e.target.value)} placeholder="S03" />
+              <Input value={code} onChange={(e) =>setCode(e.target.value)} placeholder="S03" />
             </Field>
           </div>
           <div className="grid sm:grid-cols-2 gap-4">
             <Field label="Region">
-              <Input value={region} onChange={(e) => setRegion(e.target.value)} placeholder="e.g. Karnataka" />
+              <Input value={region} onChange={(e) =>setRegion(e.target.value)} placeholder="e.g. Karnataka" />
             </Field>
             <Field label="Address">
-              <Input value={address} onChange={(e) => setAddress(e.target.value)} placeholder="Village / landmark" />
+              <Input value={address} onChange={(e) =>setAddress(e.target.value)} placeholder="Village / landmark" />
             </Field>
           </div>
           <div className="grid sm:grid-cols-2 gap-4">
             <Field label="Latitude" hint="Decimal degrees">
-              <Input type="number" step="any" inputMode="decimal" value={lat} onChange={(e) => setLat(e.target.value)} placeholder="12.4210" />
+              <Input type="number" step="any" inputMode="decimal" value={lat} onChange={(e) =>setLat(e.target.value)} placeholder="12.4210" />
             </Field>
             <Field label="Longitude" hint="Decimal degrees">
-              <Input type="number" step="any" inputMode="decimal" value={lng} onChange={(e) => setLng(e.target.value)} placeholder="75.7397" />
+              <Input type="number" step="any" inputMode="decimal" value={lng} onChange={(e) =>setLng(e.target.value)} placeholder="75.7397" />
             </Field>
           </div>
           <Field label="Supply envelope" hint="Feedstock source area this site draws from">
             <Textarea
               value={supplyEnvelope}
-              onChange={(e) => setSupplyEnvelope(e.target.value)}
+              onChange={(e) =>setSupplyEnvelope(e.target.value)}
               placeholder="e.g. Coffee-estate pruning residues within a 15 km radius"
             />
           </Field>
         </div>
         <DialogFooter>
-          <Button variant="ghost" onClick={() => setOpen(false)} disabled={busy}>
+          <Button variant="ghost" onClick={() =>setOpen(false)} disabled={busy}>
             Cancel
           </Button>
           <Button onClick={handleSubmit} disabled={busy}>
@@ -211,7 +207,7 @@ function AddKilnDialog({
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="secondary">
-          <Fire16Regular className="h-4 w-4" /> Add kiln
+           Add kiln
         </Button>
       </DialogTrigger>
       <DialogContent>
@@ -224,7 +220,7 @@ function AddKilnDialog({
         </DialogHeader>
         <div className="space-y-4">
           <Field label="Site" required>
-            <NativeSelect value={siteId} onChange={(e) => setSiteId(e.target.value)}>
+            <NativeSelect value={siteId} onChange={(e) =>setSiteId(e.target.value)}>
               {sites.map((s) => (
                 <option key={s.id} value={s.id}>{s.name} ({s.code})</option>
               ))}
@@ -232,15 +228,15 @@ function AddKilnDialog({
           </Field>
           <div className="grid sm:grid-cols-[1fr_8rem] gap-4">
             <Field label="Name" required>
-              <Input value={name} onChange={(e) => setName(e.target.value)} placeholder="e.g. Kon-Tiki 2" />
+              <Input value={name} onChange={(e) =>setName(e.target.value)} placeholder="e.g. Kon-Tiki 2" />
             </Field>
             <Field label="Code" required hint="Unique per site">
-              <Input value={code} onChange={(e) => setCode(e.target.value)} placeholder="K2" />
+              <Input value={code} onChange={(e) =>setCode(e.target.value)} placeholder="K2" />
             </Field>
           </div>
           <div className="grid sm:grid-cols-2 gap-4">
             <Field label="Kiln type" required>
-              <NativeSelect value={kilnType} onChange={(e) => setKilnType(e.target.value)}>
+              <NativeSelect value={kilnType} onChange={(e) =>setKilnType(e.target.value)}>
                 {KILN_TYPES.map((k) => (
                   <option key={k.key} value={k.key}>{k.label}</option>
                 ))}
@@ -252,17 +248,17 @@ function AddKilnDialog({
                 min="0"
                 inputMode="decimal"
                 value={capacity}
-                onChange={(e) => setCapacity(e.target.value)}
+                onChange={(e) =>setCapacity(e.target.value)}
                 placeholder="e.g. 900"
               />
             </Field>
           </div>
           <Field label="SOP reference" hint="Standard operating procedure document">
-            <Input value={sopReference} onChange={(e) => setSopReference(e.target.value)} placeholder="e.g. SOP-DOB-04 rev B" />
+            <Input value={sopReference} onChange={(e) =>setSopReference(e.target.value)} placeholder="e.g. SOP-DOB-04 rev B" />
           </Field>
         </div>
         <DialogFooter>
-          <Button variant="ghost" onClick={() => setOpen(false)} disabled={busy}>
+          <Button variant="ghost" onClick={() =>setOpen(false)} disabled={busy}>
             Cancel
           </Button>
           <Button onClick={handleSubmit} disabled={busy}>

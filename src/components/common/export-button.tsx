@@ -2,10 +2,6 @@
 
 import * as React from "react";
 import Papa from "papaparse";
-import {
-  ArrowDownload16Regular,
-  Print16Regular,
-} from "@/components/common/icons";
 import { Button } from "@/components/ui/button";
 
 /** Export an array of row objects to a downloaded CSV. */
@@ -30,7 +26,7 @@ export function ExportCsvButton({
   }
   return (
     <Button variant="secondary" size="sm" onClick={download} disabled={rows.length === 0}>
-      <ArrowDownload16Regular className="h-4 w-4" /> {label}
+       {label}
     </Button>
   );
 }
@@ -38,8 +34,8 @@ export function ExportCsvButton({
 /** Print the current page (used to produce a PDF via the browser). */
 export function PrintButton({ label = "Print / PDF" }: { label?: string }) {
   return (
-    <Button variant="secondary" size="sm" onClick={() => window.print()} className="no-print">
-      <Print16Regular className="h-4 w-4" /> {label}
+    <Button variant="secondary" size="sm" onClick={() =>window.print()} className="no-print">
+       {label}
     </Button>
   );
 }

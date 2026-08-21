@@ -3,13 +3,7 @@
 import * as React from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import {
-  CheckmarkCircle16Regular,
-  SpinnerIos16Regular,
-  ChatWarning16Regular,
-  DismissCircle16Regular,
-  type FluentIcon,
-} from "@/components/common/icons";
+import { SpinnerIos16Regular } from "@/components/common/icons";
 import { reviewRun } from "@/lib/actions/runs";
 import { Button, type ButtonProps } from "@/components/ui/button";
 import { Field, Textarea } from "@/components/ui/input";
@@ -29,7 +23,6 @@ const META: Record<
   Decision,
   {
     label: string;
-    icon: FluentIcon;
     variant: ButtonProps["variant"];
     title: string;
     description: string;
@@ -39,7 +32,6 @@ const META: Record<
 > = {
   approved: {
     label: "Approve",
-    icon: CheckmarkCircle16Regular,
     variant: "sage",
     title: "Approve this run",
     description:
@@ -49,7 +41,6 @@ const META: Record<
   },
   changes_requested: {
     label: "Request changes",
-    icon: ChatWarning16Regular,
     variant: "secondary",
     title: "Request changes",
     description:
@@ -59,7 +50,6 @@ const META: Record<
   },
   rejected: {
     label: "Reject",
-    icon: DismissCircle16Regular,
     variant: "danger",
     title: "Reject this run",
     description:
@@ -108,10 +98,9 @@ export function ReviewActions({
       <div className="flex flex-wrap items-center gap-2">
         {(Object.keys(META) as Decision[]).map((d) => {
           const m = META[d];
-          const Icon = m.icon;
           return (
             <Button key={d} variant={m.variant} size={size} onClick={() => start(d)}>
-              <Icon className="h-4 w-4" /> {m.label}
+              {m.label}
             </Button>
           );
         })}
@@ -131,7 +120,7 @@ export function ReviewActions({
               >
                 <Textarea
                   value={notes}
-                  onChange={(e) => setNotes(e.target.value)}
+                  onChange={(e) =>setNotes(e.target.value)}
                   placeholder="e.g. Quench photo is blurry — please retake."
                 />
               </Field>
