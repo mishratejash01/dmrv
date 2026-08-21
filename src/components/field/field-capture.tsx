@@ -55,10 +55,10 @@ type OptKey = (typeof OPTIONAL_RUN_PHOTOS)[number]["key"];
 
 export function FieldCapture({ projectId, operatorId, sites, batches, feedstock }: Props) {
   const router = useRouter();
-  const supabase = React.useMemo(() =>createClient(), []);
+  const supabase = React.useMemo(() => createClient(), []);
 
   const [siteId, setSiteId] = React.useState(sites[0]?.id ?? "");
-  const site = sites.find((s) =>s.id === siteId);
+  const site = sites.find((s) => s.id === siteId);
   const [kilnId, setKilnId] = React.useState(sites[0]?.kilns[0]?.id ?? "");
   const [feedstockId, setFeedstockId] = React.useState(feedstock[0]?.id ?? "");
   const [batchId, setBatchId] = React.useState(batches[0]?.id ?? "");
@@ -82,8 +82,8 @@ export function FieldCapture({ projectId, operatorId, sites, batches, feedstock 
   const [cvResult, setCvResult] = React.useState<{ wetKg: number; moisturePct: number } | null>(null);
   const [cvBusy, setCvBusy] = React.useState(false);
 
-  const kiln = site?.kilns.find((k) =>k.id === kilnId);
-  const selectedFeedstock = feedstock.find((f) =>f.id === feedstockId);
+  const kiln = site?.kilns.find((k) => k.id === kilnId);
+  const selectedFeedstock = feedstock.find((f) => f.id === feedstockId);
   const feedstockDryKg = selectedFeedstock
     ? selectedFeedstock.weight_kg * (1 - selectedFeedstock.moisture_pct / 100)
     : 0;
@@ -111,7 +111,7 @@ export function FieldCapture({ projectId, operatorId, sites, batches, feedstock 
     biocharSource = "reverse_calc";
   }
 
-  const refreshQueue = React.useCallback(() =>pendingCount().then(setQueued), []);
+  const refreshQueue = React.useCallback(() => pendingCount().then(setQueued), []);
 
   React.useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect -- sync to browser online state on mount
@@ -119,7 +119,7 @@ export function FieldCapture({ projectId, operatorId, sites, batches, feedstock 
     refreshQueue();
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
-        (pos) =>setGps({ lat: pos.coords.latitude, lng: pos.coords.longitude }),
+        (pos) => setGps({ lat: pos.coords.latitude, lng: pos.coords.longitude }),
         () => {},
         { enableHighAccuracy: true, timeout: 8000 },
       );
@@ -132,7 +132,7 @@ export function FieldCapture({ projectId, operatorId, sites, batches, feedstock 
         router.refresh();
       });
     };
-    const goOffline = () =>setOnline(false);
+    const goOffline = () => setOnline(false);
     window.addEventListener("online", goOnline);
     window.addEventListener("offline", goOffline);
     return () => {
@@ -143,7 +143,7 @@ export function FieldCapture({ projectId, operatorId, sites, batches, feedstock 
 
   // reset kiln when site changes
   React.useEffect(() => {
-    if (site && !site.kilns.find((k) =>k.id === kilnId)) {
+    if (site && !site.kilns.find((k) => k.id === kilnId)) {
       // eslint-disable-next-line react-hooks/set-state-in-effect -- reset kiln when the site changes
       setKilnId(site.kilns[0]?.id ?? "");
     }
@@ -160,7 +160,7 @@ export function FieldCapture({ projectId, operatorId, sites, batches, feedstock 
   const [previews, setPreviews] = React.useState<Record<string, string>>({});
   React.useEffect(() => {
     return () => {
-      Object.values(previews).forEach((u) =>u && URL.revokeObjectURL(u));
+      Object.values(previews).forEach((u) => u && URL.revokeObjectURL(u));
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -237,7 +237,7 @@ export function FieldCapture({ projectId, operatorId, sites, batches, feedstock 
     if (status === "submitted" && !canComplete) {
       const need = [
         effWetKg > 0 ? null : "biochar mass (select a feedstock or enter it manually)",
-        ...missingPhotos.map((p) =>p.label),
+        ...missingPhotos.map((p) => p.label),
       ].filter(Boolean);
       return toast.error(`To submit, add: ${need.join(", ")}.`);
     }
@@ -342,7 +342,7 @@ export function FieldCapture({ projectId, operatorId, sites, batches, feedstock 
     setCvResult(null);
     setManualBiochar(false);
     setPreviews((prev) => {
-      Object.values(prev).forEach((u) =>u && URL.revokeObjectURL(u));
+      Object.values(prev).forEach((u) => u && URL.revokeObjectURL(u));
       return {};
     });
     setPhotos({});
@@ -364,7 +364,7 @@ export function FieldCapture({ projectId, operatorId, sites, batches, feedstock 
     label: string;
     previewKey: string;
     file: File | undefined;
-    onPick: (f: File | null) =>void;
+    onPick: (f: File | null) => void;
   }) {
     const { label, previewKey, file, onPick } = opts;
     return (
@@ -401,7 +401,7 @@ export function FieldCapture({ projectId, operatorId, sites, batches, feedstock 
             accept="image/*"
             capture="environment"
             className="hidden"
-            onChange={(e) =>onPick(e.target.files?.[0] ?? null)}
+            onChange={(e) => onPick(e.target.files?.[0] ?? null)}
           />
         </label>
       </div>
@@ -430,14 +430,14 @@ export function FieldCapture({ projectId, operatorId, sites, batches, feedstock 
           <CardContent className="space-y-4">
             <div className="grid sm:grid-cols-2 gap-4">
               <Field label="Site" required>
-                <NativeSelect value={siteId} onChange={(e) =>setSiteId(e.target.value)}>
+                <NativeSelect value={siteId} onChange={(e) => setSiteId(e.target.value)}>
                   {sites.map((s) => (
                     <option key={s.id} value={s.id}>{s.name} ({s.code})</option>
                   ))}
                 </NativeSelect>
               </Field>
               <Field label="Kiln" required>
-                <NativeSelect value={kilnId} onChange={(e) =>setKilnId(e.target.value)}>
+                <NativeSelect value={kilnId} onChange={(e) => setKilnId(e.target.value)}>
                   {site?.kilns.map((k) => (
                     <option key={k.id} value={k.id}>{k.name}</option>
                   ))}
@@ -448,7 +448,7 @@ export function FieldCapture({ projectId, operatorId, sites, batches, feedstock 
 
             <div className="grid sm:grid-cols-2 gap-4">
               <Field label="Feedstock delivery" hint="Drives the biochar reverse-calculation">
-                <NativeSelect value={feedstockId} onChange={(e) =>setFeedstockId(e.target.value)}>
+                <NativeSelect value={feedstockId} onChange={(e) => setFeedstockId(e.target.value)}>
                   <option value="">— none —</option>
                   {feedstock.map((f) => (
                     <option key={f.id} value={f.id}>
@@ -458,7 +458,7 @@ export function FieldCapture({ projectId, operatorId, sites, batches, feedstock 
                 </NativeSelect>
               </Field>
               <Field label="Production batch" hint="Open batches only">
-                <NativeSelect value={batchId} onChange={(e) =>setBatchId(e.target.value)}>
+                <NativeSelect value={batchId} onChange={(e) => setBatchId(e.target.value)}>
                   <option value="">— unassigned —</option>
                   {batches.map((b) => (
                     <option key={b.id} value={b.id}>{b.code}</option>
@@ -477,7 +477,7 @@ export function FieldCapture({ projectId, operatorId, sites, batches, feedstock 
                   className="pl-9"
                   type="number"
                   value={peakTemp}
-                  onChange={(e) =>setPeakTemp(e.target.value)}
+                  onChange={(e) => setPeakTemp(e.target.value)}
                   inputMode="decimal"
                 />
               </div>
@@ -512,7 +512,7 @@ export function FieldCapture({ projectId, operatorId, sites, batches, feedstock 
                     <button
                       type="button"
                       className="text-xs text-clay hover:underline"
-                      onClick={() =>setManualBiochar(false)}
+                      onClick={() => setManualBiochar(false)}
                     >
                       Use reverse-calc
                     </button>
@@ -544,7 +544,7 @@ export function FieldCapture({ projectId, operatorId, sites, batches, feedstock 
                     <Input
                       type="number"
                       value={manualWet}
-                      onChange={(e) =>setManualWet(e.target.value)}
+                      onChange={(e) => setManualWet(e.target.value)}
                       placeholder="e.g. 850"
                       inputMode="decimal"
                     />
@@ -553,7 +553,7 @@ export function FieldCapture({ projectId, operatorId, sites, batches, feedstock 
                     <Input
                       type="number"
                       value={manualMoisture}
-                      onChange={(e) =>setManualMoisture(e.target.value)}
+                      onChange={(e) => setManualMoisture(e.target.value)}
                       inputMode="decimal"
                     />
                   </Field>
@@ -577,22 +577,22 @@ export function FieldCapture({ projectId, operatorId, sites, batches, feedstock 
 
             <div className="grid sm:grid-cols-2 gap-4">
               <Field label="Sample (kg)" hint="Site pile">
-                <Input type="number" value={composite} onChange={(e) =>setComposite(e.target.value)} inputMode="decimal" />
+                <Input type="number" value={composite} onChange={(e) => setComposite(e.target.value)} inputMode="decimal" />
               </Field>
               <Field label="Quench method">
-                <Input value={quench} onChange={(e) =>setQuench(e.target.value)} />
+                <Input value={quench} onChange={(e) => setQuench(e.target.value)} />
               </Field>
             </div>
 
             <Field label="Notes / anomalies">
-              <Textarea value={notes} onChange={(e) =>setNotes(e.target.value)} placeholder="Anything unusual about this burn?" />
+              <Textarea value={notes} onChange={(e) => setNotes(e.target.value)} placeholder="Anything unusual about this burn?" />
             </Field>
 
             <label className="flex items-center gap-2.5 text-sm text-ink-soft cursor-pointer">
               <input
                 type="checkbox"
                 checked={anomaly}
-                onChange={(e) =>setAnomaly(e.target.checked)}
+                onChange={(e) => setAnomaly(e.target.checked)}
                 className="h-4 w-4 rounded border-border-strong accent-[#06805a]"
               />
                Flag an anomaly for supervisor attention
@@ -613,7 +613,7 @@ export function FieldCapture({ projectId, operatorId, sites, batches, feedstock 
                   label: p.label,
                   previewKey: `req:${p.key}`,
                   file: photos[p.key as PhotoKey],
-                  onPick: (f) =>setRequiredPhoto(p.key as PhotoKey, f),
+                  onPick: (f) => setRequiredPhoto(p.key as PhotoKey, f),
                 }),
               )}
             </div>
@@ -632,7 +632,7 @@ export function FieldCapture({ projectId, operatorId, sites, batches, feedstock 
                     label: p.label,
                     previewKey: `opt:${p.key}`,
                     file: optPhotos[p.key as OptKey],
-                    onPick: (f) =>setOptionalPhoto(p.key as OptKey, f),
+                    onPick: (f) => setOptionalPhoto(p.key as OptKey, f),
                   }),
                 )}
               </div>
@@ -666,7 +666,7 @@ export function FieldCapture({ projectId, operatorId, sites, batches, feedstock 
             </div>
             {queued > 0 && (
               <div className="rounded-lg border border-ochre-soft bg-warn-tint px-3 py-2.5">
-                <p className="text-sm text-[#8a5200] flex items-center gap-1.5">
+                <p className="text-sm text-warn flex items-center gap-1.5">
                    {queued} run{queued > 1 ? "s" : ""} queued offline
                 </p>
                 <Button variant="secondary" size="sm" className="w-full mt-2" onClick={syncNow} disabled={busy}>
@@ -678,11 +678,11 @@ export function FieldCapture({ projectId, operatorId, sites, batches, feedstock 
         </Card>
 
         <div className="space-y-2 sticky top-20">
-          <Button className="w-full" size="lg" disabled={busy || !canComplete} onClick={() =>handleSubmit("submitted")}>
+          <Button className="w-full" size="lg" disabled={busy || !canComplete} onClick={() => handleSubmit("submitted")}>
             {busy ? <SpinnerIos16Regular className="h-4 w-4 animate-spin" /> : <CheckmarkCircle16Regular className="h-4 w-4" />}
             Submit for review
           </Button>
-          <Button variant="secondary" className="w-full" disabled={busy} onClick={() =>handleSubmit("draft")}>
+          <Button variant="secondary" className="w-full" disabled={busy} onClick={() => handleSubmit("draft")}>
             Save16Regular as draft
           </Button>
           {!canComplete && (

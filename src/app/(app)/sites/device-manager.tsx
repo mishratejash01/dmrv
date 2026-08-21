@@ -154,7 +154,7 @@ function AddDeviceDialog({
   async function handleSubmit() {
     if (!label.trim()) return toast.error("Give the device a name.");
     setBusy(true);
-    const kiln = kilns.find((k) =>k.id === kilnId);
+    const kiln = kilns.find((k) => k.id === kilnId);
     const res = await createIngestDevice({
       project_id: projectId,
       kiln_id: kilnId || null,
@@ -202,7 +202,7 @@ function AddDeviceDialog({
             </DialogHeader>
             <div className="space-y-4">
               <div className="rounded-lg border border-ochre-soft bg-warn-tint px-3 py-2.5">
-                <p className="text-sm text-[#8a5200] flex items-start gap-1.5">
+                <p className="text-sm text-warn flex items-start gap-1.5">
               This is the only time this key is shown.
                 </p>
               </div>
@@ -242,12 +242,12 @@ function AddDeviceDialog({
               <Field label="Device name" required hint="e.g. Kon-Tiki 1 thermocouple">
                 <Input
                   value={label}
-                  onChange={(e) =>setLabel(e.target.value)}
+                  onChange={(e) => setLabel(e.target.value)}
                   placeholder="Device name"
                 />
               </Field>
               <Field label="Kiln" hint="Readings without an explicit kiln default to this one">
-                <NativeSelect value={kilnId} onChange={(e) =>setKilnId(e.target.value)}>
+                <NativeSelect value={kilnId} onChange={(e) => setKilnId(e.target.value)}>
                   <option value="">— unassigned —</option>
                   {kilns.map((k) => (
                     <option key={k.id} value={k.id}>{k.name}</option>

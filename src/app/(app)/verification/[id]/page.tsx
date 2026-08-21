@@ -69,7 +69,7 @@ export default async function VerificationDetailPage({
     | null;
   const ghg = (ghgRes.data as GhgRow[] | null)?.[0] ?? null;
   const lab = (labRes.data as LabRow[] | null)?.[0] ?? null;
-  const runIds = ((runsRes.data as { id: string }[] | null) ?? []).map((r) =>r.id);
+  const runIds = ((runsRes.data as { id: string }[] | null) ?? []).map((r) => r.id);
   const findings = findingsRes.data ?? [];
 
   // Run-photo count across the batch's runs.
@@ -96,7 +96,7 @@ export default async function VerificationDetailPage({
   const canDecide =
     ctx.can.canVerify && verification.verifier_id === ctx.profile.id;
 
-  const openFindings = findings.filter((f) =>f.status === "open").length;
+  const openFindings = findings.filter((f) => f.status === "open").length;
   const hc = lab ? Number(lab.hydrogen_carbon_molar_ratio) : null;
   const hcEligible = hc !== null && hc < HC_ORG.maxEligible;
 
@@ -168,7 +168,7 @@ export default async function VerificationDetailPage({
                   <div className="flex flex-wrap items-end justify-between gap-3 mb-4">
                     <div>
                       <p className="text-sm text-muted">Net CO₂ removed</p>
-                      <p className="font-display text-3xl text-[#2e7d32] tnum leading-tight">
+                      <p className="font-display text-3xl text-ink tnum leading-tight">
                         {fmtCo2(Number(ghg.net_co2_removed_tco2e))}
                       </p>
                     </div>
@@ -335,7 +335,7 @@ export default async function VerificationDetailPage({
               {openFindings > 0 && verification.status !== "rejected" && (
             <div className="no-print flex items-start gap-3 rounded-xl border border-ochre-soft bg-warn-tint px-4 py-3.5">
               
-              <p className="text-sm text-[#8a5200]">
+              <p className="text-sm text-warn">
                 {openFindings} finding{openFindings === 1 ? "" : "s"} still open on this package.
               </p>
             </div>

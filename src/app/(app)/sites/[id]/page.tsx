@@ -54,8 +54,8 @@ export default async function SiteDetailPage({
   const peopleIds = [
     ...new Set(
       [
-        ...runs.map((r) =>r.operator_id),
-        ...audits.map((a) =>a.supervisor_id),
+        ...runs.map((r) => r.operator_id),
+        ...audits.map((a) => a.supervisor_id),
       ].filter((x): x is string => !!x),
     ),
   ];

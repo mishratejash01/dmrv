@@ -94,13 +94,13 @@ export default async function BatchDetailPage({
   const lab = labRes.data?.[0] ?? null;
   const ghg = ghgRes.data?.[0] ?? null;
   const verifications = verifRes.data ?? [];
-  const verifierIds = (verifierMembersRes.data ?? []).map((m) =>m.user_id);
+  const verifierIds = (verifierMembersRes.data ?? []).map((m) => m.user_id);
 
   // People names — separate query (kiln_runs has two FKs to profiles).
   const peopleIds = Array.from(
     new Set([
-      ...runs.map((r) =>r.operator_id).filter((x): x is string => !!x),
-      ...verifications.map((v) =>v.verifier_id).filter((x): x is string => !!x),
+      ...runs.map((r) => r.operator_id).filter((x): x is string => !!x),
+      ...verifications.map((v) => v.verifier_id).filter((x): x is string => !!x),
       ...verifierIds,
     ]),
   );
@@ -125,7 +125,7 @@ export default async function BatchDetailPage({
   const nearAge = !overAge && age >= BATCH_LIMITS.maxMonths * BATCH_LIMITS.warnFraction;
   const isOpen = batch.status === "open";
 
-  const kilnLabel = KILN_TYPES.find((k) =>k.key === batch.kiln_type)?.label ?? humanize(batch.kiln_type);
+  const kilnLabel = KILN_TYPES.find((k) => k.key === batch.kiln_type)?.label ?? humanize(batch.kiln_type);
 
   // --- Lab eligibility ---------------------------------------------------
   const hc = lab ? Number(lab.hydrogen_carbon_molar_ratio) : null;
@@ -151,17 +151,17 @@ export default async function BatchDetailPage({
       </PageHeader>
               {/* Over-limit / near-limit warnings */}
       {isOpen && (overTonnes || overAge) && (
-        <div className="mb-4 flex items-start gap-3 rounded-xl border border-[#f4c7c3] bg-err-tint px-4 py-3.5">
+        <div className="mb-4 flex items-start gap-3 rounded-xl border border-err/30 bg-err-tint px-4 py-3.5">
           
           <div>
-            <p className="text-sm font-medium text-[#b3261e]">
+            <p className="text-sm font-medium text-err">
               {overTonnes && overAge
                 ? "Both validity limits reached — this batch must be closed."
                 : overTonnes
                   ? `Tonnage limit reached (${fmt(tonnes, 1)} of ${BATCH_LIMITS.maxTonnes} t) — this batch must be closed.`
                   : `Age limit reached (${fmt(age, 1)} of ${BATCH_LIMITS.maxMonths} months) — this batch must be closed.`}
             </p>
-            <p className="mt-0.5 text-sm text-[#b3261e]/90">
+            <p className="mt-0.5 text-sm text-err/90">
               Under {METHODOLOGY.id}, a production batch is valid for at most {BATCH_LIMITS.maxMonths}{" "}
               months or {BATCH_LIMITS.maxTonnes} tonnes — whichever comes first. New runs should go
               to a fresh batch.
@@ -172,7 +172,7 @@ export default async function BatchDetailPage({
       {isOpen && !overTonnes && !overAge && (nearTonnes || nearAge) && (
         <div className="mb-4 flex items-start gap-3 rounded-xl border border-ochre-soft bg-warn-tint px-4 py-3.5">
           
-          <p className="text-sm text-[#8a5200]">
+          <p className="text-sm text-warn">
             This batch is approaching its {nearTonnes && nearAge ? "tonnage and age limits" : nearTonnes ? `${BATCH_LIMITS.maxTonnes}-tonne limit` : `${BATCH_LIMITS.maxMonths}-month limit`}.
             Plan to close it and draw the composite samples soon.
           </p>
@@ -257,8 +257,8 @@ export default async function BatchDetailPage({
               <Card>
                 <CardContent className="pt-5 space-y-4">
                   {SAMPLE_STAGES.map((stage, idx) => {
-                    const rows = samples.filter((s) =>s.stage === stage.key);
-                    const total = rows.reduce((sum, s) =>sum + Number(s.mass_kg || 0), 0);
+                    const rows = samples.filter((s) => s.stage === stage.key);
+                    const total = rows.reduce((sum, s) => sum + Number(s.mass_kg || 0), 0);
                     return (
                       <div key={stage.key}>
                         <div className="flex items-baseline justify-between gap-3 mb-1">
@@ -413,7 +413,7 @@ export default async function BatchDetailPage({
                   <div className="flex flex-wrap items-end justify-between gap-3 mb-4">
                     <div>
                       <p className="text-sm text-muted">Net CO₂ removed</p>
-                      <p className="font-display text-3xl text-[#2e7d32] tnum leading-tight">
+                      <p className="font-display text-3xl text-ink tnum leading-tight">
                         {fmtCo2(Number(ghg.net_co2_removed_tco2e))}
                       </p>
                     </div>
@@ -455,7 +455,7 @@ export default async function BatchDetailPage({
                   <p className="mt-1.5 text-xs text-err">Over the {BATCH_LIMITS.maxTonnes}-tonne limit.</p>
                 )}
                 {nearTonnes && (
-                  <p className="mt-1.5 text-xs text-[#8a5200]">
+                  <p className="mt-1.5 text-xs text-warn">
                     Past {Math.round(BATCH_LIMITS.warnFraction * 100)}% of the tonnage limit.
                   </p>
                 )}
@@ -471,7 +471,7 @@ export default async function BatchDetailPage({
                   <p className="mt-1.5 text-xs text-err">Over the {BATCH_LIMITS.maxMonths}-month limit.</p>
                 )}
                 {nearAge && (
-                  <p className="mt-1.5 text-xs text-[#8a5200]">
+                  <p className="mt-1.5 text-xs text-warn">
                     Past {Math.round(BATCH_LIMITS.warnFraction * 100)}% of the age limit.
                   </p>
                 )}

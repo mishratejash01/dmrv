@@ -48,7 +48,7 @@ export function VerificationActions({ verificationId, canDecide, status, finding
   if (!canDecide) return null;
 
   const decided = status === "approved" || status === "rejected";
-  const openFindings = findings.filter((f) =>f.status === "open");
+  const openFindings = findings.filter((f) => f.status === "open");
 
   return (
     <Card className="no-print">
@@ -171,12 +171,12 @@ function AddFindingDialog({ verificationId }: { verificationId: string }) {
             <Field label="Category" required hint="e.g. Sampling, GHG, Feedstock">
               <Input
                 value={category}
-                onChange={(e) =>setCategory(e.target.value)}
+                onChange={(e) => setCategory(e.target.value)}
                 placeholder="Category"
               />
             </Field>
             <Field label="Severity" required>
-              <NativeSelect value={severity} onChange={(e) =>setSeverity(e.target.value as Severity)}>
+              <NativeSelect value={severity} onChange={(e) => setSeverity(e.target.value as Severity)}>
                 {SEVERITIES.map((s) => (
                   <option key={s.key} value={s.key}>{s.label}</option>
                 ))}
@@ -186,20 +186,20 @@ function AddFindingDialog({ verificationId }: { verificationId: string }) {
           <Field label="Description" required>
             <Textarea
               value={description}
-              onChange={(e) =>setDescription(e.target.value)}
+              onChange={(e) => setDescription(e.target.value)}
               placeholder="What is the issue and what evidence supports it?"
             />
           </Field>
           <Field label="Related entity" hint="Run code, sample id, document reference…">
             <Input
               value={relatedEntity}
-              onChange={(e) =>setRelatedEntity(e.target.value)}
+              onChange={(e) => setRelatedEntity(e.target.value)}
               placeholder="e.g. Run KR-0142"
             />
           </Field>
         </div>
         <DialogFooter>
-          <Button variant="ghost" onClick={() =>setOpen(false)} disabled={busy}>
+          <Button variant="ghost" onClick={() => setOpen(false)} disabled={busy}>
             Cancel
           </Button>
           <Button onClick={handleSubmit} disabled={busy}>
@@ -257,7 +257,7 @@ function DecideDialog({
           </DialogDescription>
         </DialogHeader>
         {isApprove && openFindings > 0 && (
-          <div className="rounded-lg border border-ochre-soft bg-warn-tint px-3 py-2.5 text-sm text-[#8a5200]">
+          <div className="rounded-lg border border-ochre-soft bg-warn-tint px-3 py-2.5 text-sm text-warn">
             {openFindings} finding{openFindings === 1 ? "" : "s"} still open. Consider resolving
             them before approving.
           </div>
@@ -266,7 +266,7 @@ function DecideDialog({
           <Field label={isApprove ? "Summary" : "Reason"} hint="Recorded on the verification package">
             <Textarea
               value={summary}
-              onChange={(e) =>setSummary(e.target.value)}
+              onChange={(e) => setSummary(e.target.value)}
               placeholder={
                 isApprove
                   ? "The evidence chain was reviewed and found complete…"
@@ -276,7 +276,7 @@ function DecideDialog({
           </Field>
         </div>
         <DialogFooter>
-          <Button variant="ghost" onClick={() =>setOpen(false)} disabled={busy}>
+          <Button variant="ghost" onClick={() => setOpen(false)} disabled={busy}>
             Cancel
           </Button>
           <Button variant={isApprove ? "sage" : "danger"} onClick={handleSubmit} disabled={busy}>

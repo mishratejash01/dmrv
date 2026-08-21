@@ -58,7 +58,7 @@ export default async function RegistryPage() {
 
   // Issuable = GHG quantifications for VERIFIED batches that have no issuance yet.
   const issuedGhgIds = new Set(
-    issuances.map((i) =>i.ghg_quantification_id).filter((x): x is string => !!x),
+    issuances.map((i) => i.ghg_quantification_id).filter((x): x is string => !!x),
   );
   const issuable = ghg.filter((g) => {
     const batch = g.production_batches as { status: string } | null;
@@ -68,11 +68,11 @@ export default async function RegistryPage() {
   const batchCode = new Map((batchesRes.data ?? []).map((b) => [b.id, b.code]));
 
   // Ledger metrics.
-  const issued = credits.filter((c) =>c.status === "issued" || c.status === "transferred").length;
-  const retired = credits.filter((c) =>c.status === "retired").length;
-  const bufferCredits = credits.filter((c) =>c.status === "buffer").length;
+  const issued = credits.filter((c) => c.status === "issued" || c.status === "transferred").length;
+  const retired = credits.filter((c) => c.status === "retired").length;
+  const bufferCredits = credits.filter((c) => c.status === "buffer").length;
   const bufferBal = (bufferRes.data ?? []).reduce(
-    (s, r) =>s + Number(r.contribution_tco2e || 0),
+    (s, r) => s + Number(r.contribution_tco2e || 0),
     0,
   );
 

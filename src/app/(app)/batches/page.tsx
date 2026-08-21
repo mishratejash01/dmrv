@@ -26,7 +26,7 @@ export default async function BatchesPage() {
   const batches = data ?? [];
 
   const kilnLabel = (key: string) =>
-    KILN_TYPES.find((k) =>k.key === key)?.label ?? humanize(key);
+    KILN_TYPES.find((k) => k.key === key)?.label ?? humanize(key);
 
   return (
     <div>

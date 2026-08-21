@@ -51,7 +51,7 @@ export default async function SitesPage() {
   for (const r of runs) runCount.set(r.site_id, (runCount.get(r.site_id) ?? 0) + 1);
 
   const mapPoints = sites
-    .filter((s) =>s.latitude && s.longitude)
+    .filter((s) => s.latitude && s.longitude)
     .map((s) => ({
       id: s.id,
       lat: Number(s.latitude),

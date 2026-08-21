@@ -13,7 +13,7 @@ export function CopyButton({ value, className, label }: { value: string; classNa
         try {
           await navigator.clipboard.writeText(value);
           setCopied(true);
-          setTimeout(() =>setCopied(false), 1400);
+          setTimeout(() => setCopied(false), 1400);
         } catch {
           /* clipboard unavailable */
         }

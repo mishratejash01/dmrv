@@ -204,9 +204,9 @@ export default async function TraceabilityPage({
 
     // Feedstock deliveries feeding those runs
     const fsIds = Array.from(
-      new Set(runs.map((r) =>r.feedstock_batch_id).filter((x): x is string => !!x)),
+      new Set(runs.map((r) => r.feedstock_batch_id).filter((x): x is string => !!x)),
     );
-    const runIds = runs.map((r) =>r.id);
+    const runIds = runs.map((r) => r.id);
     const [fsRes, photoRes] = await Promise.all([
       fsIds.length
         ? supabase
@@ -239,7 +239,7 @@ export default async function TraceabilityPage({
 
     const parsed = parseSerial(credit.serial_number);
     const kilnLabel = batch
-      ? KILN_TYPES.find((k) =>k.key === batch.kiln_type)?.label ?? humanize(batch.kiln_type)
+      ? KILN_TYPES.find((k) => k.key === batch.kiln_type)?.label ?? humanize(batch.kiln_type)
       : "—";
 
     // Build the ordered chain of steps that actually exist.
@@ -582,7 +582,7 @@ export default async function TraceabilityPage({
     }[];
 
     const batchIds = Array.from(
-      new Set(runs.map((r) =>r.production_batch_id).filter((x): x is string => !!x)),
+      new Set(runs.map((r) => r.production_batch_id).filter((x): x is string => !!x)),
     );
 
     const [batchesRes, issuancesRes] = await Promise.all([
@@ -615,7 +615,7 @@ export default async function TraceabilityPage({
       serial_prefix: string | null;
     }[];
 
-    const issuanceIds = issuances.map((i) =>i.id);
+    const issuanceIds = issuances.map((i) => i.id);
     const { data: creditsData } = issuanceIds.length
       ? await supabase
           .from("rcc_credits")
@@ -748,7 +748,7 @@ export default async function TraceabilityPage({
         ) : (
           <div className="space-y-4">
             {issuances.map((iss) => {
-              const isCredits = credits.filter((c) =>c.issuance_id === iss.id);
+              const isCredits = credits.filter((c) => c.issuance_id === iss.id);
               return (
                 <div key={iss.id}>
                   <div className="flex items-center justify-between gap-3 mb-2">

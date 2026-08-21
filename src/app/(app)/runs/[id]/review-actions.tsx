@@ -120,7 +120,7 @@ export function ReviewActions({
               >
                 <Textarea
                   value={notes}
-                  onChange={(e) =>setNotes(e.target.value)}
+                  onChange={(e) => setNotes(e.target.value)}
                   placeholder="e.g. Quench photo is blurry — please retake."
                 />
               </Field>

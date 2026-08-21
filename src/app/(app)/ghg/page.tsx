@@ -110,24 +110,13 @@ export default async function GhgPage() {
 
   return (
     <div>
-      <PageHeader
-        title="GHG quantification"
-        description={`Net CO₂ removal computed as a comparative life-cycle assessment per ${METHODOLOGY.lcaStandard}. Functional unit: ${METHODOLOGY.functionalUnit}.`}
-      />
-              {calcBatches.length === 0 ? (
-        <EmptyState
-          title="No batches to quantify yet"
-        />
+      <PageHeader title="GHG quantification" />
+
+      {calcBatches.length === 0 ? (
+        <EmptyState title="No batches to quantify yet" />
       ) : (
         <GhgCalculator batches={calcBatches} canCompute={ctx.can.canReview} />
       )}
-
-      <div className="mt-4 rounded-xl border border-border bg-surface/40 px-4 py-3.5 text-sm text-muted text-pretty">
-        Removal is quantified transparently: gross biochar carbon removal (permanence fraction ×
-        C_org × dry mass × 3.67) minus baseline storage, project and transport emissions, then an
-        uncertainty discount. Every intermediate value is shown so the figure is auditable, never a
-        black box.
-      </div>
 
       <EmissionsPanel
         projectId={pid}
@@ -136,7 +125,7 @@ export default async function GhgPage() {
         canManage={ctx.can.canReview}
       />
 
-      <div className="mt-10">
+      <div className="mt-6">
         <SectionHeader title="Saved quantifications" />
         {quants.length === 0 ? (
           <EmptyState
@@ -171,7 +160,7 @@ export default async function GhgPage() {
                         </div>
                         <div className="flex items-center gap-3">
                           <div className="text-right">
-                            <p className="font-display text-xl text-[#2e7d32] tnum leading-tight">
+                            <p className="font-display text-xl font-semibold text-ink tnum leading-tight">
                               {fmtCo2(Number(q.net_co2_removed_tco2e))}
                             </p>
                             <p className="text-xs text-muted">net removed</p>

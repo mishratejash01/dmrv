@@ -35,13 +35,13 @@ export default async function EndUsePage() {
   const records = recordsRes.data ?? [];
   const batches = batchesRes.data ?? [];
 
-  const totalKg = records.reduce((s, r) =>s + Number(r.quantity_kg || 0), 0);
+  const totalKg = records.reduce((s, r) => s + Number(r.quantity_kg || 0), 0);
   const recipients = new Set(
-    records.map((r) =>r.recipient_name).filter((x): x is string => !!x),
+    records.map((r) => r.recipient_name).filter((x): x is string => !!x),
   );
 
   const mapPoints = records
-    .filter((r) =>r.latitude && r.longitude)
+    .filter((r) => r.latitude && r.longitude)
     .map((r) => ({
       id: r.id,
       lat: Number(r.latitude),

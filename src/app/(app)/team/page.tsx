@@ -45,7 +45,7 @@ export default async function TeamPage() {
   const sites = sitesRes.data ?? [];
 
   // Fetch profile names/emails separately to avoid ambiguous embeds.
-  const userIds = Array.from(new Set(members.map((m) =>m.user_id)));
+  const userIds = Array.from(new Set(members.map((m) => m.user_id)));
   const profilesRes = userIds.length
     ? await supabase.from("profiles").select("id, full_name, email, organization").in("id", userIds)
     : { data: [] };
@@ -62,7 +62,7 @@ export default async function TeamPage() {
     ? await supabase
         .from("site_assignments")
         .select("id, site_id, user_id")
-        .in("site_id", sites.map((s) =>s.id))
+        .in("site_id", sites.map((s) => s.id))
     : { data: [] };
   const sitesByUser = new Map<string, string[]>();
   for (const a of assignRes.data ?? []) {
@@ -73,12 +73,12 @@ export default async function TeamPage() {
     sitesByUser.set(a.user_id, list);
   }
 
-  const roleCount = (role: ProjectRole) =>members.filter((m) =>m.role === role).length;
+  const roleCount = (role: ProjectRole) => members.filter((m) => m.role === role).length;
 
   const operators: OperatorOption[] = Array.from(
     new Map(
       members
-        .filter((m) =>m.role === "kiln_operator")
+        .filter((m) => m.role === "kiln_operator")
         .map((m) => {
           const p = profileById.get(m.user_id);
           return [m.user_id, { id: m.user_id, full_name: p?.full_name ?? "Unknown", email: p?.email ?? "" }];

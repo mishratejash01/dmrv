@@ -72,7 +72,7 @@ export function NotificationsClient({ notifications }: { notifications: Notifica
             <button
               key={n.id}
               type="button"
-              onClick={() =>handleClick(n)}
+              onClick={() => handleClick(n)}
               disabled={!clickable}
               className={cn(
                 "flex w-full items-start gap-3 px-4 py-3.5 text-left transition-colors",

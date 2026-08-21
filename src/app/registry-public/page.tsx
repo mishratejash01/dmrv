@@ -38,7 +38,7 @@ export default async function RegistryPublicPage() {
   const retired = retiredRes.count ?? 0;
   const bufferCredits = bufferCntRes.count ?? 0;
   const bufferBal = (bufferRes.data ?? []).reduce(
-    (s, r) =>s + Number(r.contribution_tco2e || 0),
+    (s, r) => s + Number(r.contribution_tco2e || 0),
     0,
   );
 
@@ -63,7 +63,7 @@ export default async function RegistryPublicPage() {
               {/* Transparency note */}
       <div className="mb-8 flex items-start gap-3 rounded-xl border border-sage-soft bg-sage-tint/40 px-4 py-3.5">
         
-        <p className="text-sm text-[#2e7d32] text-pretty">
+        <p className="text-sm text-ink text-pretty">
           Retired credits are locked to a beneficiary and can never be reused. A share of every
           removal issuance is held in a shared buffer pool as reversal insurance. Serial numbers
           encode the geography, project, vintage and mechanism of each credit.

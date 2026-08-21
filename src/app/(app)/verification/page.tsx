@@ -36,13 +36,13 @@ export default async function VerificationPage() {
 
   const verifications = verifsRes.data ?? [];
   const batches = batchesRes.data ?? [];
-  const verifierIds = (verifierMembersRes.data ?? []).map((m) =>m.user_id);
+  const verifierIds = (verifierMembersRes.data ?? []).map((m) => m.user_id);
 
   // Verifier names — separate query (verifications has verifier_id + created_by).
   const people = new Map<string, string>();
   const peopleIds = Array.from(
     new Set([
-      ...verifications.map((v) =>v.verifier_id).filter((x): x is string => !!x),
+      ...verifications.map((v) => v.verifier_id).filter((x): x is string => !!x),
       ...verifierIds,
     ]),
   );
@@ -54,11 +54,11 @@ export default async function VerificationPage() {
     for (const p of profs ?? []) people.set(p.id, p.full_name);
   }
 
-  const pending = verifications.filter((v) =>v.status === "assigned" || v.status === "in_review");
-  const approved = verifications.filter((v) =>v.status === "approved");
+  const pending = verifications.filter((v) => v.status === "assigned" || v.status === "in_review");
+  const approved = verifications.filter((v) => v.status === "approved");
 
   // Batches eligible to verify — closed or testing (not open, not already verified).
-  const verifiableBatches = batches.filter((b) =>b.status !== "open");
+  const verifiableBatches = batches.filter((b) => b.status !== "open");
 
   return (
     <div>

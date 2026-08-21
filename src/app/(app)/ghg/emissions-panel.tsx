@@ -144,18 +144,18 @@ function AddEmissionDialog({
 
   function pickDistanceEf(key: string) {
     setEfPreset(key);
-    const found = DISTANCE_EF.find((d) =>d.key === key);
+    const found = DISTANCE_EF.find((d) => d.key === key);
     if (found) setEf(String(found.value));
   }
   function pickFuel(key: string) {
     setFuelType(key);
-    const found = FUEL_EF.find((f) =>f.key === key);
+    const found = FUEL_EF.find((f) => f.key === key);
     if (found) setEf(String(found.value));
   }
   function switchMethod(m: "distance" | "fuel") {
     setMethod(m);
     if (m === "distance") setEf(String(DISTANCE_EF[0]?.value ?? ""));
-    else setEf(String(FUEL_EF.find((f) =>f.key === fuelType)?.value ?? ""));
+    else setEf(String(FUEL_EF.find((f) => f.key === fuelType)?.value ?? ""));
   }
 
   async function handleSubmit() {
@@ -209,7 +209,7 @@ function AddEmissionDialog({
         <div className="space-y-4">
           <div className="grid sm:grid-cols-2 gap-4">
             <Field label="Production batch">
-              <NativeSelect value={batchId} onChange={(e) =>setBatchId(e.target.value)}>
+              <NativeSelect value={batchId} onChange={(e) => setBatchId(e.target.value)}>
                 <option value="">— project-wide —</option>
                 {batches.map((b) => (
                   <option key={b.id} value={b.id}>{b.code}</option>
@@ -217,7 +217,7 @@ function AddEmissionDialog({
               </NativeSelect>
             </Field>
             <Field label="Type" required>
-              <NativeSelect value={kind} onChange={(e) =>setKind(e.target.value as typeof kind)}>
+              <NativeSelect value={kind} onChange={(e) => setKind(e.target.value as typeof kind)}>
                 <option value="transport">Transport</option>
                 <option value="processing">Processing</option>
                 <option value="capture">Capture</option>
@@ -226,7 +226,7 @@ function AddEmissionDialog({
           </div>
 
           <Field label="Method" required>
-            <NativeSelect value={method} onChange={(e) =>switchMethod(e.target.value as typeof method)}>
+            <NativeSelect value={method} onChange={(e) => switchMethod(e.target.value as typeof method)}>
               <option value="distance">Distance-based (distance × weight × EF)</option>
               <option value="fuel">Fuel-based (fuel × EF)</option>
             </NativeSelect>
@@ -234,13 +234,13 @@ function AddEmissionDialog({
               {method === "distance" ? (
             <div className="grid grid-cols-3 gap-4">
               <Field label="Distance (km)" required>
-                <Input type="number" min="0" inputMode="decimal" value={distance} onChange={(e) =>setDistance(e.target.value)} />
+                <Input type="number" min="0" inputMode="decimal" value={distance} onChange={(e) => setDistance(e.target.value)} />
               </Field>
               <Field label="Weight (t)" required>
-                <Input type="number" min="0" inputMode="decimal" value={weight} onChange={(e) =>setWeight(e.target.value)} />
+                <Input type="number" min="0" inputMode="decimal" value={weight} onChange={(e) => setWeight(e.target.value)} />
               </Field>
               <Field label="Mode / EF" hint="kg/t·km">
-                <NativeSelect value={efPreset} onChange={(e) =>pickDistanceEf(e.target.value)}>
+                <NativeSelect value={efPreset} onChange={(e) => pickDistanceEf(e.target.value)}>
                   {DISTANCE_EF.map((d) => (
                     <option key={d.key} value={d.key}>
                       {humanize(d.key)} ({d.value})
@@ -252,23 +252,23 @@ function AddEmissionDialog({
           ) : (
             <div className="grid grid-cols-3 gap-4">
               <Field label="Fuel" required>
-                <NativeSelect value={fuelType} onChange={(e) =>pickFuel(e.target.value)}>
+                <NativeSelect value={fuelType} onChange={(e) => pickFuel(e.target.value)}>
                   {FUEL_EF.map((f) => (
                     <option key={f.key} value={f.key}>{humanize(f.key)}</option>
                   ))}
                 </NativeSelect>
               </Field>
               <Field label="Quantity (kg)" required>
-                <Input type="number" min="0" inputMode="decimal" value={fuelQty} onChange={(e) =>setFuelQty(e.target.value)} />
+                <Input type="number" min="0" inputMode="decimal" value={fuelQty} onChange={(e) => setFuelQty(e.target.value)} />
               </Field>
               <Field label="EF" hint="kg/kg fuel">
-                <Input type="number" min="0" step="0.0001" inputMode="decimal" value={ef} onChange={(e) =>setEf(e.target.value)} />
+                <Input type="number" min="0" step="0.0001" inputMode="decimal" value={ef} onChange={(e) => setEf(e.target.value)} />
               </Field>
             </div>
           )}
 
           <Field label="Description" hint="e.g. Feedstock haul, sawmill → site">
-            <Input value={description} onChange={(e) =>setDescription(e.target.value)} placeholder="Optional note" />
+            <Input value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Optional note" />
           </Field>
 
           <div className="rounded-lg bg-surface/60 border border-border px-3 py-2.5 text-sm text-ink-soft">
@@ -277,7 +277,7 @@ function AddEmissionDialog({
           </div>
         </div>
         <DialogFooter>
-          <Button variant="ghost" onClick={() =>setOpen(false)} disabled={busy}>
+          <Button variant="ghost" onClick={() => setOpen(false)} disabled={busy}>
             Cancel
           </Button>
           <Button onClick={handleSubmit} disabled={busy}>

@@ -9,14 +9,14 @@ import { fmt, humanize } from "@/lib/utils";
 
 export const metadata: Metadata = { title: "Analytics" };
 
-/** Warm colours per credit status for the donut. */
+/** Colour per credit status, in the validated categorical order. */
 const STATUS_COLOR: Record<string, string> = {
-  issued: "#1668b3",
-  verified: "#57a773",
-  transferred: "#06805a",
-  retired: "#2e7d32",
-  buffer: "#b26b00",
-  cancelled: "#b3261e",
+  issued: "#2f7ff5",
+  verified: "#009467",
+  transferred: "#9333ea",
+  retired: "#0e8fa8",
+  buffer: "#d97706",
+  cancelled: "#e11d6b",
 };
 
 export default async function AnalyticsPage() {
@@ -63,7 +63,7 @@ export default async function AnalyticsPage() {
     monthMap.set(key, (monthMap.get(key) ?? 0) + Number(r.biochar_dry_kg));
   }
   const monthly = Array.from(monthMap.entries())
-    .sort(([a], [b]) =>a.localeCompare(b))
+    .sort(([a], [b]) => a.localeCompare(b))
     .map(([key, kg]) => {
       const [y, m] = key.split("-").map(Number);
       const label = new Date(Date.UTC(y, m - 1, 1)).toLocaleDateString("en-GB", {
@@ -83,7 +83,7 @@ export default async function AnalyticsPage() {
   }
   const bySite = Array.from(siteMap.entries())
     .map(([site, kg]) => ({ site, tonnes: Number((kg / 1000).toFixed(2)) }))
-    .sort((a, b) =>b.tonnes - a.tonnes);
+    .sort((a, b) => b.tonnes - a.tonnes);
 
   // --- Credits by status ------------------------------------------------
   const statusMap = new Map<string, number>();
@@ -105,13 +105,13 @@ export default async function AnalyticsPage() {
   }
   const netPerBatch = Array.from(batchMap.entries())
     .map(([batch, net]) => ({ batch, net: Number(net.toFixed(1)) }))
-    .sort((a, b) =>b.net - a.net);
+    .sort((a, b) => b.net - a.net);
 
   // --- Totals -----------------------------------------------------------
-  const totalDryT = runs.reduce((s, r) =>s + Number(r.biochar_dry_kg || 0), 0) / 1000;
-  const totalNet = ghg.reduce((s, g) =>s + Number(g.net_co2_removed_tco2e || 0), 0);
+  const totalDryT = runs.reduce((s, r) => s + Number(r.biochar_dry_kg || 0), 0) / 1000;
+  const totalNet = ghg.reduce((s, g) => s + Number(g.net_co2_removed_tco2e || 0), 0);
   const totalCredits = credits.length;
-  const bufferBal = buffer.reduce((s, b) =>s + Number(b.contribution_tco2e || 0), 0);
+  const bufferBal = buffer.reduce((s, b) => s + Number(b.contribution_tco2e || 0), 0);
 
   const exportRows = monthly.map((m) => ({ month: m.month, dry_tonnes: m.tonnes }));
 
@@ -243,7 +243,7 @@ export default async function AnalyticsPage() {
                 data={netPerBatch}
                 xKey="batch"
                 dataKey="net"
-                color="#2e7d32"
+                color="#2f7ff5"
                 unit=" tCO₂e"
                 height={280}
               />

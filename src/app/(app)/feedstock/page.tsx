@@ -12,7 +12,7 @@ import { FeedstockForms } from "./feedstock-forms";
 export const metadata: Metadata = { title: "Feedstock" };
 
 function categoryLabel(key: string) {
-  return FEEDSTOCK_CATEGORIES.find((c) =>c.key === key)?.label ?? humanize(key);
+  return FEEDSTOCK_CATEGORIES.find((c) => c.key === key)?.label ?? humanize(key);
 }
 
 export default async function FeedstockPage() {
@@ -43,10 +43,10 @@ export default async function FeedstockPage() {
   const sites = sitesRes.data ?? [];
   const allWeights = allWeightsRes.data ?? [];
 
-  const activeApproved = approved.filter((f) =>f.active);
+  const activeApproved = approved.filter((f) => f.active);
   const deliveryCount = allWeights.length;
-  const totalDryKg = allWeights.reduce((s, d) =>s + Number(d.dry_weight_kg || 0), 0);
-  const totalWetKg = allWeights.reduce((s, d) =>s + Number(d.weight_kg || 0), 0);
+  const totalDryKg = allWeights.reduce((s, d) => s + Number(d.dry_weight_kg || 0), 0);
+  const totalWetKg = allWeights.reduce((s, d) => s + Number(d.weight_kg || 0), 0);
 
   const canManageApproved = ctx.can.canReview;
   const canAddDelivery = ctx.can.canOperate;

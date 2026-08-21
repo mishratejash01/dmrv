@@ -16,10 +16,10 @@ export function Avatar({
   className?: string;
 }) {
   const tones = [
-    "bg-clay-tint text-[#05543a]",
-    "bg-sage-tint text-[#2e7d32]",
-    "bg-ochre-tint text-[#8a5200]",
-    "bg-info-tint text-[#1668b3]",
+    "bg-clay-tint text-clay",
+    "bg-sage-tint text-ink",
+    "bg-ochre-tint text-warn",
+    "bg-info-tint text-info",
   ];
   const idx = (name ?? "?").split("").reduce((a, c) => a + c.charCodeAt(0), 0) % tones.length;
   return (

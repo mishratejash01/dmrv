@@ -48,9 +48,9 @@ export default async function FieldPage() {
       .limit(24),
   ]);
 
-  const assigned = new Set((assignedRes.data ?? []).map((r) =>r.site_id));
+  const assigned = new Set((assignedRes.data ?? []).map((r) => r.site_id));
   const allSites = sitesRes.data ?? [];
-  const sites = ctx.can.canReview ? allSites : allSites.filter((s) =>assigned.has(s.id));
+  const sites = ctx.can.canReview ? allSites : allSites.filter((s) => assigned.has(s.id));
 
   return (
     <div>

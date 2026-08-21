@@ -135,7 +135,7 @@ export function InviteMemberDialog({ projectId }: { projectId: string }) {
                 <Input
                   type="email"
                   value={email}
-                  onChange={(e) =>setEmail(e.target.value)}
+                  onChange={(e) => setEmail(e.target.value)}
                   placeholder="name@example.org"
                   autoComplete="off"
                 />
@@ -143,7 +143,7 @@ export function InviteMemberDialog({ projectId }: { projectId: string }) {
               <Field label="Full name" hint="Used when creating a new account">
                 <Input
                   value={fullName}
-                  onChange={(e) =>setFullName(e.target.value)}
+                  onChange={(e) => setFullName(e.target.value)}
                   placeholder="e.g. Asha Verma"
                 />
               </Field>
@@ -152,7 +152,7 @@ export function InviteMemberDialog({ projectId }: { projectId: string }) {
                 required
                 hint="Operators produce biochar; supervisors, developers and verifiers review it. Keep these duties separate."
               >
-                <NativeSelect value={role} onChange={(e) =>setRole(e.target.value as ProjectRole)}>
+                <NativeSelect value={role} onChange={(e) => setRole(e.target.value as ProjectRole)}>
                   {ROLE_OPTIONS.map(([key, label]) => (
                     <option key={key} value={key}>
                       {label}
@@ -232,7 +232,7 @@ export function AssignOperatorDialog({
         {ready ? (
           <div className="space-y-4">
             <Field label="Operator" required>
-              <NativeSelect value={userId} onChange={(e) =>setUserId(e.target.value)}>
+              <NativeSelect value={userId} onChange={(e) => setUserId(e.target.value)}>
                 {operators.map((o) => (
                   <option key={o.id} value={o.id}>
                     {o.full_name} ({o.email})
@@ -241,7 +241,7 @@ export function AssignOperatorDialog({
               </NativeSelect>
             </Field>
             <Field label="Site" required>
-              <NativeSelect value={siteId} onChange={(e) =>setSiteId(e.target.value)}>
+              <NativeSelect value={siteId} onChange={(e) => setSiteId(e.target.value)}>
                 {sites.map((s) => (
                   <option key={s.id} value={s.id}>
                     {s.name} ({s.code})

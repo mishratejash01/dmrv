@@ -158,7 +158,7 @@ function RequestVerificationDialog({
             label="Verifier"
             hint={verifiers.length === 0 ? "No verifiers on this project yet" : "Notified on assignment"}
           >
-            <NativeSelect value={verifierId} onChange={(e) =>setVerifierId(e.target.value)}>
+            <NativeSelect value={verifierId} onChange={(e) => setVerifierId(e.target.value)}>
               <option value="">— unassigned —</option>
               {verifiers.map((v) => (
                 <option key={v.id} value={v.id}>
@@ -172,19 +172,19 @@ function RequestVerificationDialog({
               <Input
                 type="date"
                 value={periodStart}
-                onChange={(e) =>setPeriodStart(e.target.value)}
+                onChange={(e) => setPeriodStart(e.target.value)}
               />
             </Field>
             <Field label="Monitoring period end" required>
               <Input
                 type="date"
                 value={periodEnd}
-                onChange={(e) =>setPeriodEnd(e.target.value)}
+                onChange={(e) => setPeriodEnd(e.target.value)}
               />
             </Field>
           </div>
           <Field label="Audit type" required>
-            <NativeSelect value={auditType} onChange={(e) =>setAuditType(e.target.value)}>
+            <NativeSelect value={auditType} onChange={(e) => setAuditType(e.target.value)}>
               {AUDIT_TYPES.map((a) => (
                 <option key={a.key} value={a.key}>
                   {a.label}

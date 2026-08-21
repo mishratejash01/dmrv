@@ -23,7 +23,7 @@ export function OnboardingWizard() {
     description: "",
   });
 
-  const set = (k: keyof typeof form, v: string | number) =>setForm((f) => ({ ...f, [k]: v }));
+  const set = (k: keyof typeof form, v: string | number) => setForm((f) => ({ ...f, [k]: v }));
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -64,7 +64,7 @@ export function OnboardingWizard() {
             <Field label="Project name" required>
               <Input
                 value={form.name}
-                onChange={(e) =>set("name", e.target.value)}
+                onChange={(e) => set("name", e.target.value)}
                 placeholder="e.g. Deccan Biochar Cooperative"
               />
             </Field>
@@ -72,7 +72,7 @@ export function OnboardingWizard() {
               <Field label="Country code (ISO)" hint="Used in credit serials">
                 <Input
                   value={form.country_code}
-                  onChange={(e) =>set("country_code", e.target.value.toUpperCase())}
+                  onChange={(e) => set("country_code", e.target.value.toUpperCase())}
                   maxLength={2}
                   placeholder="IN"
                 />
@@ -80,7 +80,7 @@ export function OnboardingWizard() {
               <Field label="Region">
                 <Input
                   value={form.region}
-                  onChange={(e) =>set("region", e.target.value)}
+                  onChange={(e) => set("region", e.target.value)}
                   placeholder="Maharashtra, India"
                 />
               </Field>
@@ -89,7 +89,7 @@ export function OnboardingWizard() {
               <Field label="Durability pathway">
                 <NativeSelect
                   value={form.durability_pathway}
-                  onChange={(e) =>set("durability_pathway", e.target.value)}
+                  onChange={(e) => set("durability_pathway", e.target.value)}
                 >
                   <option value="years_100">100-year</option>
                   <option value="years_1000">1000-year</option>
@@ -99,7 +99,7 @@ export function OnboardingWizard() {
                 <Input
                   type="number"
                   value={form.soil_temp_c}
-                  onChange={(e) =>set("soil_temp_c", Number(e.target.value))}
+                  onChange={(e) => set("soil_temp_c", Number(e.target.value))}
                   step="0.5"
                 />
               </Field>
@@ -107,7 +107,7 @@ export function OnboardingWizard() {
                 <Input
                   type="number"
                   value={form.buffer_pool_pct}
-                  onChange={(e) =>set("buffer_pool_pct", Number(e.target.value))}
+                  onChange={(e) => set("buffer_pool_pct", Number(e.target.value))}
                   step="0.5"
                   min="2"
                 />
@@ -116,7 +116,7 @@ export function OnboardingWizard() {
             <Field label="Description">
               <Textarea
                 value={form.description}
-                onChange={(e) =>set("description", e.target.value)}
+                onChange={(e) => set("description", e.target.value)}
                 placeholder="What does this project do, and where?"
               />
             </Field>

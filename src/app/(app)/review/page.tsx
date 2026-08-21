@@ -42,7 +42,7 @@ export default async function ReviewQueuePage() {
 
   // kiln_runs → profiles has two FKs; fetch operator names in a separate query.
   const operatorIds = [
-    ...new Set(runs.map((r) =>r.operator_id).filter((x): x is string => !!x)),
+    ...new Set(runs.map((r) => r.operator_id).filter((x): x is string => !!x)),
   ];
   const operatorName = new Map<string, string>();
   if (operatorIds.length > 0) {

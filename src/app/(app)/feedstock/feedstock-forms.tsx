@@ -102,11 +102,11 @@ function ApprovedFeedstockDialog({ projectId }: { projectId: string }) {
         </DialogHeader>
         <div className="space-y-4">
           <Field label="Name" required hint="e.g. Sawmill residues — Karwar cooperative">
-            <Input value={name} onChange={(e) =>setName(e.target.value)} placeholder="Feedstock name" />
+            <Input value={name} onChange={(e) => setName(e.target.value)} placeholder="Feedstock name" />
           </Field>
           <div className="grid sm:grid-cols-2 gap-4">
             <Field label="Category" required>
-              <NativeSelect value={category} onChange={(e) =>setCategory(e.target.value)}>
+              <NativeSelect value={category} onChange={(e) => setCategory(e.target.value)}>
                 {FEEDSTOCK_CATEGORIES.map((c) => (
                   <option key={c.key} value={c.key}>{c.label}</option>
                 ))}
@@ -120,7 +120,7 @@ function ApprovedFeedstockDialog({ projectId }: { projectId: string }) {
                 max="1"
                 inputMode="decimal"
                 value={carbonFraction}
-                onChange={(e) =>setCarbonFraction(e.target.value)}
+                onChange={(e) => setCarbonFraction(e.target.value)}
               />
             </Field>
           </div>
@@ -129,7 +129,7 @@ function ApprovedFeedstockDialog({ projectId }: { projectId: string }) {
               label="Forestry certification"
               hint={isForestOrigin ? "Required for forest-origin biomass" : "Only for forest-origin biomass"}
             >
-              <NativeSelect value={certification} onChange={(e) =>setCertification(e.target.value)}>
+              <NativeSelect value={certification} onChange={(e) => setCertification(e.target.value)}>
                 <option value="">— none —</option>
                 {FORESTRY_CERTIFICATIONS.map((c) => (
                   <option key={c} value={c}>{c}</option>
@@ -137,7 +137,7 @@ function ApprovedFeedstockDialog({ projectId }: { projectId: string }) {
               </NativeSelect>
             </Field>
             <Field label="Proof method">
-              <NativeSelect value={proofMethod} onChange={(e) =>setProofMethod(e.target.value)}>
+              <NativeSelect value={proofMethod} onChange={(e) => setProofMethod(e.target.value)}>
                 {PROOF_METHODS.map((p) => (
                   <option key={p.key} value={p.key}>{p.label}</option>
                 ))}
@@ -147,13 +147,13 @@ function ApprovedFeedstockDialog({ projectId }: { projectId: string }) {
           <Field label="Notes">
             <Textarea
               value={notes}
-              onChange={(e) =>setNotes(e.target.value)}
+              onChange={(e) => setNotes(e.target.value)}
               placeholder="Source arrangements, seasonality, anything a verifier should know…"
             />
           </Field>
         </div>
         <DialogFooter>
-          <Button variant="ghost" onClick={() =>setOpen(false)} disabled={busy}>
+          <Button variant="ghost" onClick={() => setOpen(false)} disabled={busy}>
             Cancel
           </Button>
           <Button onClick={handleSubmit} disabled={busy}>
@@ -175,7 +175,7 @@ function DeliveryDialog({
   approved: { id: string; name: string; category: string }[];
 }) {
   const router = useRouter();
-  const supabase = React.useMemo(() =>createClient(), []);
+  const supabase = React.useMemo(() => createClient(), []);
   const [open, setOpen] = React.useState(false);
   const [busy, setBusy] = React.useState(false);
   const [approvedId, setApprovedId] = React.useState(approved[0]?.id ?? "");
@@ -199,7 +199,7 @@ function DeliveryDialog({
   React.useEffect(() => {
     if (open && navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
-        (pos) =>setGps({ lat: pos.coords.latitude, lng: pos.coords.longitude }),
+        (pos) => setGps({ lat: pos.coords.latitude, lng: pos.coords.longitude }),
         () => {},
         { enableHighAccuracy: true, timeout: 8000 },
       );
@@ -208,7 +208,7 @@ function DeliveryDialog({
 
   // Revoke preview object URLs on unmount to avoid leaking blob URLs.
   React.useEffect(() => {
-    return () =>previews.forEach((u) =>URL.revokeObjectURL(u));
+    return () => previews.forEach((u) => URL.revokeObjectURL(u));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -216,19 +216,19 @@ function DeliveryDialog({
     if (!files || files.length === 0) return;
     const list = Array.from(files);
     setPhotos((prev) => [...prev, ...list]);
-    setPreviews((prev) => [...prev, ...list.map((f) =>URL.createObjectURL(f))]);
+    setPreviews((prev) => [...prev, ...list.map((f) => URL.createObjectURL(f))]);
   }
   function removePhoto(i: number) {
     setPreviews((prev) => {
       if (prev[i]) URL.revokeObjectURL(prev[i]);
-      return prev.filter((_, idx) =>idx !== i);
+      return prev.filter((_, idx) => idx !== i);
     });
-    setPhotos((prev) =>prev.filter((_, idx) =>idx !== i));
+    setPhotos((prev) => prev.filter((_, idx) => idx !== i));
   }
 
   function pickApproved(id: string) {
     setApprovedId(id);
-    const f = approved.find((a) =>a.id === id);
+    const f = approved.find((a) => a.id === id);
     if (f) setCategory(f.category);
   }
 
@@ -283,7 +283,7 @@ function DeliveryDialog({
     setSource("");
     setWeight("");
     setSourceArea("");
-    previews.forEach((u) =>URL.revokeObjectURL(u));
+    previews.forEach((u) => URL.revokeObjectURL(u));
     setPhotos([]);
     setPreviews([]);
     router.refresh();
@@ -307,7 +307,7 @@ function DeliveryDialog({
         <div className="space-y-4">
           <div className="grid sm:grid-cols-2 gap-4">
             <Field label="Approved feedstock" hint={approved.length === 0 ? "No approved types yet" : "Sets the category"}>
-              <NativeSelect value={approvedId} onChange={(e) =>pickApproved(e.target.value)}>
+              <NativeSelect value={approvedId} onChange={(e) => pickApproved(e.target.value)}>
                 <option value="">— unlisted —</option>
                 {approved.map((f) => (
                   <option key={f.id} value={f.id}>{f.name}</option>
@@ -315,7 +315,7 @@ function DeliveryDialog({
               </NativeSelect>
             </Field>
             <Field label="Category" required>
-              <NativeSelect value={category} onChange={(e) =>setCategory(e.target.value)}>
+              <NativeSelect value={category} onChange={(e) => setCategory(e.target.value)}>
                 {FEEDSTOCK_CATEGORIES.map((c) => (
                   <option key={c.key} value={c.key}>{c.label}</option>
                 ))}
@@ -324,10 +324,10 @@ function DeliveryDialog({
           </div>
           <div className="grid sm:grid-cols-2 gap-4">
             <Field label="Source" required hint="Supplier, farm or plot">
-              <Input value={source} onChange={(e) =>setSource(e.target.value)} placeholder="e.g. Hebbal sawmill" />
+              <Input value={source} onChange={(e) => setSource(e.target.value)} placeholder="e.g. Hebbal sawmill" />
             </Field>
             <Field label="Delivered to site">
-              <NativeSelect value={siteId} onChange={(e) =>setSiteId(e.target.value)}>
+              <NativeSelect value={siteId} onChange={(e) => setSiteId(e.target.value)}>
                 <option value="">— none —</option>
                 {sites.map((s) => (
                   <option key={s.id} value={s.id}>{s.name} ({s.code})</option>
@@ -342,7 +342,7 @@ function DeliveryDialog({
                 min="0"
                 inputMode="decimal"
                 value={weight}
-                onChange={(e) =>setWeight(e.target.value)}
+                onChange={(e) => setWeight(e.target.value)}
                 placeholder="e.g. 2400"
               />
             </Field>
@@ -353,12 +353,12 @@ function DeliveryDialog({
                 max="99"
                 inputMode="decimal"
                 value={moisture}
-                onChange={(e) =>setMoisture(e.target.value)}
+                onChange={(e) => setMoisture(e.target.value)}
               />
             </Field>
           </div>
           {wetKg > 0 && (
-            <div className="rounded-lg bg-sage-tint/60 border border-sage-soft px-3 py-2.5 text-sm text-[#2e7d32]">
+            <div className="rounded-lg bg-sage-tint/60 border border-sage-soft px-3 py-2.5 text-sm text-ink">
               ≈ <span className="font-medium tnum">{fmt(dryKg, 0)} kg</span>dry matter after
               moisture correction
             </div>
@@ -366,7 +366,7 @@ function DeliveryDialog({
           <Field label="Source area description" hint="Supply envelope / plot the biomass came from">
             <Textarea
               value={sourceArea}
-              onChange={(e) =>setSourceArea(e.target.value)}
+              onChange={(e) => setSourceArea(e.target.value)}
               placeholder="e.g. Managed plantation blocks A–C within 20 km of the site"
             />
           </Field>
@@ -385,7 +385,7 @@ function DeliveryDialog({
                   <img src={url} alt={`Delivery photo ${i + 1}`} className="h-full w-full object-cover" />
                   <button
                     type="button"
-                    onClick={() =>removePhoto(i)}
+                    onClick={() => removePhoto(i)}
                     className="absolute top-0.5 right-0.5 grid h-5 w-5 place-items-center rounded-full bg-ink/70 text-elevated"
                   >
                     <Dismiss16Regular className="h-3 w-3" />
@@ -401,7 +401,7 @@ function DeliveryDialog({
                   capture="environment"
                   multiple
                   className="hidden"
-                  onChange={(e) =>addPhotos(e.target.files)}
+                  onChange={(e) => addPhotos(e.target.files)}
                 />
               </label>
             </div>
@@ -411,7 +411,7 @@ function DeliveryDialog({
           </div>
         </div>
         <DialogFooter>
-          <Button variant="ghost" onClick={() =>setOpen(false)} disabled={busy}>
+          <Button variant="ghost" onClick={() => setOpen(false)} disabled={busy}>
             Cancel
           </Button>
           <Button onClick={handleSubmit} disabled={busy}>

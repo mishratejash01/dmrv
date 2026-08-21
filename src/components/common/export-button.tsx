@@ -34,7 +34,7 @@ export function ExportCsvButton({
 /** Print the current page (used to produce a PDF via the browser). */
 export function PrintButton({ label = "Print / PDF" }: { label?: string }) {
   return (
-    <Button variant="secondary" size="sm" onClick={() =>window.print()} className="no-print">
+    <Button variant="secondary" size="sm" onClick={() => window.print()} className="no-print">
        {label}
     </Button>
   );

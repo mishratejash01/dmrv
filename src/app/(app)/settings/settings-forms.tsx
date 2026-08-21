@@ -63,13 +63,13 @@ function ProfileForm({ profile }: { profile: Profile }) {
       <CardContent className="space-y-4">
         <div className="grid sm:grid-cols-2 gap-4">
           <Field label="Full name" required>
-            <Input value={fullName} onChange={(e) =>setFullName(e.target.value)} placeholder="e.g. Asha Verma" />
+            <Input value={fullName} onChange={(e) => setFullName(e.target.value)} placeholder="e.g. Asha Verma" />
           </Field>
           <Field label="Phone" hint="Used for field coordination">
             <Input
               type="tel"
               value={phone}
-              onChange={(e) =>setPhone(e.target.value)}
+              onChange={(e) => setPhone(e.target.value)}
               placeholder="e.g. +91 98765 43210"
             />
           </Field>
@@ -77,7 +77,7 @@ function ProfileForm({ profile }: { profile: Profile }) {
         <Field label="Organization">
           <Input
             value={organization}
-            onChange={(e) =>setOrganization(e.target.value)}
+            onChange={(e) => setOrganization(e.target.value)}
             placeholder="e.g. Karwar Biochar Cooperative"
           />
         </Field>
@@ -153,16 +153,16 @@ function ProjectForm({ project }: { project: Project }) {
       <CardContent className="space-y-4">
         <div className="grid sm:grid-cols-2 gap-4">
           <Field label="Project name" required>
-            <Input value={name} onChange={(e) =>setName(e.target.value)} />
+            <Input value={name} onChange={(e) => setName(e.target.value)} />
           </Field>
           <Field label="Region">
-            <Input value={region} onChange={(e) =>setRegion(e.target.value)} placeholder="e.g. Karnataka, India" />
+            <Input value={region} onChange={(e) => setRegion(e.target.value)} placeholder="e.g. Karnataka, India" />
           </Field>
         </div>
         <Field label="Description">
           <Textarea
             value={description}
-            onChange={(e) =>setDescription(e.target.value)}
+            onChange={(e) => setDescription(e.target.value)}
             placeholder="Short description of the project's scope and activities…"
           />
         </Field>
@@ -173,7 +173,7 @@ function ProjectForm({ project }: { project: Project }) {
               step="0.1"
               inputMode="decimal"
               value={soilTemp}
-              onChange={(e) =>setSoilTemp(e.target.value)}
+              onChange={(e) => setSoilTemp(e.target.value)}
             />
           </Field>
           <Field label="Buffer pool (%)" required hint="Minimum 2% of removal RCCs">
@@ -183,13 +183,13 @@ function ProjectForm({ project }: { project: Project }) {
               min="2"
               inputMode="decimal"
               value={bufferPct}
-              onChange={(e) =>setBufferPct(e.target.value)}
+              onChange={(e) => setBufferPct(e.target.value)}
             />
           </Field>
         </div>
         <div className="grid sm:grid-cols-2 gap-4">
           <Field label="Durability pathway" required>
-            <NativeSelect value={durability} onChange={(e) =>setDurability(e.target.value)}>
+            <NativeSelect value={durability} onChange={(e) => setDurability(e.target.value)}>
               {DURABILITY_OPTIONS.map((o) => (
                 <option key={o.value} value={o.value}>
                   {o.label}
@@ -198,7 +198,7 @@ function ProjectForm({ project }: { project: Project }) {
             </NativeSelect>
           </Field>
           <Field label="Project status" required>
-            <NativeSelect value={status} onChange={(e) =>setStatus(e.target.value)}>
+            <NativeSelect value={status} onChange={(e) => setStatus(e.target.value)}>
               {STATUS_OPTIONS.map((o) => (
                 <option key={o.value} value={o.value}>
                   {o.label}

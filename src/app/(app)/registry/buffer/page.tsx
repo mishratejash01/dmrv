@@ -30,7 +30,7 @@ export default async function BufferPoolPage() {
   ]);
 
   const ledger = ledgerRes.data ?? [];
-  const totalBuffer = ledger.reduce((s, r) =>s + Number(r.contribution_tco2e || 0), 0);
+  const totalBuffer = ledger.reduce((s, r) => s + Number(r.contribution_tco2e || 0), 0);
   const heldCredits = bufferCreditsRes.count ?? 0;
   const pct = Math.round(BUFFER_POOL.minFraction * 100);
 

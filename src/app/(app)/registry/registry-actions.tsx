@@ -158,14 +158,14 @@ export function RetireCreditDialog({
           <Field label="Beneficiary" required hint="Who claims the climate benefit">
             <Input
               value={beneficiary}
-              onChange={(e) =>setBeneficiary(e.target.value)}
+              onChange={(e) => setBeneficiary(e.target.value)}
               placeholder="e.g. Acme Corp — FY2026 net-zero claim"
             />
           </Field>
           <Field label="Reason" required>
             <Textarea
               value={reason}
-              onChange={(e) =>setReason(e.target.value)}
+              onChange={(e) => setReason(e.target.value)}
               placeholder="e.g. Voluntary offsetting of Scope 1 emissions"
             />
           </Field>
@@ -236,7 +236,7 @@ export function TransferCreditDialog({
         <Field label="New holder" required>
           <Input
             value={toHolder}
-            onChange={(e) =>setToHolder(e.target.value)}
+            onChange={(e) => setToHolder(e.target.value)}
             placeholder="e.g. Windward Climate Fund"
           />
         </Field>
