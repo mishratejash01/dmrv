@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import { getAppContext } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { PageHeader, SectionHeader, EmptyState, Stat } from "@/components/ui/misc";
 import { Badge } from "@/components/ui/badge";
 import { Avatar } from "@/components/ui/avatar";
-import { Table, THead, TBody, TR, TH, TD } from "@/components/ui/table";
+import { Table, TableSection, THead, TBody, TR, TH, TD } from "@/components/ui/table";
 import { PROJECT_ROLE_LABEL } from "@/lib/nav";
 import { fmtDate } from "@/lib/utils";
 import type { ProjectRole } from "@/lib/types/db";
@@ -128,7 +128,7 @@ export default async function TeamPage() {
       </Card>
 
       <SectionHeader title="Members" />
-      <Card>
+      <TableSection>
         {members.length === 0 ? (
           <EmptyState
             title="No members yet"
@@ -197,7 +197,7 @@ export default async function TeamPage() {
             </TBody>
           </Table>
         )}
-      </Card>
+      </TableSection>
               {!canManage && (
         <p className="mt-4 text-xs text-muted">
           You are viewing the team in read-only mode. Only project developers can invite or remove

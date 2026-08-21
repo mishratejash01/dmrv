@@ -36,7 +36,6 @@ export default async function NotificationsPage() {
         <Card>
           <EmptyState
             title="No notifications yet"
-            description="Review requests, verification updates and issuance events will appear here."
             className="border-0"
           />
         </Card>

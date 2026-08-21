@@ -7,7 +7,7 @@ import { Stat, PageHeader, SectionHeader, EmptyState, DataRow } from "@/componen
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { StatusBadge } from "@/components/status-badge";
-import { Table, THead, TBody, TR, TH, TD } from "@/components/ui/table";
+import { Table, TableSection, THead, TBody, TR, TH, TD } from "@/components/ui/table";
 import { CopyButton } from "@/components/common/copy-button";
 import { ExportCsvButton } from "@/components/common/export-button";
 import { fmt, fmtDate, humanize } from "@/lib/utils";
@@ -110,11 +110,10 @@ export default async function RegistryPage() {
               {/* 1 · Issuable */}
       <section className="mb-10">
         <SectionHeader title="Ready to issue" />
-        <Card>
+        <TableSection>
           {issuable.length === 0 ? (
             <EmptyState
               title="Nothing awaiting issuance"
-              description="A batch becomes issuable once it is verified by a VVB and its GHG removal has been quantified."
               className="border-0"
             />
           ) : (
@@ -159,7 +158,7 @@ export default async function RegistryPage() {
               </TBody>
             </Table>
           )}
-        </Card>
+        </TableSection>
         {!ctx.can.canIssue && issuable.length > 0 && (
           <p className="mt-2 text-xs text-muted">
             Only registry admins may initiate and approve issuances.
@@ -169,11 +168,10 @@ export default async function RegistryPage() {
               {/* 2 · Issuances */}
       <section className="mb-10">
         <SectionHeader title="Issuances" />
-        <Card>
+        <TableSection>
           {issuances.length === 0 ? (
             <EmptyState
               title="No issuances yet"
-              description="Initiated and approved issuances appear here. Every issuance needs two different registry admins."
               className="border-0"
             />
           ) : (
@@ -233,7 +231,7 @@ export default async function RegistryPage() {
               </TBody>
             </Table>
           )}
-        </Card>
+        </TableSection>
       </section>
               {/* 3 · Credit ledger */}
       <section>
@@ -241,11 +239,10 @@ export default async function RegistryPage() {
           title="Credit ledger"
           action={<ExportCsvButton rows={csvRows} filename={`rcc-credits-${project.code}`} />}
         />
-        <Card>
+        <TableSection>
           {credits.length === 0 ? (
             <EmptyState
               title="No credits minted"
-              description="Approved issuances mint one serialised RCC per whole tonne of net CO₂ removed."
               className="border-0"
             />
           ) : (
@@ -312,7 +309,7 @@ export default async function RegistryPage() {
               </Table>
             </div>
           )}
-        </Card>
+        </TableSection>
               {/* Serial format legend */}
         <Card className="mt-4">
           <CardHeader>

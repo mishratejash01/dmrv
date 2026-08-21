@@ -20,11 +20,9 @@ export default async function ReviewQueuePage() {
       <div>
         <PageHeader
           title="Review queue"
-          description="Approve, reject or request changes on submitted kiln runs."
         />
         <EmptyState
           title="Reviewer access required"
-          description="Only supervisors and project developers can review submitted kiln runs. Ask a project admin if you need access."
         />
       </div>
     );
@@ -59,7 +57,6 @@ export default async function ReviewQueuePage() {
     <div>
       <PageHeader
         title="Review queue"
-        description="Check the evidence for each submitted run, then approve, request changes, or reject."
       >
         <Badge tone={runs.length > 0 ? "ochre" : "neutral"} dot>
           {runs.length} awaiting review
@@ -68,7 +65,6 @@ export default async function ReviewQueuePage() {
               {runs.length === 0 ? (
         <EmptyState
           title="Nothing to review"
-          description="Every submitted run has been reviewed. New submissions from the field will appear here."
         />
       ) : (
         <div className="space-y-4">

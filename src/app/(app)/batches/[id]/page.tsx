@@ -9,7 +9,7 @@ import { Meter } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { StatusBadge } from "@/components/status-badge";
-import { Table, THead, TBody, TR, TH, TD } from "@/components/ui/table";
+import { Table, TableSection, THead, TBody, TR, TH, TD } from "@/components/ui/table";
 import { GhgBreakdown, type GhgLine } from "@/components/ghg/ghg-breakdown";
 import { fmt, fmtCo2, fmtDate, fmtPct, humanize, monthsBetween } from "@/lib/utils";
 import { BATCH_LIMITS, HC_ORG, KILN_TYPES, METHODOLOGY } from "@/lib/methodology";
@@ -192,11 +192,10 @@ export default async function BatchDetailPage({
                 </Link>
               }
             />
-            <Card>
+            <TableSection>
               {runs.length === 0 ? (
                 <EmptyState
                   title="No runs assigned"
-                  description="Runs recorded in the field are assigned to this batch by operators, or from the review queue."
                   className="border-0"
                 />
               ) : (
@@ -245,7 +244,7 @@ export default async function BatchDetailPage({
                   </TBody>
                 </Table>
               )}
-            </Card>
+            </TableSection>
           </section>
               {/* Composite sampling chain */}
           <section>
@@ -253,7 +252,6 @@ export default async function BatchDetailPage({
             {samples.length === 0 ? (
               <EmptyState
                 title="No composite samples yet"
-                description="Each run adds a subsample to its site pile. Site samples and the batch representative sample are drawn when the batch is closed."
               />
             ) : (
               <Card>
@@ -323,7 +321,6 @@ export default async function BatchDetailPage({
             {!lab ? (
               <EmptyState
                 title="No lab test recorded"
-                description="Send the batch representative sample to an accredited laboratory and record the results."
                 action={
                   ctx.can.canReview ? (
                     <Button asChild variant="secondary" size="sm">
@@ -402,7 +399,6 @@ export default async function BatchDetailPage({
             {!ghg ? (
               <EmptyState
                 title="Not yet quantified"
-                description="Compute the net CO₂ removal for this batch once the lab results are recorded."
                 action={
                   ctx.can.canReview ? (
                     <Button asChild variant="secondary" size="sm">

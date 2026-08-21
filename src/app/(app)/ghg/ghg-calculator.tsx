@@ -144,11 +144,6 @@ export function GhgCalculator({ batches, canCompute }: Props) {
           
           <CardTitle>Live GHG calculator</CardTitle>
         </div>
-        <CardDescription>
-          A transparent comparative LCA per {METHODOLOGY.lcaStandard}. Every input feeds the same
-          engine that persists the quantification — no black box. Adjust the inputs to see the net
-          removal update in real time.
-        </CardDescription>
       </CardHeader>
       <CardContent>
         <div className="grid lg:grid-cols-2 gap-4">

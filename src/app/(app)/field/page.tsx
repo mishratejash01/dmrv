@@ -20,7 +20,6 @@ export default async function FieldPage() {
         <PageHeader title="Field log" description="Record kiln runs from the field." />
         <EmptyState
           title="Operator access required"
-          description="Only kiln operators (and supervisors) can log runs. Ask your project developer to assign you to a site."
         />
       </div>
     );

@@ -57,7 +57,6 @@ export function DeviceManager({ projectId, kilns, devices, canManage }: Props) {
       {devices.length === 0 ? (
         <EmptyState
           title="No sensor devices registered"
-          description="Register a temperature logger to stream kiln readings automatically. Until a device reports, runs fall back to the operator's entered temperature."
         />
       ) : (
         <Card>

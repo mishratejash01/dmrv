@@ -4,7 +4,7 @@ import { getAppContext } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Stat, PageHeader, SectionHeader, EmptyState } from "@/components/ui/misc";
-import { Table, THead, TBody, TR, TH, TD } from "@/components/ui/table";
+import { Table, TableSection, THead, TBody, TR, TH, TD } from "@/components/ui/table";
 import { fmt, fmtDate, humanize } from "@/lib/utils";
 import { BUFFER_POOL } from "@/lib/methodology";
 
@@ -47,7 +47,6 @@ export default async function BufferPoolPage() {
 
       <PageHeader
         title="Buffer pool"
-        description="A shared reversal-insurance reserve held under the Rainbow Standard. A minimum share of every removal issuance is set aside here so reversals can be covered across all projects."
       />
               {/* KPIs */}
       <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
@@ -94,7 +93,7 @@ export default async function BufferPoolPage() {
               {/* Ledger */}
       <section>
         <SectionHeader title="Buffer ledger" />
-        <Card>
+        <TableSection>
           {ledger.length === 0 ? (
             <EmptyState
               title="No buffer contributions yet"
@@ -131,7 +130,7 @@ export default async function BufferPoolPage() {
               </Table>
             </div>
           )}
-        </Card>
+        </TableSection>
       </section>
     </div>
   );

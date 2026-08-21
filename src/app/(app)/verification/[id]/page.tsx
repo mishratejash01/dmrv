@@ -6,7 +6,6 @@ import { createClient } from "@/lib/supabase/server";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { PageHeader, SectionHeader, EmptyState, DataRow } from "@/components/ui/misc";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { StatusBadge } from "@/components/status-badge";
 import { GhgBreakdown, type GhgLine } from "@/components/ghg/ghg-breakdown";
 import { PrintButton } from "@/components/common/export-button";
@@ -127,7 +126,6 @@ export default async function VerificationDetailPage({
             {!batch ? (
               <EmptyState
                 title="No batch linked"
-                description="This verification is not linked to a production batch."
               />
             ) : (
               <Card>
@@ -163,7 +161,6 @@ export default async function VerificationDetailPage({
             {!ghg ? (
               <EmptyState
                 title="No GHG result"
-                description="The batch has not been quantified — there is nothing to verify yet."
               />
             ) : (
               <Card>
@@ -197,7 +194,6 @@ export default async function VerificationDetailPage({
             {!lab ? (
               <EmptyState
                 title="No lab test"
-                description="No accredited-laboratory result is on file for this batch."
               />
             ) : (
               <Card>
@@ -277,7 +273,6 @@ export default async function VerificationDetailPage({
             {findings.length === 0 ? (
               <EmptyState
                 title="No findings raised"
-                description="No non-conformities have been recorded against this evidence chain."
               />
             ) : (
               <Card>

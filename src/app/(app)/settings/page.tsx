@@ -17,7 +17,6 @@ export default async function SettingsPage() {
     <div>
       <PageHeader
         title="Settings"
-        description="Manage your profile, project configuration, and review the methodology rules that govern this project."
       />
 
       <div className="grid lg:grid-cols-3 gap-4 items-start">

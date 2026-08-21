@@ -58,7 +58,6 @@ export function EmissionsPanel({ projectId, batches, entries, canManage }: Props
       {entries.length === 0 ? (
         <EmptyState
           title="No emissions logged"
-          description="Log vehicle transport, processing energy and capture emissions here; the GHG calculator subtracts them automatically per batch."
         />
       ) : (
         <Card>

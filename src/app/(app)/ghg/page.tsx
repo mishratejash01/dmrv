@@ -117,7 +117,6 @@ export default async function GhgPage() {
               {calcBatches.length === 0 ? (
         <EmptyState
           title="No batches to quantify yet"
-          description="Open a production batch and record its lab results, then the calculator can quantify net CO₂ removal here."
         />
       ) : (
         <GhgCalculator batches={calcBatches} canCompute={ctx.can.canReview} />
@@ -142,7 +141,6 @@ export default async function GhgPage() {
         {quants.length === 0 ? (
           <EmptyState
             title="No quantifications saved"
-            description="Use the calculator above to compute and persist a batch's net CO₂ removal."
           />
         ) : (
           <div className="space-y-3">

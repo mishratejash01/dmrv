@@ -39,7 +39,6 @@ export default async function BatchesPage() {
               {batches.length === 0 ? (
         <EmptyState
           title="No production batches yet"
-          description="Open a batch to start grouping kiln runs of the same kiln type, feedstock and temperature curve."
           action={ctx.can.canManageProject ? <NewBatch projectId={project.id} /> : undefined}
         />
       ) : (

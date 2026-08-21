@@ -2,10 +2,9 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { getAppContext } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
-import { Card } from "@/components/ui/card";
 import { PageHeader, EmptyState, Stat } from "@/components/ui/misc";
 import { StatusBadge } from "@/components/status-badge";
-import { Table, THead, TBody, TR, TH, TD } from "@/components/ui/table";
+import { Table, TableSection, THead, TBody, TR, TH, TD } from "@/components/ui/table";
 import { fmt, fmtDate, humanize } from "@/lib/utils";
 import { NewVerification } from "./new-verification";
 
@@ -65,7 +64,6 @@ export default async function VerificationPage() {
     <div>
       <PageHeader
         title="Verification"
-        description="Independent third-party verifiers audit each batch's evidence chain — feedstock, runs, sampling, lab results and GHG quantification — before credits can be issued."
       >
         {ctx.can.canReview && (
           <NewVerification
@@ -82,7 +80,7 @@ export default async function VerificationPage() {
         <Stat label="Approved" value={fmt(approved.length, 0)} tone="sage" hint="Cleared for issuance" />
       </div>
 
-      <Card>
+      <TableSection>
         {verifications.length === 0 ? (
           <EmptyState
             title="No verifications yet"
@@ -141,7 +139,7 @@ export default async function VerificationPage() {
             </TBody>
           </Table>
         )}
-      </Card>
+      </TableSection>
     </div>
   );
 }

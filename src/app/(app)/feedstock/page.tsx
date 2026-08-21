@@ -4,7 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { PageHeader, SectionHeader, EmptyState, Stat } from "@/components/ui/misc";
 import { Badge } from "@/components/ui/badge";
-import { Table, THead, TBody, TR, TH, TD } from "@/components/ui/table";
+import { Table, TableSection, THead, TBody, TR, TH, TD } from "@/components/ui/table";
 import { fmt, fmtDate, humanize } from "@/lib/utils";
 import { FEEDSTOCK_CATEGORIES, FEEDSTOCK_POSITIVE_LIST } from "@/lib/methodology";
 import { FeedstockForms } from "./feedstock-forms";
@@ -55,7 +55,6 @@ export default async function FeedstockPage() {
     <div>
       <PageHeader
         title="Feedstock"
-        description="Only pre-approved feedstock from the methodology positive list is eligible. Deliveries record wet mass and moisture — dry mass is derived automatically."
       >
         {(canManageApproved || canAddDelivery) && (
           <FeedstockForms
@@ -80,10 +79,6 @@ export default async function FeedstockPage() {
           <CardTitle className="flex items-center gap-2">
              Methodology positive list
           </CardTitle>
-          <CardDescription>
-            Waste and residue biomass eligible under the biomass feedstock module. A project&apos;s
-            approved feedstock must come from this list.
-          </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="flex flex-wrap gap-2">
@@ -96,11 +91,10 @@ export default async function FeedstockPage() {
               {/* Approved feedstock */}
       <div className="mb-8">
         <SectionHeader title="Approved feedstock" />
-        <Card>
+        <TableSection>
           {approved.length === 0 ? (
             <EmptyState
               title="No approved feedstock yet"
-              description="Add feedstock types from the positive list so deliveries and kiln runs can reference them."
               className="border-0"
             />
           ) : (
@@ -131,16 +125,15 @@ export default async function FeedstockPage() {
               </TBody>
             </Table>
           )}
-        </Card>
+        </TableSection>
       </div>
               {/* Deliveries */}
       <div>
         <SectionHeader title="Deliveries" />
-        <Card>
+        <TableSection>
           {deliveries.length === 0 ? (
             <EmptyState
               title="No deliveries recorded"
-              description="Record incoming feedstock with its wet weight and moisture — dry mass is computed for traceability."
               className="border-0"
             />
           ) : (
@@ -174,7 +167,7 @@ export default async function FeedstockPage() {
               </TBody>
             </Table>
           )}
-        </Card>
+        </TableSection>
       </div>
     </div>
   );

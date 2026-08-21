@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import { getAppContext } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
-import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { PageHeader, EmptyState } from "@/components/ui/misc";
-import { Table, THead, TBody, TR, TH, TD } from "@/components/ui/table";
+import { Table, TableSection, THead, TBody, TR, TH, TD } from "@/components/ui/table";
 import { fmt, fmtDate } from "@/lib/utils";
 import { HC_ORG } from "@/lib/methodology";
 import { LabForm } from "./lab-form";
@@ -44,13 +43,12 @@ export default async function LabPage() {
               {tests.length === 0 ? (
         <EmptyState
           title="No lab tests yet"
-          description="When a batch composite sample comes back from the accredited lab, record the results here to unlock GHG quantification."
           action={
             ctx.can.canReview && batches.length > 0 ? <LabForm batches={batches} /> : undefined
           }
         />
       ) : (
-        <Card>
+        <TableSection>
           <Table>
             <THead>
               <TR>
@@ -102,7 +100,7 @@ export default async function LabPage() {
               })}
             </TBody>
           </Table>
-        </Card>
+        </TableSection>
       )}
     </div>
   );

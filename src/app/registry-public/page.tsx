@@ -76,7 +76,6 @@ export default async function RegistryPublicPage() {
           {credits.length === 0 ? (
             <EmptyState
               title="No credits issued yet"
-              description="Issued Rainbow Carbon Credits will appear here as they are minted."
               className="border-0"
             />
           ) : (

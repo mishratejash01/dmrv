@@ -65,7 +65,6 @@ export default async function SitesPage() {
     <div>
       <PageHeader
         title="Sites & kilns"
-        description="Where biochar is made — each site hosts open kilns, a composite pile, and its own feedstock supply envelope."
       >
         {ctx.can.canManageProject && (
           <SiteForms
@@ -94,7 +93,6 @@ export default async function SitesPage() {
       {sites.length === 0 ? (
         <EmptyState
           title="No sites yet"
-          description="Add your first production site to start placing kilns and logging runs."
         />
       ) : (
         <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-4">

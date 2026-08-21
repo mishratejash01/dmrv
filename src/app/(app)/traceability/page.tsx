@@ -98,7 +98,6 @@ export default async function TraceabilityPage({
   const header = (
     <PageHeader
       title="Traceability"
-      description="Follow the full chain of custody in either direction — from an issued carbon credit back to the feedstock it came from, or from a delivery forward to the credits it produced."
     />
   );
 
@@ -558,7 +557,6 @@ export default async function TraceabilityPage({
           {header}
           <EmptyState
             title="Delivery not found"
-            description="No feedstock delivery with that id exists in this project."
             action={<TraceLink href="/traceability">Back to traceability</TraceLink>}
           />
         </div>
@@ -870,7 +868,7 @@ export default async function TraceabilityPage({
             follow it <span className="text-ink">forward</span>to the credits it produced.
           </p>
           <div className="flex flex-wrap items-center gap-x-1 gap-y-3">
-            {CHAIN.map((c, i) => (
+            {CHAIN.map((c) => (
               <div key={c.label} className="flex items-center gap-1">
                 <span className="inline-flex items-center rounded border border-border bg-surface/60 px-2.5 py-1.5 text-xs text-ink-soft">
                   {c.label}

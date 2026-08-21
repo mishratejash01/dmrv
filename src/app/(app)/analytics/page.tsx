@@ -172,7 +172,6 @@ export default async function AnalyticsPage() {
             {monthly.length === 0 ? (
               <EmptyState
                 title="No production yet"
-                description="Dry biochar mass appears here once kiln runs are logged with a start date."
                 className="border-0"
               />
             ) : (
@@ -189,7 +188,6 @@ export default async function AnalyticsPage() {
             {creditsByStatus.length === 0 ? (
               <EmptyState
                 title="No credits issued"
-                description="Issued credits will break down here by lifecycle status."
                 className="border-0"
               />
             ) : (
@@ -222,7 +220,6 @@ export default async function AnalyticsPage() {
             {bySite.length === 0 ? (
               <EmptyState
                 title="No site production yet"
-                description="Dry biochar mass per site appears here as runs are recorded."
                 className="border-0"
               />
             ) : (
@@ -239,7 +236,6 @@ export default async function AnalyticsPage() {
             {netPerBatch.length === 0 ? (
               <EmptyState
                 title="No quantified batches"
-                description="Net removals per batch appear here once GHG results are computed."
                 className="border-0"
               />
             ) : (

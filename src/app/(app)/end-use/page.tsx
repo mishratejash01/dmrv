@@ -57,7 +57,6 @@ export default async function EndUsePage() {
     <div>
       <PageHeader
         title="End-use tracking"
-        description="Applying the biochar to soil or other durable uses locks the carbon in place. Each application is evidenced with quantity, recipient, GPS and proof photos."
       >
         {canRecord && <EndUseForm projectId={pid} batches={batches} />}
       </PageHeader>
@@ -71,7 +70,6 @@ export default async function EndUsePage() {
               {records.length === 0 ? (
         <EmptyState
           title="No end-use recorded yet"
-          description="Record where the biochar was applied to close the traceability chain and evidence permanent carbon locking."
           action={canRecord ? <EndUseForm projectId={pid} batches={batches} /> : undefined}
         />
       ) : (

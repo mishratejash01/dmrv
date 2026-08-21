@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { PageHeader, SectionHeader, EmptyState, DataRow, Stat } from "@/components/ui/misc";
 import { StatusBadge } from "@/components/status-badge";
-import { Table, THead, TBody, TR, TH, TD } from "@/components/ui/table";
+import { Table, TableSection, THead, TBody, TR, TH, TD } from "@/components/ui/table";
 import { Map as GeoMap } from "@/components/map/map";
 import { fmt, fmtDate, humanize } from "@/lib/utils";
 import { kilnTypeLabel } from "@/lib/methodology";
@@ -125,11 +125,10 @@ export default async function SiteDetailPage({
           {/* Kilns */}
           <section>
             <SectionHeader title="Kilns" />
-            <Card>
+            <TableSection>
               {kilns.length === 0 ? (
                 <EmptyState
                   title="No kilns at this site"
-                  description="Register the kilns installed here to start logging runs against them."
                   className="border-0"
                 />
               ) : (
@@ -164,7 +163,7 @@ export default async function SiteDetailPage({
                   </TBody>
                 </Table>
               )}
-            </Card>
+            </TableSection>
           </section>
               {/* Recent runs */}
           <section>
@@ -176,11 +175,10 @@ export default async function SiteDetailPage({
                 </Link>
               }
             />
-            <Card>
+            <TableSection>
               {runs.length === 0 ? (
                 <EmptyState
                   title="No runs logged here yet"
-                  description="Kiln runs recorded at this site will appear here."
                   className="border-0"
                 />
               ) : (
@@ -229,7 +227,7 @@ export default async function SiteDetailPage({
                   </TBody>
                 </Table>
               )}
-            </Card>
+            </TableSection>
           </section>
               {/* Site audits */}
           <section>
@@ -237,7 +235,6 @@ export default async function SiteDetailPage({
             {audits.length === 0 ? (
               <EmptyState
                 title="No site audits recorded"
-                description="Supervisor visits and their findings will be listed here."
               />
             ) : (
               <div className="space-y-3">

@@ -103,7 +103,6 @@ export default async function CreditDetailPage({
               {txns.length === 0 ? (
                 <EmptyState
                   title="No transactions recorded"
-                  description="Issuance and any transfers or retirements will appear here as an immutable timeline."
                   className="border-0"
                 />
               ) : (
