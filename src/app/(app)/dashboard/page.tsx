@@ -1,10 +1,5 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import {
-  Fire16Regular,
-  ArrowUpRight16Regular,
-  CheckboxChecked16Regular,
-} from "@/components/common/icons";
 import { getAppContext } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { Card, CardContent } from "@/components/ui/card";
@@ -72,25 +67,20 @@ export default async function DashboardPage() {
 
   return (
     <div>
-      <PageHeader
-        title={project.name}
-        description={[project.region, project.methodology, `${project.status} project`].filter(Boolean).join(" · ")}
-      >
+      <PageHeader title="Overview">
         {ctx.can.canOperate && (
           <Button asChild>
-            <Link href="/field">
-              <Fire16Regular className="h-4 w-4" /> Log a kiln run
-            </Link>
+            <Link href="/field">Log a kiln run</Link>
           </Button>
         )}
       </PageHeader>
 
       {/* KPIs */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 mb-5">
-        <Stat label="Net CO₂ removed" value={fmt(netCo2, 1)} unit="tCO₂e" hint="Across quantified batches" />
+        <Stat label="Net CO₂ removed" value={fmt(netCo2, 1)} unit="tCO₂e" />
         <Stat label="RCCs issued" value={fmt(issued, 0)} unit="credits" hint={`${retired} retired`} />
         <Stat label="Biochar produced" value={fmt(dryKg / 1000, 1)} unit="t dry" hint={`${batches.length} batches`} />
-        <Stat label="Buffer pool" value={fmt(bufferBal, 0)} unit="tCO₂e" hint="Reversal insurance" />
+        <Stat label="Buffer pool" value={fmt(bufferBal, 0)} unit="tCO₂e" />
       </div>
 
       <div className="grid lg:grid-cols-3 gap-5">
@@ -99,7 +89,7 @@ export default async function DashboardPage() {
           <div className="mb-2.5 flex items-center justify-between">
             <h2 className="text-[15px] font-semibold text-ink">Sites &amp; operations</h2>
             <Link href="/sites" className="text-sm text-clay hover:underline flex items-center gap-1">
-              All sites <ArrowUpRight16Regular className="h-3.5 w-3.5" />
+              All sites
             </Link>
           </div>
           <Card className="overflow-hidden">
@@ -133,7 +123,7 @@ export default async function DashboardPage() {
           <Card>
             <CardContent className="space-y-4 pt-5">
               {openBatches.length === 0 && (
-                <p className="text-sm text-muted">No open batches. Every batch is closed or verified.</p>
+                <p className="text-sm text-muted">No open batches</p>
               )}
               {openBatches.map((b) => {
                 const tonnes = Number(b.total_biochar_dry_kg) / 1000;
@@ -157,17 +147,12 @@ export default async function DashboardPage() {
           {ctx.can.canReview && (
             <Card>
               <CardContent className="pt-5">
-                <div className="flex items-center gap-3">
-                  <span className="grid h-10 w-10 place-items-center rounded-lg bg-ochre-tint text-ochre">
-                    <CheckboxChecked16Regular className="h-5 w-5" />
-                  </span>
-                  <div>
-                    <p className="font-display text-lg text-ink tnum">{pendingRes.count ?? 0}</p>
-                    <p className="text-sm text-muted">Runs awaiting your review</p>
-                  </div>
-                </div>
+                <p className="text-[13px] text-muted">Awaiting review</p>
+                <p className="mt-2 font-display text-[28px] font-semibold text-ink tnum leading-none">
+                  {pendingRes.count ?? 0}
+                </p>
                 <Button asChild variant="secondary" className="w-full mt-4">
-                  <Link href="/review">Open review queue</Link>
+                  <Link href="/review">Open queue</Link>
                 </Button>
               </CardContent>
             </Card>
@@ -183,7 +168,7 @@ export default async function DashboardPage() {
         />
         <Card>
           {runs.length === 0 ? (
-            <EmptyState title="No kiln runs yet" description="Runs logged in the field will appear here." className="border-0" />
+            <EmptyState title="No kiln runs yet" className="border-0" />
           ) : (
             <Table>
               <THead>

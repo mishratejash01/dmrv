@@ -1,14 +1,14 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 
-/** Page header with title, description, and optional actions. */
+/** Page header: the title and whatever actions belong to the page. */
 export function PageHeader({
   title,
-  description,
   children,
   className,
 }: {
   title: React.ReactNode;
+  /** Accepted and ignored: the title carries the page. */
   description?: React.ReactNode;
   children?: React.ReactNode;
   className?: string;
@@ -16,14 +16,7 @@ export function PageHeader({
   return (
     <div className={cn("flex flex-wrap items-start justify-between gap-3 mb-5", className)}>
       <div className="min-w-0">
-        <h1 className="font-display text-xl md:text-2xl font-semibold text-brand-deep leading-tight text-balance">
-          {title}
-        </h1>
-        {description && (
-          <p className="mt-1 text-muted text-sm max-w-2xl text-pretty">
-            {description}
-          </p>
-        )}
+        <h1 className="font-display text-[22px] font-semibold text-ink leading-tight">{title}</h1>
       </div>
       {children && <div className="flex items-center gap-2 shrink-0">{children}</div>}
     </div>
@@ -50,12 +43,11 @@ export function SectionHeader({
 
 /** Empty state with icon, message, and optional action. */
 export function EmptyState({
-  icon,
   title,
-  description,
   action,
   className,
 }: {
+  /** Accepted and ignored: an empty state says what is missing, plainly. */
   icon?: React.ReactNode;
   title: string;
   description?: string;
@@ -65,13 +57,11 @@ export function EmptyState({
   return (
     <div
       className={cn(
-        "flex flex-col items-center justify-center text-center py-10 px-6 rounded border border-dashed border-border-strong bg-surface/40",
+        "flex flex-col items-center justify-center text-center py-12 px-6 rounded-lg bg-surface/50",
         className,
       )}
     >
-      {icon && <div className="mb-3 text-faint [&_svg]:h-8 [&_svg]:w-8">{icon}</div>}
-      <p className="font-display text-lg text-ink">{title}</p>
-      {description && <p className="mt-1 text-sm text-muted max-w-sm text-pretty">{description}</p>}
+      <p className="text-[15px] text-muted">{title}</p>
       {action && <div className="mt-4">{action}</div>}
     </div>
   );
