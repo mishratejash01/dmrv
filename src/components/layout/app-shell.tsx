@@ -271,7 +271,7 @@ export function AppShell({
       {/* The workspace is a light panel inset on the dark ground, framed on the
           sides and foot. It holds its own height: the panel never scrolls, only
           the rail and the content within it do. */}
-      <div className="flex-1 min-h-0 px-2 pb-2 max-lg:pt-2 max-lg:pb-[calc(4.75rem+env(safe-area-inset-bottom))]">
+      <div className="flex-1 min-h-0 px-1.5 pb-1.5 lg:px-2 lg:pb-2 max-lg:pt-1.5 max-lg:pb-[calc(4.75rem+env(safe-area-inset-bottom))]">
         <div className="h-full flex overflow-hidden rounded-[14px] bg-surface">
           {showRail && activeSection && (
             <aside className="hidden lg:flex w-60 shrink-0 flex-col border-r border-border bg-elevated overflow-y-auto overscroll-contain scrollbar-none">
@@ -285,10 +285,10 @@ export function AppShell({
             </aside>
           )}
 
-          <main className="flex-1 min-w-0 overflow-y-auto overscroll-contain scrollbar-none bg-surface px-5 md:px-7 py-5 md:py-6">
+          <main className="flex-1 min-w-0 overflow-y-auto overscroll-contain scrollbar-none bg-surface px-2.5 py-2.5 md:px-6 md:py-5">
             {/* On a phone the account and the bell live here, since there is no
                 bar above the panel to hold them. */}
-            <div className="mb-3 flex items-center justify-between lg:hidden">
+            <div className="mb-2 flex items-center justify-between lg:hidden">
               <AccountMenu profile={profile} roleLabel={roleLabel} tone="light" />
               <NotificationsLink unreadCount={unreadCount} tone="light" />
             </div>
@@ -301,7 +301,7 @@ export function AppShell({
           fit comfortably; the rest live behind More, which opens the drawer.
           A thumb reaches the bottom of a phone, not a hamburger in the corner. */}
       <nav
-        className="fixed inset-x-0 bottom-0 z-40 flex border-t border-border bg-elevated pb-[env(safe-area-inset-bottom)] lg:hidden"
+        className="fixed inset-x-0 bottom-0 z-40 flex bg-brand-deep pb-[env(safe-area-inset-bottom)] lg:hidden"
         aria-label="Sections"
       >
         {sections.slice(0, 4).map((section) => {
@@ -314,7 +314,7 @@ export function AppShell({
               aria-current={on ? "page" : undefined}
               className={cn(
                 "relative flex flex-1 flex-col items-center justify-center gap-1 py-3 transition-colors",
-                on ? "text-brand" : "text-muted",
+                on ? "text-white" : "text-white/65",
               )}
             >
               {/* The glow sits behind the icon, so selection reads before the
@@ -322,7 +322,7 @@ export function AppShell({
               {on && (
                 <span
                   aria-hidden
-                  className="pointer-events-none absolute inset-x-2 top-1.5 h-9 rounded-full bg-brand-accent/18 blur-md"
+                  className="pointer-events-none absolute inset-x-2 top-1 h-10 rounded-full bg-brand-accent/45 blur-lg"
                 />
               )}
               <SectionIcon className="relative h-7 w-7 shrink-0" />
@@ -338,13 +338,13 @@ export function AppShell({
           aria-expanded={open}
           className={cn(
             "relative flex flex-1 flex-col items-center justify-center gap-1 py-3 transition-colors",
-            open ? "text-brand" : "text-muted",
+            open ? "text-white" : "text-white/65",
           )}
         >
           {open && (
             <span
               aria-hidden
-              className="pointer-events-none absolute inset-x-2 top-1.5 h-9 rounded-full bg-brand-accent/18 blur-md"
+              className="pointer-events-none absolute inset-x-2 top-1 h-10 rounded-full bg-brand-accent/45 blur-lg"
             />
           )}
           <Navigation16Regular className="relative h-7 w-7 shrink-0" />
