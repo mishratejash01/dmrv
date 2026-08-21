@@ -1,25 +1,14 @@
 import { cn, humanize } from "@/lib/utils";
 
-const DOT: Record<string, string> = {
-  neutral: "bg-faint",
-  clay: "bg-clay",
-  sage: "bg-sage",
-  ochre: "bg-ochre",
-  ok: "bg-ok",
-  warn: "bg-warn",
-  err: "bg-err",
-  info: "bg-info",
-};
-
 const TEXT: Record<string, string> = {
   neutral: "text-muted",
-  clay: "text-ink",
-  sage: "text-ink",
-  ochre: "text-ink",
-  ok: "text-ink",
-  warn: "text-ink",
+  clay: "text-clay",
+  sage: "text-sage",
+  ochre: "text-ochre",
+  ok: "text-ok",
+  warn: "text-warn",
   err: "text-err",
-  info: "text-ink",
+  info: "text-info",
 };
 
 type Tone = "neutral" | "clay" | "sage" | "ochre" | "ok" | "warn" | "err" | "info";
@@ -85,9 +74,8 @@ export function StatusBadge({
   const v = value ?? "";
   const tone = MAPS[kind][v] ?? "neutral";
   return (
-    <span className={cn("inline-flex items-center gap-1.5 whitespace-nowrap text-sm", className)}>
-      <span aria-hidden className={cn("h-1.5 w-1.5 shrink-0 rounded-full", DOT[tone])} />
-      <span className={TEXT[tone]}>{humanize(v)}</span>
+    <span className={cn("whitespace-nowrap text-sm font-semibold", TEXT[tone], className)}>
+      {humanize(v)}
     </span>
   );
 }

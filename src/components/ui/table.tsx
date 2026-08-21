@@ -68,7 +68,7 @@ export function TR({ className, ...props }: React.HTMLAttributes<HTMLTableRowEle
   return (
     <tr
       className={cn(
-        "bg-elevated border border-border transition-colors hover:border-border-strong hover:bg-surface/60",
+        "bg-elevated border border-border transition-colors hover:bg-surface/60",
         // The outline is drawn on the cells, since a <tr> takes no border.
         "[&>td]:border-y [&>td]:border-border [&>td:first-child]:border-l [&>td:last-child]:border-r",
         // A <tr> cannot carry a radius, so the row's ends take it.
